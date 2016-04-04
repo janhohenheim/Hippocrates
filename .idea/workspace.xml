@@ -14,14 +14,7 @@
     </ADDITIONAL_GENERATION_ENVIRONMENT>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="763909fc-b5df-4025-92f7-841413a9cdd1" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JNF_NEAT/i_specimen.h" afterPath="$PROJECT_DIR$/JNF_NEAT/i_specimen.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JNF_NEAT/neural_network.cpp" afterPath="$PROJECT_DIR$/JNF_NEAT/neural_network.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JNF_NEAT/neural_network.h" afterPath="$PROJECT_DIR$/JNF_NEAT/neural_network.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JNF_NEAT/neural_network_trainer.cpp" afterPath="$PROJECT_DIR$/JNF_NEAT/neural_network_trainer.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JNF_NEAT/neural_network_trainer.h" afterPath="$PROJECT_DIR$/JNF_NEAT/neural_network_trainer.h" />
-    </list>
+    <list default="true" id="763909fc-b5df-4025-92f7-841413a9cdd1" name="Default" comment="" />
     <ignored path="JNF_NEAT.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
