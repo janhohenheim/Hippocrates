@@ -1,17 +1,18 @@
 #pragma once
 #include "neuron.h"
-class Gene
-{
+
+struct Gene {
 	public:
-		Gene(Neuron & from, Neuron & to);
+		Gene();
+		~Gene() = default;
 		Gene(const Gene & other) = default;
-		
-		unsigned int GetHistoricalMarking() const;
+
+		unsigned int from = 0;
+		unsigned int to = 0;
+		double weight = 0.0;
+		const unsigned int historicalMarking = numberOfExistingGenes;
+		bool isEnabled = false;
 
 	private:
-		Neuron & fromNeuron;
-		Neuron & toNeuron;
 		static unsigned int numberOfExistingGenes;
-		unsigned int historicalMarking = numberOfExistingGenes;
-		bool isEnabled = true;
 };
