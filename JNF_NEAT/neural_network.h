@@ -20,7 +20,7 @@ class NeuralNetwork {
 		NeuralNetwork(const NeuralNetwork & other) = default;
 		~NeuralNetwork() = default;
 
-		const std::vector<Gene> & GetGenes();
+		const std::vector<Gene> & GetGenes() const;
 
 		void SetInputs(std::vector<double> & inputs);
 		const std::vector<double> & GetOrCalculateOutputs();

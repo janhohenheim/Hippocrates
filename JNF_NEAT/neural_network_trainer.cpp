@@ -8,12 +8,11 @@ NeuralNetworkTrainer::NeuralNetworkTrainer(std::vector<ISpecimen *> & population
 NeuralNetwork NeuralNetworkTrainer::Breed(const ISpecimen * mother, const ISpecimen * father) const
 {
 	std::vector<Gene> childGenes;
-	if (mother->GetFitness() == father->GetFitness())
-	{
+
+	if (mother->GetFitness() == father->GetFitness()) {
 		// TODO jnf
 		// Do Stuff with the genes
-	} else
-	{
+	} else {
 		// TODO jnf
 		// Do Stuff with the genes
 	}
@@ -26,13 +25,17 @@ NeuralNetwork NeuralNetworkTrainer::Breed(const ISpecimen * mother, const ISpeci
 }
 
 void NeuralNetworkTrainer::TrainUntilFitnessEquals(unsigned int fitnessToReach) {
-	// TODO jnf
-	// Implementation
+	do {
+		Repopulate();
+		LetGenerationLive();
+	} while (GetFittestSpecimen()->GetFitness() < fitnessToReach);
 }
 
 void NeuralNetworkTrainer::TrainUntilGenerationEquals(unsigned int generationsToTrain) {
-	// TODO jnf
-	// Implementation
+	for(auto generation = 0U; generation < generationsToTrain; generation++){
+		Repopulate();
+		LetGenerationLive();
+	}
 }
 
 const ISpecimen * NeuralNetworkTrainer::GetFittestSpecimen() {
@@ -40,6 +43,22 @@ const ISpecimen * NeuralNetworkTrainer::GetFittestSpecimen() {
 	// Implementation
 	return population.front();
 }
+
+void NeuralNetworkTrainer::LetGenerationLive() {
+	for (auto & specimen : population){
+		specimen->Update();
+		specimen->RecalculateFitness();
+	}
+}
+
+void NeuralNetworkTrainer::Repopulate() {
+	// TODO jnf
+	// Implementation
+}
+
+
+
+
 
 
 

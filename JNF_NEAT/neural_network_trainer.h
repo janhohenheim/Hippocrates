@@ -4,8 +4,11 @@
 #include <vector>
 
 class NeuralNetworkTrainer {
+	private:
+		std::vector <ISpecimen *> & population;
+
 	public:
-		NeuralNetworkTrainer(std::vector<ISpecimen*> & population);
+		NeuralNetworkTrainer(std::vector<ISpecimen *> & population);
 		NeuralNetworkTrainer(const NeuralNetworkTrainer & other) = default;
 		~NeuralNetworkTrainer() = default;
 
@@ -13,10 +16,10 @@ class NeuralNetworkTrainer {
 		void TrainUntilGenerationEquals(unsigned int generationsToTrain);
 
 		const ISpecimen * GetFittestSpecimen();
+
 	private:
 		NeuralNetwork Breed(const ISpecimen * mother, const ISpecimen * father) const;
+		void LetGenerationLive();
+		void Repopulate();
 
-
-	private:
-		std::vector <ISpecimen *> & population;
 };

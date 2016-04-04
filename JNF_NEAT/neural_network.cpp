@@ -64,7 +64,7 @@ void NeuralNetwork::ProcessOutputLayer() {
 	}
 }
 
-const std::vector<Gene> & NeuralNetwork::GetGenes() {
+const std::vector<Gene> & NeuralNetwork::GetGenes() const {
 	return genes;
 }
 
