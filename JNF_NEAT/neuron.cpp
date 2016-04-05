@@ -1,24 +1,19 @@
 #include <cmath>
 #include "neuron.h"
 
-constexpr Neuron::Neuron(const std::vector<OutgoingConnection> & connections) :
+constexpr Neuron::Neuron(const std::vector<IncomingConnection> & connections) :
 connections(connections) {
 
-}
-
-void Neuron::FeedConnectedNeurons() {
-    for(auto & connection : connections) {
-        double output = sigmoid(GetActionPotential()) * connection.weight;
-        connection.connection->AddToActionPotential(output);
-    };
 }
 
 constexpr double Neuron::sigmoid(double d) {
     return tanh(d);
 }
 
-
-
-
-
-
+double Neuron::GetActionPotential() {
+    double actionPotential = 0.0;
+    for (auto & in : connections){
+        actionPotential += sigmoid(in.connection->GetActionPotential() * in.weight);
+    }
+    return actionPotential;
+}

@@ -26,8 +26,7 @@ void NeuralNetwork::SetInputs(std::vector<double> & inputs)
 		throw std::out_of_range("Number of inputs provided doesn't match genetic information");
 	}
 	for(int i = 0; i < sensors.size(); ++i){
-		sensors[i].Reset();
-		sensors[i].AddToActionPotential(inputs[i]);
+		sensors[i].SetInput(inputs[i]);
 	};
 	areOutputsUpToDate = false;
 }
@@ -38,32 +37,12 @@ const std::vector<double> & NeuralNetwork::GetOrCalculateOutputs()
 		return outputs;
 	}
 
-	ProcessInputLayer();
-	ProcessHiddenLayers();
-	ProcessOutputLayer();
-
-	areOutputsUpToDate = true;
-	return outputs;
-}
-
-void NeuralNetwork::ProcessInputLayer() {
-	for(auto & sensor : sensors){
-		sensor.FeedConnectedNeurons();
-	}
-}
-
-void NeuralNetwork::ProcessHiddenLayers() {
-	for (auto & layer : hiddenLayers){
-		for (auto & hiddenNeuron : layer){
-			hiddenNeuron.FeedConnectedNeurons();
-		}
-	}
-}
-
-void NeuralNetwork::ProcessOutputLayer() {
 	for(int i = 0; i < outputs.size(); ++i){
 		outputs[i] = outputNeurons[i].GetActionPotential();
 	}
+
+	areOutputsUpToDate = true;
+	return outputs;
 }
 
 const std::vector<Gene> & NeuralNetwork::GetGenes() const {
@@ -75,9 +54,17 @@ void NeuralNetwork::BuildNetworkFromGenes() {
 
 	// TODO jnf
 	// Actually generate Neurons /shrug
+	DeleteAllNeurons();
+
 
 
 	areOutputsUpToDate = false;
+}
+
+void NeuralNetwork::DeleteAllNeurons() {
+	sensors.clear();
+	hiddenLayers.clear();
+	outputNeurons.clear();
 }
 
 void NeuralNetwork::GenerateOnlyEssentialGenes(unsigned int numberOfInputs, unsigned int numberOfOutputs) {

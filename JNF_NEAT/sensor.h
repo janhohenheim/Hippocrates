@@ -1,8 +1,11 @@
 #pragma once
 #include "neuron.h"
 
-class Sensor : public Neuron {
+class Sensor : public ConnectableWithNeurons {
     public:
-        using Neuron::Neuron;
+        void SetInput(double input);
+        double GetActionPotential() override;
+    private:
+        double input;
 };
 

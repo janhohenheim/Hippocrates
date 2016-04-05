@@ -1,19 +1,19 @@
 #pragma once
-#include "outgoing_connection.h"
+#include "incoming_connection.h"
 #include "connectable_with_neurons.h"
 #include <vector>
 
 class Neuron : public ConnectableWithNeurons {
     public:
         Neuron() = delete;
-        constexpr Neuron(const std::vector<OutgoingConnection> & connections);
+        constexpr Neuron(const std::vector<IncomingConnection> & connections);
         ~Neuron() = default;
         Neuron(const Neuron & other) = default;
 
-        void FeedConnectedNeurons();
+        double GetActionPotential() override;
 
     private:
         constexpr double sigmoid(double d);
 
-        const std::vector<OutgoingConnection> & connections;
+        const std::vector<IncomingConnection> & connections;
 };

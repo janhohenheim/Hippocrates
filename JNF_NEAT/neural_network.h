@@ -30,13 +30,5 @@ class NeuralNetwork {
 		void BuildNetworkFromGenes();
 		double GetRandomWeight() const;
 
-		void ProcessInputLayer();
-		void ProcessHiddenLayers();
-		void ProcessOutputLayer();
-};
-
-
-class invalid_inputs_exception : public std::exception
-{
-	using exception::exception;
+		void DeleteAllNeurons() ;
 };
