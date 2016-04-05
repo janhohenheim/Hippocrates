@@ -6,7 +6,7 @@ of Augmenting Topologies, http://nn.cs.utexas.edu/downloads/papers/stanley.ec02.
 It focuses (in contrast to other implementations) on
 
 - Speed - through modern and efficient C++14
-- Clean Code - through constant ongoing refactoring and a deep care for aethetics
+- Clean Code - through constant ongoing refactoring and a deep care for aesthetics
 - Usability - through beeing able to be used without much knowledge of Neural Networks
 
 ##Foreword
