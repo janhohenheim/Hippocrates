@@ -4,5 +4,7 @@ int FitnessFunc(const NeuralNetwork & net) {
 }
 
 int main() {
+	// TODO jnf
+	// Implementation
 	return 0;
 }
