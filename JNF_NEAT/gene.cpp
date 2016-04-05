@@ -6,13 +6,3 @@ Gene::Gene()
 {
 	numberOfExistingGenes++;
 }
-
-
-
-
-
-
-
-
-
-

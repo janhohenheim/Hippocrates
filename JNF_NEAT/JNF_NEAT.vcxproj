@@ -147,22 +147,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="connectional_gene.cpp" />
     <ClCompile Include="gene.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="neural_gene.cpp" />
     <ClCompile Include="neural_network_trainer.cpp" />
     <ClCompile Include="neural_network.cpp" />
     <ClCompile Include="neuron.cpp" />
+    <ClCompile Include="sensor.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="connectional_gene.h" />
+    <ClInclude Include="connectable_with_neurons.h" />
     <ClInclude Include="gene.h" />
-    <ClInclude Include="neural_gene.h" />
+    <ClInclude Include="incoming_connection.h" />
+    <ClInclude Include="trainable.h" />
     <ClInclude Include="neural_network_trainer.h" />
     <ClInclude Include="neural_network.h" />
     <ClInclude Include="neuron.h" />
-    <ClInclude Include="specimen.h" />
+    <ClInclude Include="sensor.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

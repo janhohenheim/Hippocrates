@@ -1,12 +1,12 @@
 #include <algorithm>
 #include "neural_network_trainer.h"
 
-NeuralNetworkTrainer::NeuralNetworkTrainer(std::vector<ISpecimen *> & population) :
+NeuralNetworkTrainer::NeuralNetworkTrainer(std::vector<ITrainable *> & population) :
 	population(population)
 {
 }
 
-NeuralNetwork NeuralNetworkTrainer::Breed(const ISpecimen * mother, const ISpecimen * father) const
+NeuralNetwork NeuralNetworkTrainer::Breed(const ITrainable * mother, const ITrainable * father) const
 {
 	std::vector<Gene> childGenes;
 
@@ -43,7 +43,7 @@ void NeuralNetworkTrainer::TrainUntilGenerationEquals(unsigned int generationsTo
 	}
 }
 
-const ISpecimen * NeuralNetworkTrainer::GetFittestSpecimen() {
+const ITrainable * NeuralNetworkTrainer::GetFittestSpecimen() {
 	// TODO jnf
 	// Implementation
 	return population.front();
@@ -52,7 +52,6 @@ const ISpecimen * NeuralNetworkTrainer::GetFittestSpecimen() {
 void NeuralNetworkTrainer::LetGenerationLive() {
 	for (auto & specimen : population){
 		specimen->Update();
-		specimen->RecalculateFitness();
 	}
 }
 

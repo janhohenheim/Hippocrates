@@ -27,13 +27,10 @@
     <ClCompile Include="gene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="connectional_gene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="neural_gene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="neuron.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sensor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -47,16 +44,19 @@
     <ClInclude Include="gene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="neural_gene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="connectional_gene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="neuron.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="specimen.h">
+    <ClInclude Include="sensor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="incoming_connection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="connectable_with_neurons.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="trainable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

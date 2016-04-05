@@ -13,7 +13,7 @@ class Neuron : public ConnectableWithNeurons {
         double RequestDataAndGetActionPotential() override;
 
     private:
-        constexpr double sigmoid(double d);
+        double sigmoid(double d) const;
 
         const std::vector<IncomingConnection> & connections;
 };

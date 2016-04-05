@@ -6,7 +6,7 @@ connections(connections) {
 
 }
 
-constexpr double Neuron::sigmoid(double d) {
+double Neuron::sigmoid(double d) const {
     return tanh(d);
 }
 

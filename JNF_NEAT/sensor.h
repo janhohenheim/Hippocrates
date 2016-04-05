@@ -8,4 +8,3 @@ class Sensor : public ConnectableWithNeurons {
     private:
         double input;
 };
-
