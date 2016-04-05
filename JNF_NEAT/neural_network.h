@@ -7,7 +7,7 @@
 
 class NeuralNetwork {
 	private:
-		std::vector<Gene*> genes;
+		std::vector<Gene> genes;
 		std::vector<Sensor> sensors;
 		std::vector<std::vector<Neuron>> hiddenLayers;
 		std::vector<Output> outputNeurons;
@@ -16,11 +16,11 @@ class NeuralNetwork {
 
 	public:
 		NeuralNetwork(unsigned int numberOfInputs, unsigned int numberOfOutputs);
-		NeuralNetwork(const std::vector<Gene *> & genes);
+		NeuralNetwork(const std::vector<Gene> & genes);
 		NeuralNetwork(const NeuralNetwork & other) = default;
 		~NeuralNetwork() = default;
 
-		const std::vector<Gene*> & GetGenes() const;
+		const std::vector<Gene> & GetGenes() const;
 
 		void SetInputs(std::vector<double> & inputs);
 		const std::vector<double> & GetOrCalculateOutputs();

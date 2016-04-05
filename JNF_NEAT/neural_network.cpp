@@ -13,7 +13,7 @@ genes(numberOfInputs + numberOfOutputs)
 	BuildNetworkFromGenes();
 }
 
-NeuralNetwork::NeuralNetwork(const std::vector<Gene *> & genes):
+NeuralNetwork::NeuralNetwork(const std::vector<Gene> & genes):
 genes(genes)
 {
 	BuildNetworkFromGenes();
@@ -45,7 +45,7 @@ const std::vector<double> & NeuralNetwork::GetOrCalculateOutputs()
 	return outputs;
 }
 
-const std::vector<Gene*> & NeuralNetwork::GetGenes() const {
+const std::vector<Gene> & NeuralNetwork::GetGenes() const {
 	return genes;
 }
 
@@ -67,7 +67,7 @@ void NeuralNetwork::GenerateOnlyEssentialGenes(unsigned int numberOfInputs, unsi
 	if(genes.size() != numberOfInputs * numberOfOutputs){
 		throw std::out_of_range("Number of inputs provided doesn't match genetic information");
 	}
-	auto currentGene = genes.front();
+	auto currentGene = &genes.front();
 	for (auto in = 0U; in < numberOfInputs; ++in) {
 		for (auto out = 0U; out < numberOfOutputs; ++out){
 			currentGene->from = in;

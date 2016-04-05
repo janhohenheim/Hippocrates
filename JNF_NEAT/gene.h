@@ -5,7 +5,7 @@ struct Gene {
 	public:
 		Gene();
 		~Gene() = default;
-		Gene(const Gene & other) = delete;
+		Gene(const Gene & other) = default;
 
 		unsigned int from = 0U;
 		unsigned int to = 0U;

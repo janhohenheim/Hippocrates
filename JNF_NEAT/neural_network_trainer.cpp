@@ -8,7 +8,7 @@ NeuralNetworkTrainer::NeuralNetworkTrainer(std::vector<ISpecimen *> & population
 
 NeuralNetwork NeuralNetworkTrainer::Breed(const ISpecimen * mother, const ISpecimen * father) const
 {
-	std::vector<Gene *> childGenes;
+	std::vector<Gene> childGenes;
 
 	if (mother->GetFitness() == father->GetFitness()) {
 		// TODO jnf
@@ -61,7 +61,7 @@ void NeuralNetworkTrainer::Repopulate() {
 	// Implementation
 }
 
-void NeuralNetworkTrainer::MutateGenes(std::vector<Gene *> & genes) const{
+void NeuralNetworkTrainer::MutateGenes(std::vector<Gene> & genes) const{
 	struct neuronBirthInfo {
 		unsigned neuron = 0L;
 		unsigned layer = 0L;
@@ -75,10 +75,10 @@ void NeuralNetworkTrainer::MutateGenes(std::vector<Gene *> & genes) const{
 	for (auto & gene : genes) {
 
 		auto isFrom = [&gene](neuronBirthInfo info) {
-			return info.neuron == gene->from;
+			return info.neuron == gene.from;
 		};
 		auto isTo = [&gene](neuronBirthInfo info) {
-			return info.neuron == gene->to;
+			return info.neuron == gene.to;
 		};
 		auto fromGene = std::find_if(neuronBirthInfos.begin(), neuronBirthInfos.end(), isFrom);
 		auto toGene = std::find_if(neuronBirthInfos.begin(), neuronBirthInfos.end(), isTo);
@@ -88,13 +88,13 @@ void NeuralNetworkTrainer::MutateGenes(std::vector<Gene *> & genes) const{
 
 		if (!fromExists && !toExists) {
 			neuronBirthInfo fromInfo;
-			fromInfo.neuron = gene->from;
+			fromInfo.neuron = gene.from;
 			fromInfo.layer = LOWEST_POSSIBLE_LAYER;
-			fromInfo.destinations = {gene->to};
+			fromInfo.destinations = {gene.to};
 			neuronBirthInfos.push_back(fromInfo);
 
 			neuronBirthInfo toInfo;
-			toInfo.neuron = gene->to;
+			toInfo.neuron = gene.to;
 			toInfo.layer = LOWEST_POSSIBLE_LAYER + 1;
 			neuronBirthInfos.push_back(toInfo);
 		} else if (!fromExists && toExists) {
@@ -103,7 +103,7 @@ void NeuralNetworkTrainer::MutateGenes(std::vector<Gene *> & genes) const{
 		} else if (fromExists && !toExists) {
 			neuronBirthInfo toInfo;
 
-			toInfo.neuron = gene->to;
+			toInfo.neuron = gene.to;
 			toInfo.layer = (*fromGene).layer + 1;
 			(*fromGene).destinations.push_back(toInfo.neuron);
 			// TODO jnf
