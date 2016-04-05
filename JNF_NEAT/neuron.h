@@ -1,5 +1,5 @@
 #pragma once
-#include "connection.h"
+#include "outgoing_connection.h"
 #include "connectable_with_neurons.h"
 #include <vector>
 

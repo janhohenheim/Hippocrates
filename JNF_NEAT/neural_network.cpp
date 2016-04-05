@@ -1,6 +1,8 @@
 #include <cstdlib>
 #include <cmath>
 #include <stdexcept>
+#include <map>
+#include <algorithm>
 #include "neural_network.h"
 
 
@@ -69,8 +71,12 @@ const std::vector<Gene> & NeuralNetwork::GetGenes() const {
 }
 
 void NeuralNetwork::BuildNetworkFromGenes() {
+
+
 	// TODO jnf
-	// Implement
+	// Actually generate Neurons /shrug
+
+
 	areOutputsUpToDate = false;
 }
 

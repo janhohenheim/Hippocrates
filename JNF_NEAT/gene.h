@@ -7,8 +7,9 @@ struct Gene {
 		~Gene() = default;
 		Gene(const Gene & other) = default;
 
-		unsigned int from = 0;
-		unsigned int to = 0;
+		unsigned int from = 0U;
+		unsigned int to = 0U;
+		unsigned int layer = 0U;
 		double weight = 0.0;
 		const unsigned int historicalMarking = numberOfExistingGenes;
 		bool isEnabled = false;
