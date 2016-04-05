@@ -16,7 +16,7 @@ set(SOURCE_FILES
         JNF_NEAT/i_specimen.h
     JNF_NEAT/sensor.cpp
     JNF_NEAT/sensor.h
-        JNF_NEAT/connectable_with_neurons.h JNF_NEAT/output.cpp JNF_NEAT/output.h)
+        JNF_NEAT/connectable_with_neurons.h )
 
 add_definitions(-std=c++11)
 add_executable(JNF_NEAT ${SOURCE_FILES})

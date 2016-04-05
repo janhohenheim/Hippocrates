@@ -2,7 +2,6 @@
 #include "gene.h"
 #include "neuron.h"
 #include "sensor.h"
-#include "output.h"
 #include <vector>
 
 class NeuralNetwork {
@@ -10,7 +9,7 @@ class NeuralNetwork {
 		std::vector<Gene> genes;
 		std::vector<Sensor> sensors;
 		std::vector<std::vector<Neuron>> hiddenLayers;
-		std::vector<Output> outputNeurons;
+		std::vector<Neuron *> outputNeurons;
 		std::vector<double> outputs;
 		bool areOutputsUpToDate = false;
 
@@ -29,6 +28,6 @@ class NeuralNetwork {
 		void GenerateOnlyEssentialGenes(unsigned int numberOfInputs, unsigned int numberOfOutputs);
 		void BuildNetworkFromGenes();
 		double GetRandomWeight() const;
-
+		void InterpretOutputNeurons();
 		void DeleteAllNeurons() ;
 };

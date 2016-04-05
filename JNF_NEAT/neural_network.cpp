@@ -38,7 +38,7 @@ const std::vector<double> & NeuralNetwork::GetOrCalculateOutputs()
 	}
 
 	for(int i = 0; i < outputs.size(); ++i){
-		outputs[i] = outputNeurons[i].RequestDataAndGetActionPotential();
+		outputs[i] = outputNeurons[i]->RequestDataAndGetActionPotential();
 	}
 
 	areOutputsUpToDate = true;
@@ -51,9 +51,11 @@ const std::vector<Gene> & NeuralNetwork::GetGenes() const {
 
 void NeuralNetwork::BuildNetworkFromGenes() {
 	DeleteAllNeurons();
-	// TODO jnf
-	// Implementation
-
+	for (auto & gene : genes){
+		// TODO jnf
+		// Implementation
+	}
+	InterpretOutputNeurons();
 	areOutputsUpToDate = false;
 }
 
@@ -84,6 +86,16 @@ void NeuralNetwork::GenerateOnlyEssentialGenes(unsigned int numberOfInputs, unsi
 double NeuralNetwork::GetRandomWeight() const {
 	return (double)(rand() % 100) / 100.0;
 }
+
+void NeuralNetwork::InterpretOutputNeurons() {
+	// TODO jnf
+	// Implementation
+	// Something like
+	// std::vector<> allInConnections;
+	// find all elements of vector neurons that aren't in allInConnections
+}
+
+
 
 
 
