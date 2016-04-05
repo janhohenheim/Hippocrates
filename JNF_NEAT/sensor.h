@@ -4,7 +4,7 @@
 class Sensor : public ConnectableWithNeurons {
     public:
         void SetInput(double input);
-        double GetActionPotential() override;
+        double RequestDataAndGetActionPotential() override;
     private:
         double input;
 };

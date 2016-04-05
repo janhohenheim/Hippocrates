@@ -10,10 +10,10 @@ constexpr double Neuron::sigmoid(double d) {
     return tanh(d);
 }
 
-double Neuron::GetActionPotential() {
+double Neuron::RequestDataAndGetActionPotential() {
     double actionPotential = 0.0;
     for (auto & in : connections){
-        actionPotential += sigmoid(in.connection->GetActionPotential() * in.weight);
+        actionPotential += sigmoid(in.connection->RequestDataAndGetActionPotential() * in.weight);
     }
     return actionPotential;
 }

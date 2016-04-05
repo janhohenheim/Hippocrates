@@ -10,7 +10,7 @@ class Neuron : public ConnectableWithNeurons {
         ~Neuron() = default;
         Neuron(const Neuron & other) = default;
 
-        double GetActionPotential() override;
+        double RequestDataAndGetActionPotential() override;
 
     private:
         constexpr double sigmoid(double d);

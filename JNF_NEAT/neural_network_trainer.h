@@ -21,5 +21,5 @@ class NeuralNetworkTrainer {
 		NeuralNetwork Breed(const ISpecimen * mother, const ISpecimen * father) const;
 		void LetGenerationLive();
 		void Repopulate();
-		void MutateGenes(std::vector<Gene> & genes) const;
+		void MutateGenes(std::vector<Gene*> & genes) const;
 };

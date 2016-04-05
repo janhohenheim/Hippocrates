@@ -5,7 +5,7 @@ void Sensor::SetInput(double input) {
     this->input = input;
 }
 
-double Sensor::GetActionPotential() {
+double Sensor::RequestDataAndGetActionPotential() {
     return input;
 }
 

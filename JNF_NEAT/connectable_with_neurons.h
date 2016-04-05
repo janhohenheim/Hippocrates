@@ -2,6 +2,6 @@
 
 class ConnectableWithNeurons {
     public:
-        virtual double GetActionPotential() = 0;
+        virtual double RequestDataAndGetActionPotential() = 0;
 };
 
