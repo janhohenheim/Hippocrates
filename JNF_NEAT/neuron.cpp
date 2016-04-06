@@ -1,13 +1,13 @@
 #include <cmath>
 #include "neuron.h"
 
-constexpr Neuron::Neuron(const std::vector<IncomingConnection> & connections) :
+Neuron::Neuron(const std::vector<IncommingConnection> & connections) :
 connections(connections) {
 
 }
 
 float Neuron::sigmoid(float d) const {
-    return tanh(d);
+    return (float)tanh(d);
 }
 
 float Neuron::RequestDataAndGetActionPotential() {
@@ -16,4 +16,12 @@ float Neuron::RequestDataAndGetActionPotential() {
         actionPotential += sigmoid(in.connection->RequestDataAndGetActionPotential() * in.weight);
     }
     return actionPotential;
+}
+
+void Neuron::AddConnection(IncommingConnection connection) {
+    connections.push_back(connection);
+}
+
+void Neuron::AddConnections(std::vector<IncommingConnection> & connections) {
+    connections.insert( connections.end(), connections.begin(), connections.end() );
 }

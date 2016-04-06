@@ -13,6 +13,9 @@ class NeuralNetwork {
 		std::vector<float> outputs;
 		bool areOutputsUpToDate = false;
 
+		unsigned int numberOfInputs = 0U;
+		unsigned int numberOfOutputs = 0U;
+
 	public:
 		NeuralNetwork(unsigned int numberOfInputs, unsigned int numberOfOutputs);
 		NeuralNetwork(const std::vector<Gene> & genes);
@@ -25,8 +28,9 @@ class NeuralNetwork {
 		const std::vector<float> & GetOrCalculateOutputs();
 
 	private:
-		void GenerateOnlyEssentialGenes(unsigned int numberOfInputs, unsigned int numberOfOutputs);
+		void GenerateOnlyEssentialGenes();
 		void BuildNetworkFromGenes();
+		void ReadNumberOfInputsAndOutputsFromGenes() const;
 		float GetRandomWeight() const;
 		void InterpretOutputNeurons();
 		void DeleteAllNeurons() ;
