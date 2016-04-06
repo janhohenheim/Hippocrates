@@ -10,10 +10,10 @@ class Neuron : public ConnectableWithNeurons {
         ~Neuron() = default;
         Neuron(const Neuron & other) = default;
 
-        double RequestDataAndGetActionPotential() override;
+		float RequestDataAndGetActionPotential() override;
 
     private:
-        double sigmoid(double d) const;
+		float sigmoid(float d) const;
 
         const std::vector<IncomingConnection> & connections;
 };

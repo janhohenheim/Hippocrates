@@ -19,7 +19,7 @@ genes(genes)
 	BuildNetworkFromGenes();
 }
 
-void NeuralNetwork::SetInputs(std::vector<double> & inputs)
+void NeuralNetwork::SetInputs(std::vector<float> & inputs)
 {
 	if (sensors.size() != inputs.size())
 	{
@@ -31,7 +31,7 @@ void NeuralNetwork::SetInputs(std::vector<double> & inputs)
 	areOutputsUpToDate = false;
 }
 
-const std::vector<double> & NeuralNetwork::GetOrCalculateOutputs()
+const std::vector<float> & NeuralNetwork::GetOrCalculateOutputs()
 {
 	if (areOutputsUpToDate) {
 		return outputs;
@@ -83,8 +83,8 @@ void NeuralNetwork::GenerateOnlyEssentialGenes(unsigned int numberOfInputs, unsi
 	areOutputsUpToDate = false;
 }
 
-double NeuralNetwork::GetRandomWeight() const {
-	return (double)(rand() % 100) / 100.0;
+float NeuralNetwork::GetRandomWeight() const {
+	return (float)(rand() % 100) / 100.0;
 }
 
 void NeuralNetwork::InterpretOutputNeurons() {

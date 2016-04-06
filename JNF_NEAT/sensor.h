@@ -3,8 +3,8 @@
 
 class Sensor : public ConnectableWithNeurons {
     public:
-        void SetInput(double input);
-        double RequestDataAndGetActionPotential() override;
+        void SetInput(float input);
+		float RequestDataAndGetActionPotential() override;
     private:
-        double input;
+        float input;
 };

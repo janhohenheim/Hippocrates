@@ -3,5 +3,5 @@
 
 struct IncomingConnection {
     ConnectableWithNeurons * connection;
-    double weight = 1.0;
+    float weight = 1.0;
 };

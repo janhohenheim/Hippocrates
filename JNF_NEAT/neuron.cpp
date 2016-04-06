@@ -6,12 +6,12 @@ connections(connections) {
 
 }
 
-double Neuron::sigmoid(double d) const {
+float Neuron::sigmoid(float d) const {
     return tanh(d);
 }
 
-double Neuron::RequestDataAndGetActionPotential() {
-    double actionPotential = 0.0;
+float Neuron::RequestDataAndGetActionPotential() {
+    float actionPotential = 0.0;
     for (auto & in : connections){
         actionPotential += sigmoid(in.connection->RequestDataAndGetActionPotential() * in.weight);
     }

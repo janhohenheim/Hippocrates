@@ -9,5 +9,5 @@ class ConnectableWithNeurons {
 		// TODO jnf
 		// Maybe split this function
 		// It does a tad too much
-		virtual double RequestDataAndGetActionPotential() = 0;
+		virtual float RequestDataAndGetActionPotential() = 0;
 };

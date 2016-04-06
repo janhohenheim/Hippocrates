@@ -1,11 +1,11 @@
 #include "sensor.h"
 
 
-void Sensor::SetInput(double input) {
+void Sensor::SetInput(float input) {
     this->input = input;
 }
 
-double Sensor::RequestDataAndGetActionPotential() {
+float Sensor::RequestDataAndGetActionPotential() {
     return input;
 }
 
