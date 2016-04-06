@@ -69,7 +69,9 @@ void NeuralNetwork::GenerateOnlyEssentialGenes(unsigned int numberOfInputs, unsi
 	if(genes.size() != numberOfInputs * numberOfOutputs){
 		throw std::out_of_range("Number of inputs provided doesn't match genetic information");
 	}
+
 	auto currentGene = &genes.front();
+
 	for (auto in = 0U; in < numberOfInputs; ++in) {
 		for (auto out = 0U; out < numberOfOutputs; ++out){
 			currentGene->from = in;
@@ -80,11 +82,12 @@ void NeuralNetwork::GenerateOnlyEssentialGenes(unsigned int numberOfInputs, unsi
 			++currentGene;
 		}
 	}
+
 	areOutputsUpToDate = false;
 }
 
 float NeuralNetwork::GetRandomWeight() const {
-	return (float)(rand() % 100) / 100.0;
+	return (float)(rand() % 100) / 100.0f;
 }
 
 void NeuralNetwork::InterpretOutputNeurons() {
