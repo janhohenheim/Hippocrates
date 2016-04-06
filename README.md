@@ -28,14 +28,15 @@ This method gets called automatically multiple times during training.
 > default updatesPerGeneration: 1  
 > Imagine this value as **number of actions per lifetime**
 
-The actions of your object should take place here. This almost always boils down to **executing the command the Neural Network decides to use**. (Remember: You get this Informtion by calling `LoadNeuralNetworkOutputs()`).
+The actions of your object should take place here. This almost always boils down to **executing the command the Neural Network decides to use**.  
+(Remember: You get this Informtion by calling `LoadNeuralNetworkOutputs()`).
 
-**Example**: Say you want to train an artificial player for Super Mario World. This method should then take care of actually pressing the buttons your network want you to. In this specific case, it should also update the whole game for a frame, so enemies and items can react to Mario.
+**Example**: Let's say you want to train an artificial player for Super Mario World. This method should then take care of actually pressing the buttons your network want you to. In this specific case, it should also update the whole game for a frame, so enemies and items can react to Mario.
 
 ###GetOrCalculateFitness()
 This method tells the trainer how good this specific instance is compared to others.  
 It gets called automatically when the `ITrainable` object dies 
-> It's used to generate it's offspring, with a fitness score of zero or lower meaning that this individuals genes are not going to get passed on
+> It's used to generate its offspring, with a fitness score of zero or lower meaning that the genes of this individualare not going to get passed on
 
 > default minFitness: -2147483646  
 > default maxFitness: 100
@@ -62,7 +63,7 @@ This method returns the conclusions of your neural network as a series of floats
 > default maxNeuralCharge = 1.0;  
 > It is **highly** recommended to leave these values like this (see advanced FAQ for details)
 
-Almost always you'll of the time you'll want to translate these values into something your program can work with and store in a member
+You'll want to translate these values almost all the time into something your program can work with and store in a member.
 
 **Example**: TODO
 
