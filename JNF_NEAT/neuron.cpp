@@ -1,7 +1,7 @@
 #include <cmath>
 #include "neuron.h"
 
-Neuron::Neuron(const std::vector<IncommingConnection> & connections) :
+Neuron::Neuron(const std::vector<IncomingConnection> & connections) :
 connections(connections) {
 
 }
@@ -18,10 +18,10 @@ float Neuron::RequestDataAndGetActionPotential() {
     return actionPotential;
 }
 
-void Neuron::AddConnection(IncommingConnection connection) {
+void Neuron::AddConnection(IncomingConnection connection) {
     connections.push_back(connection);
 }
 
-void Neuron::AddConnections(std::vector<IncommingConnection> & connections) {
+void Neuron::AddConnections(std::vector<IncomingConnection> & connections) {
     connections.insert( connections.end(), connections.begin(), connections.end() );
 }
