@@ -21,8 +21,8 @@ class NeuralNetworkTrainer {
 
 	// Methods
 	public:
-		NeuralNetworkTrainer(std::vector<ITrainable *> & population);
-		NeuralNetworkTrainer(std::vector<ITrainable *> & population, Ruleset ruleset);
+		explicit NeuralNetworkTrainer(std::vector<ITrainable *> & population);
+		explicit NeuralNetworkTrainer(std::vector<ITrainable *> & population, Ruleset ruleset);
 		NeuralNetworkTrainer(const NeuralNetworkTrainer & other) = default;
 		~NeuralNetworkTrainer() = default;
 
@@ -32,8 +32,8 @@ class NeuralNetworkTrainer {
 		ITrainable * GetFittestSpecimen();
 
 	private:
-		NeuralNetwork Breed(ITrainable * mother, ITrainable * father) const;
+		static NeuralNetwork Breed(ITrainable * mother, ITrainable * father);
 		void LetGenerationLive();
 		void Repopulate();
-		void MutateGenes(std::vector<Gene> & genes) const;
+		static void MutateGenes(std::vector<Gene> & genes);
 };

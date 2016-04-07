@@ -12,7 +12,7 @@ NeuralNetworkTrainer::NeuralNetworkTrainer(std::vector<ITrainable*>& population,
 {
 }
 
-NeuralNetwork NeuralNetworkTrainer::Breed(ITrainable * mother, ITrainable * father) const
+NeuralNetwork NeuralNetworkTrainer::Breed(ITrainable * mother, ITrainable * father)
 {
 	std::vector<Gene> childGenes;
 
@@ -66,65 +66,9 @@ void NeuralNetworkTrainer::Repopulate() {
 	// Implementation
 }
 
-void NeuralNetworkTrainer::MutateGenes(std::vector<Gene> & genes) const{
-	struct neuronBirthInfo {
-		unsigned neuron = 0L;
-		unsigned layer = 0L;
-		std::vector<unsigned> destinations;
-	};
-
-	std::vector<neuronBirthInfo> neuronBirthInfos;
-
-	const unsigned int LOWEST_POSSIBLE_LAYER = 0;
-
-	for (auto & gene : genes) {
-
-		auto isFrom = [&gene](neuronBirthInfo info) {
-			return info.neuron == gene.from;
-		};
-
-		auto isTo = [&gene](neuronBirthInfo info) {
-			return info.neuron == gene.to;
-		};
-
-		auto fromGene = std::find_if(neuronBirthInfos.begin(), neuronBirthInfos.end(), isFrom);
-		auto toGene = std::find_if(neuronBirthInfos.begin(), neuronBirthInfos.end(), isTo);
-
-		bool fromExists = fromGene != neuronBirthInfos.end();
-		bool toExists = toGene != neuronBirthInfos.end();
-
-		if (!fromExists && !toExists) {
-			neuronBirthInfo fromInfo;
-			fromInfo.neuron = gene.from;
-			fromInfo.layer = LOWEST_POSSIBLE_LAYER;
-			fromInfo.destinations = {gene.to};
-			neuronBirthInfos.push_back(fromInfo);
-
-			neuronBirthInfo toInfo;
-			toInfo.neuron = gene.to;
-			toInfo.layer = LOWEST_POSSIBLE_LAYER + 1;
-			neuronBirthInfos.push_back(toInfo);
-		} else
-		if (!fromExists && toExists) {
-			// TODO jnf
-			// Implement
-		} else
-		if (fromExists && !toExists) {
-			neuronBirthInfo toInfo;
-
-			toInfo.neuron = gene.to;
-			toInfo.layer = (*fromGene).layer + 1;
-			(*fromGene).destinations.push_back(toInfo.neuron);
-			// TODO jnf
-			// Implement
-			neuronBirthInfos.push_back(toInfo);
-		} else
-		if (fromExists && toExists) {
-			(*fromGene).destinations.push_back((*toGene).neuron);
-			// TODO jnf
-			// Implement
-		}
-	}
+void NeuralNetworkTrainer::MutateGenes(std::vector<Gene> & genes){
+	// TODO jnf
+	// Implementation
 }
 
 

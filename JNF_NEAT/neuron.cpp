@@ -1,27 +1,24 @@
-#include <cmath>
 #include "neuron.h"
+#include <cmath>
 
-Neuron::Neuron(const std::vector<IncomingConnection> & connections) :
+Neuron::Neuron(const Connections & connections) :
 connections(connections) {
 
 }
 
-float Neuron::sigmoid(float d) const {
-    return (float)tanh(d);
+void Neuron::AddConnection(Neuron::IncomingConnection connection)
+{
+	connections.push_back(connection);
 }
 
 float Neuron::RequestDataAndGetActionPotential() {
     float actionPotential = 0.0;
     for (auto & in : connections){
-        actionPotential += sigmoid(in.connection->RequestDataAndGetActionPotential() * in.weight);
+        actionPotential += in.incoming->RequestDataAndGetActionPotential() * in.weight;
     }
-    return actionPotential;
+    return sigmoid(actionPotential);
 }
 
-void Neuron::AddConnection(IncomingConnection connection) {
-    connections.push_back(connection);
-}
-
-void Neuron::AddConnections(std::vector<IncomingConnection> & connections) {
-    connections.insert( connections.end(), connections.begin(), connections.end() );
+float Neuron::sigmoid(float d) {
+    return (float)tanh(d);
 }
