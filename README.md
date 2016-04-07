@@ -7,7 +7,7 @@ It focuses (in contrast to other implementations) on
 
 - Speed - through modern and efficient C++14
 - Clean Code - through constant ongoing refactoring and a deep care for aesthetics
-- Usability - through beeing able to be used without much knowledge of Neural Networks
+- Usability - through being able to be used without much knowledge of Neural Networks
 
 ##Foreword
 
@@ -15,7 +15,7 @@ TODO
 
 
 ##Usage
-First, you have to instanciate a `NeuralNetworkTrainer`. This class will take care of everything. It uses standard training values if not provided with a parameter. If you know what you're doing, you can provide it with a `NeuralNetworkTrainer::RuleSet` instance to tweak the learning process.   
+First, you have to instantiate a `NeuralNetworkTrainer`. This class will take care of everything. It uses standard training values if not provided with a parameter. If you know what you're doing, you can provide it with a `NeuralNetworkTrainer::RuleSet` instance to tweak the learning process.
 
 You then have to provide an implementation of the `ITrainable` interface. It's methods are
 - Update()
