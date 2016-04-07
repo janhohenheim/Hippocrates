@@ -1,21 +1,27 @@
 #pragma once
-#include "incoming_connection.h"
-#include "connectable_with_neurons.h"
 #include <vector>
 
-class Neuron : public ConnectableWithNeurons {
+class Neuron {
+	public: 
+		struct IncomingConnection {
+			Neuron * incoming;
+			float weight = 1.0f;
+		};
+	private:
+		// TODO jnf
+		// Rename this
+		using in = std::vector<IncomingConnection>;
+		in connections;
+
     public:
         Neuron() = default;
-        Neuron(const std::vector<IncomingConnection> & connections);
-        ~Neuron() = default;
+		explicit Neuron(const in & connections);
         Neuron(const Neuron & other) = default;
+        ~Neuron() = default;
 
-		inline void AddConnection(IncomingConnection connection);
-		inline void AddConnections(std::vector<IncomingConnection> & connections);
-		float RequestDataAndGetActionPotential() override;
+		void AddConnection(IncomingConnection connection);
+		float RequestDataAndGetActionPotential();
 
-    private:
-		float sigmoid(float d) const;
-
-        std::vector<IncomingConnection> connections;
+	private:
+		static float sigmoid(float d);
 };

@@ -1,9 +1,6 @@
-#include <cstdlib>
+#include "neural_network.h"
 #include <cmath>
 #include <stdexcept>
-#include <map>
-#include <algorithm>
-#include "neural_network.h"
 
 
 NeuralNetwork::NeuralNetwork(unsigned int numberOfInputs, unsigned int numberOfOutputs):
@@ -22,14 +19,16 @@ NeuralNetwork::NeuralNetwork(const std::vector<Gene> & genes):
 	BuildNetworkFromGenes();
 }
 
-void NeuralNetwork::SetInputs(std::vector<float> & inputs)
+void NeuralNetwork::SetInputs(const std::vector<float> & inputs)
 {
-	if (sensors.size() != inputs.size())
+	if (inputNeurons.size() != inputs.size())
 	{
 		throw std::out_of_range("Number of inputs provided doesn't match genetic information");
 	}
-	for(int i = 0; i < sensors.size(); ++i){
-		sensors[i].SetInput(inputs[i]);
+	for(int i = 0; i < inputNeurons.size(); ++i){
+		// TODO jnf
+		// How do I solve this?
+		// inputNeurons[i]->SetInput(inputs[i]);
 	};
 	areOutputsUpToDate = false;
 }
@@ -54,33 +53,28 @@ const std::vector<Gene> & NeuralNetwork::GetGenes() const {
 
 void NeuralNetwork::BuildNetworkFromGenes() {
 	DeleteAllNeurons();
-	std::map<unsigned, Neuron> neurons;
 
-	for (auto & gene : genes) {
+	for (const auto & gene : genes) {
 		// TODO jnf
-		// Implementation
-		auto from = neurons.find(gene.from);
-		if (from == neurons.end()) {
-			if (from->first < numberOfInputs){
-				sensors.push_back(Sensor());
-			}
-
-
+		// Check for off by one errors
+		if (gene.to > neurons.size()) {
+			neurons.resize(gene.to);
 		}
-
-		auto to = neurons.find(gene.to);
-		if (to == neurons.end()) {
-
+		if (gene.isEnabled) {
+			Neuron::IncomingConnection connection;
+			connection.incoming = &neurons[gene.from];
+			connection.weight = gene.weight;
+			neurons[gene.to].AddConnection(connection);
 		}
-
 	}
-	InterpretOutputNeurons();
+	InterpretInputsAndOutputs();
+
 	areOutputsUpToDate = false;
 }
 
 void NeuralNetwork::DeleteAllNeurons() {
-	sensors.clear();
-	hiddenLayers.clear();
+	neurons.clear();
+	inputNeurons.clear();
 	outputNeurons.clear();
 }
 
@@ -102,21 +96,36 @@ void NeuralNetwork::GenerateOnlyEssentialGenes() {
 	areOutputsUpToDate = false;
 }
 
-float NeuralNetwork::GetRandomWeight() const {
+float NeuralNetwork::GetRandomWeight() {
 	return (float)(rand() % 100) / 100.0f;
 }
 
-void NeuralNetwork::InterpretOutputNeurons() {
-	// TODO jnf
-	// Implementation
-	// Something like
-	// std::vector<> allInConnections;
-	// find all elements of vector neurons that aren't in allInConnections
+void NeuralNetwork::InterpretInputsAndOutputs()
+{
+	for (unsigned int i = 0U; i < numberOfInputs; i++) {
+		// TODO jnf
+		// Does this code always work or is my logic off?
+		inputNeurons[i] = &neurons[i];
+		outputNeurons[i] = &neurons[genes[i * numberOfOutputs].to];
+	}
 }
 
-void NeuralNetwork::ReadNumberOfInputsAndOutputsFromGenes() const {
+void NeuralNetwork::ReadNumberOfInputsAndOutputsFromGenes() {
+	numberOfInputs = 1U;
+	numberOfOutputs = 1U;
+
 	// TODO jnf
-	// Implementation
+	// This is awful, rewrite it
+	auto i = numberOfInputs;
+	for (; i < genes.size(); ++i) {
+		if (genes[i].from == genes[i - 1].from + 1) {
+			numberOfInputs++;
+		} else 
+		if (genes[i].from != genes[i - 1].from) {
+			break;
+		}
+	}
+	numberOfOutputs = genes[i - 1].to - numberOfInputs;
 }
 
 

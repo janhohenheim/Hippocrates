@@ -30,9 +30,6 @@
     <ClCompile Include="neuron.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="sensor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="neural_network.h">
@@ -45,15 +42,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="neuron.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="sensor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="incoming_connection.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="connectable_with_neurons.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="trainable.h">
