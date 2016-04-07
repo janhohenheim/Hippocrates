@@ -30,6 +30,9 @@
     <ClCompile Include="neuron.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="trained_neural_network.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="neural_network.h">
@@ -45,6 +48,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="trainable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="trained_neural_network.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

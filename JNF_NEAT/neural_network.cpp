@@ -55,10 +55,8 @@ void NeuralNetwork::BuildNetworkFromGenes() {
 	DeleteAllNeurons();
 
 	for (const auto & gene : genes) {
-		// TODO jnf
-		// Check for off by one errors
-		if (gene.to > neurons.size()) {
-			neurons.resize(gene.to);
+		if (gene.to >= neurons.size()) {
+			neurons.resize(gene.to + 1);
 		}
 		if (gene.isEnabled) {
 			Neuron::IncomingConnection connection;

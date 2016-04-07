@@ -1,7 +1,7 @@
 #include "neuron.h"
 #include <cmath>
 
-Neuron::Neuron(const in & connections) :
+Neuron::Neuron(const Connections & connections) :
 connections(connections) {
 
 }

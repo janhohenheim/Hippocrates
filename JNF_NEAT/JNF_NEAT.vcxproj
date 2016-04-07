@@ -152,6 +152,7 @@
     <ClCompile Include="neural_network_trainer.cpp" />
     <ClCompile Include="neural_network.cpp" />
     <ClCompile Include="neuron.cpp" />
+    <ClCompile Include="trained_neural_network.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gene.h" />
@@ -159,6 +160,7 @@
     <ClInclude Include="neural_network_trainer.h" />
     <ClInclude Include="neural_network.h" />
     <ClInclude Include="neuron.h" />
+    <ClInclude Include="trained_neural_network.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

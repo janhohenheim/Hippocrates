@@ -8,14 +8,12 @@ class Neuron {
 			float weight = 1.0f;
 		};
 	private:
-		// TODO jnf
-		// Rename this
-		using in = std::vector<IncomingConnection>;
-		in connections;
+		using Connections = std::vector<IncomingConnection>;
+		Connections connections;
 
     public:
         Neuron() = default;
-		explicit Neuron(const in & connections);
+		explicit Neuron(const Connections & connections);
         Neuron(const Neuron & other) = default;
         ~Neuron() = default;
 
