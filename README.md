@@ -9,6 +9,8 @@ It focuses (in contrast to other implementations) on
 - Clean Code - through constant ongoing refactoring and a deep care for aesthetics
 - Usability - through beeing able to be used without much knowledge of Neural Networks
 
+- Multi-platform - written on three different OS-systems (Windows, Ubuntu, MacOS X) and two different IDEs, it is safe to say, that it will work on multiple platforms, flawlessly.
+
 ##Foreword
 
 TODO
