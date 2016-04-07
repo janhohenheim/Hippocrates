@@ -9,11 +9,10 @@ class TrainedNeuralNetwork {
 		TrainedNeuralNetwork(const TrainedNeuralNetwork & other) = default;
 		~TrainedNeuralNetwork() = default;
 
-		void LoadFromFile(std::string fileName);
-		void SaveToFile(std::string fileName) const;
+		void LoadFromFile(const std::string & fileName);
+		void SaveToFile(const std::string & fileName) const;
 
-		// TODO jnf
-		// Think about how the User can elegantly use the trained network
+		std::vector<float> GetOutputs(const std::vector<float> & inputs);
 
 	private:
 		NeuralNetwork trainedNetwork;

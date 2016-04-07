@@ -1,14 +1,8 @@
 #include <algorithm>
 #include "neural_network_trainer.h"
 
-NeuralNetworkTrainer::NeuralNetworkTrainer(std::vector<ITrainable *> & population) :
-	population(population)
-{
-}
-
-NeuralNetworkTrainer::NeuralNetworkTrainer(std::vector<ITrainable*>& population, Ruleset ruleset) :
-	population(population),
-	ruleset(ruleset)
+NeuralNetworkTrainer::NeuralNetworkTrainer(NeuralNetworkTrainer::TrainingParameters parameters) :
+	parameters(parameters)
 {
 }
 
@@ -24,7 +18,7 @@ NeuralNetwork NeuralNetworkTrainer::Breed(ITrainable * mother, ITrainable * fath
 		// Do Stuff with the genes
 	}
 
-	/*if (ChanceForMutation()*/ {
+	if (ShouldMutate()) {
 		MutateGenes(childGenes);
 	}
 
@@ -35,11 +29,17 @@ NeuralNetwork NeuralNetworkTrainer::Breed(ITrainable * mother, ITrainable * fath
 	return child;
 }
 
+void NeuralNetworkTrainer::SetPopulation(std::vector<ITrainable*>& population)
+{
+	// TODO jnf
+	// Implementation
+}
+
 void NeuralNetworkTrainer::TrainUntilFitnessEquals(int fitnessToReach) {
 	do {
 		Repopulate();
 		LetGenerationLive();
-	} while (GetFittestSpecimen()->GetOrCalculateFitness() < fitnessToReach);
+	} while (GetFittestSpecimen().trainable->GetOrCalculateFitness() < fitnessToReach);
 }
 
 void NeuralNetworkTrainer::TrainUntilGenerationEquals(unsigned int generationsToTrain) {
@@ -49,7 +49,7 @@ void NeuralNetworkTrainer::TrainUntilGenerationEquals(unsigned int generationsTo
 	}
 }
 
-ITrainable * NeuralNetworkTrainer::GetFittestSpecimen() {
+NeuralNetworkTrainer::Individuum NeuralNetworkTrainer::GetFittestSpecimen() {
 	// TODO jnf
 	// Implementation
 	return population.front();
@@ -57,13 +57,20 @@ ITrainable * NeuralNetworkTrainer::GetFittestSpecimen() {
 
 void NeuralNetworkTrainer::LetGenerationLive() {
 	for (auto & specimen : population){
-		specimen->Update();
+		specimen.trainable->Update();
 	}
 }
 
 void NeuralNetworkTrainer::Repopulate() {
 	// TODO jnf
 	// Implementation
+}
+
+bool NeuralNetworkTrainer::ShouldMutate()
+{
+	// TODO jnf
+	// Implementation
+	return true;
 }
 
 void NeuralNetworkTrainer::MutateGenes(std::vector<Gene> & genes){

@@ -7,33 +7,47 @@
 class NeuralNetworkTrainer {
 	// Members
 	public:
-		struct Ruleset {
-			int minFitness = std::numeric_limits<int>::min();
-			int maxFitness = 100;
-			unsigned int updatesPerGeneration = 1;
-			float minNeuralCharge = 0.0;
-			float maxNeuralCharge = 1.0;
+		struct TrainingParameters {
+			unsigned int numberOfInputs = 0U;
+			unsigned int numberOfOutputs = 0U;
+			struct Ruleset {
+				int minFitness = std::numeric_limits<int>::min();
+				int maxFitness = 100;
+				unsigned int updatesPerGeneration = 1U;
+				float minNeuralCharge = 0.0;
+				float maxNeuralCharge = 1.0;
+				// TODO jnf
+				// change to sensible values
+				float chanceForWeightMutation = 1.0;
+				float chanceForConnectionalMutation = 1.0;
+				float chanceForNeuralMutation = 1.0;
+			} ruleset;
 		};
-
 	private:
-		std::vector <ITrainable *> & population;
-		Ruleset ruleset;
+		struct Individuum {
+			ITrainable * trainable = nullptr;
+			NeuralNetwork network;
+		};
+		std::vector <Individuum> population;
+		TrainingParameters parameters;
 
 	// Methods
 	public:
-		explicit NeuralNetworkTrainer(std::vector<ITrainable *> & population);
-		explicit NeuralNetworkTrainer(std::vector<ITrainable *> & population, Ruleset ruleset);
+		explicit NeuralNetworkTrainer(TrainingParameters parameters);
 		NeuralNetworkTrainer(const NeuralNetworkTrainer & other) = default;
 		~NeuralNetworkTrainer() = default;
+
+		void SetPopulation(std::vector<ITrainable *> & population);
 
 		void TrainUntilFitnessEquals(int fitnessToReach);
 		void TrainUntilGenerationEquals(unsigned int generationsToTrain);
 
-		ITrainable * GetFittestSpecimen();
+		Individuum GetFittestSpecimen();
 
 	private:
-		static NeuralNetwork Breed(ITrainable * mother, ITrainable * father);
+		NeuralNetwork Breed(ITrainable * mother, ITrainable * father);
 		void LetGenerationLive();
 		void Repopulate();
-		static void MutateGenes(std::vector<Gene> & genes);
+		bool ShouldMutate();
+		void MutateGenes(std::vector<Gene> & genes);
 };

@@ -5,13 +5,19 @@ TrainedNeuralNetwork::TrainedNeuralNetwork(const NeuralNetwork & trainedNetwork)
 {
 }
 
-void TrainedNeuralNetwork::LoadFromFile(std::string fileName)
+std::vector<float> TrainedNeuralNetwork::GetOutputs(const std::vector<float>& inputs)
+{
+	trainedNetwork.SetInputs(inputs);
+	return trainedNetwork.GetOrCalculateOutputs();
+}
+
+void TrainedNeuralNetwork::LoadFromFile(const std::string & fileName)
 {
 	// TODO jnf
 	// Implementation
 }
 
-void TrainedNeuralNetwork::SaveToFile(std::string fileName) const
+void TrainedNeuralNetwork::SaveToFile(const std::string & fileName) const
 {
 	// TODO jnf
 	// Implementation
