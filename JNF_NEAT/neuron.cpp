@@ -12,13 +12,23 @@ void Neuron::AddConnection(Neuron::IncomingConnection connection)
 }
 
 float Neuron::RequestDataAndGetActionPotential() {
-    float actionPotential = 0.0;
-    for (auto & in : connections){
-        actionPotential += in.incoming->RequestDataAndGetActionPotential() * in.weight;
+    if (isSensor){
+        return lastActionPotential;
     }
-    return sigmoid(actionPotential);
+
+    float incomingPotentials = 0.0F;
+    for (auto & in : connections){
+        incomingPotentials += in.incoming->RequestDataAndGetActionPotential() * in.weight;
+    }
+    lastActionPotential = sigmoid(incomingPotentials);
+    return lastActionPotential;
 }
 
 float Neuron::sigmoid(float d) {
     return (float)tanh(d);
+}
+
+void Neuron::SetInput(float input) {
+    isSensor = true;
+    lastActionPotential = input;
 }

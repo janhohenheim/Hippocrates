@@ -26,9 +26,7 @@ void NeuralNetwork::SetInputs(const std::vector<float> & inputs)
 		throw std::out_of_range("Number of inputs provided doesn't match genetic information");
 	}
 	for(int i = 0; i < inputNeurons.size(); ++i){
-		// TODO jnf
-		// How do I solve this?
-		// inputNeurons[i]->SetInput(inputs[i]);
+		inputNeurons[i]->SetInput(inputs[i]);
 	};
 	areOutputsUpToDate = false;
 }

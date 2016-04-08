@@ -10,6 +10,8 @@ class Neuron {
 	private:
 		using Connections = std::vector<IncomingConnection>;
 		Connections connections;
+		bool isSensor = false;
+		float lastActionPotential = 0.0;
 
     public:
         Neuron() = default;
@@ -17,6 +19,7 @@ class Neuron {
         Neuron(const Neuron & other) = default;
         ~Neuron() = default;
 
+		void SetInput(float input);
 		void AddConnection(IncomingConnection connection);
 		float RequestDataAndGetActionPotential();
 
