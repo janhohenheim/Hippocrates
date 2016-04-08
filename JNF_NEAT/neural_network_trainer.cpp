@@ -1,18 +1,12 @@
 #include <algorithm>
 #include "neural_network_trainer.h"
 
-NeuralNetworkTrainer::NeuralNetworkTrainer(std::vector<ITrainable *> & population) :
-	population(population)
+NeuralNetworkTrainer::NeuralNetworkTrainer(NeuralNetworkTrainer::TrainingParameters parameters) :
+	parameters(parameters)
 {
 }
 
-NeuralNetworkTrainer::NeuralNetworkTrainer(std::vector<ITrainable*>& population, Ruleset ruleset) :
-	population(population),
-	ruleset(ruleset)
-{
-}
-
-NeuralNetwork NeuralNetworkTrainer::Breed(ITrainable * mother, ITrainable * father) const
+NeuralNetwork NeuralNetworkTrainer::Breed(ITrainable * mother, ITrainable * father)
 {
 	std::vector<Gene> childGenes;
 
@@ -24,7 +18,7 @@ NeuralNetwork NeuralNetworkTrainer::Breed(ITrainable * mother, ITrainable * fath
 		// Do Stuff with the genes
 	}
 
-	/*if (ChanceForMutation()*/ {
+	if (ShouldMutate()) {
 		MutateGenes(childGenes);
 	}
 
@@ -35,11 +29,17 @@ NeuralNetwork NeuralNetworkTrainer::Breed(ITrainable * mother, ITrainable * fath
 	return child;
 }
 
+void NeuralNetworkTrainer::SetPopulation(std::vector<ITrainable*>& population)
+{
+	// TODO jnf
+	// Implementation
+}
+
 void NeuralNetworkTrainer::TrainUntilFitnessEquals(int fitnessToReach) {
 	do {
 		Repopulate();
 		LetGenerationLive();
-	} while (GetFittestSpecimen()->GetOrCalculateFitness() < fitnessToReach);
+	} while (GetFittestSpecimen().trainable->GetOrCalculateFitness() < fitnessToReach);
 }
 
 void NeuralNetworkTrainer::TrainUntilGenerationEquals(unsigned int generationsToTrain) {
@@ -49,7 +49,7 @@ void NeuralNetworkTrainer::TrainUntilGenerationEquals(unsigned int generationsTo
 	}
 }
 
-ITrainable * NeuralNetworkTrainer::GetFittestSpecimen() {
+NeuralNetworkTrainer::Individuum NeuralNetworkTrainer::GetFittestSpecimen() {
 	// TODO jnf
 	// Implementation
 	return population.front();
@@ -57,7 +57,7 @@ ITrainable * NeuralNetworkTrainer::GetFittestSpecimen() {
 
 void NeuralNetworkTrainer::LetGenerationLive() {
 	for (auto & specimen : population){
-		specimen->Update();
+		specimen.trainable->Update();
 	}
 }
 
@@ -66,65 +66,16 @@ void NeuralNetworkTrainer::Repopulate() {
 	// Implementation
 }
 
-void NeuralNetworkTrainer::MutateGenes(std::vector<Gene> & genes) const{
-	struct neuronBirthInfo {
-		unsigned neuron = 0L;
-		unsigned layer = 0L;
-		std::vector<unsigned> destinations;
-	};
+bool NeuralNetworkTrainer::ShouldMutate()
+{
+	// TODO jnf
+	// Implementation
+	return true;
+}
 
-	std::vector<neuronBirthInfo> neuronBirthInfos;
-
-	const unsigned int LOWEST_POSSIBLE_LAYER = 0;
-
-	for (auto & gene : genes) {
-
-		auto isFrom = [&gene](neuronBirthInfo info) {
-			return info.neuron == gene.from;
-		};
-
-		auto isTo = [&gene](neuronBirthInfo info) {
-			return info.neuron == gene.to;
-		};
-
-		auto fromGene = std::find_if(neuronBirthInfos.begin(), neuronBirthInfos.end(), isFrom);
-		auto toGene = std::find_if(neuronBirthInfos.begin(), neuronBirthInfos.end(), isTo);
-
-		bool fromExists = fromGene != neuronBirthInfos.end();
-		bool toExists = toGene != neuronBirthInfos.end();
-
-		if (!fromExists && !toExists) {
-			neuronBirthInfo fromInfo;
-			fromInfo.neuron = gene.from;
-			fromInfo.layer = LOWEST_POSSIBLE_LAYER;
-			fromInfo.destinations = {gene.to};
-			neuronBirthInfos.push_back(fromInfo);
-
-			neuronBirthInfo toInfo;
-			toInfo.neuron = gene.to;
-			toInfo.layer = LOWEST_POSSIBLE_LAYER + 1;
-			neuronBirthInfos.push_back(toInfo);
-		} else
-		if (!fromExists && toExists) {
-			// TODO jnf
-			// Implement
-		} else
-		if (fromExists && !toExists) {
-			neuronBirthInfo toInfo;
-
-			toInfo.neuron = gene.to;
-			toInfo.layer = (*fromGene).layer + 1;
-			(*fromGene).destinations.push_back(toInfo.neuron);
-			// TODO jnf
-			// Implement
-			neuronBirthInfos.push_back(toInfo);
-		} else
-		if (fromExists && toExists) {
-			(*fromGene).destinations.push_back((*toGene).neuron);
-			// TODO jnf
-			// Implement
-		}
-	}
+void NeuralNetworkTrainer::MutateGenes(std::vector<Gene> & genes){
+	// TODO jnf
+	// Implementation
 }
 
 
