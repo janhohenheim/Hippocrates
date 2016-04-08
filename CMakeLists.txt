@@ -13,10 +13,7 @@ set(SOURCE_FILES
     JNF_NEAT/neural_network_trainer.h
         JNF_NEAT/neuron.cpp
         JNF_NEAT/neuron.h
-        JNF_NEAT/trainable.h
-    JNF_NEAT/sensor.cpp
-    JNF_NEAT/sensor.h
-        JNF_NEAT/connectable_with_neurons.h )
+        JNF_NEAT/trainable.h)
 
-add_definitions(-std=c++11)
+add_definitions(-std=c++14)
 add_executable(JNF_NEAT ${SOURCE_FILES})
