@@ -7,7 +7,8 @@ It focuses (in contrast to other implementations) on
 
 - Speed - through modern and efficient C++14
 - Clean Code - through constant ongoing refactoring and a deep care for aesthetics
-- Usability - through beeing able to be used without much knowledge of Neural Networks
+- Usability - through being able to be used without much knowledge of Neural Networks
+- Platform Independence - written on three different operating systems (Windows, Ubuntu, MacOS X) and two different IDEs, it is safe to say, that it will work on multiple platforms, flawlessly.
 
 ##Foreword
 
