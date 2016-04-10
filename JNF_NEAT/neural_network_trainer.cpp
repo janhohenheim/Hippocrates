@@ -1,8 +1,13 @@
 #include <algorithm>
 #include "neural_network_trainer.h"
 
-NeuralNetworkTrainer::NeuralNetworkTrainer(NeuralNetworkTrainer::TrainingParameters parameters) :
+NeuralNetworkTrainer::NeuralNetworkTrainer(const NeuralNetworkTrainer::TrainingParameters & parameters) :
 	parameters(parameters)
+{
+}
+
+NeuralNetworkTrainer::NeuralNetworkTrainer(TrainingParameters && parameters) :
+    parameters(parameters)
 {
 }
 
@@ -18,11 +23,9 @@ NeuralNetwork NeuralNetworkTrainer::Breed(ITrainable * mother, ITrainable * fath
 		// Do Stuff with the genes
 	}
 
-	if (ShouldMutate()) {
-		MutateGenes(childGenes);
-	}
+    MaybeMutateGenes(childGenes);
 
-	NeuralNetwork child(childGenes);
+	NeuralNetwork child(std::move(childGenes));
 	// It may look ineffective to return this by value, accessing the copy constructor
 	// But don't worry, RVO will take care of this.
 	// If your compiler doesn't optimize this, I'd recommend using what you'd call an "out parameter" in C#
@@ -31,8 +34,12 @@ NeuralNetwork NeuralNetworkTrainer::Breed(ITrainable * mother, ITrainable * fath
 
 void NeuralNetworkTrainer::SetPopulation(std::vector<ITrainable*>& population)
 {
-	// TODO jnf
-	// Implementation
+    this->population.clear();
+    for (auto & i : population) {
+        NeuralNetwork net = NeuralNetwork(parameters.numberOfInputs, parameters.numberOfOutputs);
+        Individuum individuum(i, net);
+        this->population.push_back(individuum);
+    }
 }
 
 void NeuralNetworkTrainer::TrainUntilFitnessEquals(int fitnessToReach) {
@@ -66,20 +73,42 @@ void NeuralNetworkTrainer::Repopulate() {
 	// Implementation
 }
 
-bool NeuralNetworkTrainer::ShouldMutate()
+void NeuralNetworkTrainer::MaybeMutateGenes(std::vector<Gene> & genes)
 {
-	// TODO jnf
-	// Implementation
-	return true;
+    if (ShouldMutateWeights()) {
+        MutateWeights(genes);
+    }
+    if (ShouldAddConnection()) {
+        AddRandomConnection(genes);
+    }
+    if (ShouldAddNeuron()) {
+        AddRandomNeuron(genes);
+    }
 }
 
-void NeuralNetworkTrainer::MutateGenes(std::vector<Gene> & genes){
-	// TODO jnf
-	// Implementation
+bool NeuralNetworkTrainer::DidChanceOccure(float chance)
+{
+    auto num = rand() % 100;
+    return num < int(100.0f * chance);
 }
 
+void NeuralNetworkTrainer::MutateWeights(std::vector<Gene>& genes)
+{
+    // TODO jnf
+    // Implementation
+}
 
+void NeuralNetworkTrainer::AddRandomNeuron(std::vector<Gene>& genes)
+{
+    // TODO jnf
+    // Implementation
+}
 
+void NeuralNetworkTrainer::AddRandomConnection(std::vector<Gene>& genes)
+{
+    // TODO jnf
+    // Implementation
+}
 
 
 

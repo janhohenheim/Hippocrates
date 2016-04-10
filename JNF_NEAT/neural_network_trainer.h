@@ -25,6 +25,9 @@ class NeuralNetworkTrainer {
 		};
 	private:
 		struct Individuum {
+            Individuum(ITrainable * trainable, const NeuralNetwork & network) :
+                trainable(trainable), 
+                network(network) {}
 			ITrainable * trainable = nullptr;
 			NeuralNetwork network;
 		};
@@ -33,9 +36,14 @@ class NeuralNetworkTrainer {
 
 	// Methods
 	public:
-		explicit NeuralNetworkTrainer(TrainingParameters parameters);
+        explicit NeuralNetworkTrainer(const TrainingParameters & parameters);
+        explicit NeuralNetworkTrainer(TrainingParameters && parameters);
+        NeuralNetworkTrainer(const TrainingParameters && parameters) = delete;
+
 		NeuralNetworkTrainer(const NeuralNetworkTrainer & other) = default;
-		~NeuralNetworkTrainer() = default;
+
+        ~NeuralNetworkTrainer() = default;
+
 
 		void SetPopulation(std::vector<ITrainable *> & population);
 
@@ -48,6 +56,14 @@ class NeuralNetworkTrainer {
 		NeuralNetwork Breed(ITrainable * mother, ITrainable * father);
 		void LetGenerationLive();
 		void Repopulate();
-		bool ShouldMutate();
-		void MutateGenes(std::vector<Gene> & genes);
+
+        void MaybeMutateGenes(std::vector<Gene> & genes);
+        static bool DidChanceOccure(float chance);
+
+        bool ShouldMutateWeights() const { return DidChanceOccure(parameters.ruleset.chanceForWeightMutation); }
+        bool ShouldAddNeuron() const { return DidChanceOccure(parameters.ruleset.chanceForNeuralMutation); }
+        bool ShouldAddConnection() const { return DidChanceOccure(parameters.ruleset.chanceForConnectionalMutation); }
+		void MutateWeights(std::vector<Gene> & genes);
+        void AddRandomNeuron(std::vector<Gene> & genes);
+        void AddRandomConnection(std::vector<Gene> & genes);
 };

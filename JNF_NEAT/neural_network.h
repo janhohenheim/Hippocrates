@@ -17,9 +17,14 @@ class NeuralNetwork {
 
 	public:
 		explicit NeuralNetwork(unsigned int numberOfInputs, unsigned int numberOfOutputs);
-		explicit NeuralNetwork(const std::vector<Gene> & genes);
+        explicit NeuralNetwork(const std::vector<Gene> & genes);
+        explicit NeuralNetwork(std::vector<Gene> && genes);
+        NeuralNetwork(const std::vector<Gene> && genes) = delete;
+
 		NeuralNetwork(const NeuralNetwork & other) = default;
+
 		~NeuralNetwork() = default;
+
 
 		const std::vector<Gene> & GetGenes() const;
 

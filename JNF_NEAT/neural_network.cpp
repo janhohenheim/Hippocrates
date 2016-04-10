@@ -13,7 +13,14 @@ NeuralNetwork::NeuralNetwork(unsigned int numberOfInputs, unsigned int numberOfO
 }
 
 NeuralNetwork::NeuralNetwork(const std::vector<Gene> & genes):
-		genes(genes)
+    genes(genes)
+{
+    GenerateOnlyEssentialGenes();
+    BuildNetworkFromGenes();
+}
+
+NeuralNetwork::NeuralNetwork(std::vector<Gene> && genes):
+	genes(genes)
 {
 	ReadNumberOfInputsAndOutputsFromGenes();
 	BuildNetworkFromGenes();
@@ -25,7 +32,7 @@ void NeuralNetwork::SetInputs(const std::vector<float> & inputs)
 	{
 		throw std::out_of_range("Number of inputs provided doesn't match genetic information");
 	}
-	for(int i = 0; i < inputNeurons.size(); ++i){
+	for(size_t i = 0U; i < inputNeurons.size(); ++i){
 		inputNeurons[i]->SetInput(inputs[i]);
 	};
 	areOutputsUpToDate = false;
@@ -37,7 +44,7 @@ const std::vector<float> & NeuralNetwork::GetOrCalculateOutputs()
 		return outputs;
 	}
 
-	for(int i = 0; i < outputs.size(); ++i){
+	for(size_t i = 0U; i < outputs.size(); ++i){
 		outputs[i] = outputNeurons[i]->RequestDataAndGetActionPotential();
 	}
 
@@ -54,7 +61,7 @@ void NeuralNetwork::BuildNetworkFromGenes() {
 
 	for (const auto & gene : genes) {
 		if (gene.to >= neurons.size()) {
-			neurons.resize(gene.to + 1);
+			neurons.resize(gene.to + 1U);
 		}
 		if (gene.isEnabled) {
 			Neuron::IncomingConnection connection;
@@ -114,14 +121,14 @@ void NeuralNetwork::ReadNumberOfInputsAndOutputsFromGenes() {
 	// This is awful, rewrite it
 	auto i = numberOfInputs;
 	for (; i < genes.size(); ++i) {
-		if (genes[i].from == genes[i - 1].from + 1) {
+		if (genes[i].from == genes[i - 1U].from + 1U) {
 			numberOfInputs++;
 		} else 
-		if (genes[i].from != genes[i - 1].from) {
+		if (genes[i].from != genes[i - 1U].from) {
 			break;
 		}
 	}
-	numberOfOutputs = genes[i - 1].to - numberOfInputs;
+	numberOfOutputs = genes[i - 1U].to - numberOfInputs;
 }
 
 
