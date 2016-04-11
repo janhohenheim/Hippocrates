@@ -6,6 +6,7 @@ struct Gene {
 		Gene();
 		~Gene() = default;
 		Gene(const Gene & other) = default;
+        Gene(Gene && other) = default;
 
 		unsigned int from = 0U;
 		unsigned int to = 0U;

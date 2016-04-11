@@ -58,6 +58,7 @@ class NeuralNetworkTrainer {
 		void Repopulate();
 
         void MaybeMutateGenes(std::vector<Gene> & genes);
+        static unsigned int GetNumberOfNeuronsInGenes(const std::vector<Gene> & genes);
         static bool DidChanceOccure(float chance);
 
         bool ShouldMutateWeights() const { return DidChanceOccure(parameters.ruleset.chanceForWeightMutation); }
