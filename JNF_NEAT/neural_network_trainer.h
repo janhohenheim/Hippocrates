@@ -8,9 +8,9 @@
 class NeuralNetworkTrainer {
 	private:
 		struct Individuum {
-            Individuum(ITrainable * trainable, const NeuralNetwork & network) :
+            Individuum(ITrainable * trainable, NeuralNetwork && network) :
                 trainable(trainable), 
-                network(network) {}
+                network(std::move(network)) {}
 			ITrainable * trainable = nullptr;
 			NeuralNetwork network;
 		};
@@ -32,7 +32,7 @@ class NeuralNetworkTrainer {
 		void TrainUntilFitnessEquals(int fitnessToReach);
 		void TrainUntilGenerationEquals(unsigned int generationsToTrain);
 
-		Individuum GetFittestSpecimen();
+		const Individuum & GetFittestSpecimen();
 
 	private:
 		void SetPopulation(std::vector<ITrainable *> & population);

@@ -18,5 +18,6 @@ int main() {
 	}
 	NeuralNetworkTrainer trainer(population, params);
 	trainer.TrainUntilFitnessEquals(100);
+	auto & champ = trainer.GetFittestSpecimen();
 	return 0;
 }

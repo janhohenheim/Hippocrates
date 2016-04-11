@@ -2,12 +2,11 @@
 #include "trainable.h"
 class XORSolver : public ITrainable {
 	public:
-		virtual void Reset();
-		virtual void Update();
-		virtual int GetOrCalculateFitness();
+		virtual void Reset() override;
+		virtual void Update(std::vector<float> networkOutputs) override;
+		virtual int GetOrCalculateFitness() override;
 
-		virtual void ReceiveNetworkOutputs(std::vector<float> outputs);
-		virtual std::vector<float> ProvideNetworkWithInputs();
+		virtual std::vector<float> ProvideNetworkWithInputs() override;
 	private:
 		int fitness = 0;
 		std::vector<float> lastInputs;

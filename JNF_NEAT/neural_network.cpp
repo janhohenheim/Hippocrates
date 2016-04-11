@@ -7,7 +7,8 @@
 NeuralNetwork::NeuralNetwork(unsigned int numberOfInputs, unsigned int numberOfOutputs):
 		genes(numberOfInputs * numberOfOutputs),
 		inputNeurons(numberOfInputs),
-		outputNeurons(numberOfOutputs)
+		outputNeurons(numberOfOutputs),
+		outputs(numberOfOutputs)
 {
 	GenerateOnlyEssentialGenes();
 	BuildNetworkFromGenes();
@@ -103,10 +104,10 @@ void NeuralNetwork::GenerateOnlyEssentialGenes() {
 
 void NeuralNetwork::InterpretInputsAndOutputs()
 {
-	for (unsigned int i = 0U; i < inputNeurons.size(); i++) {
-		// TODO jnf
-		// Does this code always work or is my logic off?
+	for (auto i = 0U; i < inputNeurons.size(); i++) {
 		inputNeurons[i] = &neurons[i];
+	}
+	for (auto i = 0U; i < outputNeurons.size(); i++) {
 		outputNeurons[i] = &neurons[genes[i * outputNeurons.size()].to];
 	}
 }

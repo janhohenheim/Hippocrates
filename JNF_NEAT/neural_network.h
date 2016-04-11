@@ -19,6 +19,7 @@ class NeuralNetwork {
         NeuralNetwork(const std::vector<Gene> && genes) = delete;
 
 		NeuralNetwork(const NeuralNetwork & other) = default;
+		NeuralNetwork(NeuralNetwork && other) = default;
 
 		~NeuralNetwork() = default;
 
