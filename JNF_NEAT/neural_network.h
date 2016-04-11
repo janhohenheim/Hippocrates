@@ -12,9 +12,6 @@ class NeuralNetwork {
 		std::vector<float> outputs;
 		bool areOutputsUpToDate = false;
 
-		unsigned int numberOfInputs = 0U;
-		unsigned int numberOfOutputs = 0U;
-
 	public:
 		explicit NeuralNetwork(unsigned int numberOfInputs, unsigned int numberOfOutputs);
         explicit NeuralNetwork(const std::vector<Gene> & genes);
@@ -36,5 +33,5 @@ class NeuralNetwork {
 		void BuildNetworkFromGenes();
 		void ReadNumberOfInputsAndOutputsFromGenes();
 		void InterpretInputsAndOutputs();
-		void DeleteAllNeurons() ;
+		void DeleteAllNeurons();
 };

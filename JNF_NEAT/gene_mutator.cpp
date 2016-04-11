@@ -1,5 +1,5 @@
 #include "gene_mutator.h"
-
+#include "gene_examinator.h"
 GeneMutator::GeneMutator(const TrainingParameters & parameters) :
 	parameters(parameters)
 {
@@ -18,15 +18,6 @@ void GeneMutator::MutateGenes(std::vector<Gene> & genes) const{
 	}
 }
 
-unsigned int GeneMutator::GetNumberOfNeuronsInGenes(const std::vector<Gene>& genes)
-{
-	auto CompareToNeuron = [](const Gene& lhs, const Gene& rhs) {
-		return lhs.to < rhs.to;
-	};
-	auto maxNeuronGene = std::max_element(genes.begin(), genes.end(), CompareToNeuron);
-	return maxNeuronGene->to + 1U;
-}
-
 bool GeneMutator::DidChanceOccure(float chance)
 {
 	auto num = rand() % 100;
@@ -41,7 +32,7 @@ void GeneMutator::AddRandomNeuron(std::vector<Gene>& genes) const
 		randGene = &genes[num];
 	} while (!randGene->isEnabled);
 
-	auto numberOfNeurons = GetNumberOfNeuronsInGenes(genes);
+	auto numberOfNeurons = GeneExaminator::GetNumberOfNeuronsInGenes(genes);
 
 	Gene g1(*randGene);
 	g1.to = numberOfNeurons;
@@ -61,7 +52,7 @@ void GeneMutator::AddRandomConnection(std::vector<Gene>& genes) const
 	};
 
 	Gene newConnection;
-	auto numberOfNeurons = GetNumberOfNeuronsInGenes(genes) - 1U;
+	auto numberOfNeurons = GeneExaminator::GetNumberOfNeuronsInGenes(genes) - 1U;
 
 	newConnection.from = GetRandomNumberBetween(0U, numberOfNeurons - 1U);
 	newConnection.to = GetRandomNumberBetween(newConnection.from + 1, numberOfNeurons);

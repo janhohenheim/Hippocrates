@@ -4,7 +4,7 @@
 class Neuron {
 	public: 
 		struct IncomingConnection {
-			Neuron * incoming;
+			Neuron * incoming = nullptr;
 			float weight = 1.0f;
 		};
 	private:
@@ -20,7 +20,8 @@ class Neuron {
         ~Neuron() = default;
 
 		void SetInput(float input);
-		void AddConnection(IncomingConnection connection);
+		void AddConnection(const IncomingConnection & connection);
+		void AddConnection(IncomingConnection &&connection);
 		float RequestDataAndGetActionPotential();
 
 	private:

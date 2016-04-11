@@ -1,12 +1,13 @@
 #include "neural_network.h"
+#include "gene_examinator.h"
 #include <cmath>
 #include <stdexcept>
 
 
 NeuralNetwork::NeuralNetwork(unsigned int numberOfInputs, unsigned int numberOfOutputs):
-		genes(numberOfInputs + numberOfOutputs),
-		numberOfInputs(numberOfInputs),
-		numberOfOutputs(numberOfOutputs)
+		genes(numberOfInputs * numberOfOutputs),
+		inputNeurons(numberOfInputs),
+		outputNeurons(numberOfOutputs)
 {
 	GenerateOnlyEssentialGenes();
 	BuildNetworkFromGenes();
@@ -59,15 +60,13 @@ const std::vector<Gene> & NeuralNetwork::GetGenes() const {
 void NeuralNetwork::BuildNetworkFromGenes() {
 	DeleteAllNeurons();
 
+	neurons.resize(GeneExaminator::GetNumberOfNeuronsInGenes(genes));
 	for (const auto & gene : genes) {
-		if (gene.to >= neurons.size()) {
-			neurons.resize(gene.to + 1U);
-		}
 		if (gene.isEnabled) {
 			Neuron::IncomingConnection connection;
 			connection.incoming = &neurons[gene.from];
 			connection.weight = gene.weight;
-			neurons[gene.to].AddConnection(connection);
+			neurons[gene.to].AddConnection(std::move(connection));
 		}
 	}
 	InterpretInputsAndOutputs();
@@ -77,17 +76,21 @@ void NeuralNetwork::BuildNetworkFromGenes() {
 
 void NeuralNetwork::DeleteAllNeurons() {
 	neurons.clear();
-	inputNeurons.clear();
-	outputNeurons.clear();
+	for (auto in : inputNeurons) {
+		in = nullptr;
+	}
+	for (auto out : outputNeurons) {
+		out = nullptr;
+	}
 }
 
 void NeuralNetwork::GenerateOnlyEssentialGenes() {
-	if(genes.size() != numberOfInputs * numberOfOutputs){
+	if(genes.size() != inputNeurons.size() * outputNeurons.size()){
 		throw std::out_of_range("Number of inputs provided doesn't match genetic information");
 	}
 	auto currentGene = &genes.front();
-	for (auto in = 0U; in < numberOfInputs; ++in) {
-		for (auto out = numberOfInputs; out < numberOfOutputs; ++out){
+	for (auto in = 0U; in < inputNeurons.size(); ++in) {
+		for (auto out = inputNeurons.size(); out < inputNeurons.size() + outputNeurons.size(); ++out){
 			currentGene->from = in;
 			currentGene->to = out;
 			currentGene->isEnabled = true;
@@ -100,17 +103,17 @@ void NeuralNetwork::GenerateOnlyEssentialGenes() {
 
 void NeuralNetwork::InterpretInputsAndOutputs()
 {
-	for (unsigned int i = 0U; i < numberOfInputs; i++) {
+	for (unsigned int i = 0U; i < inputNeurons.size(); i++) {
 		// TODO jnf
 		// Does this code always work or is my logic off?
 		inputNeurons[i] = &neurons[i];
-		outputNeurons[i] = &neurons[genes[i * numberOfOutputs].to];
+		outputNeurons[i] = &neurons[genes[i * outputNeurons.size()].to];
 	}
 }
 
 void NeuralNetwork::ReadNumberOfInputsAndOutputsFromGenes() {
-	numberOfInputs = 1U;
-	numberOfOutputs = 1U;
+	auto numberOfInputs = 1U;
+	auto numberOfOutputs = 1U;
 
 	// TODO jnf
 	// This is awful, rewrite it
@@ -124,6 +127,8 @@ void NeuralNetwork::ReadNumberOfInputsAndOutputsFromGenes() {
 		}
 	}
 	numberOfOutputs = genes[i - 1U].to - numberOfInputs;
+	inputNeurons.resize(numberOfInputs);
+	inputNeurons.resize(numberOfOutputs);
 }
 
 

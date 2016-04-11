@@ -10,10 +10,9 @@ struct Gene {
 
 		unsigned int from = 0U;
 		unsigned int to = 0U;
-		unsigned int layer = 0U;
 		float weight = 0.0f;
 		const unsigned int historicalMarking = numberOfExistingGenes;
-		bool isEnabled = false;
+		bool isEnabled = true;
 		void SetRandomWeight();
 	private:
 		static unsigned int numberOfExistingGenes;

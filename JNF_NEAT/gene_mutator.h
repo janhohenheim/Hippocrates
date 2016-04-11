@@ -20,7 +20,6 @@ class GeneMutator {
 		void MutateGenes(std::vector<Gene> & genes) const;
 	private:
 		static bool DidChanceOccure(float chance);
-		static unsigned int GetNumberOfNeuronsInGenes(const std::vector<Gene> & genes);
 		bool ShouldAddNeuron() const { return DidChanceOccure(parameters.ruleset.chanceForNeuralMutation); }
 		bool ShouldAddConnection() const { return DidChanceOccure(parameters.ruleset.chanceForConnectionalMutation); }
 		bool ShouldMutateWeight() const { return DidChanceOccure(parameters.ruleset.chanceForWeightMutation); }

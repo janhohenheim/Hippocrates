@@ -36,6 +36,13 @@ NeuralNetwork NeuralNetworkTrainer::Breed(ITrainable * mother, ITrainable * fath
 	return child;
 }
 
+void NeuralNetworkTrainer::ResetPopulation()
+{
+	for (auto & individuum : population) {
+		individuum.trainable->Reset();
+	}
+}
+
 void NeuralNetworkTrainer::SetPopulation(std::vector<ITrainable*>& population)
 {
     this->population.clear();
@@ -48,6 +55,7 @@ void NeuralNetworkTrainer::SetPopulation(std::vector<ITrainable*>& population)
 
 void NeuralNetworkTrainer::TrainUntilFitnessEquals(int fitnessToReach) {
 	do {
+		ResetPopulation();
 		Repopulate();
 		LetGenerationLive();
 	} while (GetFittestSpecimen().trainable->GetOrCalculateFitness() < fitnessToReach);
@@ -78,4 +86,5 @@ void NeuralNetworkTrainer::LetGenerationLive() {
 void NeuralNetworkTrainer::Repopulate() {
 	// TODO jnf
 	// Implementation
+	
 }

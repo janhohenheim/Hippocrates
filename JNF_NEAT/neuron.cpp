@@ -6,7 +6,12 @@ connections(connections) {
 
 }
 
-void Neuron::AddConnection(Neuron::IncomingConnection connection)
+void Neuron::AddConnection(const Neuron::IncomingConnection & connection)
+{
+	connections.push_back(connection);
+}
+
+void Neuron::AddConnection(Neuron::IncomingConnection && connection)
 {
 	connections.push_back(connection);
 }

@@ -37,6 +37,7 @@ class NeuralNetworkTrainer {
 	private:
 		void SetPopulation(std::vector<ITrainable *> & population);
 		NeuralNetwork Breed(ITrainable * mother, ITrainable * father);
-		void LetGenerationLive();
+		void ResetPopulation();
 		void Repopulate();        
+		void LetGenerationLive();
 };
