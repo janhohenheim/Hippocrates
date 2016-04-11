@@ -95,6 +95,5 @@ void NeuralNetworkTrainer::LetGenerationLive() {
 
 void NeuralNetworkTrainer::Repopulate() {
 	// TODO jnf
-	// Implementation
-	
+	// Implementation	
 }
