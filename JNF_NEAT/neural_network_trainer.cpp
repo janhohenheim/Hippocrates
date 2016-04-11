@@ -1,16 +1,18 @@
 #include <algorithm>
 #include "neural_network_trainer.h"
 
-NeuralNetworkTrainer::NeuralNetworkTrainer(const TrainingParameters & parameters) :
+NeuralNetworkTrainer::NeuralNetworkTrainer(std::vector<ITrainable *> & population, const TrainingParameters & parameters) :
 	parameters(parameters),
 	geneMutator(parameters)
 {
+	SetPopulation(population);
 }
 
-NeuralNetworkTrainer::NeuralNetworkTrainer(TrainingParameters && parameters) :
+NeuralNetworkTrainer::NeuralNetworkTrainer(std::vector<ITrainable *> & population, TrainingParameters && parameters) :
     parameters(parameters),
 	geneMutator(parameters)
 {
+	SetPopulation(population);
 }
 
 NeuralNetwork NeuralNetworkTrainer::Breed(ITrainable * mother, ITrainable * father)
@@ -61,6 +63,9 @@ void NeuralNetworkTrainer::TrainUntilGenerationEquals(unsigned int generationsTo
 NeuralNetworkTrainer::Individuum NeuralNetworkTrainer::GetFittestSpecimen() {
 	// TODO jnf
 	// Implementation
+	if (population.empty()) {
+		throw std::out_of_range("Your population is empty");
+	}
 	return population.front();
 }
 
