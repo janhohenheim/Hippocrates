@@ -35,7 +35,6 @@ class NeuralNetwork {
 		void GenerateOnlyEssentialGenes();
 		void BuildNetworkFromGenes();
 		void ReadNumberOfInputsAndOutputsFromGenes();
-		static float GetRandomWeight();
 		void InterpretInputsAndOutputs();
 		void DeleteAllNeurons() ;
 };

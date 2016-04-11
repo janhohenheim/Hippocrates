@@ -1,13 +1,15 @@
 #include <algorithm>
 #include "neural_network_trainer.h"
 
-NeuralNetworkTrainer::NeuralNetworkTrainer(const NeuralNetworkTrainer::TrainingParameters & parameters) :
-	parameters(parameters)
+NeuralNetworkTrainer::NeuralNetworkTrainer(const TrainingParameters & parameters) :
+	parameters(parameters),
+	geneMutator(parameters)
 {
 }
 
 NeuralNetworkTrainer::NeuralNetworkTrainer(TrainingParameters && parameters) :
-    parameters(parameters)
+    parameters(parameters),
+	geneMutator(parameters)
 {
 }
 
@@ -23,7 +25,7 @@ NeuralNetwork NeuralNetworkTrainer::Breed(ITrainable * mother, ITrainable * fath
 		// Do Stuff with the genes
 	}
 
-    MaybeMutateGenes(childGenes);
+    geneMutator.MutateGenes(childGenes);
 
 	NeuralNetwork child(std::move(childGenes));
 	// It may look ineffective to return this by value, accessing the copy constructor
@@ -71,74 +73,4 @@ void NeuralNetworkTrainer::LetGenerationLive() {
 void NeuralNetworkTrainer::Repopulate() {
 	// TODO jnf
 	// Implementation
-}
-
-void NeuralNetworkTrainer::MaybeMutateGenes(std::vector<Gene> & genes)
-{
-    if (ShouldMutateWeights()) {
-        MutateWeights(genes);
-    }
-    if (ShouldAddConnection()) {
-        AddRandomConnection(genes);
-    }
-    if (ShouldAddNeuron()) {
-        AddRandomNeuron(genes);
-    }
-}
-
-unsigned int NeuralNetworkTrainer::GetNumberOfNeuronsInGenes(const std::vector<Gene>& genes)
-{
-    auto CompareToNeuron = [](const Gene& lhs, const Gene& rhs) {
-        return lhs.to < rhs.to;
-    };
-    auto maxNeuronGene = std::max_element(genes.begin(), genes.end(), CompareToNeuron);
-    return maxNeuronGene->to + 1U;
-}
-
-bool NeuralNetworkTrainer::DidChanceOccure(float chance)
-{
-    auto num = rand() % 100;
-    return num < int(100.0f * chance);
-}
-
-void NeuralNetworkTrainer::MutateWeights(std::vector<Gene>& genes)
-{
-    // TODO jnf
-    // Implementation
-}
-
-void NeuralNetworkTrainer::AddRandomNeuron(std::vector<Gene>& genes)
-{
-    Gene * randGene = nullptr;
-    do {
-        int num = rand() % genes.size();
-        randGene = &genes[num];
-    } while (!randGene->isEnabled);
-    
-    auto numberOfNeurons = GetNumberOfNeuronsInGenes(genes);
-    
-    Gene g1(*randGene);
-    g1.to = numberOfNeurons;
-    genes.push_back(std::move(g1));
-
-    Gene g2(*randGene);
-    g2.from = numberOfNeurons;
-    genes.push_back(std::move(g2));
-
-    randGene->isEnabled = false;
-}
-
-void NeuralNetworkTrainer::AddRandomConnection(std::vector<Gene>& genes)
-{
-    auto GetRandomNumberBetween = [](unsigned min, unsigned max) {
-        return rand() % (max - min) + min;
-    };
-
-    Gene newConnection;
-    auto numberOfNeurons = GetNumberOfNeuronsInGenes(genes) - 1U;
-
-    newConnection.from = GetRandomNumberBetween(0U, numberOfNeurons - 1U);
-    newConnection.to = GetRandomNumberBetween(newConnection.from + 1, numberOfNeurons);
-
-    genes.push_back(newConnection);
 }

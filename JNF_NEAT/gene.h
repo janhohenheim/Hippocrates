@@ -14,7 +14,7 @@ struct Gene {
 		float weight = 0.0f;
 		const unsigned int historicalMarking = numberOfExistingGenes;
 		bool isEnabled = false;
-
+		void SetRandomWeight();
 	private:
 		static unsigned int numberOfExistingGenes;
 };

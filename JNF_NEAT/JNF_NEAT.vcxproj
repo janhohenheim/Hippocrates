@@ -148,6 +148,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="gene.cpp" />
+    <ClCompile Include="gene_mutator.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="neural_network_trainer.cpp" />
     <ClCompile Include="neural_network.cpp" />
@@ -156,11 +157,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gene.h" />
+    <ClInclude Include="gene_mutator.h" />
     <ClInclude Include="trainable.h" />
     <ClInclude Include="neural_network_trainer.h" />
     <ClInclude Include="neural_network.h" />
     <ClInclude Include="neuron.h" />
     <ClInclude Include="trained_neural_network.h" />
+    <ClInclude Include="training_parameters.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

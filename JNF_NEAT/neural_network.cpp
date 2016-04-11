@@ -90,17 +90,12 @@ void NeuralNetwork::GenerateOnlyEssentialGenes() {
 		for (auto out = numberOfInputs; out < numberOfOutputs; ++out){
 			currentGene->from = in;
 			currentGene->to = out;
-			currentGene->weight = GetRandomWeight();
 			currentGene->isEnabled = true;
 
 			++currentGene;
 		}
 	}
 	areOutputsUpToDate = false;
-}
-
-float NeuralNetwork::GetRandomWeight() {
-	return (float)(rand() % 100) / 100.0f;
 }
 
 void NeuralNetwork::InterpretInputsAndOutputs()
