@@ -21,7 +21,7 @@ float Neuron::RequestDataAndGetActionPotential() {
         return lastActionPotential;
     }
 
-    float incomingPotentials = 0.0F;
+    float incomingPotentials = 0.0f;
     for (auto & in : connections){
         incomingPotentials += in.incoming->RequestDataAndGetActionPotential() * in.weight;
     }

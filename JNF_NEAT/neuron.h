@@ -11,7 +11,7 @@ class Neuron {
 		using Connections = std::vector<IncomingConnection>;
 		Connections connections;
 		bool isSensor = false;
-		float lastActionPotential = 0.0;
+		float lastActionPotential = 0.0f;
 
     public:
         Neuron() = default;
