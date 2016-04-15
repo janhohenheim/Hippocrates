@@ -9,8 +9,6 @@ class NeuralNetwork {
 		std::vector<Neuron> neurons;
 		std::vector<Neuron *> inputNeurons;
 		std::vector<Neuron *> outputNeurons;
-		std::vector<float> outputs;
-		bool areOutputsUpToDate = false;
 
 	public:
 		explicit NeuralNetwork(unsigned int numberOfInputs, unsigned int numberOfOutputs);
@@ -27,12 +25,12 @@ class NeuralNetwork {
 		const std::vector<Gene> & GetGenes() const;
 
 		void SetInputs(const std::vector<float> & inputs);
-		const std::vector<float> & GetOrCalculateOutputs();
+		std::vector<float> GetOutputs();
 
 	private:
 		void GenerateOnlyEssentialGenes();
-		void BuildNetworkFromGenes();
 		void ReadNumberOfInputsAndOutputsFromGenes();
+		void BuildNetworkFromGenes();
 		void InterpretInputsAndOutputs();
 		void DeleteAllNeurons();
 };

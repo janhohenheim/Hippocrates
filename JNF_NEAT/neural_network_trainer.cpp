@@ -46,9 +46,9 @@ void NeuralNetworkTrainer::ResetPopulation()
 void NeuralNetworkTrainer::SetPopulation(std::vector<ITrainable*>& population)
 {
     this->population.clear();
-    for (auto & i : population) {
+    for (auto & currTrainable : population) {
         NeuralNetwork net = NeuralNetwork(parameters.numberOfInputs, parameters.numberOfOutputs);
-        Individuum individuum(i, std::move(net));
+        Individuum individuum(currTrainable, std::move(net));
         this->population.push_back(std::move(individuum));
     }
 }
@@ -56,8 +56,8 @@ void NeuralNetworkTrainer::SetPopulation(std::vector<ITrainable*>& population)
 void NeuralNetworkTrainer::TrainUntilFitnessEquals(int fitnessToReach) {
 	LetGenerationLive();
 	while (GetFittestSpecimen().trainable->GetOrCalculateFitness() < fitnessToReach) {
-		ResetPopulation();
 		Repopulate();
+		ResetPopulation();
 		for (int i = 0; i < parameters.ruleset.updatesPerGeneration; ++i) {
 			LetGenerationLive();
 		}
@@ -72,8 +72,6 @@ void NeuralNetworkTrainer::TrainUntilGenerationEquals(unsigned int generationsTo
 }
 
 const NeuralNetworkTrainer::Individuum & NeuralNetworkTrainer::GetFittestSpecimen() {
-	// TODO jnf
-	// Implementation
 	if (population.empty()) {
 		throw std::out_of_range("Your population is empty");
 	}
@@ -89,11 +87,11 @@ const NeuralNetworkTrainer::Individuum & NeuralNetworkTrainer::GetFittestSpecime
 void NeuralNetworkTrainer::LetGenerationLive() {
 	for (auto & specimen : population){
 		specimen.network.SetInputs(specimen.trainable->ProvideNetworkWithInputs());
-		specimen.trainable->Update(specimen.network.GetOrCalculateOutputs());
+		specimen.trainable->Update(specimen.network.GetOutputs());
 	}
 }
 
 void NeuralNetworkTrainer::Repopulate() {
 	// TODO jnf
-	// Implementation	
+	// Implementation
 }

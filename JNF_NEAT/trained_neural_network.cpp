@@ -8,7 +8,7 @@ TrainedNeuralNetwork::TrainedNeuralNetwork(const NeuralNetwork & trainedNetwork)
 std::vector<float> TrainedNeuralNetwork::GetOutputs(const std::vector<float>& inputs)
 {
 	trainedNetwork.SetInputs(inputs);
-	return trainedNetwork.GetOrCalculateOutputs();
+	return trainedNetwork.GetOutputs();
 }
 
 void TrainedNeuralNetwork::LoadFromFile(const std::string & fileName)

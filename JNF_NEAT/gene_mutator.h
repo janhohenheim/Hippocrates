@@ -11,7 +11,7 @@ class GeneMutator {
 	// Methods
 	public:
 		GeneMutator() = delete;
-		GeneMutator(const TrainingParameters & parameters);
+		explicit GeneMutator(const TrainingParameters & parameters);
 		GeneMutator(const GeneMutator & other) = default;
 		GeneMutator(const GeneMutator && other) = delete;
 
