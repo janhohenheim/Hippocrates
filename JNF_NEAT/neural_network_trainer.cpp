@@ -36,6 +36,28 @@ NeuralNetwork NeuralNetworkTrainer::Breed(ITrainable * mother, ITrainable * fath
 	return child;
 }
 
+unsigned int NeuralNetworkTrainer::GetGeneticalDistance(const std::vector<Gene> & leftGenome, const std::vector<Gene> & rightGenome)
+{
+	const std::vector<Gene> * biggerGenome = nullptr;
+	const std::vector<Gene> * smallerGenome = nullptr;
+	if (leftGenome.size() > rightGenome.size()) {
+		biggerGenome = &leftGenome;
+		smallerGenome = &rightGenome;
+	}
+	else {
+		biggerGenome = &rightGenome;
+		smallerGenome = &leftGenome;
+	}
+
+	unsigned int numberOfDisjointGenes = 0U;
+	unsigned int numberOfExcessGenes = 0U;
+	unsigned int highestCommonHistoricalMarking = std::min(leftGenome.back().historicalMarking, rightGenome.back().historicalMarking);
+	
+	// TODO jnf
+	// Add an iterator leftGene and rightGene
+	return 0;
+}
+
 void NeuralNetworkTrainer::ResetPopulation()
 {
 	for (auto & individuum : population) {
