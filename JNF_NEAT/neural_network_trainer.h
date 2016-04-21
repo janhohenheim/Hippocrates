@@ -36,8 +36,8 @@ class NeuralNetworkTrainer {
 
 	private:
 		void SetPopulation(std::vector<ITrainable *> & population);
-		NeuralNetwork Breed(ITrainable * mother, ITrainable * father);
-		unsigned int GetGeneticalDistance(const std::vector<Gene> & leftGenome, const std::vector<Gene> & rightGenome);
+		NeuralNetwork Breed(ITrainable * mother, ITrainable * father) const;
+		double GetGeneticalDistance(const std::vector<Gene> & leftGenome, const std::vector<Gene> & rightGenome) const;
 		void ResetPopulation();
 		void Repopulate();        
 		void LetGenerationLive();

@@ -4,5 +4,5 @@
 
 class GeneExaminator {
 	public:
-		static unsigned int GetNumberOfNeuronsInGenes(const std::vector<Gene>& genes);
+		static size_t GetNumberOfNeuronsInGenes(const std::vector<Gene>& genes);
 };

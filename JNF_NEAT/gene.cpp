@@ -1,6 +1,6 @@
 #include "gene.h"
 
-unsigned int Gene::numberOfExistingGenes = 0U;
+size_t Gene::numberOfExistingGenes = 0U;
 
 Gene::Gene()
 {

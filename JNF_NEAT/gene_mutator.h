@@ -20,12 +20,12 @@ class GeneMutator {
 		void MutateGenes(std::vector<Gene> & genes) const;
 	private:
 		static bool DidChanceOccure(float chance);
-		bool ShouldAddNeuron() const { return DidChanceOccure(parameters.ruleset.chanceForNeuralMutation); }
-		bool ShouldAddConnection() const { return DidChanceOccure(parameters.ruleset.chanceForConnectionalMutation); }
-		bool ShouldMutateWeight() const { return DidChanceOccure(parameters.ruleset.chanceForWeightMutation); }
+		bool ShouldAddNeuron() const { return DidChanceOccure(parameters.advanced.mutation.chanceForNeuralMutation); }
+		bool ShouldAddConnection() const { return DidChanceOccure(parameters.advanced.mutation.chanceForConnectionalMutation); }
+		bool ShouldMutateWeight() const { return DidChanceOccure(parameters.advanced.mutation.chanceForWeightMutation); }
 		void AddRandomNeuron(std::vector<Gene> & genes) const;
 		void AddRandomConnection(std::vector<Gene> & genes) const;
 		void ShuffleWeights(std::vector<Gene> & genes) const;
 		void MutateWeightOfGene(Gene & gene) const;
-		void PerturbWeight(float & weight) const;
+		void PerturbWeight(float weight) const;
 };

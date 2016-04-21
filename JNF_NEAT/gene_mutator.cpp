@@ -47,7 +47,7 @@ void GeneMutator::AddRandomNeuron(std::vector<Gene>& genes) const
 
 void GeneMutator::AddRandomConnection(std::vector<Gene>& genes) const
 {
-	auto GetRandomNumberBetween = [](unsigned min, unsigned max) {
+	auto GetRandomNumberBetween = [](size_t min, size_t max) {
 		return rand() % (max - min) + min;
 	};
 
@@ -80,7 +80,7 @@ void GeneMutator::MutateWeightOfGene(Gene & gene) const
 	}
 }
 
-void GeneMutator::PerturbWeight(float & weight) const
+void GeneMutator::PerturbWeight(float weight) const
 {
 	constexpr float perturbanceBoundaries = 0.2f;
 	auto perturbance = (float)(rand() % 10'000) / 10'000.0f * perturbanceBoundaries;

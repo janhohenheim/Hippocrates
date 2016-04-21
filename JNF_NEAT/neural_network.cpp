@@ -44,8 +44,8 @@ void NeuralNetwork::GenerateOnlyEssentialGenes() {
 }
 
 void NeuralNetwork::ReadNumberOfInputsAndOutputsFromGenes() {
-    auto numberOfInputs = 1U;
-    auto numberOfOutputs = 1U;
+    size_t numberOfInputs = 1;
+    size_t numberOfOutputs = 1;
 
     // TODO jnf
     // This is awful, rewrite it

@@ -10,7 +10,7 @@ int main() {
 	TrainingParameters params;
 	params.numberOfInputs = 2;
 	params.numberOfOutputs = 1;
-	params.ruleset.updatesPerGeneration = 10;
+	params.updatesPerGeneration = 10;
 
 	std::vector<ITrainable *> population;
 	for (int i = 0; i < 20; ++i) {

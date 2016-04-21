@@ -15,7 +15,7 @@ NeuralNetworkTrainer::NeuralNetworkTrainer(std::vector<ITrainable *> & populatio
 	SetPopulation(population);
 }
 
-NeuralNetwork NeuralNetworkTrainer::Breed(ITrainable * mother, ITrainable * father)
+NeuralNetwork NeuralNetworkTrainer::Breed(ITrainable * mother, ITrainable * father) const
 {
 	std::vector<Gene> childGenes;
 
@@ -36,26 +36,27 @@ NeuralNetwork NeuralNetworkTrainer::Breed(ITrainable * mother, ITrainable * fath
 	return child;
 }
 
-unsigned int NeuralNetworkTrainer::GetGeneticalDistance(const std::vector<Gene> & leftGenome, const std::vector<Gene> & rightGenome)
+double NeuralNetworkTrainer::GetGeneticalDistance(const std::vector<Gene> & leftGenome, const std::vector<Gene> & rightGenome) const
 {
-	const std::vector<Gene> * biggerGenome = nullptr;
-	const std::vector<Gene> * smallerGenome = nullptr;
-	if (leftGenome.size() > rightGenome.size()) {
-		biggerGenome = &leftGenome;
-		smallerGenome = &rightGenome;
-	}
-	else {
-		biggerGenome = &rightGenome;
-		smallerGenome = &leftGenome;
-	}
+    double totalWeightDifference = 0.0;
+    size_t numberOfOverlapingGenes = 0;
 
-	unsigned int numberOfDisjointGenes = 0U;
-	unsigned int numberOfExcessGenes = 0U;
-	unsigned int highestCommonHistoricalMarking = std::min(leftGenome.back().historicalMarking, rightGenome.back().historicalMarking);
-	
-	// TODO jnf
-	// Add an iterator leftGene and rightGene
-	return 0;
+    size_t sizeOfsmallerGenome = std::min(leftGenome.size(), rightGenome.size());
+    for (size_t i = 0; i < sizeOfsmallerGenome && leftGenome[i].historicalMarking == rightGenome[i].historicalMarking; ++i) {
+        totalWeightDifference += (double)std::abs(leftGenome[i].weight - rightGenome[i].weight);
+        ++numberOfOverlapingGenes;
+    }
+
+    auto numberOfDisjointGenes = leftGenome.size() + rightGenome.size() - (size_t)2 * numberOfOverlapingGenes;
+    auto sizeOfBiggerGenome = std::max(leftGenome.size(), rightGenome.size());
+    auto disjointGenesInfluence = (double)numberOfDisjointGenes / (double)sizeOfBiggerGenome;
+
+    auto averageWeightDifference = totalWeightDifference / (double)numberOfOverlapingGenes;
+
+    disjointGenesInfluence *= (double)parameters.advanced.speciation.importanceOfDisjointGenes;
+    averageWeightDifference *= (double)parameters.advanced.speciation.importanceOfAverageWeightDifference;
+
+    return disjointGenesInfluence + averageWeightDifference;
 }
 
 void NeuralNetworkTrainer::ResetPopulation()
@@ -80,7 +81,7 @@ void NeuralNetworkTrainer::TrainUntilFitnessEquals(int fitnessToReach) {
 	while (GetFittestSpecimen().trainable->GetOrCalculateFitness() < fitnessToReach) {
 		Repopulate();
 		ResetPopulation();
-		for (int i = 0; i < parameters.ruleset.updatesPerGeneration; ++i) {
+		for (unsigned int i = 0; i < parameters.updatesPerGeneration; ++i) {
 			LetGenerationLive();
 		}
 	}
@@ -116,4 +117,7 @@ void NeuralNetworkTrainer::LetGenerationLive() {
 void NeuralNetworkTrainer::Repopulate() {
 	// TODO jnf
 	// Implementation
+
+    // TODO jnf
+    // Add Concurrency
 }
