@@ -3,18 +3,14 @@
 #include "trainable.h"
 #include "training_parameters.h"
 #include "gene_mutator.h"
+#include "individual.h"
+#include "species.h"
 #include <vector>
 
 class NeuralNetworkTrainer {
 	private:
-		struct Individuum {
-            Individuum(ITrainable * trainable, NeuralNetwork && network) :
-                trainable(trainable), 
-                network(std::move(network)) {}
-			ITrainable * trainable = nullptr;
-			NeuralNetwork network;
-		};
-		std::vector <Individuum> population;
+		std::vector <Individual> population;
+		std::vector <Species> species;
 		TrainingParameters parameters;
 		GeneMutator geneMutator;
 
@@ -32,13 +28,14 @@ class NeuralNetworkTrainer {
 		void TrainUntilFitnessEquals(int fitnessToReach);
 		void TrainUntilGenerationEquals(unsigned int generationsToTrain);
 
-		const Individuum & GetFittestSpecimen();
+		Individual & GetFittestSpecimen();
 
 	private:
 		void SetPopulation(std::vector<ITrainable *> & population);
 		NeuralNetwork Breed(ITrainable * mother, ITrainable * father) const;
-		double GetGeneticalDistance(const std::vector<Gene> & leftGenome, const std::vector<Gene> & rightGenome) const;
+		
 		void ResetPopulation();
 		void Repopulate();        
+		void CategorizePopulationIntoSpecies();
 		void LetGenerationLive();
 };

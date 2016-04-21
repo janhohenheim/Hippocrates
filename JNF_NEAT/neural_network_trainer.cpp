@@ -36,49 +36,33 @@ NeuralNetwork NeuralNetworkTrainer::Breed(ITrainable * mother, ITrainable * fath
 	return child;
 }
 
-double NeuralNetworkTrainer::GetGeneticalDistance(const std::vector<Gene> & leftGenome, const std::vector<Gene> & rightGenome) const
-{
-    double totalWeightDifference = 0.0;
-    size_t numberOfOverlapingGenes = 0;
 
-    size_t sizeOfsmallerGenome = std::min(leftGenome.size(), rightGenome.size());
-    for (size_t i = 0; i < sizeOfsmallerGenome && leftGenome[i].historicalMarking == rightGenome[i].historicalMarking; ++i) {
-        totalWeightDifference += (double)std::abs(leftGenome[i].weight - rightGenome[i].weight);
-        ++numberOfOverlapingGenes;
-    }
-
-    auto numberOfDisjointGenes = leftGenome.size() + rightGenome.size() - (size_t)2 * numberOfOverlapingGenes;
-    auto sizeOfBiggerGenome = std::max(leftGenome.size(), rightGenome.size());
-    auto disjointGenesInfluence = (double)numberOfDisjointGenes / (double)sizeOfBiggerGenome;
-
-    auto averageWeightDifference = totalWeightDifference / (double)numberOfOverlapingGenes;
-
-    disjointGenesInfluence *= (double)parameters.advanced.speciation.importanceOfDisjointGenes;
-    averageWeightDifference *= (double)parameters.advanced.speciation.importanceOfAverageWeightDifference;
-
-    return disjointGenesInfluence + averageWeightDifference;
-}
 
 void NeuralNetworkTrainer::ResetPopulation()
 {
 	for (auto & individuum : population) {
-		individuum.trainable->Reset();
+		individuum.Reset();
 	}
 }
 
 void NeuralNetworkTrainer::SetPopulation(std::vector<ITrainable*>& population)
 {
     this->population.clear();
+	this->population.reserve(population.size());
     for (auto & currTrainable : population) {
-        NeuralNetwork net = NeuralNetwork(parameters.numberOfInputs, parameters.numberOfOutputs);
-        Individuum individuum(currTrainable, std::move(net));
-        this->population.push_back(std::move(individuum));
+		// TODO jnf
+		// Every Individual generates Genes with historical markings up to population.size() * parameters.numberOfInputs * parameters.NumberOfOutputs
+		// Instead, the historical markings should only go to parameters.numberOfInputs * parameters.NumberOfOutputs
+		// and be identical to every other individuals genes (but still having random weights)
+		this->population.push_back({ currTrainable, parameters });
     }
+	CategorizePopulationIntoSpecies();
 }
+
 
 void NeuralNetworkTrainer::TrainUntilFitnessEquals(int fitnessToReach) {
 	LetGenerationLive();
-	while (GetFittestSpecimen().trainable->GetOrCalculateFitness() < fitnessToReach) {
+	while (GetFittestSpecimen().GetOrCalculateFitness() < fitnessToReach) {
 		Repopulate();
 		ResetPopulation();
 		for (unsigned int i = 0; i < parameters.updatesPerGeneration; ++i) {
@@ -94,13 +78,13 @@ void NeuralNetworkTrainer::TrainUntilGenerationEquals(unsigned int generationsTo
 	}
 }
 
-const NeuralNetworkTrainer::Individuum & NeuralNetworkTrainer::GetFittestSpecimen() {
+Individual & NeuralNetworkTrainer::GetFittestSpecimen() {
 	if (population.empty()) {
 		throw std::out_of_range("Your population is empty");
 	}
 
-	auto compareFitness = [](const Individuum & lhs, const Individuum & rhs) {
-		return lhs.trainable->GetOrCalculateFitness() < rhs.trainable->GetOrCalculateFitness();
+	auto compareFitness = [](Individual & lhs, Individual & rhs) {
+		return lhs.GetOrCalculateFitness() < rhs.GetOrCalculateFitness();
 	};
 	// TODO jnf
 	// cache this
@@ -108,16 +92,37 @@ const NeuralNetworkTrainer::Individuum & NeuralNetworkTrainer::GetFittestSpecime
 }
 
 void NeuralNetworkTrainer::LetGenerationLive() {
-	for (auto & specimen : population){
-		specimen.network.SetInputs(specimen.trainable->ProvideNetworkWithInputs());
-		specimen.trainable->Update(specimen.network.GetOutputs());
+	for (auto & individual : population){
+		individual.Update();
 	}
 }
 
 void NeuralNetworkTrainer::Repopulate() {
 	// TODO jnf
 	// Implementation
-
+	CategorizePopulationIntoSpecies();
     // TODO jnf
     // Add Concurrency
+}
+
+
+void NeuralNetworkTrainer::CategorizePopulationIntoSpecies()
+{
+	for (auto & individual : population) {
+		bool isCompatibleWithExistingSpecies = false;
+		for (auto & currSpecies : species) {
+			if (currSpecies.IsCompatible(individual.GetGenes())) {
+				individual.CoupleWithSpecies(currSpecies);
+				isCompatibleWithExistingSpecies = true;
+				break;
+			}
+		}
+		if (!isCompatibleWithExistingSpecies) {
+			Species newSpecies(parameters);
+			species.push_back(std::move(newSpecies));
+			individual.CoupleWithSpecies(species.back());
+		}
+	}
+	// TODO jnf
+	// Clear empty species
 }

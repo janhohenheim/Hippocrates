@@ -7,6 +7,7 @@ struct Gene {
 		~Gene() = default;
 		Gene(const Gene & other) = default;
         Gene(Gene && other) = default;
+		Gene & operator=(const Gene & other) = default;
 
         size_t from = 0;
 		size_t to = 0;

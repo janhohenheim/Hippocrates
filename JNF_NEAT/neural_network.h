@@ -16,11 +16,12 @@ class NeuralNetwork {
         explicit NeuralNetwork(std::vector<Gene> && genes);
         NeuralNetwork(const std::vector<Gene> && genes) = delete;
 
-		NeuralNetwork(const NeuralNetwork & other) = default;
-		NeuralNetwork(NeuralNetwork && other) = default;
+		NeuralNetwork(const NeuralNetwork & other);
+		NeuralNetwork(NeuralNetwork && other);
 
 		~NeuralNetwork() = default;
 
+		NeuralNetwork & operator= (const NeuralNetwork & other);
 
 		const std::vector<Gene> & GetGenes() const;
 

@@ -6,7 +6,7 @@
 class GeneMutator {
 	// Members
 	private:
-		TrainingParameters parameters;
+		const TrainingParameters & parameters;
 
 	// Methods
 	public:

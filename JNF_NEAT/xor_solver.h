@@ -3,7 +3,7 @@
 class XORSolver : public ITrainable {
 	public:
 		virtual void Reset() override;
-		virtual void Update(std::vector<float> networkOutputs) override;
+		virtual void Update(const std::vector<float> &  networkOutputs) override;
 		virtual int GetOrCalculateFitness() override;
 
 		virtual std::vector<float> ProvideNetworkWithInputs() override;

@@ -42,6 +42,12 @@
     <ClCompile Include="gene_examinator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="species.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="individual.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="neural_network.h">
@@ -72,6 +78,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="gene_examinator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="species.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="individual.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

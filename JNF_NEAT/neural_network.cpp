@@ -27,6 +27,35 @@ NeuralNetwork::NeuralNetwork(std::vector<Gene> && genes):
 	BuildNetworkFromGenes();
 }
 
+NeuralNetwork::NeuralNetwork(const NeuralNetwork & other) :
+	genes(other.genes),
+	neurons(other.neurons),
+	inputNeurons(other.inputNeurons.size()),
+	outputNeurons(other.outputNeurons.size())
+{
+	InterpretInputsAndOutputs();
+}
+
+NeuralNetwork::NeuralNetwork(NeuralNetwork && other) :
+	genes(std::move(other.genes)),
+	neurons(std::move(other.neurons)),
+	inputNeurons(std::move(other.inputNeurons.size())),
+	outputNeurons(std::move(other.outputNeurons.size()))
+{
+	InterpretInputsAndOutputs();
+}
+
+NeuralNetwork & NeuralNetwork::operator=(const NeuralNetwork & other)
+{
+	genes = other.genes;
+	neurons = other.neurons;
+	inputNeurons.resize(other.inputNeurons.size());
+	outputNeurons.resize(other.outputNeurons.size());
+
+	InterpretInputsAndOutputs();
+	return *this;
+}
+
 void NeuralNetwork::GenerateOnlyEssentialGenes() {
     if (genes.size() != inputNeurons.size() * outputNeurons.size()) {
         throw std::out_of_range("Number of inputs provided doesn't match genetic information");

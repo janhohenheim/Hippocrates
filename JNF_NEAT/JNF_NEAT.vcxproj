@@ -150,10 +150,12 @@
     <ClCompile Include="gene.cpp" />
     <ClCompile Include="gene_examinator.cpp" />
     <ClCompile Include="gene_mutator.cpp" />
+    <ClCompile Include="individual.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="neural_network_trainer.cpp" />
     <ClCompile Include="neural_network.cpp" />
     <ClCompile Include="neuron.cpp" />
+    <ClCompile Include="species.cpp" />
     <ClCompile Include="trained_neural_network.cpp" />
     <ClCompile Include="xor_solver.cpp" />
   </ItemGroup>
@@ -161,6 +163,8 @@
     <ClInclude Include="gene.h" />
     <ClInclude Include="gene_examinator.h" />
     <ClInclude Include="gene_mutator.h" />
+    <ClInclude Include="individual.h" />
+    <ClInclude Include="species.h" />
     <ClInclude Include="trainable.h" />
     <ClInclude Include="neural_network_trainer.h" />
     <ClInclude Include="neural_network.h" />

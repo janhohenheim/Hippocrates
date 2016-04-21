@@ -5,7 +5,7 @@ void XORSolver::Reset()
 	fitness = 0;
 }
 
-void XORSolver::Update(std::vector<float> networkOutputs)
+void XORSolver::Update(const std::vector<float> &  networkOutputs)
 {
 	int xorResult = (int)lastInputs[0] ^ (int)lastInputs[1];
 	int networksXorResult = int(networkOutputs[0] > 0.5f);

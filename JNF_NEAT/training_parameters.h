@@ -20,6 +20,7 @@ struct TrainingParameters {
         struct Speciation {
             float importanceOfDisjointGenes = 1.0f;
             float importanceOfAverageWeightDifference = 0.3f;
+			float compatibilityThreshold = 3.0f;
         } speciation;
 	} advanced;
 };
