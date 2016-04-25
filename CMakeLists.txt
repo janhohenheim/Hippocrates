@@ -24,7 +24,7 @@ set(SOURCE_FILES
     JNF_NEAT/gene_examinator.cpp
     JNF_NEAT/gene_mutator.h
     JNF_NEAT/gene_mutator.cpp
-    )
+        JNF_NEAT/genome.cpp JNF_NEAT/genome.h)
 
 add_definitions(-std=c++14)
 add_executable(JNF_NEAT ${SOURCE_FILES})
