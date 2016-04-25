@@ -3,7 +3,7 @@
 
 Species::Species(const TrainingParameters& parameters) :
 	parameters(parameters),
-	representative(parameters.numberOfInputs, parameters.numberOfOutputs)
+	representative(parameters)
 {
 }
 

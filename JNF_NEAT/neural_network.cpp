@@ -4,23 +4,24 @@
 #include <stdexcept>
 
 
-NeuralNetwork::NeuralNetwork(unsigned int numberOfInputs, unsigned int numberOfOutputs):
-		genome(numberOfInputs * numberOfOutputs),
-		inputNeurons(numberOfInputs),
-		outputNeurons(numberOfOutputs)
+NeuralNetwork::NeuralNetwork(const TrainingParameters & parameters):
+	parameters(parameters),
+	genome(parameters)
 {
 	GenerateOnlyEssentialGenes();
 	BuildNetworkFromGenes();
 }
 
-NeuralNetwork::NeuralNetwork(const Genome& genome):
+NeuralNetwork::NeuralNetwork(const TrainingParameters & parameters, const Genome& genome):
+	parameters(parameters),
     genome(genome)
 {
     GenerateOnlyEssentialGenes();
     BuildNetworkFromGenes();
 }
 
-NeuralNetwork::NeuralNetwork(Genome&& genome):
+NeuralNetwork::NeuralNetwork(const TrainingParameters & parameters, Genome&& genome):
+	parameters(parameters),
 	genome(genome)
 {
 	ReadNumberOfInputsAndOutputsFromGenes();
@@ -28,6 +29,7 @@ NeuralNetwork::NeuralNetwork(Genome&& genome):
 }
 
 NeuralNetwork::NeuralNetwork(const NeuralNetwork& other) :
+	parameters(other.parameters),
 	genome(other.genome),
 	neurons(other.neurons),
 	inputNeurons(other.inputNeurons.size()),
@@ -37,6 +39,7 @@ NeuralNetwork::NeuralNetwork(const NeuralNetwork& other) :
 }
 
 NeuralNetwork::NeuralNetwork(NeuralNetwork&& other) :
+	parameters(std::move(other.parameters)),
 	genome(std::move(other.genome)),
 	neurons(std::move(other.neurons)),
 	inputNeurons(std::move(other.inputNeurons.size())),

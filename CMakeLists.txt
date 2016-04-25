@@ -20,10 +20,8 @@ set(SOURCE_FILES
     JNF_NEAT/individual.cpp
     JNF_NEAT/species.h
     JNF_NEAT/species.cpp
-    JNF_NEAT/gene_examinator.h
-    JNF_NEAT/gene_examinator.cpp
-    JNF_NEAT/gene_mutator.h
-    JNF_NEAT/gene_mutator.cpp
+    JNF_NEAT/genome.h
+    JNF_NEAT/genome.cpp
     JNF_NEAT/genome.cpp 
     JNF_NEAT/genome.h)
 

@@ -19,7 +19,7 @@ class Genome {
 		~Genome() = default;
 
 		Genome& operator=(const Genome& other);
-		Gene& operator[](size_t index) { return genes[index]; }
+		Gene& operator[](std::size_t index) { return genes[index]; }
 		auto begin() { return genes.begin(); }
 		auto end() { return genes.end(); }
 		
@@ -35,6 +35,6 @@ class Genome {
 		void AddRandomNeuron();
 		void AddRandomConnection();
 		void ShuffleWeights();
-		void MutateWeightOfGeneAt(size_t index);
-		void PerturbWeightAt(size_t index);
+		void MutateWeightOfGeneAt(std::size_t index);
+		void PerturbWeightAt(std::size_t index);
 };

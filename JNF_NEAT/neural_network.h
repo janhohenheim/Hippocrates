@@ -10,12 +10,13 @@ class NeuralNetwork {
 		std::vector<Neuron> neurons;
 		std::vector<Neuron*> inputNeurons;
 		std::vector<Neuron*> outputNeurons;
+		const TrainingParameters & parameters;
 
 	public:
-		explicit NeuralNetwork(unsigned int numberOfInputs, unsigned int numberOfOutputs);
-        explicit NeuralNetwork(const Genome& genome);
-        explicit NeuralNetwork(Genome&& genome);
-        NeuralNetwork(const Genome&& genome) = delete;
+		explicit NeuralNetwork(const TrainingParameters & parameters);
+        explicit NeuralNetwork(const TrainingParameters & parameters, const Genome& genome);
+        explicit NeuralNetwork(const TrainingParameters & parameters, Genome&& genome);
+		explicit NeuralNetwork(const TrainingParameters & parameters, const Genome&& genome) = delete;
 
 		NeuralNetwork(const NeuralNetwork& other);
 		NeuralNetwork(NeuralNetwork&& other);
