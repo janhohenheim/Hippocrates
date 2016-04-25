@@ -27,7 +27,7 @@ void Individual::ModifyFitness(float factor)
 int Individual::GetOrCalculateFitness()
 {
 	if (!isFitnessUpToDate) {
-		fitness = trainable->GetOrCalculateFitness() * species->GetFitnessSharingModifier();
+		fitness = (int)((float)trainable->GetOrCalculateFitness() * species->GetFitnessSharingModifier());
 		isFitnessUpToDate = true;
 	}
 	return fitness;

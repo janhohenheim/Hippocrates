@@ -3,6 +3,8 @@
 #include "trainable.h"
 #include "training_parameters.h"
 #include "species.h"
+#include "genome.h"
+
 class Individual {
 	private:
 		ITrainable * trainable = nullptr;
@@ -26,5 +28,5 @@ class Individual {
 		void ModifyFitness(float factor);
 		int GetOrCalculateFitness();
 		void CoupleWithSpecies(Species & species);
-		const std::vector<Gene> & GetGenes() const { return network.GetGenes(); }
+		const Genome& GetGenome() const { return network.GetGenome(); }
 };

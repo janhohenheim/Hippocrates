@@ -148,8 +148,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="gene.cpp" />
-    <ClCompile Include="gene_examinator.cpp" />
-    <ClCompile Include="gene_mutator.cpp" />
     <ClCompile Include="genome.cpp" />
     <ClCompile Include="individual.cpp" />
     <ClCompile Include="main.cpp" />
@@ -162,8 +160,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gene.h" />
-    <ClInclude Include="gene_examinator.h" />
-    <ClInclude Include="gene_mutator.h" />
     <ClInclude Include="genome.h" />
     <ClInclude Include="individual.h" />
     <ClInclude Include="species.h" />

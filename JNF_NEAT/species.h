@@ -9,21 +9,21 @@ class Species {
 		NeuralNetwork representative;
 	public:
 		Species() = delete;
-		explicit Species(const TrainingParameters & parameters);
-		Species(const Species & other) = default;
-		Species(Species && other) = default;
+		explicit Species(const TrainingParameters& parameters);
+		Species(const Species& other) = default;
+		Species(Species&& other) = default;
 		~Species() = default;
 
-		void AddIndividual(NeuralNetwork & individual);
-		void SetPopulation(std::vector<NeuralNetwork> & population);
+		void AddIndividual(NeuralNetwork& individual);
+		void SetPopulation(std::vector<NeuralNetwork>& population);
 
-		bool IsCompatible(const NeuralNetwork & network) const;
-		bool IsCompatible(const std::vector<Gene> & genome) const;
+		bool IsCompatible(const NeuralNetwork& network) const;
+		bool IsCompatible(const Genome& genome) const;
 
 		float GetFitnessSharingModifier() const;
 
 	private:
-		double GetGeneticalDistance(const std::vector<Gene> & leftGenome, const std::vector<Gene> & rightGenome) const;
+		double GetGeneticalDistance(const Genome& leftGenome, const Genome& rightGenome) const;
 		void ElectRepresentative();
 		template<class T>
 		constexpr bool IsAboveCompatibilityThreshold(T t) const;

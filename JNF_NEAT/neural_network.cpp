@@ -1,11 +1,11 @@
 #include "neural_network.h"
-#include "gene_examinator.h"
+#include "genome.h"
 #include <cmath>
 #include <stdexcept>
 
 
 NeuralNetwork::NeuralNetwork(unsigned int numberOfInputs, unsigned int numberOfOutputs):
-		genes(numberOfInputs * numberOfOutputs),
+		genome(numberOfInputs * numberOfOutputs),
 		inputNeurons(numberOfInputs),
 		outputNeurons(numberOfOutputs)
 {
@@ -13,22 +13,22 @@ NeuralNetwork::NeuralNetwork(unsigned int numberOfInputs, unsigned int numberOfO
 	BuildNetworkFromGenes();
 }
 
-NeuralNetwork::NeuralNetwork(const std::vector<Gene> & genes):
-    genes(genes)
+NeuralNetwork::NeuralNetwork(const Genome& genome):
+    genome(genome)
 {
     GenerateOnlyEssentialGenes();
     BuildNetworkFromGenes();
 }
 
-NeuralNetwork::NeuralNetwork(std::vector<Gene> && genes):
-	genes(genes)
+NeuralNetwork::NeuralNetwork(Genome&& genome):
+	genome(genome)
 {
 	ReadNumberOfInputsAndOutputsFromGenes();
 	BuildNetworkFromGenes();
 }
 
 NeuralNetwork::NeuralNetwork(const NeuralNetwork & other) :
-	genes(other.genes),
+	genome(other.genome),
 	neurons(other.neurons),
 	inputNeurons(other.inputNeurons.size()),
 	outputNeurons(other.outputNeurons.size())
@@ -37,7 +37,7 @@ NeuralNetwork::NeuralNetwork(const NeuralNetwork & other) :
 }
 
 NeuralNetwork::NeuralNetwork(NeuralNetwork && other) :
-	genes(std::move(other.genes)),
+	genome(std::move(other.genome)),
 	neurons(std::move(other.neurons)),
 	inputNeurons(std::move(other.inputNeurons.size())),
 	outputNeurons(std::move(other.outputNeurons.size()))
@@ -45,9 +45,9 @@ NeuralNetwork::NeuralNetwork(NeuralNetwork && other) :
 	InterpretInputsAndOutputs();
 }
 
-NeuralNetwork & NeuralNetwork::operator=(const NeuralNetwork & other)
+NeuralNetwork & NeuralNetwork::operator=(const NeuralNetwork& other)
 {
-	genes = other.genes;
+	genome = other.genome;
 	neurons = other.neurons;
 	inputNeurons.resize(other.inputNeurons.size());
 	outputNeurons.resize(other.outputNeurons.size());
@@ -57,10 +57,11 @@ NeuralNetwork & NeuralNetwork::operator=(const NeuralNetwork & other)
 }
 
 void NeuralNetwork::GenerateOnlyEssentialGenes() {
-    if (genes.size() != inputNeurons.size() * outputNeurons.size()) {
+    if (genome.GetGeneCount() != inputNeurons.size() * outputNeurons.size()) {
         throw std::out_of_range("Number of inputs provided doesn't match genetic information");
     }
-    auto currentGene = &genes.front();
+
+    auto *currentGene = &genome[0];
     for (auto in = 0U; in < inputNeurons.size(); ++in) {
         for (auto out = inputNeurons.size(); out < inputNeurons.size() + outputNeurons.size(); ++out) {
             currentGene->from = in;
@@ -79,16 +80,16 @@ void NeuralNetwork::ReadNumberOfInputsAndOutputsFromGenes() {
     // TODO jnf
     // This is awful, rewrite it
     auto i = numberOfInputs;
-    for (; i < genes.size(); ++i) {
-        if (genes[i].from == genes[i - 1U].from + 1U) {
+    for (; i < genome.GetGeneCount(); ++i) {
+        if (genome[i].from == genome[i - 1U].from + 1U) {
             numberOfInputs++;
         }
         else
-        if (genes[i].from != genes[i - 1U].from) {
+        if (genome[i].from != genome[i - 1U].from) {
             break;
         }
     }
-    numberOfOutputs = genes[i - 1U].to - numberOfInputs;
+    numberOfOutputs = genome[i - 1U].to - numberOfInputs;
     inputNeurons.resize(numberOfInputs);
     inputNeurons.resize(numberOfOutputs);
 }
@@ -96,8 +97,8 @@ void NeuralNetwork::ReadNumberOfInputsAndOutputsFromGenes() {
 void NeuralNetwork::BuildNetworkFromGenes() {
     DeleteAllNeurons();
 
-    neurons.resize(GeneExaminator::GetNumberOfNeuronsInGenes(genes));
-    for (const auto & gene : genes) {
+    neurons.resize(genome.ExtrapolateNeuronCount());
+    for (const auto & gene : genome) {
         if (gene.isEnabled) {
             Neuron::IncomingConnection connection;
             connection.incoming = &neurons[gene.from];
@@ -128,10 +129,6 @@ std::vector<float> NeuralNetwork::GetOutputs()
 	return outputs;
 }
 
-const std::vector<Gene> & NeuralNetwork::GetGenes() const {
-	return genes;
-}
-
 void NeuralNetwork::DeleteAllNeurons() {
 	neurons.clear();
 	for (auto in : inputNeurons) {
@@ -148,6 +145,6 @@ void NeuralNetwork::InterpretInputsAndOutputs()
 		inputNeurons[i] = &neurons[i];
 	}
 	for (auto i = 0U; i < outputNeurons.size(); i++) {
-		outputNeurons[i] = &neurons[genes[i * outputNeurons.size()].to];
+		outputNeurons[i] = &neurons[genome[i * outputNeurons.size()].to];
 	}
 }

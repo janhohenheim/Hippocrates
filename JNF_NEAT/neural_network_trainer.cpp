@@ -2,23 +2,21 @@
 #include <stdexcept>
 #include "neural_network_trainer.h"
 
-NeuralNetworkTrainer::NeuralNetworkTrainer(std::vector<ITrainable *> & population, const TrainingParameters & parameters) :
-	parameters(parameters),
-	geneMutator(parameters)
+NeuralNetworkTrainer::NeuralNetworkTrainer(std::vector<ITrainable *>& population, const TrainingParameters& parameters) :
+	parameters(parameters)
 {
 	SetPopulation(population);
 }
 
-NeuralNetworkTrainer::NeuralNetworkTrainer(std::vector<ITrainable *> & population, TrainingParameters && parameters) :
-    parameters(parameters),
-	geneMutator(parameters)
+NeuralNetworkTrainer::NeuralNetworkTrainer(std::vector<ITrainable *>& population, TrainingParameters&& parameters) :
+    parameters(parameters)
 {
 	SetPopulation(population);
 }
 
-NeuralNetwork NeuralNetworkTrainer::Breed(ITrainable * mother, ITrainable * father) const
+NeuralNetwork NeuralNetworkTrainer::Breed(ITrainable* mother, ITrainable* father) const
 {
-	std::vector<Gene> childGenes;
+	Genome childGenome(parameters);
 
 	if (mother->GetOrCalculateFitness() == father->GetOrCalculateFitness()) {
 		// TODO jnf
@@ -28,9 +26,9 @@ NeuralNetwork NeuralNetworkTrainer::Breed(ITrainable * mother, ITrainable * fath
 		// Do Stuff with the genes
 	}
 
-    geneMutator.MutateGenes(childGenes);
+	childGenome.MutateGenes();
 
-	NeuralNetwork child(std::move(childGenes));
+	NeuralNetwork child(std::move(childGenome));
 	// It may look ineffective to return this by value, accessing the copy constructor
 	// But don't worry, RVO will take care of this.
 	// If your compiler doesn't optimize this, I'd recommend using what you'd call an "out parameter" in C#
@@ -84,7 +82,7 @@ Individual & NeuralNetworkTrainer::GetFittestSpecimen() {
 		throw std::out_of_range("Your population is empty");
 	}
 
-	auto compareFitness = [](Individual & lhs, Individual & rhs) {
+	auto compareFitness = [](Individual& lhs, Individual& rhs) {
 		return lhs.GetOrCalculateFitness() < rhs.GetOrCalculateFitness();
 	};
 	// TODO jnf
@@ -109,10 +107,10 @@ void NeuralNetworkTrainer::Repopulate() {
 
 void NeuralNetworkTrainer::CategorizePopulationIntoSpecies()
 {
-	for (auto & individual : population) {
+	for (auto& individual : population) {
 		bool isCompatibleWithExistingSpecies = false;
-		for (auto & currSpecies : species) {
-			if (currSpecies.IsCompatible(individual.GetGenes())) {
+		for (auto& currSpecies : species) {
+			if (currSpecies.IsCompatible(individual.GetGenome())) {
 				individual.CoupleWithSpecies(currSpecies);
 				isCompatibleWithExistingSpecies = true;
 				break;

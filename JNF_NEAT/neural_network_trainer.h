@@ -2,7 +2,7 @@
 #include "neural_network.h"
 #include "trainable.h"
 #include "training_parameters.h"
-#include "gene_mutator.h"
+#include "genome.h"
 #include "individual.h"
 #include "species.h"
 #include <vector>
@@ -12,7 +12,6 @@ class NeuralNetworkTrainer {
 		std::vector <Individual> population;
 		std::vector <Species> species;
 		TrainingParameters parameters;
-		GeneMutator geneMutator;
 
 	// Methods
 	public:

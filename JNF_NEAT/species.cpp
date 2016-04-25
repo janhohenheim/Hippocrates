@@ -23,12 +23,12 @@ void Species::SetPopulation(std::vector<NeuralNetwork> & population)
 	ElectRepresentative();
 }
 
-bool Species::IsCompatible(const NeuralNetwork & network) const {
-	return IsCompatible(network.GetGenes());
+bool Species::IsCompatible(const NeuralNetwork& network) const {
+	return IsCompatible(network.GetGenome());
 }
 
-bool Species::IsCompatible(const std::vector<Gene> & genome) const {
-	auto distanceToSpecies = GetGeneticalDistance(representative.GetGenes(), genome);
+bool Species::IsCompatible(const Genome& genome) const {
+	auto distanceToSpecies = GetGeneticalDistance(representative.GetGenome(), genome);
 	return !IsAboveCompatibilityThreshold(distanceToSpecies);
 }
 
@@ -37,7 +37,7 @@ float Species::GetFitnessSharingModifier() const{
 
 	for (auto & lhs : population) {
 		for (auto & rhs : population) {
-			auto distance = GetGeneticalDistance(lhs->GetGenes(), rhs->GetGenes());
+			auto distance = GetGeneticalDistance(lhs->GetGenome(), rhs->GetGenome());
 			if (IsAboveCompatibilityThreshold(distance)) {
 				++fitnessSharingDivisor;
 			}
@@ -48,19 +48,25 @@ float Species::GetFitnessSharingModifier() const{
 	return fitnessSharingFactor;
 }
 
-double Species::GetGeneticalDistance(const std::vector<Gene> & leftGenome, const std::vector<Gene> & rightGenome) const
+double Species::GetGeneticalDistance(const Genome& leftGenome, const Genome& rightGenome) const
 {
 	double totalWeightDifference = 0.0;
 	size_t numberOfOverlapingGenes = 0;
 
-	size_t sizeOfSmallerGenome = std::min(leftGenome.size(), rightGenome.size());
-	for (size_t i = 0; i < sizeOfSmallerGenome && leftGenome[i].historicalMarking == rightGenome[i].historicalMarking; ++i) {
-		totalWeightDifference += (double)std::abs(leftGenome[i].weight - rightGenome[i].weight);
+	size_t sizeOfSmallerGenome = std::min(leftGenome.GetGeneCount(), rightGenome.GetGeneCount());
+	auto areSame = [&](size_t i) {
+		return const_cast<Genome&>(leftGenome)[i].historicalMarking == const_cast<Genome&>(rightGenome)[i].historicalMarking; 
+	};
+
+	for (size_t i = 0; i < sizeOfSmallerGenome && areSame(i); ++i) {
+		totalWeightDifference += 
+			(double)std::abs(const_cast<Genome&>(leftGenome)[i].weight - const_cast<Genome&>(rightGenome)[i].weight);
+
 		++numberOfOverlapingGenes;
 	}
 
-	auto numberOfDisjointGenes = leftGenome.size() + rightGenome.size() - (size_t)2 * numberOfOverlapingGenes;
-	auto sizeOfBiggerGenome = std::max(leftGenome.size(), rightGenome.size());
+	auto numberOfDisjointGenes = leftGenome.GetGeneCount() + rightGenome.GetGeneCount() - (size_t)2 * numberOfOverlapingGenes;
+	auto sizeOfBiggerGenome = std::max(leftGenome.GetGeneCount(), rightGenome.GetGeneCount());
 	auto disjointGenesInfluence = (double)numberOfDisjointGenes / (double)sizeOfBiggerGenome;
 
 	auto averageWeightDifference = totalWeightDifference / (double)numberOfOverlapingGenes;
