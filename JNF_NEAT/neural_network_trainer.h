@@ -16,8 +16,8 @@ class NeuralNetworkTrainer {
 	// Methods
 	public:
 		NeuralNetworkTrainer() = delete;
-        explicit NeuralNetworkTrainer(std::vector<ITrainable *> & population, const TrainingParameters & parameters);
-        explicit NeuralNetworkTrainer(std::vector<ITrainable *> & population, TrainingParameters && parameters);
+        explicit NeuralNetworkTrainer(std::vector<ITrainable*> & population, const TrainingParameters& parameters);
+        explicit NeuralNetworkTrainer(std::vector<ITrainable*> & population, TrainingParameters&& parameters);
 
 		NeuralNetworkTrainer(const NeuralNetworkTrainer & other) = default;
 
@@ -30,8 +30,8 @@ class NeuralNetworkTrainer {
 		Individual & GetFittestSpecimen();
 
 	private:
-		void SetPopulation(std::vector<ITrainable *> & population);
-		NeuralNetwork Breed(ITrainable * mother, ITrainable * father) const;
+		void SetPopulation(std::vector<ITrainable*> & population);
+		NeuralNetwork Breed(ITrainable* mother, ITrainable* father) const;
 		
 		void ResetPopulation();
 		void Repopulate();        

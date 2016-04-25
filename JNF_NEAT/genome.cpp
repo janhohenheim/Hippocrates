@@ -49,7 +49,7 @@ bool Genome::DidChanceOccure(float chance)
 
 void Genome::AddRandomNeuron()
 {
-	Gene * randGene = nullptr;
+	Gene* randGene = nullptr;
 	do {
 		int num = rand() % genes.size();
 		randGene = &genes[num];

@@ -4,7 +4,7 @@
 class Neuron {
 	public: 
 		struct IncomingConnection {
-			Neuron * incoming = nullptr;
+			Neuron* incoming = nullptr;
 			float weight = 1.0f;
 		};
 	private:

@@ -1,6 +1,6 @@
 #include "individual.h"
 
-Individual::Individual(ITrainable * trainable, const TrainingParameters& parameters) :
+Individual::Individual(ITrainable* trainable, const TrainingParameters& parameters) :
 	trainable(trainable),
 	network(parameters.numberOfInputs, parameters.numberOfOutputs)
 {

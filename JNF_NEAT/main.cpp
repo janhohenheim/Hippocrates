@@ -12,7 +12,7 @@ int main() {
 	params.numberOfOutputs = 1;
 	params.updatesPerGeneration = 10;
 
-	std::vector<ITrainable *> population;
+	std::vector<ITrainable*> population;
 	for (int i = 0; i < 20; ++i) {
 		population.push_back(new XORSolver());
 	}

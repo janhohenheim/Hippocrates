@@ -8,8 +8,8 @@ class NeuralNetwork {
 	private:
 		Genome genome;
 		std::vector<Neuron> neurons;
-		std::vector<Neuron *> inputNeurons;
-		std::vector<Neuron *> outputNeurons;
+		std::vector<Neuron*> inputNeurons;
+		std::vector<Neuron*> outputNeurons;
 
 	public:
 		explicit NeuralNetwork(unsigned int numberOfInputs, unsigned int numberOfOutputs);
