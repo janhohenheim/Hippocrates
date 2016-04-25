@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <stdexcept>
 #include "neural_network_trainer.h"
 
 NeuralNetworkTrainer::NeuralNetworkTrainer(std::vector<ITrainable *> & population, const TrainingParameters & parameters) :
