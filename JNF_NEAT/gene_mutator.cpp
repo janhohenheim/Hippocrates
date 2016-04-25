@@ -1,11 +1,11 @@
 #include "gene_mutator.h"
 #include "gene_examinator.h"
-GeneMutator::GeneMutator(const TrainingParameters & parameters) :
+GeneMutator::GeneMutator(const TrainingParameters& parameters) :
 	parameters(parameters)
 {
 }
 
-void GeneMutator::MutateGenes(std::vector<Gene> & genes) const{
+void GeneMutator::MutateGenes(std::vector<Gene>& genes) const{
 	if (ShouldAddConnection()) {
 		AddRandomConnection(genes);
 	}
@@ -69,7 +69,7 @@ void GeneMutator::ShuffleWeights(std::vector<Gene>& genes) const
 	}
 }
 
-void GeneMutator::MutateWeightOfGene(Gene & gene) const
+void GeneMutator::MutateWeightOfGene(Gene& gene) const
 {
 	constexpr float chanceOfTotalWeightReset = 0.1f;
 	if (DidChanceOccure(chanceOfTotalWeightReset)) {
