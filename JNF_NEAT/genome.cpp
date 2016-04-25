@@ -3,9 +3,9 @@
 #include <algorithm>
 
 Genome::Genome(const TrainingParameters& parameters) :
-	parameters(parameters)
+	parameters(parameters),
+	genes(parameters.numberOfInputs * parameters.numberOfOutputs)
 {
-	genes.resize(parameters.numberOfInputs * parameters.numberOfOutputs);
 	auto *currentGene = &genes.front();
 	for (auto in = 0U; in < parameters.numberOfInputs; ++in) {
 		for (auto out = 0U; out < parameters.numberOfOutputs; ++out) {

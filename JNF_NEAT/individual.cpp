@@ -6,7 +6,7 @@ Individual::Individual(ITrainable* trainable, const TrainingParameters& paramete
 {
 }
 
-Individual::Individual(ITrainable* trainable, NeuralNetwork network) :
+Individual::Individual(ITrainable* trainable, NeuralNetwork&& network) :
 	trainable(trainable),
 	network(network)
 {

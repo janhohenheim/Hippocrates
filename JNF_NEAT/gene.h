@@ -1,5 +1,5 @@
 #pragma once
-#include "neuron.h"
+#include <cstddef>
 
 struct Gene {
 	public:
@@ -15,6 +15,7 @@ struct Gene {
 		std::size_t historicalMarking = numberOfExistingGenes;
 		bool isEnabled = true;
 		void SetRandomWeight();
+
 	private:
 		static std::size_t numberOfExistingGenes;
 };

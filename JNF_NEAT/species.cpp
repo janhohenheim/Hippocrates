@@ -2,8 +2,7 @@
 #include <algorithm>
 
 Species::Species(const TrainingParameters& parameters) :
-	parameters(parameters),
-	representative(parameters)
+	parameters(parameters)
 {
 }
 
@@ -28,7 +27,7 @@ bool Species::IsCompatible(const NeuralNetwork& network) const {
 }
 
 bool Species::IsCompatible(const Genome& genome) const {
-	auto distanceToSpecies = GetGeneticalDistance(representative.GetGenome(), genome);
+	auto distanceToSpecies = GetGeneticalDistance(representative->GetGenome(), genome);
 	return !IsAboveCompatibilityThreshold(distanceToSpecies);
 }
 
@@ -54,14 +53,12 @@ double Species::GetGeneticalDistance(const Genome& leftGenome, const Genome& rig
 	size_t numberOfOverlapingGenes = 0;
 
 	size_t sizeOfSmallerGenome = std::min(leftGenome.GetGeneCount(), rightGenome.GetGeneCount());
-	auto areSame = [&](size_t i) {
+	auto IsHistoricalMarkingSameAt = [&](size_t i) {
 		return const_cast<Genome&>(leftGenome)[i].historicalMarking == const_cast<Genome&>(rightGenome)[i].historicalMarking; 
 	};
 
-	for (size_t i = 0; i < sizeOfSmallerGenome && areSame(i); ++i) {
-		totalWeightDifference += 
-			(double)std::abs(const_cast<Genome&>(leftGenome)[i].weight - const_cast<Genome&>(rightGenome)[i].weight);
-
+	for (size_t i = 0; i < sizeOfSmallerGenome && IsHistoricalMarkingSameAt(i); ++i) {
+		totalWeightDifference += (double)std::abs(const_cast<Genome&>(leftGenome)[i].weight - const_cast<Genome&>(rightGenome)[i].weight);
 		++numberOfOverlapingGenes;
 	}
 

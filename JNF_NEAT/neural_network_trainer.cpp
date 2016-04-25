@@ -48,12 +48,11 @@ void NeuralNetworkTrainer::SetPopulation(std::vector<ITrainable*>& population)
 {
     this->population.clear();
 	this->population.reserve(population.size());
+	Genome standardGenes(parameters);
     for (auto& currTrainable : population) {
-		// TODO jnf
-		// Every Individual generates Genes with historical markings up to population.size() * parameters.numberOfInputs * parameters.NumberOfOutputs
-		// Instead, the historical markings should only go to parameters.numberOfInputs * parameters.NumberOfOutputs
-		// and be identical to every other individuals genes (but still having random weights)
-		this->population.push_back({ currTrainable, parameters });
+		NeuralNetwork network(parameters, standardGenes);
+		Individual individual(currTrainable, std::move(network));
+		this->population.push_back(std::move(individual));
     }
 	CategorizePopulationIntoSpecies();
 }

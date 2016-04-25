@@ -6,7 +6,7 @@ class Species {
 	private:
 		const TrainingParameters& parameters;
 		std::vector<NeuralNetwork*> population;
-		NeuralNetwork representative;
+		NeuralNetwork* representative = nullptr;
 	public:
 		Species() = delete;
 		explicit Species(const TrainingParameters& parameters);

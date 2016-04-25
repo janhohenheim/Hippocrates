@@ -9,8 +9,8 @@
 
 class NeuralNetworkTrainer {
 	private:
-		std::vector <Individual> population;
-		std::vector <Species> species;
+		std::vector<Individual> population;
+		std::vector<Species> species;
 		TrainingParameters parameters;
 
 	// Methods

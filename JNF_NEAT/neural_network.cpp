@@ -62,9 +62,8 @@ NeuralNetwork& NeuralNetwork::operator=(const NeuralNetwork& other)
 }
 
 
-void NeuralNetwork::BuildNetworkFromGenes() {
-    DeleteAllNeurons();
-
+void NeuralNetwork::BuildNetworkFromGenes()
+{
     neurons.resize(genome.ExtrapolateNeuronCount());
     for (const auto& gene : genome) {
         if (gene.isEnabled) {
@@ -96,16 +95,6 @@ std::vector<float> NeuralNetwork::GetOutputs()
 		outputs[i] = outputNeurons[i]->RequestDataAndGetActionPotential();
 	}
 	return outputs;
-}
-
-void NeuralNetwork::DeleteAllNeurons() {
-	neurons.clear();
-	for (auto in : inputNeurons) {
-		in = nullptr;
-	}
-	for (auto out : outputNeurons) {
-		out = nullptr;
-	}
 }
 
 void NeuralNetwork::InterpretInputsAndOutputs()
