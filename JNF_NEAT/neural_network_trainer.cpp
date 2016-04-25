@@ -39,7 +39,7 @@ NeuralNetwork NeuralNetworkTrainer::Breed(ITrainable* mother, ITrainable* father
 
 void NeuralNetworkTrainer::ResetPopulation()
 {
-	for (auto & individuum : population) {
+	for (auto& individuum : population) {
 		individuum.Reset();
 	}
 }
@@ -48,7 +48,7 @@ void NeuralNetworkTrainer::SetPopulation(std::vector<ITrainable*>& population)
 {
     this->population.clear();
 	this->population.reserve(population.size());
-    for (auto & currTrainable : population) {
+    for (auto& currTrainable : population) {
 		// TODO jnf
 		// Every Individual generates Genes with historical markings up to population.size() * parameters.numberOfInputs * parameters.NumberOfOutputs
 		// Instead, the historical markings should only go to parameters.numberOfInputs * parameters.NumberOfOutputs
@@ -77,7 +77,7 @@ void NeuralNetworkTrainer::TrainUntilGenerationEquals(unsigned int generationsTo
 	}
 }
 
-Individual & NeuralNetworkTrainer::GetFittestSpecimen() {
+Individual& NeuralNetworkTrainer::GetFittestSpecimen() {
 	if (population.empty()) {
 		throw std::out_of_range("Your population is empty");
 	}
@@ -91,7 +91,7 @@ Individual & NeuralNetworkTrainer::GetFittestSpecimen() {
 }
 
 void NeuralNetworkTrainer::LetGenerationLive() {
-	for (auto & individual : population){
+	for (auto& individual : population){
 		individual.Update();
 	}
 }

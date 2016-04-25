@@ -21,7 +21,7 @@ std::size_t Genome::GetGeneCount() const {
 	return genes.size();
 }
 
-Genome& Genome::operator=(const Genome & other)
+Genome& Genome::operator=(const Genome& other)
 {
 	this->genes = other.genes; 
 	const_cast<TrainingParameters&>(this->parameters) = other.parameters;

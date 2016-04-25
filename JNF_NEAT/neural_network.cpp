@@ -45,7 +45,7 @@ NeuralNetwork::NeuralNetwork(NeuralNetwork&& other) :
 	InterpretInputsAndOutputs();
 }
 
-NeuralNetwork & NeuralNetwork::operator=(const NeuralNetwork& other)
+NeuralNetwork& NeuralNetwork::operator=(const NeuralNetwork& other)
 {
 	genome = other.genome;
 	neurons = other.neurons;
@@ -98,7 +98,7 @@ void NeuralNetwork::BuildNetworkFromGenes() {
     DeleteAllNeurons();
 
     neurons.resize(genome.ExtrapolateNeuronCount());
-    for (const auto & gene : genome) {
+    for (const auto& gene : genome) {
         if (gene.isEnabled) {
             Neuron::IncomingConnection connection;
             connection.incoming = &neurons[gene.from];

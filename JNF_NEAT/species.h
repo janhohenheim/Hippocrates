@@ -4,7 +4,7 @@
 
 class Species {
 	private:
-		const TrainingParameters & parameters;
+		const TrainingParameters& parameters;
 		std::vector<NeuralNetwork*> population;
 		NeuralNetwork representative;
 	public:

@@ -17,7 +17,7 @@ void Species::SetPopulation(std::vector<NeuralNetwork>& population)
 {
 	this->population.empty();
 	this->population.reserve(population.size());
-	for (auto & individual : population) {
+	for (auto& individual : population) {
 		this->population.push_back(&individual);
 	}
 	ElectRepresentative();
@@ -35,8 +35,8 @@ bool Species::IsCompatible(const Genome& genome) const {
 float Species::GetFitnessSharingModifier() const{
 	unsigned int fitnessSharingDivisor = 0;
 
-	for (auto & lhs : population) {
-		for (auto & rhs : population) {
+	for (auto& lhs : population) {
+		for (auto& rhs : population) {
 			auto distance = GetGeneticalDistance(lhs->GetGenome(), rhs->GetGenome());
 			if (IsAboveCompatibilityThreshold(distance)) {
 				++fitnessSharingDivisor;

@@ -15,13 +15,13 @@ class Neuron {
 
     public:
         Neuron() = default;
-		explicit Neuron(const Connections & connections);
-        Neuron(const Neuron & other) = default;
+		explicit Neuron(const Connections& connections);
+        Neuron(const Neuron& other) = default;
         ~Neuron() = default;
 
 		void SetInput(float input);
-		void AddConnection(const IncomingConnection & connection);
-		void AddConnection(IncomingConnection &&connection);
+		void AddConnection(const IncomingConnection& connection);
+		void AddConnection(IncomingConnection&& connection);
 		float RequestDataAndGetActionPotential();
 
 	private:

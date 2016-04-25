@@ -5,14 +5,14 @@
 class TrainedNeuralNetwork {
 	public:
 		TrainedNeuralNetwork() = default;
-		explicit TrainedNeuralNetwork(const NeuralNetwork & trainedNetwork);
-		TrainedNeuralNetwork(const TrainedNeuralNetwork & other) = default;
+		explicit TrainedNeuralNetwork(const NeuralNetwork& trainedNetwork);
+		TrainedNeuralNetwork(const TrainedNeuralNetwork& other) = default;
 		~TrainedNeuralNetwork() = default;
 
-		void LoadFromFile(const std::string & fileName);
-		void SaveToFile(const std::string & fileName) const;
+		void LoadFromFile(const std::string& fileName);
+		void SaveToFile(const std::string& fileName) const;
 
-		std::vector<float> GetOutputs(const std::vector<float> & inputs);
+		std::vector<float> GetOutputs(const std::vector<float>& inputs);
 
 	private:
 		NeuralNetwork trainedNetwork;

@@ -18,9 +18,9 @@ int main() {
 	}
 	NeuralNetworkTrainer trainer(population, params);
 	trainer.TrainUntilFitnessEquals(100);
-	auto & champ = trainer.GetFittestSpecimen();
+	auto& champ = trainer.GetFittestSpecimen();
 
-    for (auto & individuum : population) {
+    for (auto& individuum : population) {
         delete individuum;
     }
 

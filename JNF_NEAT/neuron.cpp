@@ -1,17 +1,17 @@
 #include "neuron.h"
 #include <cmath>
 
-Neuron::Neuron(const Connections & connections) :
+Neuron::Neuron(const Connections& connections) :
 connections(connections) {
 
 }
 
-void Neuron::AddConnection(const Neuron::IncomingConnection & connection)
+void Neuron::AddConnection(const Neuron::IncomingConnection& connection)
 {
 	connections.push_back(connection);
 }
 
-void Neuron::AddConnection(Neuron::IncomingConnection && connection)
+void Neuron::AddConnection(Neuron::IncomingConnection&& connection)
 {
 	connections.push_back(connection);
 }
@@ -22,7 +22,7 @@ float Neuron::RequestDataAndGetActionPotential() {
     }
 
     float incomingPotentials = 0.0f;
-    for (auto & in : connections){
+    for (auto& in : connections){
         incomingPotentials += in.incoming->RequestDataAndGetActionPotential() * in.weight;
     }
     lastActionPotential = sigmoid(incomingPotentials);
