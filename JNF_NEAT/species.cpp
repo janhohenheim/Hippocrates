@@ -6,6 +6,25 @@ Species::Species(const TrainingParameters& parameters) :
 {
 }
 
+Species::Species(const Species & other) :
+    parameters(other.parameters),
+    population(other.population)
+{
+    ElectRepresentative();
+}
+
+Species::Species(Species && other) :
+    parameters(std::move(other.parameters)),
+    population(std::move(other.population))
+{
+    ElectRepresentative();
+}
+
+Species::~Species()
+{
+    DeleteRepresentative();
+}
+
 void Species::AddIndividual(NeuralNetwork& individual)
 {
 	population.push_back(&individual);
@@ -76,8 +95,27 @@ double Species::GetGeneticalDistance(const Genome& leftGenome, const Genome& rig
 
 void Species::ElectRepresentative()
 {
-	auto randomMember = rand() % population.size();
-	representative = *population[randomMember];
+    if (population.empty()) {
+        DeleteRepresentative();
+    }
+    else {
+        SelectRandomRepresentative();
+    }
+}
+
+void Species::DeleteRepresentative() {
+    if (representative != nullptr) {
+        delete representative;
+        representative = nullptr;
+    }
+}
+
+void Species::SelectRandomRepresentative() {
+    auto randomMember = rand() % population.size();
+    if (representative == nullptr) {
+        representative = new NeuralNetwork(*population[randomMember]);
+    }
+    *representative = *population[randomMember];
 }
 
 template <class T>
