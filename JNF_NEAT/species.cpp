@@ -1,19 +1,19 @@
 #include "species.h"
 #include <algorithm>
 
-Species::Species(const TrainingParameters & parameters) :
+Species::Species(const TrainingParameters& parameters) :
 	parameters(parameters),
 	representative(parameters.numberOfInputs, parameters.numberOfOutputs)
 {
 }
 
-void Species::AddIndividual(NeuralNetwork & individual)
+void Species::AddIndividual(NeuralNetwork& individual)
 {
 	population.push_back(&individual);
 	ElectRepresentative();
 }
 
-void Species::SetPopulation(std::vector<NeuralNetwork> & population)
+void Species::SetPopulation(std::vector<NeuralNetwork>& population)
 {
 	this->population.empty();
 	this->population.reserve(population.size());

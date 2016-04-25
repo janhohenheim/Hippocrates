@@ -27,7 +27,7 @@ NeuralNetwork::NeuralNetwork(Genome&& genome):
 	BuildNetworkFromGenes();
 }
 
-NeuralNetwork::NeuralNetwork(const NeuralNetwork & other) :
+NeuralNetwork::NeuralNetwork(const NeuralNetwork& other) :
 	genome(other.genome),
 	neurons(other.neurons),
 	inputNeurons(other.inputNeurons.size()),
@@ -36,7 +36,7 @@ NeuralNetwork::NeuralNetwork(const NeuralNetwork & other) :
 	InterpretInputsAndOutputs();
 }
 
-NeuralNetwork::NeuralNetwork(NeuralNetwork && other) :
+NeuralNetwork::NeuralNetwork(NeuralNetwork&& other) :
 	genome(std::move(other.genome)),
 	neurons(std::move(other.neurons)),
 	inputNeurons(std::move(other.inputNeurons.size())),
@@ -109,7 +109,7 @@ void NeuralNetwork::BuildNetworkFromGenes() {
     InterpretInputsAndOutputs();
 }
 
-void NeuralNetwork::SetInputs(const std::vector<float> & inputs)
+void NeuralNetwork::SetInputs(const std::vector<float>& inputs)
 {
 	if (inputNeurons.size() != inputs.size())
 	{

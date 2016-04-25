@@ -2,13 +2,13 @@
 #include <stdexcept>
 #include "neural_network_trainer.h"
 
-NeuralNetworkTrainer::NeuralNetworkTrainer(std::vector<ITrainable *>& population, const TrainingParameters& parameters) :
+NeuralNetworkTrainer::NeuralNetworkTrainer(std::vector<ITrainable*>& population, const TrainingParameters& parameters) :
 	parameters(parameters)
 {
 	SetPopulation(population);
 }
 
-NeuralNetworkTrainer::NeuralNetworkTrainer(std::vector<ITrainable *>& population, TrainingParameters&& parameters) :
+NeuralNetworkTrainer::NeuralNetworkTrainer(std::vector<ITrainable*>& population, TrainingParameters&& parameters) :
     parameters(parameters)
 {
 	SetPopulation(population);
