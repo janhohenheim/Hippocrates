@@ -10,7 +10,7 @@ class NeuralNetwork {
 		std::vector<Neuron> neurons;
 		std::vector<Neuron*> inputNeurons;
 		std::vector<Neuron*> outputNeurons;
-		const TrainingParameters & parameters;
+		const TrainingParameters& parameters;
 
 	public:
 		explicit NeuralNetwork(const TrainingParameters & parameters);
@@ -31,7 +31,6 @@ class NeuralNetwork {
 		std::vector<float> GetOutputs();
 
 	private:
-		void GenerateOnlyEssentialGenes();
 		void ReadNumberOfInputsAndOutputsFromGenes();
 		void BuildNetworkFromGenes();
 		void InterpretInputsAndOutputs();

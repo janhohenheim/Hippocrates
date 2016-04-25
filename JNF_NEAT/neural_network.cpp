@@ -1,30 +1,32 @@
 #include "neural_network.h"
-#include "genome.h"
 #include <cmath>
 #include <stdexcept>
 
 
 NeuralNetwork::NeuralNetwork(const TrainingParameters & parameters):
 	parameters(parameters),
-	genome(parameters)
+	genome(parameters),
+	inputNeurons(parameters.numberOfInputs),
+	outputNeurons(parameters.numberOfOutputs)
 {
-	GenerateOnlyEssentialGenes();
 	BuildNetworkFromGenes();
 }
 
 NeuralNetwork::NeuralNetwork(const TrainingParameters & parameters, const Genome& genome):
 	parameters(parameters),
-    genome(genome)
+    genome(genome),
+	inputNeurons(parameters.numberOfInputs),
+	outputNeurons(parameters.numberOfOutputs)
 {
-    GenerateOnlyEssentialGenes();
     BuildNetworkFromGenes();
 }
 
 NeuralNetwork::NeuralNetwork(const TrainingParameters & parameters, Genome&& genome):
 	parameters(parameters),
-	genome(genome)
+	genome(genome),
+	inputNeurons(parameters.numberOfInputs),
+	outputNeurons(parameters.numberOfOutputs)
 {
-	ReadNumberOfInputsAndOutputsFromGenes();
 	BuildNetworkFromGenes();
 }
 
@@ -59,43 +61,6 @@ NeuralNetwork& NeuralNetwork::operator=(const NeuralNetwork& other)
 	return *this;
 }
 
-void NeuralNetwork::GenerateOnlyEssentialGenes() {
-    if (genome.GetGeneCount() != inputNeurons.size() * outputNeurons.size()) {
-        throw std::out_of_range("Number of inputs provided doesn't match genetic information");
-    }
-
-    auto *currentGene = &genome[0];
-    for (auto in = 0U; in < inputNeurons.size(); ++in) {
-        for (auto out = inputNeurons.size(); out < inputNeurons.size() + outputNeurons.size(); ++out) {
-            currentGene->from = in;
-            currentGene->to = out;
-            currentGene->isEnabled = true;
-
-            ++currentGene;
-        }
-    }
-}
-
-void NeuralNetwork::ReadNumberOfInputsAndOutputsFromGenes() {
-    size_t numberOfInputs = 1;
-    size_t numberOfOutputs = 1;
-
-    // TODO jnf
-    // This is awful, rewrite it
-    auto i = numberOfInputs;
-    for (; i < genome.GetGeneCount(); ++i) {
-        if (genome[i].from == genome[i - 1U].from + 1U) {
-            numberOfInputs++;
-        }
-        else
-        if (genome[i].from != genome[i - 1U].from) {
-            break;
-        }
-    }
-    numberOfOutputs = genome[i - 1U].to - numberOfInputs;
-    inputNeurons.resize(numberOfInputs);
-    inputNeurons.resize(numberOfOutputs);
-}
 
 void NeuralNetwork::BuildNetworkFromGenes() {
     DeleteAllNeurons();
@@ -109,6 +74,7 @@ void NeuralNetwork::BuildNetworkFromGenes() {
             neurons[gene.to].AddConnection(std::move(connection));
         }
     }
+
     InterpretInputsAndOutputs();
 }
 
@@ -144,10 +110,10 @@ void NeuralNetwork::DeleteAllNeurons() {
 
 void NeuralNetwork::InterpretInputsAndOutputs()
 {
-	for (auto i = 0U; i < inputNeurons.size(); i++) {
+	for (auto i = 0U; i < parameters.numberOfInputs; i++) {
 		inputNeurons[i] = &neurons[i];
 	}
-	for (auto i = 0U; i < outputNeurons.size(); i++) {
-		outputNeurons[i] = &neurons[genome[i * outputNeurons.size()].to];
+	for (auto i = 0U; i < parameters.numberOfOutputs; i++) {
+		outputNeurons[i] = &neurons[genome[i * parameters.numberOfOutputs].to];
 	}
 }

@@ -5,6 +5,15 @@
 Genome::Genome(const TrainingParameters& parameters) :
 	parameters(parameters)
 {
+	genes.resize(parameters.numberOfInputs * parameters.numberOfOutputs);
+	auto *currentGene = &genes.front();
+	for (auto in = 0U; in < parameters.numberOfInputs; ++in) {
+		for (auto out = 0U; out < parameters.numberOfOutputs; ++out) {
+			currentGene->from = in;
+			currentGene->to = out + parameters.numberOfInputs;
+			++currentGene;
+		}
+	}
 }
 
 std::size_t Genome::ExtrapolateNeuronCount() const {
