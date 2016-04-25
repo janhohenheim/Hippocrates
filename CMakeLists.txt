@@ -11,9 +11,20 @@ set(SOURCE_FILES
     JNF_NEAT/neural_network.h
     JNF_NEAT/neural_network_trainer.cpp
     JNF_NEAT/neural_network_trainer.h
-        JNF_NEAT/neuron.cpp
-        JNF_NEAT/neuron.h
-        JNF_NEAT/trainable.h)
+    JNF_NEAT/neuron.cpp
+    JNF_NEAT/neuron.h
+    JNF_NEAT/trainable.h
+    JNF_NEAT/xor_solver.h
+    JNF_NEAT/xor_solver.cpp
+    JNF_NEAT/individual.h
+    JNF_NEAT/individual.cpp
+    JNF_NEAT/species.h
+    JNF_NEAT/species.cpp
+    JNF_NEAT/gene_examinator.h
+    JNF_NEAT/gene_examinator.cpp
+    JNF_NEAT/gene_mutator.h
+    JNF_NEAT/gene_mutator.cpp
+    )
 
 add_definitions(-std=c++14)
 add_executable(JNF_NEAT ${SOURCE_FILES})

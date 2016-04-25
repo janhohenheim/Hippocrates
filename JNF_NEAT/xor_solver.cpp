@@ -1,4 +1,5 @@
 #include "xor_solver.h"
+#include <stdlib.h>
 
 void XORSolver::Reset()
 {
