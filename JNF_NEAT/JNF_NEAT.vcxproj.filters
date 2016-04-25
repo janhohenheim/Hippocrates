@@ -48,6 +48,9 @@
     <ClCompile Include="individual.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="genome.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="neural_network.h">
@@ -84,6 +87,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="individual.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="genome.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
