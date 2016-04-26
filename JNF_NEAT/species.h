@@ -17,6 +17,7 @@ class Species {
         Species(const Species&& other) = delete;
         ~Species();
 
+
 		void AddIndividual(NeuralNetwork& individual);
 		void SetPopulation(std::vector<NeuralNetwork>& population);
 

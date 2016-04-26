@@ -16,7 +16,7 @@ class Individual {
 	public:
 		Individual(ITrainable* trainable, const TrainingParameters& parameters);
 		Individual(ITrainable* trainable, NeuralNetwork&& network);
-		Individual(ITrainable* trainable, const NeuralNetwork && network) = delete;
+		Individual(ITrainable* trainable, const NeuralNetwork&& network) = delete;
 		Individual(const Individual& other) = default;
 		Individual(Individual&& other) = default;
 		~Individual() = default;

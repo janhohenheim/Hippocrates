@@ -11,9 +11,11 @@ int main() {
 	params.numberOfInputs = 2;
 	params.numberOfOutputs = 1;
 	params.updatesPerGeneration = 10;
+	int populationCount = 1;
+
 
 	std::vector<ITrainable*> population;
-	for (int i = 0; i < 20; ++i) {
+	for (int i = 0; i < populationCount; ++i) {
 		population.push_back(new XORSolver());
 	}
 	NeuralNetworkTrainer trainer(population, params);

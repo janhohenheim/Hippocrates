@@ -1,5 +1,5 @@
 #include "gene.h"
-#include <iostream>
+#include <stdlib.h>
 
 size_t Gene::numberOfExistingGenes = 0U;
 
@@ -7,7 +7,6 @@ Gene::Gene()
 {
 	SetRandomWeight();
 	numberOfExistingGenes++;
-	std::cout << "New Gene created with historical marking: " << historicalMarking << "\t Number of total Genes: " << numberOfExistingGenes << std::endl;
 }
 
 void Gene::SetRandomWeight()

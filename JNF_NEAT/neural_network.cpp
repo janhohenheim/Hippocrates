@@ -33,21 +33,21 @@ NeuralNetwork::NeuralNetwork(const TrainingParameters & parameters, Genome&& gen
 NeuralNetwork::NeuralNetwork(const NeuralNetwork& other) :
 	parameters(other.parameters),
 	genome(other.genome),
-	neurons(other.neurons),
+	neurons(other.neurons.size()),
 	inputNeurons(other.inputNeurons.size()),
 	outputNeurons(other.outputNeurons.size())
 {
-	InterpretInputsAndOutputs();
+	BuildNetworkFromGenes();
 }
 
 NeuralNetwork::NeuralNetwork(NeuralNetwork&& other) :
 	parameters(std::move(other.parameters)),
 	genome(std::move(other.genome)),
-	neurons(std::move(other.neurons)),
+	neurons(other.neurons.size()),
 	inputNeurons(std::move(other.inputNeurons.size())),
 	outputNeurons(std::move(other.outputNeurons.size()))
 {
-	InterpretInputsAndOutputs();
+	BuildNetworkFromGenes();
 }
 
 NeuralNetwork& NeuralNetwork::operator=(const NeuralNetwork& other)
@@ -73,7 +73,6 @@ void NeuralNetwork::BuildNetworkFromGenes()
             neurons[gene.to].AddConnection(std::move(connection));
         }
     }
-
     InterpretInputsAndOutputs();
 }
 

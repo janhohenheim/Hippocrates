@@ -16,9 +16,8 @@ class NeuralNetworkTrainer {
 	// Methods
 	public:
 		NeuralNetworkTrainer() = delete;
-        explicit NeuralNetworkTrainer(std::vector<ITrainable*>& population, const TrainingParameters& parameters);
-        explicit NeuralNetworkTrainer(std::vector<ITrainable*>& population, TrainingParameters&& parameters);
-
+        NeuralNetworkTrainer(std::vector<ITrainable*>& population, const TrainingParameters& parameters);
+        NeuralNetworkTrainer(std::vector<ITrainable*>& population, TrainingParameters&& parameters);
 		NeuralNetworkTrainer(const NeuralNetworkTrainer& other) = default;
 
         ~NeuralNetworkTrainer() = default;

@@ -4,9 +4,10 @@
 struct Gene {
 	public:
 		Gene();
-		~Gene() = default;
 		Gene(const Gene& other) = default;
         Gene(Gene&& other) = default;
+		~Gene() = default;
+		
 		Gene& operator=(const Gene& other) = default;
 
         std::size_t from = 0;

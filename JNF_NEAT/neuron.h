@@ -16,8 +16,9 @@ class Neuron {
     public:
         Neuron() = default;
 		explicit Neuron(const Connections& connections);
-        Neuron(const Neuron& other) = default;
+		Neuron(const Neuron& other) = default;
         ~Neuron() = default;
+
 
 		void SetInput(float input);
 		void AddConnection(const IncomingConnection& connection);
