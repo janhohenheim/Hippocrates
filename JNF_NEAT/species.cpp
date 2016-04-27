@@ -51,7 +51,7 @@ bool Species::IsCompatible(const Genome& genome) const {
 }
 
 float Species::GetFitnessSharingModifier() const{
-	unsigned int fitnessSharingDivisor = 0;
+	unsigned int fitnessSharingDivisor = 1U;
 
 	for (auto& lhs : population) {
 		for (auto& rhs : population) {
