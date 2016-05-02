@@ -106,8 +106,7 @@ void Genome::MutateWeightOfGeneAt(size_t index)
 	constexpr float chanceOfTotalWeightReset = 0.1f;
 	if (DidChanceOccure(chanceOfTotalWeightReset)) {
 		genes[index].SetRandomWeight();
-	}
-	else {
+	} else {
 		PerturbWeightAt(index);
 	}
 }
@@ -123,3 +122,29 @@ void Genome::PerturbWeightAt(size_t index)
 	genes[index].weight *= perturbance;
 }
 
+double Genome::GetGeneticalDistanceFrom(const Genome& other) const
+{
+	double totalWeightDifference = 0.0;
+	size_t numberOfOverlapingGenes = 0;
+
+	size_t sizeOfSmallerGenome = std::min(this->GetGeneCount(), other.GetGeneCount());
+	auto IsHistoricalMarkingSameAt = [&](size_t i) {
+		return this->GetGeneAt(i).historicalMarking == other[i].historicalMarking;
+	};
+
+	for (size_t i = 0; i < sizeOfSmallerGenome && IsHistoricalMarkingSameAt(i); ++i) {
+		totalWeightDifference += (double)std::abs(this->GetGeneAt(i).weight - other[i].weight);
+		++numberOfOverlapingGenes;
+	}
+
+	auto numberOfDisjointGenes = this->GetGeneCount() + other.GetGeneCount() - (size_t)2 * numberOfOverlapingGenes;
+	auto sizeOfBiggerGenome = std::max(this->GetGeneCount(), other.GetGeneCount());
+	auto disjointGenesInfluence = (double)numberOfDisjointGenes / (double)sizeOfBiggerGenome;
+
+	auto averageWeightDifference = totalWeightDifference / (double)numberOfOverlapingGenes;
+
+	disjointGenesInfluence *= (double)parameters.advanced.speciation.importanceOfDisjointGenes;
+	averageWeightDifference *= (double)parameters.advanced.speciation.importanceOfAverageWeightDifference;
+
+	return disjointGenesInfluence + averageWeightDifference;
+}

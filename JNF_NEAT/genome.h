@@ -19,13 +19,15 @@ class Genome {
 		~Genome() = default;
 
 		Genome& operator=(const Genome& other);
-		Gene& operator[](std::size_t index) { return genes[index]; }
+		const Gene& operator[](std::size_t index) const { return GetGeneAt(index); }
+		const Gene& GetGeneAt(std::size_t index) const { return genes[index]; }
 		auto begin() { return genes.begin(); }
 		auto end() { return genes.end(); }
 		
 		std::size_t ExtrapolateNeuronCount() const;
 		std::size_t GetGeneCount() const;
 		void MutateGenes();
+		double GetGeneticalDistanceFrom(const Genome& other) const;
 
 	private:
 		static bool DidChanceOccure(float chance);

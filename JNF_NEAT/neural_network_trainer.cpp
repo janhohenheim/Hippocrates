@@ -14,26 +14,6 @@ NeuralNetworkTrainer::NeuralNetworkTrainer(std::vector<ITrainable*>& population,
 	SetPopulation(population);
 }
 
-NeuralNetwork NeuralNetworkTrainer::Breed(ITrainable* mother, ITrainable* father) const
-{
-	Genome childGenome(parameters);
-
-	if (mother->GetOrCalculateFitness() == father->GetOrCalculateFitness()) {
-		// TODO jnf
-		// Do Stuff with the genes
-	} else {
-		// TODO jnf
-		// Do Stuff with the genes
-	}
-
-	childGenome.MutateGenes();
-
-	NeuralNetwork child(parameters, std::move(childGenome));
-	// It may look ineffective to return this by value, accessing the copy constructor
-	// But don't worry, RVO will take care of this.
-	// If your compiler doesn't optimize this, I'd recommend using what you'd call an "out parameter" in C#
-	return child;
-}
 
 
 
@@ -51,7 +31,7 @@ void NeuralNetworkTrainer::SetPopulation(std::vector<ITrainable*>& population)
 	Genome standardGenes(parameters);
     for (auto& currTrainable : population) {
 		NeuralNetwork network(parameters, standardGenes);
-		Individual individual(currTrainable, std::move(network));
+		Individual individual(currTrainable, parameters, std::move(network));
 		this->population.push_back(std::move(individual));
     }
 	CategorizePopulationIntoSpecies();

@@ -11,11 +11,12 @@ class Individual {
 		NeuralNetwork network;
 		int fitness = 0;
 		bool isFitnessUpToDate = false;
-		const Species * species;
+		const Species* species;
+		const TrainingParameters& parameters;
 
 	public:
 		Individual(ITrainable* trainable, const TrainingParameters& parameters);
-		Individual(ITrainable* trainable, NeuralNetwork&& network);
+		Individual(ITrainable* trainable, const TrainingParameters& parameters, NeuralNetwork&& network);
 		Individual(ITrainable* trainable, const NeuralNetwork&& network) = delete;
 		Individual(const Individual& other) = default;
 		Individual(Individual&& other) = default;
@@ -29,5 +30,6 @@ class Individual {
 		void ModifyFitness(float factor);
 		int GetOrCalculateFitness();
 		void CoupleWithSpecies(Species& species);
+		Individual BreedWith(Individual* partner) const;
 		const Genome& GetGenome() const { return network.GetGenome(); }
 };

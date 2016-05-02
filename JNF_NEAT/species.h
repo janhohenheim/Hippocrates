@@ -27,7 +27,6 @@ class Species {
 		float GetFitnessSharingModifier() const;
 
 	private:
-		double GetGeneticalDistance(const Genome& leftGenome, const Genome& rightGenome) const;
 		void ElectRepresentative();
         void DeleteRepresentative();
         void SelectRandomRepresentative();
