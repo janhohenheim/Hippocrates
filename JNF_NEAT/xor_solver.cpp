@@ -1,14 +1,14 @@
 #include "xor_solver.h"
-#include <stdlib.h>
 
 void XORSolver::Reset()
 {
 	fitness = 0;
+	currTraining = trainingData.begin();
 }
 
 void XORSolver::Update(const std::vector<float>&  networkOutputs)
 {
-	int xorResult = (int)lastInputs[0] ^ (int)lastInputs[1];
+	int xorResult = currTraining->first ^ currTraining->second;
 	int networksXorResult = int(networkOutputs[0] > 0.5f);
 
 	if (xorResult == networksXorResult) {
@@ -23,9 +23,7 @@ int XORSolver::GetOrCalculateFitness()
 
 std::vector<float> XORSolver::ProvideNetworkWithInputs()
 {
-	lastInputs.clear();
-	lastInputs.push_back(float(rand() % 2));
-	lastInputs.push_back(float(rand() % 2));
-
-	return lastInputs;
+	std::vector<float> inputs = {(float)currTraining->first, (float)currTraining->second};
+	++currTraining;
+	return inputs;
 }
