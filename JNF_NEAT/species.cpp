@@ -50,7 +50,7 @@ bool Species::IsCompatible(const Genome& genome) const {
 	return !IsAboveCompatibilityThreshold(distanceToSpecies);
 }
 
-float Species::GetFitnessSharingModifier() const{
+float Species::GetFitnessSharingModifier() const {
 	unsigned int fitnessSharingDivisor = 1U;
 
 	for (auto& lhs : population) {

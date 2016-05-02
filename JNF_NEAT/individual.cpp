@@ -46,9 +46,12 @@ Individual Individual::BreedWith(Individual* partner) const
 	Individual* dominantParent = nullptr;
 	Genome childGenome(this->network.GetGenome());
 
+	size_t currGeneIndex = 0U;
+
 	if (trainable->GetOrCalculateFitness() == partner->GetOrCalculateFitness()) {
 		// TODO jnf
 		// Do Stuff with the genes
+
 	} else {
 		// TODO jnf
 		// Do Stuff with the genes

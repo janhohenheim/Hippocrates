@@ -118,7 +118,6 @@ void Genome::PerturbWeightAt(size_t index)
 	if (rand() % 2) {
 		perturbance = -perturbance;
 	}
-
 	genes[index].weight *= perturbance;
 }
 
