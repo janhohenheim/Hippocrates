@@ -30,6 +30,6 @@ class Individual {
 		void ModifyFitness(float factor);
 		int GetOrCalculateFitness();
 		void CoupleWithSpecies(Species& species);
-		Individual BreedWith(Individual* partner) const;
+        NeuralNetwork BreedWith(Individual* partner);
 		const Genome& GetGenome() const { return network.GetGenome(); }
 };

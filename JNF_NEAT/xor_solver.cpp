@@ -14,16 +14,16 @@ void XORSolver::Update(const std::vector<float>&  networkOutputs)
 	if (xorResult == networksXorResult) {
 		fitness += 10;
 	}
+    ++currTraining;
 }
 
-int XORSolver::GetOrCalculateFitness()
+int XORSolver::GetFitness() const
 {
 	return fitness;
 }
 
-std::vector<float> XORSolver::ProvideNetworkWithInputs()
+std::vector<float> XORSolver::ProvideNetworkWithInputs() const
 {
 	std::vector<float> inputs = {(float)currTraining->first, (float)currTraining->second};
-	++currTraining;
 	return inputs;
 }

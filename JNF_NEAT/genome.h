@@ -20,7 +20,9 @@ class Genome {
 
 		Genome& operator=(const Genome& other);
 		const Gene& operator[](std::size_t index) const { return GetGeneAt(index); }
+        Gene& operator[](std::size_t index) { return GetGeneAt(index); }
 		const Gene& GetGeneAt(std::size_t index) const { return genes[index]; }
+        Gene& GetGeneAt(std::size_t index) { return genes[index]; }
 		auto begin() { return genes.begin(); }
 		auto begin() const { return genes.begin(); }
 		auto end() { return genes.end(); }

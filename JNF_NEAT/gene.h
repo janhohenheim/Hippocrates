@@ -9,6 +9,9 @@ struct Gene {
 		~Gene() = default;
 		
 		Gene& operator=(const Gene& other) = default;
+        bool operator==(const Gene& other) const { return this->historicalMarking == other.historicalMarking; }
+        bool operator>(const Gene& other) const { return this->historicalMarking > other.historicalMarking; }
+        bool operator<(const Gene& other) const { return this->historicalMarking < other.historicalMarking; }
 
         std::size_t from = 0;
 		std::size_t to = 0;
