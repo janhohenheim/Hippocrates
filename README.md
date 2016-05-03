@@ -44,25 +44,20 @@ If you know what you're doing, you can provide it with a `NeuralNetworkTrainer::
 You then have to provide an implementation of the `ITrainable` interface. It's methods are
 - Update()
 - GetOrCalculateFitness()
-- ReceiveNetworkOutputs()
+- Reset
 - ProvideNetworkWithInputs()
 
 ###Update()
 This method gets called automatically multiple times during training.
-> default updatesPerGeneration: 1
-> Imagine this value as **number of actions per lifetime**
 
-The actions of your object should take place here. This almost always boils down to **executing the command the Neural Network decides to use**. (Remember: You get this Information by calling `LoadNeuralNetworkOutputs()`).
+The actions of your object should take place here. This almost always boils down to **executing the command the Neural Network decides to use**. This information is delivered to you by the parameter `const std::vector<float>& networkOutputs`.
 
-**Example**: Say you want to train an artificial player for Super Mario World. This method should then take care of actually pressing the buttons your network want you to. In this specific case, it should also update the whole game for a frame, so enemies and items can react to Mario.
+**Example**: Say you want to train an artificial player for Super Mario World. This method should then take care of actually pressing the buttons your network want you to. In this specific case, it should also update the whole game for a frame, so enemies and items can react to Mario. A possible interpretention of the `networkOutputs` would be to say that every float in the vector is a button and should be pressed if it's value is above `0.5`.
 
 ###GetOrCalculateFitness()
 This method tells the trainer how good this specific instance is compared to others.
 It gets called automatically when the `ITrainable` object dies
-> It's used to generate this objects offspring, with a fitness score of zero or lower meaning that this individuals genes are not going to get passed on
-
-> default minFitness: -2147483646
-> default maxFitness: 100
+It's used to generate this objects offspring, with a fitness score of zero or lower meaning that this individuals genes are not going to get passed on
 
 Note that in very analog programs such as real world simulations, true perfection should be unreachable
 
@@ -78,25 +73,25 @@ unsigned int ChessSim::GetOrCalculateFitness() {
   }
   return fitness;
 }
+```  
+or, if you store a member `fitness` that you change in the Update() function.  
+```sh
+unsigned int ChessSim::GetOrCalculateFitness() {
+    return fitness
+}
 ```
+###Reset()
+This method gets called after your training object has finished its lifecicle and starts to train again with different neural configurations. It should reset the training object to the state it had before training.  
 
-###ReceiveNetworkOutputs()
-This method returns the conclusions of your neural network as a series of floats
-> default minNeuralCharge = 0.0;
-> default maxNeuralCharge = 1.0;
-> It is **highly** recommended to leave these values like this (see advanced FAQ for details)
+If you have any member storing the `fitness`, it should be set to zero in here.
 
-Almost always you'll want to translate these values into something your program can work with and store in a member
-
-**Example**: TODO
+**Example**:  
+ If you are programming a Super Mario World player, the code to restart the level should be in here
 
 ###ProvideNetworkWithInputs()
 This method describes what your network "sees". It get's called automatically whenever your network needs updated real world knowledge.
 Remember that it works (just like `ReceiveNetworkOutputs()`) with a vector of doubles, so most of the time you'll want to translate your
 inputs by dividing them by their maximally possible values.
-> default minNeuralCharge = 0.0;  
-> default maxNeuralCharge = 1.0;  
-> It is **highly** recommended to leave these values like this (see advanced FAQ for details)
 
 **Example**: Let's assume you want to create a handwriting reader.
 Your input would be a 20 pixels wide and 20 pixels high image of a hand drawn letter.
