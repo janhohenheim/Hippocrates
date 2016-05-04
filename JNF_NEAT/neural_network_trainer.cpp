@@ -17,7 +17,7 @@ NeuralNetworkTrainer::NeuralNetworkTrainer(std::vector<ITrainable*>& population,
 
 
 
-void NeuralNetworkTrainer::ResetPopulation()
+void NeuralNetworkTrainer::ResetPopulationToTeachableState()
 {
 	for (auto& individuum : population) {
 		individuum.Reset();
@@ -31,7 +31,7 @@ void NeuralNetworkTrainer::SetPopulation(std::vector<ITrainable*>& population)
 	Genome standardGenes(parameters);
     for (auto& currTrainable : population) {
 		NeuralNetwork network(parameters, standardGenes);
-		Individual individual(currTrainable, parameters, std::move(network));
+		Individual individual(currTrainable, std::move(network));
 		this->population.push_back(std::move(individual));
     }
 	CategorizePopulationIntoSpecies();
@@ -42,15 +42,13 @@ void NeuralNetworkTrainer::TrainUntilFitnessEquals(int fitnessToReach) {
 	LetGenerationLive();
 	while (GetFittestSpecimen().GetOrCalculateFitness() < fitnessToReach) {
 		Repopulate();
-		ResetPopulation();
-		for (unsigned int i = 0; i < parameters.updatesPerGeneration; ++i) {
-			LetGenerationLive();
-		}
+		LetGenerationLive();
 	}
 }
 
 void NeuralNetworkTrainer::TrainUntilGenerationEquals(unsigned int generationsToTrain) {
-	for(auto generation = 0U; generation < generationsToTrain; generation++){
+	LetGenerationLive();
+	for (unsigned int i = 0; i < generationsToTrain; ++i) {
 		Repopulate();
 		LetGenerationLive();
 	}
@@ -70,15 +68,23 @@ Individual& NeuralNetworkTrainer::GetFittestSpecimen() {
 }
 
 void NeuralNetworkTrainer::LetGenerationLive() {
-	for (auto& individual : population){
-		individual.Update();
+	for (int i = 0; i < parameters.updatesPerGeneration; ++i) {
+		for (auto& individual : population) {
+			individual.Update();
+		}
 	}
 }
 
 void NeuralNetworkTrainer::Repopulate() {
-	// TODO jnf
-	// Implementation
+	std::vector<Individual> newPopulation;
+	newPopulation.reserve(population.size());
+	for (auto& currSpecies : species) {
+		// TODO jnf
+		// Breeding
+	}
+	population = std::move(newPopulation);
 	CategorizePopulationIntoSpecies();
+	ResetPopulationToTeachableState();
     // TODO jnf
     // Add Concurrency
 }

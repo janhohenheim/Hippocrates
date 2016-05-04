@@ -13,7 +13,6 @@ class NeuralNetworkTrainer {
 		std::vector<Species> species;
 		TrainingParameters parameters;
 
-	// Methods
 	public:
 		NeuralNetworkTrainer() = delete;
         NeuralNetworkTrainer(std::vector<ITrainable*>& population, const TrainingParameters& parameters);
@@ -31,7 +30,7 @@ class NeuralNetworkTrainer {
 	private:
 		void SetPopulation(std::vector<ITrainable*>& population);
 		
-		void ResetPopulation();
+		void ResetPopulationToTeachableState();
 		void Repopulate();        
 		void CategorizePopulationIntoSpecies();
 		void LetGenerationLive();

@@ -2,14 +2,12 @@
 
 Individual::Individual(ITrainable* trainable, const TrainingParameters& parameters) :
 	trainable(trainable),
-	parameters(parameters),
 	network(parameters)
 {
 }
 
-Individual::Individual(ITrainable* trainable, const TrainingParameters& parameters, NeuralNetwork&& network) :
+Individual::Individual(ITrainable* trainable, NeuralNetwork&& network) :
 	trainable(trainable),
-	parameters(parameters),
 	network(std::move(network))
 {
 }
@@ -41,7 +39,7 @@ void Individual::CoupleWithSpecies(Species& species)
 	this->species = &species;
 }
 
-NeuralNetwork Individual::BreedWith(Individual* partner)
+Genome Individual::BreedWith(Individual* partner)
 {
     bool parentsHaveSameFitness = this->GetOrCalculateFitness() == partner->GetOrCalculateFitness();
     Individual* dominantOrLargerParent = nullptr;
@@ -73,10 +71,8 @@ NeuralNetwork Individual::BreedWith(Individual* partner)
         }
 	} 
 	childGenome.MutateGenes();
-
-	NeuralNetwork child(parameters, std::move(childGenome));
 	// It may look ineffective to return this by value, accessing the copy constructor
 	// But don't worry, RVO will take care of this.
 	// If your compiler doesn't optimize this, I'd recommend using what you'd call an "out parameter" in C#
-	return child;
+	return childGenome;
 }
