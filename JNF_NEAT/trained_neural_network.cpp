@@ -13,12 +13,10 @@ std::vector<float> TrainedNeuralNetwork::GetOutputs(const std::vector<float>& in
 
 void TrainedNeuralNetwork::LoadFromFile(const std::string& fileName)
 {
-	// TODO jnf
-	// Implementation
+	// TODO jnf Implementation
 }
 
 void TrainedNeuralNetwork::SaveToFile(const std::string& fileName) const
 {
-	// TODO jnf
-	// Implementation
+	// TODO jnf Implementation
 }

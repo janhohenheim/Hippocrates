@@ -21,8 +21,7 @@ std::size_t Genome::ExtrapolateNeuronCount() const {
 		return lhs.to < rhs.to;
 	};
 	auto maxNeuronGene = std::max_element(genes.begin(), genes.end(), CompareToNeuron);
-	// TODO jnf
-	// Maybe add lookup table
+	// TODO jnf Maybe add lookup table
 	return maxNeuronGene->to + 1U;
 }
 

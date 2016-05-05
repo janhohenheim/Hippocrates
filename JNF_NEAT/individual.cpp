@@ -44,8 +44,7 @@ Genome Individual::BreedWith(Individual* partner)
     bool parentsHaveSameFitness = this->GetOrCalculateFitness() == partner->GetOrCalculateFitness();
     Individual* dominantOrLargerParent = nullptr;
     if (parentsHaveSameFitness) {
-        // TODO jnf
-        // remove feature envy
+        // TODO jnf remove feature envy
         dominantOrLargerParent = this->GetGenome().GetGeneCount() > partner->GetGenome().GetGeneCount() ? this : partner;
     }
     else {
@@ -61,8 +60,7 @@ Genome Individual::BreedWith(Individual* partner)
         ++i;
     }
 	if (parentsHaveSameFitness) {
-		// TODO jnf
-		// Remove double code
+		// TODO jnf Remove double code
         while (i < dominantOrLargerParent->GetGenome().GetGeneCount()) {
             if (rand() % 2 == 0) {
                 childGenome[i] = partner->GetGenome()[i];

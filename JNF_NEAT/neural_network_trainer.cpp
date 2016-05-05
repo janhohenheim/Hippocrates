@@ -62,8 +62,7 @@ Individual& NeuralNetworkTrainer::GetFittestSpecimen() {
 	auto compareFitness = [](Individual& lhs, Individual& rhs) {
 		return lhs.GetOrCalculateFitness() < rhs.GetOrCalculateFitness();
 	};
-	// TODO jnf
-	// cache this
+	// TODO jnf cache this
 	return *std::max_element(population.begin(), population.end(), compareFitness);
 }
 
@@ -79,14 +78,12 @@ void NeuralNetworkTrainer::Repopulate() {
 	std::vector<Individual> newPopulation;
 	newPopulation.reserve(population.size());
 	for (auto& currSpecies : species) {
-		// TODO jnf
-		// Breeding
+		// TODO jnf Breeding
 	}
 	population = std::move(newPopulation);
 	CategorizePopulationIntoSpecies();
 	ResetPopulationToTeachableState();
-    // TODO jnf
-    // Add Concurrency
+    // TODO jnf Add Concurrency
 }
 
 
@@ -107,6 +104,5 @@ void NeuralNetworkTrainer::CategorizePopulationIntoSpecies()
 			individual.CoupleWithSpecies(species.back());
 		}
 	}
-	// TODO jnf
-	// Clear empty species
+	// TODO jnf Clear empty species
 }
