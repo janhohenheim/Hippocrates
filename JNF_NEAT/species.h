@@ -1,34 +1,31 @@
 #pragma once
 #include "training_parameters.h"
-#include "neural_network.h"
+#include "genome.h"
 #include <memory>
+#include <functional>
 
 class Species {
 	private:
-		const TrainingParameters& parameters;
-		std::vector<NeuralNetwork*> population;
-		NeuralNetwork* representative = nullptr;
+		std::vector<std::reference_wrapper<const Genome>> population;
+		Genome* representative = nullptr;
 
 	public:
-		Species() = delete;
-		explicit Species(const TrainingParameters& parameters);
+		Species() = default;
 		Species(const Species& other);
 		Species(Species&& other);
         Species(const Species&& other) = delete;
         ~Species();
 
 
-		void AddIndividual(NeuralNetwork& individual);
-		void SetPopulation(std::vector<NeuralNetwork>& population);
+		void AddIndividual(const Genome& individual);
+		void SetPopulation(const std::vector<Genome>& population);
 
-		bool IsCompatible(const NeuralNetwork& network) const;
 		bool IsCompatible(const Genome& genome) const;
 
 		float GetFitnessSharingModifier() const;
 
 	private:
 		void ElectRepresentative();
-        void DeleteRepresentative();
         void SelectRandomRepresentative();
 
 		template<class T>

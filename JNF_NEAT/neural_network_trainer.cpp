@@ -30,7 +30,7 @@ void NeuralNetworkTrainer::SetPopulation(std::vector<ITrainable*>& population)
 	this->population.reserve(population.size());
 	Genome standardGenes(parameters);
     for (auto& currTrainable : population) {
-		NeuralNetwork network(parameters, standardGenes);
+		NeuralNetwork network(standardGenes);
 		Individual individual(currTrainable, std::move(network));
 		this->population.push_back(std::move(individual));
     }
@@ -67,7 +67,7 @@ Individual& NeuralNetworkTrainer::GetFittestSpecimen() {
 }
 
 void NeuralNetworkTrainer::LetGenerationLive() {
-	for (int i = 0; i < parameters.updatesPerGeneration; ++i) {
+	for (unsigned int i = 0; i < parameters.updatesPerGeneration; ++i) {
 		for (auto& individual : population) {
 			individual.Update();
 		}
@@ -77,8 +77,14 @@ void NeuralNetworkTrainer::LetGenerationLive() {
 void NeuralNetworkTrainer::Repopulate() {
 	std::vector<Individual> newPopulation;
 	newPopulation.reserve(population.size());
-	for (auto& currSpecies : species) {
-		// TODO jnf Breeding
+	for (auto& individual : population) {
+        auto & father = SelectIndividualToBreed();
+        auto & mother = SelectIndividualToBreed();
+
+        auto childGenome(father.BreedWith(mother));
+        NeuralNetwork childNeuralNetwork(std::move(childGenome));
+        Individual child(individual.GetTrainable(), std::move(childNeuralNetwork));
+        newPopulation.push_back(std::move(child));
 	}
 	population = std::move(newPopulation);
 	CategorizePopulationIntoSpecies();
@@ -86,6 +92,11 @@ void NeuralNetworkTrainer::Repopulate() {
     // TODO jnf Add Concurrency
 }
 
+Individual & NeuralNetworkTrainer::SelectIndividualToBreed() {
+    // TODO jnf: Implement fitness proportionate selection
+    // TODO jnf: Switch later to stochastic universal sampling
+    return population[0];
+}
 
 void NeuralNetworkTrainer::CategorizePopulationIntoSpecies()
 {
@@ -99,8 +110,7 @@ void NeuralNetworkTrainer::CategorizePopulationIntoSpecies()
 			}
 		}
 		if (!isCompatibleWithExistingSpecies) {
-			Species newSpecies(parameters);
-			species.push_back(std::move(newSpecies));
+			species.push_back(std::move(Species()));
 			individual.CoupleWithSpecies(species.back());
 		}
 	}

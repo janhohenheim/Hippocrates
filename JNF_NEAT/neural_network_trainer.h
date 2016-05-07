@@ -6,11 +6,12 @@
 #include "individual.h"
 #include "species.h"
 #include <vector>
+#include <list>
 
 class NeuralNetworkTrainer {
 	private:
 		std::vector<Individual> population;
-		std::vector<Species> species;
+		std::list<Species> species;
 		TrainingParameters parameters;
 
 	public:
@@ -32,6 +33,7 @@ class NeuralNetworkTrainer {
 		
 		void ResetPopulationToTeachableState();
 		void Repopulate();        
-		void CategorizePopulationIntoSpecies();
+        Individual & SelectIndividualToBreed();
+        void CategorizePopulationIntoSpecies();
 		void LetGenerationLive();
 };

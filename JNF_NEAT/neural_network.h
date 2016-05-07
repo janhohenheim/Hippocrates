@@ -13,10 +13,11 @@ class NeuralNetwork {
 		const TrainingParameters& parameters;
 
 	public:
+        NeuralNetwork() = delete;
 		explicit NeuralNetwork(const TrainingParameters & parameters);
-        NeuralNetwork(const TrainingParameters& parameters, const Genome& genome);
-        NeuralNetwork(const TrainingParameters& parameters, Genome&& genome);
-		NeuralNetwork(const TrainingParameters& parameters, const Genome&& genome) = delete;
+        explicit NeuralNetwork(const Genome& genome);
+        explicit NeuralNetwork(Genome&& genome);
+        explicit NeuralNetwork(const Genome&& genome) = delete;
 
 		NeuralNetwork(const NeuralNetwork& other);
 		NeuralNetwork(NeuralNetwork&& other);

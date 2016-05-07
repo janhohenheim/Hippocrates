@@ -32,6 +32,7 @@ class Genome {
 		std::size_t GetGeneCount() const;
 		void MutateGenes();
 		double GetGeneticalDistanceFrom(const Genome& other) const;
+        const TrainingParameters& GetTrainingParameters() const { return parameters; }
 
 	private:
 		static bool DidChanceOccure(float chance);

@@ -12,20 +12,20 @@ NeuralNetwork::NeuralNetwork(const TrainingParameters & parameters):
 	BuildNetworkFromGenes();
 }
 
-NeuralNetwork::NeuralNetwork(const TrainingParameters & parameters, const Genome& genome):
-	parameters(parameters),
+NeuralNetwork::NeuralNetwork(const Genome& genome):
+	parameters(genome.GetTrainingParameters()),
     genome(genome),
-	inputNeurons(parameters.numberOfInputs),
-	outputNeurons(parameters.numberOfOutputs)
+	inputNeurons(genome.GetTrainingParameters().numberOfInputs),
+	outputNeurons(genome.GetTrainingParameters().numberOfOutputs)
 {
     BuildNetworkFromGenes();
 }
 
-NeuralNetwork::NeuralNetwork(const TrainingParameters & parameters, Genome&& genome):
-	parameters(parameters),
+NeuralNetwork::NeuralNetwork(Genome&& genome):
+	parameters(genome.GetTrainingParameters()),
 	genome(genome),
-	inputNeurons(parameters.numberOfInputs),
-	outputNeurons(parameters.numberOfOutputs)
+	inputNeurons(genome.GetTrainingParameters().numberOfInputs),
+	outputNeurons(genome.GetTrainingParameters().numberOfOutputs)
 {
 	BuildNetworkFromGenes();
 }

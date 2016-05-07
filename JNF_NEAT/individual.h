@@ -14,7 +14,6 @@ class Individual {
 		const Species* species = nullptr;
 
 	public:
-		Individual(ITrainable* trainable, const TrainingParameters& parameters);
 		Individual(ITrainable* trainable, NeuralNetwork&& network);
 		Individual(ITrainable* trainable, const NeuralNetwork&& network) = delete;
 		Individual(const Individual& other) = default;
@@ -29,6 +28,7 @@ class Individual {
 		void ModifyFitness(float factor);
 		int GetOrCalculateFitness();
 		void CoupleWithSpecies(Species& species);
-		Genome BreedWith(Individual* partner);
+		Genome BreedWith(Individual& partner);
 		const Genome& GetGenome() const { return network.GetGenome(); }
+        ITrainable * GetTrainable() const { return trainable; }
 };
