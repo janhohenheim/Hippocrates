@@ -83,10 +83,10 @@ void Genome::AddRandomConnection()
 	};
 
 	Gene newConnection;
-	auto numberOfNeurons = ExtrapolateNeuronCount() - 1U;
+	auto highestNeuronIndex = ExtrapolateNeuronCount() - 1U;
 
-	newConnection.from = GetRandomNumberBetween(0U, numberOfNeurons - 1U);
-	newConnection.to = GetRandomNumberBetween(newConnection.from + 1, numberOfNeurons);
+	newConnection.from = GetRandomNumberBetween(0U, highestNeuronIndex - 1U);
+	newConnection.to = GetRandomNumberBetween(newConnection.from + 1, highestNeuronIndex);
 
 	genes.push_back(newConnection);
 }

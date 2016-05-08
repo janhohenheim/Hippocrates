@@ -11,7 +11,7 @@ int main() {
 	params.numberOfInputs = 2;
 	params.numberOfOutputs = 1;
 	params.updatesPerGeneration = 4;
-	int populationCount = 1;
+	int populationCount = 2;
 
 	std::vector<ITrainable*> population;
 	for (int i = 0; i < populationCount; ++i) {

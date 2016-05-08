@@ -7,8 +7,8 @@
 class Genome {
 	// Members
 	private:
-		std::vector<Gene> genes;
 		const TrainingParameters& parameters;
+		std::vector<Gene> genes;
 
 	// Methods
 	public:

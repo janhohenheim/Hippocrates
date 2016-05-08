@@ -103,6 +103,7 @@ void NeuralNetworkTrainer::CategorizePopulationIntoSpecies()
 	for (auto& individual : population) {
 		bool isCompatibleWithExistingSpecies = false;
 		for (auto& currSpecies : species) {
+            currSpecies.Clear();
 			if (currSpecies.IsCompatible(individual.GetGenome())) {
 				individual.CoupleWithSpecies(currSpecies);
 				isCompatibleWithExistingSpecies = true;

@@ -25,16 +25,6 @@ void Species::AddIndividual(const Genome& individual)
 	ElectRepresentative();
 }
 
-void Species::SetPopulation(const std::vector<Genome>& population)
-{
-	this->population.empty();
-	this->population.reserve(population.size());
-	for (auto& individual : population) {
-		this->population.push_back(individual);
-	}
-	ElectRepresentative();
-}
-
 bool Species::IsCompatible(const Genome& genome) const {
 	auto distanceToSpecies = representative->GetGeneticalDistanceFrom(genome);
 	return !IsAboveCompatibilityThreshold(distanceToSpecies);

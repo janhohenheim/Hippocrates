@@ -18,7 +18,7 @@ class Species {
 
 
 		void AddIndividual(const Genome& individual);
-		void SetPopulation(const std::vector<Genome>& population);
+        void Clear() { population.clear(); }
 
 		bool IsCompatible(const Genome& genome) const;
 
