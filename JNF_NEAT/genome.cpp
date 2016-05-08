@@ -63,17 +63,19 @@ void Genome::AddRandomNeuron()
 		randGene = &genes[num];
 	} while (!randGene->isEnabled);
 
-	auto numberOfNeurons = ExtrapolateNeuronCount();
+	auto indexOfNewNeuron = ExtrapolateNeuronCount();
 
-	Gene g1(*randGene);
-	g1.to = numberOfNeurons;
-	genes.push_back(std::move(g1));
+	Gene g1;
+    g1.from = randGene->from;
+	g1.to = indexOfNewNeuron;
 
-	Gene g2(*randGene);
-	g2.from = numberOfNeurons;
-	genes.push_back(std::move(g2));
+	Gene g2;
+	g2.from = indexOfNewNeuron;
+    g2.to = randGene->to;
 
 	randGene->isEnabled = false;
+	genes.push_back(std::move(g1));
+	genes.push_back(std::move(g2));
 }
 
 void Genome::AddRandomConnection()
