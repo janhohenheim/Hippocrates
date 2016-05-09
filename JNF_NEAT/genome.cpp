@@ -29,8 +29,7 @@ std::size_t Genome::GetGeneCount() const {
 	return genes.size();
 }
 
-Genome& Genome::operator=(const Genome& other)
-{
+Genome& Genome::operator=(const Genome& other) {
 	this->genes = other.genes; 
 	const_cast<TrainingParameters&>(this->parameters) = other.parameters;
 	return *this;
@@ -49,17 +48,15 @@ void Genome::MutateGenes() {
 	}
 }
 
-bool Genome::DidChanceOccure(float chance)
-{
+bool Genome::DidChanceOccure(float chance) {
 	auto num = rand() % 100;
 	return num < int(100.0f * chance);
 }
 
-void Genome::AddRandomNeuron()
-{
+void Genome::AddRandomNeuron() {
 	Gene* randGene = nullptr;
 	do {
-		int num = rand() % genes.size();
+		size_t num = rand() % genes.size();
 		randGene = &genes[num];
 	} while (!randGene->isEnabled);
 
@@ -80,23 +77,21 @@ void Genome::AddRandomNeuron()
 	genes.push_back(std::move(g2));
 }
 
-void Genome::AddRandomConnection()
-{
+void Genome::AddRandomConnection() {
 	auto GetRandomNumberBetween = [](size_t min, size_t max) {
 		return rand() % (max - min) + min;
 	};
-
 	Gene newConnection;
-	auto highestNeuronIndex = ExtrapolateNeuronCount() - 1U;
-
-	newConnection.from = GetRandomNumberBetween(0U, highestNeuronIndex - 1U);
-	newConnection.to = GetRandomNumberBetween(newConnection.from + 1, highestNeuronIndex);
+	auto highestIndex = GetGeneCount() - 1U;
+	auto randIndex = GetRandomNumberBetween(0U, highestIndex - 1U);
+	newConnection.from = genes[randIndex].from;
+	randIndex = GetRandomNumberBetween(highestIndex - 1U, highestIndex);
+	newConnection.to = genes[randIndex].to;
 
 	genes.push_back(newConnection);
 }
 
-void Genome::ShuffleWeights()
-{
+void Genome::ShuffleWeights() {
 	for (size_t i = 0; i < genes.size(); i++) {
 		if (ShouldMutateWeight()) {
 			MutateWeightOfGeneAt(i);
@@ -104,8 +99,7 @@ void Genome::ShuffleWeights()
 	}
 }
 
-void Genome::MutateWeightOfGeneAt(size_t index)
-{
+void Genome::MutateWeightOfGeneAt(size_t index) {
 	constexpr float chanceOfTotalWeightReset = 0.1f;
 	if (DidChanceOccure(chanceOfTotalWeightReset)) {
 		genes[index].SetRandomWeight();
@@ -114,8 +108,7 @@ void Genome::MutateWeightOfGeneAt(size_t index)
 	}
 }
 
-void Genome::PerturbWeightAt(size_t index)
-{
+void Genome::PerturbWeightAt(size_t index) {
 	constexpr float perturbanceBoundaries = 0.2f;
 	auto perturbance = (float)(rand() % 10'000) / 10'000.0f * perturbanceBoundaries;
 	if (rand() % 2) {
@@ -124,8 +117,7 @@ void Genome::PerturbWeightAt(size_t index)
 	genes[index].weight *= perturbance;
 }
 
-double Genome::GetGeneticalDistanceFrom(const Genome& other) const
-{
+double Genome::GetGeneticalDistanceFrom(const Genome& other) const {
 	double totalWeightDifference = 0.0;
 	size_t numberOfOverlapingGenes = 0;
 

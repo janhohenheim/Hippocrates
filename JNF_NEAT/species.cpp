@@ -47,15 +47,12 @@ void Species::SetPopulationsFitnessModifier() {
 			}
 		}
 	}
-
 	float fitnessSharingFactor = 1.0f / (float)fitnessSharingDivisor;
 
 	for (auto& organism : population){
 		organism.SetFitnessModifier(fitnessSharingFactor);
 	}
 }
-
-
 
 void Species::ElectRepresentative()
 {
