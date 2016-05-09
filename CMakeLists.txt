@@ -16,8 +16,8 @@ set(SOURCE_FILES
     JNF_NEAT/trainable.h
     JNF_NEAT/xor_solver.h
     JNF_NEAT/xor_solver.cpp
-    JNF_NEAT/individual.h
-    JNF_NEAT/individual.cpp
+    JNF_NEAT/organism.h
+    JNF_NEAT/organism.cpp
     JNF_NEAT/species.h
     JNF_NEAT/species.cpp
     JNF_NEAT/genome.h

@@ -19,11 +19,17 @@ Species::~Species()
     representative = nullptr;
 }
 
-void Species::AddIndividual(const Genome& individual)
+void Species::AddOrganism(const Organism &organism)
 {
-	population.push_back(individual);
+	population.push_back(organism);
 	ElectRepresentative();
 }
+
+void Species::AddOrganism(Organism &&organism) {
+	population.push_back(std::move(organism));
+	ElectRepresentative();
+}
+
 
 bool Species::IsCompatible(const Genome& genome) const {
 	auto distanceToSpecies = representative->GetGeneticalDistanceFrom(genome);
@@ -35,7 +41,7 @@ float Species::GetFitnessSharingModifier() const {
 
 	for (auto& lhs : population) {
 		for (auto& rhs : population) {
-			auto distance = lhs.get().GetGeneticalDistanceFrom(rhs);
+			auto distance = lhs.GetGenome().GetGeneticalDistanceFrom(rhs.GetGenome());
 			if (IsAboveCompatibilityThreshold(distance)) {
 				++fitnessSharingDivisor;
 			}
@@ -61,9 +67,9 @@ void Species::ElectRepresentative()
 void Species::SelectRandomRepresentative() {
     auto randomMember = rand() % population.size();
     if (representative == nullptr) {
-        representative = new Genome(population[randomMember]);
+        representative = new Genome(population[randomMember].GetGenome());
     }
-    *representative = population[randomMember];
+    *representative = population[randomMember].GetGenome();
 }
 
 template <class T>
@@ -71,3 +77,20 @@ constexpr bool Species::IsAboveCompatibilityThreshold(T t) const
 {
 	return t > representative->GetTrainingParameters().advanced.speciation.compatibilityThreshold;
 }
+
+void Species::LetPopulationLive() {
+	for (auto& individal : population){
+		individal.Update();
+	}
+}
+
+void Species::ResetToTeachableState() {
+	for (auto& individal : population){
+		individal.Reset();
+	}
+}
+
+
+
+
+

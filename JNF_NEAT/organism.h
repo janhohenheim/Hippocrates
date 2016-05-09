@@ -2,33 +2,30 @@
 #include "neural_network.h"
 #include "trainable.h"
 #include "training_parameters.h"
-#include "species.h"
 #include "genome.h"
 
-class Individual {
+class Organism {
 	private:
 		ITrainable* trainable = nullptr;
 		NeuralNetwork network;
 		int fitness = 0;
 		bool isFitnessUpToDate = false;
-		const Species* species = nullptr;
 
 	public:
-		Individual(ITrainable* trainable, NeuralNetwork&& network);
-		Individual(ITrainable* trainable, const NeuralNetwork&& network) = delete;
-		Individual(const Individual& other) = default;
-		Individual(Individual&& other) = default;
-		~Individual() = default;
+		Organism(ITrainable* trainable, NeuralNetwork&& network);
+		Organism(ITrainable* trainable, const NeuralNetwork&& network) = delete;
+		Organism(const Organism& other) = default;
+		Organism(Organism&& other) = default;
+		~Organism() = default;
 
-		Individual& operator=(const Individual& other) = default;
+		Organism& operator=(const Organism& other) = default;
 
 
 		void Reset() { trainable->Reset(); }
 		void Update();
 		void ModifyFitness(float factor);
 		int GetOrCalculateFitness();
-		void CoupleWithSpecies(Species& species);
-		Genome BreedWith(Individual& partner);
+		Genome BreedWith(Organism& partner);
 		const Genome& GetGenome() const { return network.GetGenome(); }
         ITrainable * GetTrainable() const { return trainable; }
 };

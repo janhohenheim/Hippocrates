@@ -1,42 +1,37 @@
-#include "individual.h"
+#include <cstdlib>
+#include "organism.h"
 
-Individual::Individual(ITrainable* trainable, NeuralNetwork&& network) :
+Organism::Organism(ITrainable* trainable, NeuralNetwork&& network) :
 	trainable(trainable),
 	network(std::move(network))
 {
 }
 
-void Individual::Update()
+void Organism::Update()
 {
 	network.SetInputs(trainable->ProvideNetworkWithInputs());
 	trainable->Update(network.GetOutputs());
 	isFitnessUpToDate = false;
 }
 
-void Individual::ModifyFitness(float factor)
+void Organism::ModifyFitness(float factor)
 {
 	fitness = (int)((float)fitness * factor);
 }
 
-int Individual::GetOrCalculateFitness()
+int Organism::GetOrCalculateFitness()
 {
 	if (!isFitnessUpToDate) {
-		fitness = (int)((float)trainable->GetFitness() * species->GetFitnessSharingModifier());
+		fitness = trainable->GetFitness();
 		isFitnessUpToDate = true;
 	}
 	return fitness;
 }
 
-void Individual::CoupleWithSpecies(Species& species)
-{
-	species.AddIndividual(network.GetGenome());
-	this->species = &species;
-}
-
-Genome Individual::BreedWith(Individual& partner)
+Genome Organism::BreedWith(Organism& partner)
 {
     bool parentsHaveSameFitness = this->GetOrCalculateFitness() == partner.GetOrCalculateFitness();
-    Individual* dominantOrLargerParent = nullptr;
+    Organism* dominantOrLargerParent = nullptr;
     auto & partnerGenome = partner.GetGenome();
     if (parentsHaveSameFitness) {
         // TODO jnf remove feature envy

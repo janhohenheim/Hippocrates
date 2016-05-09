@@ -1,12 +1,12 @@
 #pragma once
 #include "training_parameters.h"
-#include "genome.h"
+#include "organism.h"
 #include <memory>
 #include <functional>
 
 class Species {
 	private:
-		std::vector<std::reference_wrapper<const Genome>> population;
+		std::vector<Organism> population;
 		Genome* representative = nullptr;
 
 	public:
@@ -17,10 +17,13 @@ class Species {
         ~Species();
 
 
-		void AddIndividual(const Genome& individual);
+		void AddOrganism(const Organism &organism);
+		void AddOrganism(Organism &&organism);
         void Clear() { population.clear(); }
 
 		bool IsCompatible(const Genome& genome) const;
+		void LetPopulationLive();
+		void ResetToTeachableState();
 
 		float GetFitnessSharingModifier() const;
 

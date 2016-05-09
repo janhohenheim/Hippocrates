@@ -39,7 +39,7 @@
     <ClCompile Include="species.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="individual.cpp">
+    <ClCompile Include="organism.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="genome.cpp">
@@ -74,7 +74,7 @@
     <ClInclude Include="species.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="individual.h">
+    <ClInclude Include="organism.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="genome.h">

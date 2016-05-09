@@ -3,14 +3,13 @@
 #include "trainable.h"
 #include "training_parameters.h"
 #include "genome.h"
-#include "individual.h"
+#include "organism.h"
 #include "species.h"
 #include <vector>
 #include <list>
 
 class NeuralNetworkTrainer {
 	private:
-		std::vector<Individual> population;
 		std::vector<Species> species;
 		TrainingParameters parameters;
 
@@ -26,14 +25,14 @@ class NeuralNetworkTrainer {
 		void TrainUntilFitnessEquals(int fitnessToReach);
 		void TrainUntilGenerationEquals(unsigned int generationsToTrain);
 
-		Individual& GetFittestSpecimen();
+		Organism& GetFittestSpecimen();
 
 	private:
 		void SetPopulation(std::vector<ITrainable*>& population);
 		
 		void ResetPopulationToTeachableState();
 		void Repopulate();        
-        Individual & SelectIndividualToBreed();
-        void CategorizePopulationIntoSpecies();
+        Organism & SelectOrganismToBreed();
+        void CategorizeOrganismsIntoSpecies(std::vector<Organism> && organisms);
 		void LetGenerationLive();
 };
