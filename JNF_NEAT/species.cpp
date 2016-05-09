@@ -79,14 +79,14 @@ constexpr bool Species::IsAboveCompatibilityThreshold(T t) const
 }
 
 void Species::LetPopulationLive() {
-	for (auto& individal : population){
-		individal.Update();
+	for (auto& organism : population){
+		organism.Update();
 	}
 }
 
 void Species::ResetToTeachableState() {
-	for (auto& individal : population){
-		individal.Reset();
+	for (auto& organism : population){
+		organism.Reset();
 	}
 }
 

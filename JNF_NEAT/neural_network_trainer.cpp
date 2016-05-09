@@ -3,13 +3,15 @@
 #include "neural_network_trainer.h"
 
 NeuralNetworkTrainer::NeuralNetworkTrainer(std::vector<ITrainable*>& population, const TrainingParameters& parameters) :
-	parameters(parameters)
+	parameters(parameters),
+	populationSize(population.size())
 {
 	SetPopulation(population);
 }
 
 NeuralNetworkTrainer::NeuralNetworkTrainer(std::vector<ITrainable*>& population, TrainingParameters&& parameters) :
-    parameters(parameters)
+    parameters(parameters),
+	populationSize(population.size())
 {
 	SetPopulation(population);
 }
@@ -69,18 +71,28 @@ void NeuralNetworkTrainer::LetGenerationLive() {
 void NeuralNetworkTrainer::Repopulate() {
 	// TODO jnf: Implement
 	std::vector<Organism> population;
-	//population.reserve(size);
-	/*
-	for (auto& organism : population) {
-        auto & father = SelectOrganismToBreed();
-        auto & mother = SelectOrganismToBreed();
+	population.reserve(populationSize);
 
-        auto childGenome(father.BreedWith(mother));
-        NeuralNetwork childNeuralNetwork(std::move(childGenome));
-        Organism child(organism.GetTrainable(), std::move(childNeuralNetwork));
-        population.push_back(std::move(child));
+	auto DidChanceOccure = [](float chance) {
+		auto num = rand() % 100;
+		return num < int(100.0f * chance);
+	};
+
+	while (population.size() < populationSize) {
+		/*
+		auto sp = SelectSpeciesToBreed();
+		auto & father = SelectOrganismToBreedFromSpecies(sp);
+		if (DidChanceOccure(parameters.advanced.reproduction.chanceForInterspecialReproduction){
+			auto sp = SelectSpeciesToBreed();
+		}
+		auto & mother = SelectOrganismToBreedFromSpecies(sp);
+
+		auto childGenome(father.BreedWith(mother));
+		NeuralNetwork childNeuralNetwork(std::move(childGenome));
+		Organism child(organism.GetTrainable(), std::move(childNeuralNetwork));
+		population.push_back(std::move(child));
+		*/
 	}
-	 */
 	CategorizeOrganismsIntoSpecies(std::move(population));
 	ResetPopulationToTeachableState();
     // TODO jnf Add Concurrency

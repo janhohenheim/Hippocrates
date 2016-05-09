@@ -22,5 +22,8 @@ struct TrainingParameters {
             float importanceOfAverageWeightDifference = 0.3f;
 			float compatibilityThreshold = 3.0f;
         } speciation;
+		struct Reproduction {
+			float chanceForInterspecialReproduction = 0.001f;
+		} reproduction;
 	} advanced;
 };
