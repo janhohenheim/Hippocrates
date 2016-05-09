@@ -92,7 +92,7 @@ void Genome::AddRandomConnection()
 	newConnection.from = GetRandomNumberBetween(0U, highestNeuronIndex - 1U);
 	newConnection.to = GetRandomNumberBetween(newConnection.from + 1, highestNeuronIndex);
 
-	//genes.push_back(newConnection);
+	genes.push_back(newConnection);
 }
 
 void Genome::ShuffleWeights()
