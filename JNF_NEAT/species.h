@@ -16,6 +16,7 @@ class Species {
         Species(const Species&& other) = delete;
         ~Species();
 
+		Species&operator=(Species && other);
 
 		void AddOrganism(const Organism &organism);
 		void AddOrganism(Organism &&organism);
@@ -24,8 +25,9 @@ class Species {
 		bool IsCompatible(const Genome& genome) const;
 		void LetPopulationLive();
 		void ResetToTeachableState();
+		Organism& GetFittestOrganism();
 
-		float GetFitnessSharingModifier() const;
+		void SetPopulationsFitnessModifier();
 
 	private:
 		void ElectRepresentative();

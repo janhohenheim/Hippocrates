@@ -14,9 +14,6 @@ NeuralNetworkTrainer::NeuralNetworkTrainer(std::vector<ITrainable*>& population,
 	SetPopulation(population);
 }
 
-
-
-
 void NeuralNetworkTrainer::ResetPopulationToTeachableState()
 {
 	for (auto& sp : species) {
@@ -58,12 +55,7 @@ Organism& NeuralNetworkTrainer::GetFittestSpecimen() {
 	if (species.empty()) {
 		throw std::out_of_range("Your population is empty");
 	}
-
-	auto compareFitness = [](Organism& lhs, Organism& rhs) {
-		return lhs.GetOrCalculateFitness() < rhs.GetOrCalculateFitness();
-	};
-	// TODO jnf implementation
-	// return *std::max_element(population.begin(), population.end(), compareFitness);
+	return species.front().GetFittestOrganism();
 }
 
 void NeuralNetworkTrainer::LetGenerationLive() {
@@ -116,4 +108,12 @@ void NeuralNetworkTrainer::CategorizeOrganismsIntoSpecies(std::vector<Organism> 
 		}
 	}
 	// TODO jnf Clear empty species
+
+	auto CompareSpecies = [&](Species& lhs, Species& rhs) {
+		return lhs.GetFittestOrganism().GetOrCalculateFitness() < rhs.GetFittestOrganism().GetOrCalculateFitness();
+	};
+	std::sort(species.begin(), species.end(), CompareSpecies);
+	for (auto& sp : species){
+		sp.SetPopulationsFitnessModifier();
+	}
 }

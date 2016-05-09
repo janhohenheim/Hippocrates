@@ -9,6 +9,7 @@ class Organism {
 		ITrainable* trainable = nullptr;
 		NeuralNetwork network;
 		int fitness = 0;
+		float fitnessModifier = 0.0f;
 		bool isFitnessUpToDate = false;
 
 	public:
@@ -23,7 +24,7 @@ class Organism {
 
 		void Reset() { trainable->Reset(); }
 		void Update();
-		void ModifyFitness(float factor);
+		void SetFitnessModifier(float factor) {fitnessModifier = factor;}
 		int GetOrCalculateFitness();
 		Genome BreedWith(Organism& partner);
 		const Genome& GetGenome() const { return network.GetGenome(); }

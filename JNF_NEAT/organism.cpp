@@ -14,10 +14,6 @@ void Organism::Update()
 	isFitnessUpToDate = false;
 }
 
-void Organism::ModifyFitness(float factor)
-{
-	fitness = (int)((float)fitness * factor);
-}
 
 int Organism::GetOrCalculateFitness()
 {
@@ -25,7 +21,7 @@ int Organism::GetOrCalculateFitness()
 		fitness = trainable->GetFitness();
 		isFitnessUpToDate = true;
 	}
-	return fitness;
+	return (int)((float)fitness * fitnessModifier);
 }
 
 Genome Organism::BreedWith(Organism& partner)

@@ -36,7 +36,7 @@ bool Species::IsCompatible(const Genome& genome) const {
 	return !IsAboveCompatibilityThreshold(distanceToSpecies);
 }
 
-float Species::GetFitnessSharingModifier() const {
+void Species::SetPopulationsFitnessModifier() {
 	unsigned int fitnessSharingDivisor = 1U;
 
 	for (auto& lhs : population) {
@@ -49,7 +49,10 @@ float Species::GetFitnessSharingModifier() const {
 	}
 
 	float fitnessSharingFactor = 1.0f / (float)fitnessSharingDivisor;
-	return fitnessSharingFactor;
+
+	for (auto& organism : population){
+		organism.SetFitnessModifier(fitnessSharingFactor);
+	}
 }
 
 
@@ -89,6 +92,25 @@ void Species::ResetToTeachableState() {
 		individal.Reset();
 	}
 }
+
+Organism& Species::GetFittestOrganism() {
+	// TODO jnf: Implementation with caching
+	auto CompareOrganisms = [&](Organism& lhs, Organism& rhs) {
+		return lhs.GetOrCalculateFitness() < rhs.GetOrCalculateFitness();
+	};
+	std::sort(population.begin(), population.end(), CompareOrganisms);
+	return population.front();
+}
+
+Species &Species::operator=(Species &&other) {
+	population = std::move(other.population);
+	ElectRepresentative();
+	return *this;
+}
+
+
+
+
 
 
 
