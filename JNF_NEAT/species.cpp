@@ -105,6 +105,14 @@ Species &Species::operator=(Species &&other) {
 	return *this;
 }
 
+Organism &Species::GetOrganismToBreed() {
+	// TODO jnf: Implement fitness proportionate selection
+	// TODO jnf: Switch later to stochastic universal sampling
+	return population.front();
+}
+
+
+
 
 
 

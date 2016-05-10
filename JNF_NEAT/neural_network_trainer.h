@@ -1,6 +1,6 @@
 #pragma once
 #include "neural_network.h"
-#include "trainable.h"
+#include "network_trainer.h"
 #include "training_parameters.h"
 #include "genome.h"
 #include "organism.h"
@@ -13,11 +13,12 @@ class NeuralNetworkTrainer {
 		std::vector<Species> species;
 		TrainingParameters parameters;
 		size_t populationSize = 0U;
+		std::vector<INetworkTrainer *>& trainers;
 
 	public:
 		NeuralNetworkTrainer() = delete;
-        NeuralNetworkTrainer(std::vector<ITrainable*>& population, const TrainingParameters& parameters);
-        NeuralNetworkTrainer(std::vector<ITrainable*>& population, TrainingParameters&& parameters);
+        NeuralNetworkTrainer(std::vector<INetworkTrainer*>& population, const TrainingParameters& parameters);
+        NeuralNetworkTrainer(std::vector<INetworkTrainer*>& population, TrainingParameters&& parameters);
 		NeuralNetworkTrainer(const NeuralNetworkTrainer& other) = default;
 
         ~NeuralNetworkTrainer() = default;
@@ -29,11 +30,12 @@ class NeuralNetworkTrainer {
 		Organism& GetFittestSpecimen();
 
 	private:
-		void SetPopulation(std::vector<ITrainable*>& population);
+		void SetPopulation(std::vector<INetworkTrainer*>& population);
 		
 		void ResetPopulationToTeachableState();
-		void Repopulate();        
-        Organism & SelectOrganismToBreed();
+		void Repopulate();
         void CategorizeOrganismsIntoSpecies(std::vector<Organism> && organisms);
 		void LetGenerationLive();
+
+	Species &SelectSpeciesToBreed();
 };

@@ -3,7 +3,6 @@
 
 Neuron::Neuron(const Connections& connections) :
 connections(connections) {
-
 }
 
 void Neuron::AddConnection(const Neuron::IncomingConnection& connection)

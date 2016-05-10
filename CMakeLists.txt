@@ -13,7 +13,7 @@ set(SOURCE_FILES
     JNF_NEAT/neural_network_trainer.cpp
     JNF_NEAT/neuron.h
     JNF_NEAT/neuron.cpp
-    JNF_NEAT/trainable.h
+        JNF_NEAT/network_trainer.h
     JNF_NEAT/xor_solver.h
     JNF_NEAT/xor_solver.cpp
     JNF_NEAT/organism.h

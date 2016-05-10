@@ -23,7 +23,7 @@ NeuralNetwork::NeuralNetwork(const Genome& genome):
 
 NeuralNetwork::NeuralNetwork(Genome&& genome):
 	parameters(genome.GetTrainingParameters()),
-	genome(genome),
+	genome(std::move(genome)),
 	inputNeurons(genome.GetTrainingParameters().numberOfInputs),
 	outputNeurons(genome.GetTrainingParameters().numberOfOutputs)
 {

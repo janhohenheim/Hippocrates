@@ -1,10 +1,10 @@
 #pragma once
 #include <vector>
 
-class ITrainable
+class INetworkTrainer
 {
 	public:
-		virtual ~ITrainable() = default;
+		virtual ~INetworkTrainer() = default;
 
 		virtual void Reset() = 0;
 		virtual void Update(const std::vector<float>& networkOutputs) = 0;

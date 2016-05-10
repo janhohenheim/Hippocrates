@@ -41,7 +41,7 @@ TODO
 First, you have to instantiate a `NeuralNetworkTrainer`. This class will take care of everything. It uses standard training values if not provided with a parameter.
 If you know what you're doing, you can provide it with a `NeuralNetworkTrainer::RuleSet` instance to tweak the learning process.
 
-You then have to provide an implementation of the `ITrainable` interface. It's methods are
+You then have to provide an implementation of the `INetworkTrainer` interface. It's methods are
 - Update()
 - GetFitness()
 - Reset
@@ -56,7 +56,7 @@ The actions of your object should take place here. This almost always boils down
 
 ###GetFitness()
 This method tells the trainer how good this specific instance is compared to others.
-It gets called automatically when the `ITrainable` object dies
+It gets called automatically when the `INetworkTrainer` object dies
 It's used to generate this objects offspring, with a fitness score of zero or lower meaning that this individuals genes are not going to get passed on
 
 Note that in very analog programs such as real world simulations, true perfection should be unreachable

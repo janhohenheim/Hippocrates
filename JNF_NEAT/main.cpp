@@ -13,7 +13,7 @@ int main() {
 	params.updatesPerGeneration = 4;
 	int populationCount = 2;
 
-	std::vector<ITrainable*> population;
+	std::vector<INetworkTrainer*> population;
 	for (int i = 0; i < populationCount; ++i) {
 		population.push_back(new XORSolver());
 	}

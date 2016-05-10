@@ -1,20 +1,20 @@
 #pragma once
 #include "neural_network.h"
-#include "trainable.h"
+#include "network_trainer.h"
 #include "training_parameters.h"
 #include "genome.h"
 
 class Organism {
 	private:
-		ITrainable* trainable = nullptr;
+		INetworkTrainer* trainable = nullptr;
 		NeuralNetwork network;
 		int fitness = 0;
 		float fitnessModifier = 0.0f;
 		bool isFitnessUpToDate = false;
 
 	public:
-		Organism(ITrainable* trainable, NeuralNetwork&& network);
-		Organism(ITrainable* trainable, const NeuralNetwork&& network) = delete;
+		Organism(INetworkTrainer* trainable, NeuralNetwork&& network);
+		Organism(INetworkTrainer* trainable, const NeuralNetwork&& network) = delete;
 		Organism(const Organism& other) = default;
 		Organism(Organism&& other) = default;
 		~Organism() = default;
@@ -28,5 +28,4 @@ class Organism {
 		int GetOrCalculateFitness();
 		Genome BreedWith(Organism& partner);
 		const Genome& GetGenome() const { return network.GetGenome(); }
-        ITrainable * GetTrainable() const { return trainable; }
 };

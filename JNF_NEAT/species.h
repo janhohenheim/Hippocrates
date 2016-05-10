@@ -30,7 +30,9 @@ class Species {
 
 		void SetPopulationsFitnessModifier();
 
-	private:
+		Organism &GetOrganismToBreed();
+
+private:
 		void ElectRepresentative();
         void SelectRandomRepresentative();
 

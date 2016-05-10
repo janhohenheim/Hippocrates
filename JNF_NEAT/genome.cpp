@@ -1,5 +1,4 @@
 #include "genome.h"
-#include <vector>
 #include <algorithm>
 
 Genome::Genome(const TrainingParameters& parameters) :
@@ -79,6 +78,9 @@ void Genome::AddRandomNeuron() {
 
 void Genome::AddRandomConnection() {
 	auto GetRandomNumberBetween = [](size_t min, size_t max) {
+		if (min == max){
+			return min;
+		}
 		return rand() % (max - min) + min;
 	};
 	Gene newConnection;
