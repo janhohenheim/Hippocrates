@@ -110,14 +110,3 @@ Organism &Species::GetOrganismToBreed() {
 	// TODO jnf: Switch later to stochastic universal sampling
 	return population.front();
 }
-
-
-
-
-
-
-
-
-
-
-
