@@ -105,10 +105,12 @@ Species &NeuralNetworkTrainer::SelectSpeciesToBreed() {
 }
 
 void NeuralNetworkTrainer::CategorizeOrganismsIntoSpecies(std::vector<Organism> && organisms) {
-	for (auto& organism : organisms) {
+    for (auto& currSpecies : species) {
+        currSpecies.Clear();
+    }
+    for (auto& organism : organisms) {
 		bool isCompatibleWithExistingSpecies = false;
 		for (auto& currSpecies : species) {
-            currSpecies.Clear();
 			if (currSpecies.IsCompatible(organism.GetGenome())) {
 				currSpecies.AddOrganism(std::move(organism));
 				isCompatibleWithExistingSpecies = true;

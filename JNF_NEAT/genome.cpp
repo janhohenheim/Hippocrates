@@ -65,11 +65,13 @@ void Genome::AddRandomNeuron() {
     g1.from = randGene->from;
 	g1.to = indexOfNewNeuron;
     g1.weight = randGene->weight;
+    g1.isEnabled = true;
 
 	Gene g2;
 	g2.from = indexOfNewNeuron;
     g2.to = randGene->to;
     g2.weight = randGene->weight;
+    g2.isEnabled = true;
 
 	randGene->isEnabled = false;
 	genes.push_back(std::move(g1));
@@ -87,10 +89,10 @@ void Genome::AddRandomConnection() {
 	auto highestIndex = GetGeneCount() - 1U;
 	auto randIndex = GetRandomNumberBetween(0U, highestIndex - 1U);
 	newConnection.from = genes[randIndex].from;
-	randIndex = GetRandomNumberBetween(highestIndex - 1U, highestIndex);
+    randIndex = GetRandomNumberBetween(randIndex + 1, highestIndex);
 	newConnection.to = genes[randIndex].to;
 
-	genes.push_back(newConnection);
+	genes.push_back(std::move(newConnection));
 }
 
 void Genome::ShuffleWeights() {

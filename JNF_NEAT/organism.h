@@ -6,15 +6,15 @@
 
 class Organism {
 	private:
-		INetworkTrainer* trainable = nullptr;
+		INetworkTrainer* trainer = nullptr;
 		NeuralNetwork network;
 		int fitness = 0;
 		float fitnessModifier = 0.0f;
 		bool isFitnessUpToDate = false;
 
 	public:
-		Organism(INetworkTrainer* trainable, NeuralNetwork&& network);
-		Organism(INetworkTrainer* trainable, const NeuralNetwork&& network) = delete;
+		Organism(INetworkTrainer* trainer, NeuralNetwork&& network);
+		Organism(INetworkTrainer* trainer, const NeuralNetwork&& network) = delete;
 		Organism(const Organism& other) = default;
 		Organism(Organism&& other) = default;
 		~Organism() = default;
@@ -22,7 +22,7 @@ class Organism {
 		Organism& operator=(const Organism& other) = default;
 
 
-		void Reset() { trainable->Reset(); }
+		void Reset() { trainer->Reset(); }
 		void Update();
 		void SetFitnessModifier(float factor) {fitnessModifier = factor;}
 		int GetOrCalculateFitness();

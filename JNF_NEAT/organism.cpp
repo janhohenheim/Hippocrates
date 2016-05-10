@@ -1,16 +1,16 @@
 #include <cstdlib>
 #include "organism.h"
 
-Organism::Organism(INetworkTrainer* trainable, NeuralNetwork&& network) :
-	trainable(trainable),
+Organism::Organism(INetworkTrainer* trainer, NeuralNetwork&& network) :
+	trainer(trainer),
 	network(std::move(network))
 {
 }
 
 void Organism::Update()
 {
-	network.SetInputs(trainable->ProvideNetworkWithInputs());
-	trainable->Update(network.GetOutputs());
+	network.SetInputs(trainer->ProvideNetworkWithInputs());
+	trainer->Update(network.GetOutputs());
 	isFitnessUpToDate = false;
 }
 
@@ -18,7 +18,7 @@ void Organism::Update()
 int Organism::GetOrCalculateFitness()
 {
 	if (!isFitnessUpToDate) {
-		fitness = trainable->GetFitness();
+		fitness = trainer->GetFitness();
 		isFitnessUpToDate = true;
 	}
 	return (int)((float)fitness * fitnessModifier);
