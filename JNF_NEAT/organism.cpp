@@ -1,7 +1,7 @@
 #include <cstdlib>
 #include "organism.h"
 
-Organism::Organism(INetworkTrainer* trainer, NeuralNetwork&& network) :
+Organism::Organism(IBody* trainer, NeuralNetwork&& network) :
 	trainer(trainer),
 	network(std::move(network))
 {

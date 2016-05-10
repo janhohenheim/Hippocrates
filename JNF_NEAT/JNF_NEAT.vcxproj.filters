@@ -30,9 +30,6 @@
     <ClCompile Include="neuron.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="trained_neural_network.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="xor_solver.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -43,6 +40,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="genome.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="trained_neural_network.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -59,12 +59,6 @@
     <ClInclude Include="neuron.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="trainable.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="trained_neural_network.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="training_parameters.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -78,6 +72,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="genome.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="body.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="trained_neural_network.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

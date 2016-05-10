@@ -1,7 +1,12 @@
 #include "trained_neural_network.h"
 
-TrainedNeuralNetwork::TrainedNeuralNetwork(const NeuralNetwork& trainedNetwork):
-	trainedNetwork(trainedNetwork)
+TrainedNeuralNetwork::TrainedNeuralNetwork(const Genome& genome):
+	trainedNetwork(genome)
+{
+}
+
+TrainedNeuralNetwork::TrainedNeuralNetwork(Genome&& genome) :
+    trainedNetwork(std::move(genome))
 {
 }
 

@@ -22,7 +22,6 @@ class Species {
 		void AddOrganism(Organism &&organism);
         void Clear() { population.clear(); }
 
-		const std::vector<Organism>& GetPopulatin() { return population; }
 		bool IsCompatible(const Genome& genome) const;
 		void LetPopulationLive();
 		void ResetToTeachableState();

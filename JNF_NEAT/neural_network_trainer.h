@@ -1,10 +1,11 @@
 #pragma once
 #include "neural_network.h"
-#include "network_trainer.h"
+#include "body.h"
 #include "training_parameters.h"
 #include "genome.h"
 #include "organism.h"
 #include "species.h"
+#include "trained_neural_network.h"
 #include <vector>
 #include <list>
 
@@ -13,12 +14,12 @@ class NeuralNetworkTrainer {
 		std::vector<Species> species;
 		TrainingParameters parameters;
 		size_t populationSize = 0U;
-		std::vector<INetworkTrainer *>& trainers;
+		std::vector<IBody *>& trainers;
 
 	public:
 		NeuralNetworkTrainer() = delete;
-        NeuralNetworkTrainer(std::vector<INetworkTrainer*>& population, const TrainingParameters& parameters);
-        NeuralNetworkTrainer(std::vector<INetworkTrainer*>& population, TrainingParameters&& parameters);
+        NeuralNetworkTrainer(std::vector<IBody*>& population, const TrainingParameters& parameters);
+        NeuralNetworkTrainer(std::vector<IBody*>& population, TrainingParameters&& parameters);
 		NeuralNetworkTrainer(const NeuralNetworkTrainer& other) = default;
 
         ~NeuralNetworkTrainer() = default;
@@ -27,15 +28,15 @@ class NeuralNetworkTrainer {
 		void TrainUntilFitnessEquals(int fitnessToReach);
 		void TrainUntilGenerationEquals(unsigned int generationsToTrain);
 
-		Organism& GetFittestOrganism();
-
+        TrainedNeuralNetwork GetTrainedNeuralNetwork();
 	private:
-		void SetPopulation(std::vector<INetworkTrainer*>& population);
+		void SetTrainers(std::vector<IBody*>& population);
 		
 		void ResetPopulationToTeachableState();
 		void Repopulate();
         void CategorizeOrganismsIntoSpecies(std::vector<Organism> && organisms);
 		void LetGenerationLive();
 
-	Species &SelectSpeciesToBreed();
+	    Species &SelectSpeciesToBreed();
+		Organism& GetFittestOrganism();
 };

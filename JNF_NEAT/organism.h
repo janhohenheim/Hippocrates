@@ -1,20 +1,20 @@
 #pragma once
 #include "neural_network.h"
-#include "network_trainer.h"
+#include "body.h"
 #include "training_parameters.h"
 #include "genome.h"
 
 class Organism {
 	private:
-		INetworkTrainer* trainer = nullptr;
+		IBody* trainer = nullptr;
 		NeuralNetwork network;
 		int fitness = 0;
 		float fitnessModifier = 0.0f;
 		bool isFitnessUpToDate = false;
 
 	public:
-		Organism(INetworkTrainer* trainer, NeuralNetwork&& network);
-		Organism(INetworkTrainer* trainer, const NeuralNetwork&& network) = delete;
+		Organism(IBody* trainer, NeuralNetwork&& network);
+		Organism(IBody* trainer, const NeuralNetwork&& network) = delete;
 		Organism(const Organism& other) = default;
 		Organism(Organism&& other) = default;
 		~Organism() = default;

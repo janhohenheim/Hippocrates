@@ -11,18 +11,30 @@ int main() {
 	params.numberOfInputs = 2;
 	params.numberOfOutputs = 1;
 	params.updatesPerGeneration = 4;
+
 	int populationCount = 2;
+    std::string file = "ChampGenome.genome";
 
-	std::vector<INetworkTrainer*> population;
+	std::vector<IBody*> bodys;
 	for (int i = 0; i < populationCount; ++i) {
-		population.push_back(new XORSolver());
+        bodys.push_back(new XORSolver());
 	}
-	NeuralNetworkTrainer trainer(population, params);
+	NeuralNetworkTrainer trainer(bodys, params);
 	trainer.TrainUntilFitnessEquals(100);
-	auto& champ = trainer.GetFittestOrganism();
+	auto& champ = trainer.GetTrainedNeuralNetwork();
+    for (auto& body : bodys) {
+        delete body;
+    }
 
-    for (auto& individuum : population) {
-        delete individuum;
+    champ.SaveToFile(file);
+    auto outputs = champ.GetOutputs({0.0, 1.0});
+    for (auto& output : outputs) {
+        std::cout << output << std::endl;
+    }
+    champ.LoadFromFile(file);
+    outputs = champ.GetOutputs({ 0.0, 1.0 });
+    for (auto& output : outputs) {
+        std::cout << output << std::endl;
     }
 
 	return 0;

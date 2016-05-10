@@ -1,6 +1,6 @@
 #pragma once
-#include "network_trainer.h"
-class XORSolver : public INetworkTrainer {
+#include "body.h"
+class XORSolver : public IBody {
 	public:
 		virtual void Reset() override;
 		virtual void Update(const std::vector<float>&  networkOutputs) override;

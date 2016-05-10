@@ -2,20 +2,20 @@
 #include <stdexcept>
 #include "neural_network_trainer.h"
 
-NeuralNetworkTrainer::NeuralNetworkTrainer(std::vector<INetworkTrainer*>& population, const TrainingParameters& parameters) :
+NeuralNetworkTrainer::NeuralNetworkTrainer(std::vector<IBody*>& population, const TrainingParameters& parameters) :
 	parameters(parameters),
 	populationSize(population.size()),
 	trainers(population)
 {
-	SetPopulation(population);
+	SetTrainers(population);
 }
 
-NeuralNetworkTrainer::NeuralNetworkTrainer(std::vector<INetworkTrainer*>& population, TrainingParameters&& parameters) :
+NeuralNetworkTrainer::NeuralNetworkTrainer(std::vector<IBody*>& population, TrainingParameters&& parameters) :
     parameters(parameters),
 	populationSize(population.size()),
 	trainers(population)
 {
-	SetPopulation(population);
+	SetTrainers(population);
 }
 
 void NeuralNetworkTrainer::ResetPopulationToTeachableState()
@@ -25,14 +25,14 @@ void NeuralNetworkTrainer::ResetPopulationToTeachableState()
 	}
 }
 
-void NeuralNetworkTrainer::SetPopulation(std::vector<INetworkTrainer*>& population)
+void NeuralNetworkTrainer::SetTrainers(std::vector<IBody*>& trainers)
 {
 	std::vector<Organism> organisms;
-	organisms.reserve(population.size());
+	organisms.reserve(trainers.size());
 	Genome standardGenes(parameters);
-    for (auto& currTrainable : population) {
+    for (auto& currTrainer : trainers) {
 		NeuralNetwork network(standardGenes);
-		Organism organism(currTrainable, std::move(network));
+		Organism organism(currTrainer, std::move(network));
 		organisms.push_back(std::move(organism));
     }
 	CategorizeOrganismsIntoSpecies(std::move(organisms));
@@ -53,6 +53,11 @@ void NeuralNetworkTrainer::TrainUntilGenerationEquals(unsigned int generationsTo
 		Repopulate();
 		LetGenerationLive();
 	}
+}
+
+TrainedNeuralNetwork NeuralNetworkTrainer::GetTrainedNeuralNetwork()
+{
+    return TrainedNeuralNetwork(GetFittestOrganism().GetGenome());
 }
 
 Organism& NeuralNetworkTrainer::GetFittestOrganism() {

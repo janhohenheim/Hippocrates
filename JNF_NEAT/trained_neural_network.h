@@ -4,8 +4,10 @@
 
 class TrainedNeuralNetwork {
 	public:
-		TrainedNeuralNetwork() = default;
-		TrainedNeuralNetwork(const NeuralNetwork& trainedNetwork);
+		TrainedNeuralNetwork() = delete;
+		explicit TrainedNeuralNetwork(const Genome& genome);
+        explicit TrainedNeuralNetwork(Genome&& genome);
+        explicit TrainedNeuralNetwork(const Genome&& genome) = delete;
 		TrainedNeuralNetwork(const TrainedNeuralNetwork& other) = default;
 		~TrainedNeuralNetwork() = default;
 

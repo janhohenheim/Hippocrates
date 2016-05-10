@@ -161,9 +161,9 @@
   <ItemGroup>
     <ClInclude Include="gene.h" />
     <ClInclude Include="genome.h" />
+    <ClInclude Include="body.h" />
     <ClInclude Include="organism.h" />
     <ClInclude Include="species.h" />
-    <ClInclude Include="trainable.h" />
     <ClInclude Include="neural_network_trainer.h" />
     <ClInclude Include="neural_network.h" />
     <ClInclude Include="neuron.h" />
