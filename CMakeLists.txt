@@ -9,11 +9,13 @@ set(SOURCE_FILES
     JNF_NEAT/gene.cpp
     JNF_NEAT/neural_network.h
     JNF_NEAT/neural_network.cpp
+    JNF_NEAT/trained_neural_network.h
+    JNF_NEAT/trained_neural_network.cpp
     JNF_NEAT/neural_network_trainer.h
     JNF_NEAT/neural_network_trainer.cpp
     JNF_NEAT/neuron.h
     JNF_NEAT/neuron.cpp
-        JNF_NEAT/network_trainer.h
+    JNF_NEAT/body.h
     JNF_NEAT/xor_solver.h
     JNF_NEAT/xor_solver.cpp
     JNF_NEAT/organism.h
