@@ -27,7 +27,7 @@ class NeuralNetworkTrainer {
 		void TrainUntilFitnessEquals(int fitnessToReach);
 		void TrainUntilGenerationEquals(unsigned int generationsToTrain);
 
-		Organism& GetFittestSpecimen();
+		Organism& GetFittestOrganism();
 
 	private:
 		void SetPopulation(std::vector<INetworkTrainer*>& population);

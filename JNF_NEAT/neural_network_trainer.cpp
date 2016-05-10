@@ -41,7 +41,7 @@ void NeuralNetworkTrainer::SetPopulation(std::vector<INetworkTrainer*>& populati
 
 void NeuralNetworkTrainer::TrainUntilFitnessEquals(int fitnessToReach) {
 	LetGenerationLive();
-	while (GetFittestSpecimen().GetOrCalculateFitness() < fitnessToReach) {
+	while (GetFittestOrganism().GetOrCalculateFitness() < fitnessToReach) {
 		Repopulate();
 		LetGenerationLive();
 	}
@@ -55,7 +55,7 @@ void NeuralNetworkTrainer::TrainUntilGenerationEquals(unsigned int generationsTo
 	}
 }
 
-Organism& NeuralNetworkTrainer::GetFittestSpecimen() {
+Organism& NeuralNetworkTrainer::GetFittestOrganism() {
 	if (species.empty()) {
 		throw std::out_of_range("Your population is empty");
 	}
