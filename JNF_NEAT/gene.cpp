@@ -12,4 +12,7 @@ Gene::Gene()
 void Gene::SetRandomWeight()
 {
 	weight = (float)(rand() % 10'000) / 10'000.0f;
+    if (rand() % 2) {
+        weight = -weight;
+    }
 }

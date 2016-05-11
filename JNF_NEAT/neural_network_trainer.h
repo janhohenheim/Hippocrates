@@ -30,7 +30,7 @@ class NeuralNetworkTrainer {
 
         TrainedNeuralNetwork GetTrainedNeuralNetwork();
 	private:
-		void SetTrainers(std::vector<IBody*>& population);
+		void SetBodies(std::vector<IBody*>& bodies);
 		
 		void ResetPopulationToTeachableState();
 		void Repopulate();

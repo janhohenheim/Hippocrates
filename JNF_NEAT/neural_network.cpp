@@ -89,9 +89,10 @@ void NeuralNetwork::SetInputs(const std::vector<float>& inputs)
 
 std::vector<float> NeuralNetwork::GetOutputs()
 {
-    std::vector<float> outputs(outputNeurons.size());
-	for(size_t i = 0U; i < outputs.size(); ++i){
-		outputs[i] = outputNeurons[i]->RequestDataAndGetActionPotential();
+    std::vector<float> outputs;
+    outputs.reserve(outputNeurons.size());
+	for(auto& outputNeuron : outputNeurons){
+		outputs.push_back(outputNeuron->RequestDataAndGetActionPotential());
 	}
 	return outputs;
 }

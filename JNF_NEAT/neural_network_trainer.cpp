@@ -7,7 +7,7 @@ NeuralNetworkTrainer::NeuralNetworkTrainer(std::vector<IBody*>& population, cons
 	populationSize(population.size()),
 	trainers(population)
 {
-	SetTrainers(population);
+	SetBodies(population);
 }
 
 NeuralNetworkTrainer::NeuralNetworkTrainer(std::vector<IBody*>& population, TrainingParameters&& parameters) :
@@ -15,7 +15,7 @@ NeuralNetworkTrainer::NeuralNetworkTrainer(std::vector<IBody*>& population, Trai
 	populationSize(population.size()),
 	trainers(population)
 {
-	SetTrainers(population);
+	SetBodies(population);
 }
 
 void NeuralNetworkTrainer::ResetPopulationToTeachableState()
@@ -25,12 +25,12 @@ void NeuralNetworkTrainer::ResetPopulationToTeachableState()
 	}
 }
 
-void NeuralNetworkTrainer::SetTrainers(std::vector<IBody*>& trainers)
+void NeuralNetworkTrainer::SetBodies(std::vector<IBody*>& bodies)
 {
 	std::vector<Organism> organisms;
-	organisms.reserve(trainers.size());
+	organisms.reserve(bodies.size());
 	Genome standardGenes(parameters);
-    for (auto& currTrainer : trainers) {
+    for (auto& currTrainer : bodies) {
 		NeuralNetwork network(standardGenes);
 		Organism organism(currTrainer, std::move(network));
 		organisms.push_back(std::move(organism));

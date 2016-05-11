@@ -15,14 +15,14 @@ int main() {
 	int populationCount = 2;
     std::string file = "ChampGenome.genome";
 
-	std::vector<IBody*> bodys;
+	std::vector<IBody*> bodies;
 	for (int i = 0; i < populationCount; ++i) {
-        bodys.push_back(new XORSolver());
+        bodies.push_back(new XORSolver());
 	}
-	NeuralNetworkTrainer trainer(bodys, params);
+	NeuralNetworkTrainer trainer(bodies, params);
 	trainer.TrainUntilFitnessEquals(100);
 	auto& champ = trainer.GetTrainedNeuralNetwork();
-    for (auto& body : bodys) {
+    for (auto& body : bodies) {
         delete body;
     }
 
