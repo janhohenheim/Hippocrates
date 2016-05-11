@@ -11,7 +11,7 @@ Gene::Gene()
 
 void Gene::SetRandomWeight()
 {
-	weight = (float)(rand() % 10'000) / 10'000.0f;
+	weight = (float)(rand() % 10'000) / 9'999.0f;
     if (rand() % 2) {
         weight = -weight;
     }

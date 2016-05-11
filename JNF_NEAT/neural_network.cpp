@@ -78,11 +78,10 @@ void NeuralNetwork::BuildNetworkFromGenes()
 
 void NeuralNetwork::SetInputs(const std::vector<float>& inputs)
 {
-	if (inputNeurons.size() != inputs.size())
-	{
+	if (inputNeurons.size() != inputs.size()) {
 		throw std::out_of_range("Number of inputs provided doesn't match genetic information");
 	}
-	for(size_t i = 0U; i < inputNeurons.size(); ++i){
+	for(size_t i = 0U; i < inputNeurons.size(); ++i) {
 		inputNeurons[i]->SetInput(inputs[i]);
 	};
 }
@@ -91,7 +90,7 @@ std::vector<float> NeuralNetwork::GetOutputs()
 {
     std::vector<float> outputs;
     outputs.reserve(outputNeurons.size());
-	for(auto& outputNeuron : outputNeurons){
+	for(auto& outputNeuron : outputNeurons) {
 		outputs.push_back(outputNeuron->RequestDataAndGetActionPotential());
 	}
 	return outputs;

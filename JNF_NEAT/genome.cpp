@@ -117,7 +117,14 @@ void Genome::PerturbWeightAt(size_t index) {
 	if (rand() % 2) {
 		perturbance = -perturbance;
 	}
-	genes[index].weight *= perturbance;
+	genes[index].weight += perturbance;
+    if (genes[index].weight < -1.0f) {
+        genes[index].weight = -1.0f;
+    }
+    else
+        if (genes[index].weight > 1.0f) {
+            genes[index].weight = 1.0f;
+        }
 }
 
 double Genome::GetGeneticalDistanceFrom(const Genome& other) const {

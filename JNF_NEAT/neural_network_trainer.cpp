@@ -76,7 +76,6 @@ void NeuralNetworkTrainer::LetGenerationLive() {
 }
 
 void NeuralNetworkTrainer::Repopulate() {
-	// TODO jnf: Implement
 	std::vector<Organism> population;
 	population.reserve(populationSize);
 
