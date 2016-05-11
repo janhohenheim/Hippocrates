@@ -79,6 +79,8 @@ void Genome::AddRandomNeuron() {
 }
 
 void Genome::AddRandomConnection() {
+    // TODO jnf: Implement a better solution
+    /*
 	auto GetRandomNumberBetween = [](size_t min, size_t max) {
 		if (min == max){
 			return min;
@@ -91,8 +93,13 @@ void Genome::AddRandomConnection() {
 	newConnection.from = genes[randIndex].from;
     randIndex = GetRandomNumberBetween(randIndex + 1, highestIndex);
 	newConnection.to = genes[randIndex].to;
-
-	genes.push_back(std::move(newConnection));
+    if (newConnection.from == newConnection.to) {
+        AddRandomConnection();
+    }
+    else {
+        genes.push_back(std::move(newConnection));
+    }
+    */
 }
 
 void Genome::ShuffleWeights() {

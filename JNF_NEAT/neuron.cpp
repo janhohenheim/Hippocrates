@@ -7,11 +7,17 @@ connections(connections) {
 
 void Neuron::AddConnection(const Neuron::IncomingConnection& connection)
 {
+    if (connection.incoming == this || connection.incoming == nullptr) {
+        throw std::invalid_argument("Invalid incomming connection");
+    }
 	connections.push_back(connection);
 }
 
 void Neuron::AddConnection(Neuron::IncomingConnection&& connection)
 {
+    if (connection.incoming == this || connection.incoming == nullptr) {
+        throw std::invalid_argument("Invalid incomming connection");
+    }
 	connections.push_back(std::move(connection));
 }
 

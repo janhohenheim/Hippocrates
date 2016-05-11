@@ -6,13 +6,12 @@
 int main() {
     srand((unsigned)time(0U));
 	std::cout << "Hello World" << std::endl;
-
 	TrainingParameters params;
 	params.numberOfInputs = 2;
 	params.numberOfOutputs = 1;
 	params.updatesPerGeneration = 4;
 
-	int populationCount = 2;
+	int populationCount = 10;
     std::string file = "ChampGenome.genome";
 
 	std::vector<IBody*> bodies;
