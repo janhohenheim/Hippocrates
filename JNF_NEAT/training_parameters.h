@@ -16,6 +16,7 @@ struct TrainingParameters {
             float chanceForWeightMutation = 0.8f;
             float chanceForConnectionalMutation = 0.05f;
             float chanceForNeuralMutation = 0.03f;
+            float chanceOfTotalWeightReset = 0.1f;
         } mutation;
         struct Speciation {
             float importanceOfDisjointGenes = 1.0f;

@@ -104,8 +104,7 @@ void Genome::ShuffleWeights() {
 }
 
 void Genome::MutateWeightOfGeneAt(size_t index) {
-	constexpr float chanceOfTotalWeightReset = 0.1f;
-	if (DidChanceOccure(chanceOfTotalWeightReset)) {
+	if (DidChanceOccure(parameters.advanced.mutation.chanceOfTotalWeightReset)) {
 		genes[index].SetRandomWeight();
 	} else {
 		PerturbWeightAt(index);
