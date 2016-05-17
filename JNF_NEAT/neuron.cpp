@@ -43,3 +43,10 @@ void Neuron::SetInput(float input) {
     isSensor = true;
     lastActionPotential = input;
 }
+
+void Neuron::SetLayer(std::size_t layer) {
+    if (layer > this->layer){
+        this->layer = layer;
+    }
+}
+

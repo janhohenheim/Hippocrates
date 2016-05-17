@@ -3,11 +3,13 @@
 TrainedNeuralNetwork::TrainedNeuralNetwork(const Genome& genome):
 	trainedNetwork(genome)
 {
+	// TODO jnf: This will Mutate the Genes, stop doing that
 }
 
 TrainedNeuralNetwork::TrainedNeuralNetwork(Genome&& genome) :
     trainedNetwork(std::move(genome))
 {
+	// TODO jnf: This will Mutate the Genes, stop doing that
 }
 
 std::vector<float> TrainedNeuralNetwork::GetOutputs(const std::vector<float>& inputs)

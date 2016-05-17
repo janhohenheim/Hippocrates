@@ -1,6 +1,7 @@
 #include "neural_network.h"
 #include <cmath>
 #include <stdexcept>
+#include <map>
 
 
 NeuralNetwork::NeuralNetwork(const TrainingParameters & parameters):
@@ -139,26 +140,28 @@ void NeuralNetwork::AddRandomNeuron() {
 
 void NeuralNetwork::AddRandomConnection() {
 	// TODO jnf: Implement a better solution
-	/*
-    auto GetRandomNumberBetween = [](size_t min, size_t max) {
-        if (min == max){
-            return min;
-        }
-        return rand() % (max - min) + min;
-    };
-    Gene newConnection;
-    auto highestIndex = GetGeneCount() - 1U;
-    auto randIndex = GetRandomNumberBetween(0U, highestIndex - 1U);
-    newConnection.from = genes[randIndex].from;
-    randIndex = GetRandomNumberBetween(randIndex + 1, highestIndex);
-    newConnection.to = genes[randIndex].to;
-    if (newConnection.from == newConnection.to) {
-        AddRandomConnection();
-    }
-    else {
-        genes.push_back(std::move(newConnection));
-    }
-    */
+	for (auto * out : outputNeurons){
+		CategorizeNeuronBranchIntoLayers(*out);
+	}
+	std::map<size_t, std::vector<Neuron*>> layerMap;
+	for (auto& neuron : neurons) {
+		layerMap[neuron.GetLayer()].push_back(&neuron);
+	}
+	auto highestLayer = layerMap.rbegin()->first + 1U;
+	auto fromLayer = rand() % (highestLayer - 1U) + 1U;
+	auto toLayer = rand() % (fromLayer);
+	auto fromNeuron = layerMap[fromLayer][rand() % layerMap[fromLayer].size()];
+	auto toNeuron = layerMap[toLayer][rand() % layerMap[toLayer].size()];
+	Gene newConnection;
+	newConnection.isEnabled = true;
+	size_t geneticalGeneIndex = 0U;
+	while (&neurons[geneticalGeneIndex++] != fromNeuron);
+	newConnection.from = geneticalGeneIndex - 1U;
+	geneticalGeneIndex = 0U;
+	while (&neurons[geneticalGeneIndex++] != toNeuron);
+	newConnection.to = geneticalGeneIndex - 1U;
+	toNeuron->AddConnection({fromNeuron, newConnection.weight});
+	genome.AppendGene((std::move(newConnection)));
 }
 
 void NeuralNetwork::ShuffleWeights() {
@@ -195,18 +198,27 @@ void NeuralNetwork::PerturbWeightAt(size_t index) {
 
 void NeuralNetwork::MutateGenesAndBuildNetwork() {
 	if (ShouldAddConnection()) {
-		AddRandomConnection();
 		BuildNetworkFromGenes();
+		AddRandomConnection();
 	}
 	else
 	if (ShouldAddNeuron()) {
-		BuildNetworkFromGenes();
 		AddRandomNeuron();
+		BuildNetworkFromGenes();
 	}
 	else {
 		ShuffleWeights();
 		BuildNetworkFromGenes();
 	}
 }
+
+void NeuralNetwork::CategorizeNeuronBranchIntoLayers(Neuron& currNode, size_t currLayer) {
+	currNode.SetLayer(currLayer);
+	for (auto& in : currNode.GetConnections()){
+		CategorizeNeuronBranchIntoLayers(*in.incoming, currLayer + 1U);
+	}
+}
+
+
 
 
