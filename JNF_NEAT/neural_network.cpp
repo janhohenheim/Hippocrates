@@ -160,7 +160,8 @@ void NeuralNetwork::AddRandomConnection() {
 	geneticalGeneIndex = 0U;
 	while (&neurons[geneticalGeneIndex++] != toNeuron);
 	newConnection.to = geneticalGeneIndex - 1U;
-	toNeuron->AddConnection({fromNeuron, newConnection.weight});
+	Neuron::IncomingConnection connection {fromNeuron, newConnection.weight};
+	toNeuron->AddConnection(std::move(connection));
 	genome.AppendGene((std::move(newConnection)));
 }
 
