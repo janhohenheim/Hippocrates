@@ -31,9 +31,10 @@ class NeuralNetwork {
 
 		void SetInputs(const std::vector<float>& inputs);
 		std::vector<float> GetOutputs();
-		void MutateGenes();
+
 
 	private:
+		void MutateGenesAndBuildNetwork();
 		static bool DidChanceOccure(float chance);
 		void BuildNetworkFromGenes();
 		void InterpretInputsAndOutputs();

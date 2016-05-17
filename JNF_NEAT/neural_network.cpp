@@ -9,7 +9,7 @@ NeuralNetwork::NeuralNetwork(const TrainingParameters & parameters):
 	inputNeurons(parameters.numberOfInputs),
 	outputNeurons(parameters.numberOfOutputs)
 {
-	BuildNetworkFromGenes();
+	MutateGenesAndBuildNetwork();
 }
 
 NeuralNetwork::NeuralNetwork(const Genome& genome):
@@ -18,7 +18,7 @@ NeuralNetwork::NeuralNetwork(const Genome& genome):
 	inputNeurons(genome.GetTrainingParameters().numberOfInputs),
 	outputNeurons(genome.GetTrainingParameters().numberOfOutputs)
 {
-    BuildNetworkFromGenes();
+	MutateGenesAndBuildNetwork();
 }
 
 NeuralNetwork::NeuralNetwork(Genome&& genome):
@@ -27,7 +27,7 @@ NeuralNetwork::NeuralNetwork(Genome&& genome):
 	inputNeurons(genome.GetTrainingParameters().numberOfInputs),
 	outputNeurons(genome.GetTrainingParameters().numberOfOutputs)
 {
-	BuildNetworkFromGenes();
+	MutateGenesAndBuildNetwork();
 }
 
 NeuralNetwork::NeuralNetwork(const NeuralNetwork& other) :
@@ -103,19 +103,6 @@ void NeuralNetwork::InterpretInputsAndOutputs()
 	}
 	for (auto i = 0U; i < parameters.numberOfOutputs; i++) {
 		outputNeurons[i] = &neurons[genome[i * parameters.numberOfOutputs].to];
-	}
-}
-
-void NeuralNetwork::MutateGenes() {
-	if (ShouldAddConnection()) {
-		AddRandomConnection();
-	}
-	else
-	if (ShouldAddNeuron()) {
-		AddRandomNeuron();
-	}
-	else {
-		ShuffleWeights();
 	}
 }
 
@@ -205,3 +192,21 @@ void NeuralNetwork::PerturbWeightAt(size_t index) {
 		genome[index].weight = 1.0f;
 	}
 }
+
+void NeuralNetwork::MutateGenesAndBuildNetwork() {
+	if (ShouldAddConnection()) {
+		AddRandomConnection();
+		BuildNetworkFromGenes();
+	}
+	else
+	if (ShouldAddNeuron()) {
+		BuildNetworkFromGenes();
+		AddRandomNeuron();
+	}
+	else {
+		ShuffleWeights();
+		BuildNetworkFromGenes();
+	}
+}
+
+
