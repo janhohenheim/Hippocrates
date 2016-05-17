@@ -5,12 +5,10 @@
 #include <vector>
 
 class Genome {
-	// Members
 	private:
 		const TrainingParameters& parameters;
 		std::vector<Gene> genes;
 
-	// Methods
 	public:
 		Genome() = delete;
 		explicit Genome(const TrainingParameters& parameters);

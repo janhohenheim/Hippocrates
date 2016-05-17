@@ -19,7 +19,6 @@ class Neuron {
 		Neuron(const Neuron& other) = default;
         ~Neuron() = default;
 
-
 		void SetInput(float input);
 		void AddConnection(const IncomingConnection& connection);
 		void AddConnection(IncomingConnection&& connection);

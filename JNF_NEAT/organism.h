@@ -12,7 +12,6 @@ class Organism {
 		float fitnessModifier = 0.0f;
 		bool isFitnessUpToDate = false;
 
-
 	public:
 		Organism(IBody* trainer, NeuralNetwork&& network);
 		Organism(IBody* trainer, const NeuralNetwork&& network) = delete;
@@ -21,7 +20,6 @@ class Organism {
 		~Organism() = default;
 
 		Organism& operator=(const Organism& other) = default;
-
 
 		void Reset() { trainer->Reset(); }
 		void Update();

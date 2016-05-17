@@ -24,11 +24,11 @@ class NeuralNetworkTrainer {
 
         ~NeuralNetworkTrainer() = default;
 
-
 		void TrainUntilFitnessEquals(int fitnessToReach);
 		void TrainUntilGenerationEquals(unsigned int generationsToTrain);
 
         TrainedNeuralNetwork GetTrainedNeuralNetwork();
+
 	private:
 		void SetBodies(std::vector<IBody*>& bodies);
 		

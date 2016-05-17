@@ -18,12 +18,9 @@ class NeuralNetwork {
         explicit NeuralNetwork(const Genome& genome);
         explicit NeuralNetwork(Genome&& genome);
         explicit NeuralNetwork(const Genome&& genome) = delete;
-
 		NeuralNetwork(const NeuralNetwork& other);
 		NeuralNetwork(NeuralNetwork&& other);
-
 		~NeuralNetwork() = default;
-
 
 		NeuralNetwork& operator= (const NeuralNetwork& other);
 
@@ -31,7 +28,6 @@ class NeuralNetwork {
 
 		void SetInputs(const std::vector<float>& inputs);
 		std::vector<float> GetOutputs();
-
 
 	private:
 		void MutateGenesAndBuildNetwork();
