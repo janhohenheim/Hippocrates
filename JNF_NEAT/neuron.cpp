@@ -6,20 +6,12 @@ Neuron::Neuron(const Connections& connections) :
 connections(connections) {
 }
 
-void Neuron::AddConnection(const Neuron::IncomingConnection& connection)
+void Neuron::AddConnection(Neuron* incoming, float weight)
 {
-    if (connection.incoming == this || connection.incoming == nullptr) {
+    if (incoming == this || incoming == nullptr) {
         throw std::invalid_argument("Invalid incomming connection");
     }
-	connections.push_back(connection);
-}
-
-void Neuron::AddConnection(Neuron::IncomingConnection&& connection)
-{
-    if (connection.incoming == this || connection.incoming == nullptr) {
-        throw std::invalid_argument("Invalid incomming connection");
-    }
-	connections.push_back(std::move(connection));
+	connections[incoming] = weight;
 }
 
 float Neuron::RequestDataAndGetActionPotential() {
@@ -29,7 +21,7 @@ float Neuron::RequestDataAndGetActionPotential() {
 
     float incomingPotentials = 0.0f;
     for (auto& in : connections){
-        incomingPotentials += in.incoming->RequestDataAndGetActionPotential() * in.weight;
+        incomingPotentials += in.first->RequestDataAndGetActionPotential() * in.second;
     }
     lastActionPotential = sigmoid(incomingPotentials);
     return lastActionPotential;
@@ -44,9 +36,9 @@ void Neuron::SetInput(float input) {
     lastActionPotential = input;
 }
 
-void Neuron::SetLayer(std::size_t layer) {
-    if (layer > this->layer){
-        this->layer = layer;
+void Neuron::SetDistanceFromOutput(std::size_t distanceFromOutput) {
+    if (distanceFromOutput > this->distanceFromOutput){
+        this->distanceFromOutput = distanceFromOutput;
     }
 }
 

@@ -1,19 +1,14 @@
 #pragma once
-#include <vector>
+#include <map>
 #include <cstddef>
 
 class Neuron {
-	public: 
-		struct IncomingConnection {
-			Neuron* incoming = nullptr;
-			float weight = 1.0f;
-		};
 	private:
-		using Connections = std::vector<IncomingConnection>;
+		using Connections = std::map<Neuron*, float>;
 		Connections connections;
 		bool isSensor = false;
 		float lastActionPotential = 0.0f;
-		std::size_t layer;
+		std::size_t distanceFromOutput;
 
     public:
         Neuron() = default;
@@ -22,13 +17,12 @@ class Neuron {
         ~Neuron() = default;
 
 		void SetInput(float input);
-		void AddConnection(const IncomingConnection& connection);
-		void AddConnection(IncomingConnection&& connection);
+		void AddConnection(Neuron* incoming, float weight);
 		const Connections& GetConnections() const {return connections;}
 		Connections& GetConnections() {return connections;}
 		float RequestDataAndGetActionPotential();
-		void SetLayer(std::size_t layer);
-		size_t GetLayer() const {return layer;}
+		void SetDistanceFromOutput(std::size_t distanceFromOutput);
+		size_t GetDistanceFromOutput() const {return distanceFromOutput;}
 
 	private:
 		static float sigmoid(float d);

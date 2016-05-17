@@ -32,6 +32,7 @@ class NeuralNetwork {
 	private:
 		void MutateGenesAndBuildNetwork();
 		static bool DidChanceOccure(float chance);
+        static size_t GetRandomNumberBetween(size_t min, size_t max);
 		void BuildNetworkFromGenes();
 		void InterpretInputsAndOutputs();
 		bool ShouldAddNeuron() const { return DidChanceOccure(parameters.advanced.mutation.chanceForNeuralMutation); }
