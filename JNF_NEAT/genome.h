@@ -30,18 +30,10 @@ class Genome {
 
 		std::size_t ExtrapolateNeuronCount() const;
 		std::size_t GetGeneCount() const;
-		void MutateGenes();
-		double GetGeneticalDistanceFrom(const Genome& other) const;
-        const TrainingParameters& GetTrainingParameters() const { return parameters; }
 
-	private:
-		static bool DidChanceOccure(float chance);
-		bool ShouldAddNeuron() const { return DidChanceOccure(parameters.advanced.mutation.chanceForNeuralMutation); }
-		bool ShouldAddConnection() const { return DidChanceOccure(parameters.advanced.mutation.chanceForConnectionalMutation); }
-		bool ShouldMutateWeight() const { return DidChanceOccure(parameters.advanced.mutation.chanceForWeightMutation); }
-		void AddRandomNeuron();
-		void AddRandomConnection();
-		void ShuffleWeights();
-		void MutateWeightOfGeneAt(std::size_t index);
-		void PerturbWeightAt(std::size_t index);
+		void AppendGene(const Gene & gene) {genes.push_back(gene);}
+		void AppendGene(Gene && gene) {genes.push_back(std::move(gene));}
+
+        const TrainingParameters& GetTrainingParameters() const { return parameters; }
+		double GetGeneticalDistanceFrom(const Genome& other) const;
 };

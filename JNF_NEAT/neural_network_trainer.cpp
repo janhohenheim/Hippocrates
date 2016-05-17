@@ -91,9 +91,7 @@ void NeuralNetworkTrainer::Repopulate() {
 			sp = &SelectSpeciesToBreed();
 		}
 		auto & mother = sp->GetOrganismToBreed();
-		auto childGenome = father.BreedWith(mother);
-
-		NeuralNetwork childNeuralNetwork(std::move(childGenome));
+		auto childNeuralNetwork = father.BreedWith(mother);
 		Organism child(&*trainer, std::move(childNeuralNetwork));
 		population.push_back(std::move(child));
 	}

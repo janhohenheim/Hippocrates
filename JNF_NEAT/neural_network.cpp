@@ -105,3 +105,103 @@ void NeuralNetwork::InterpretInputsAndOutputs()
 		outputNeurons[i] = &neurons[genome[i * parameters.numberOfOutputs].to];
 	}
 }
+
+void NeuralNetwork::MutateGenes() {
+	if (ShouldAddConnection()) {
+		AddRandomConnection();
+	}
+	else
+	if (ShouldAddNeuron()) {
+		AddRandomNeuron();
+	}
+	else {
+		ShuffleWeights();
+	}
+}
+
+bool NeuralNetwork::DidChanceOccure(float chance) {
+	auto num = rand() % 100;
+	return num < int(100.0f * chance);
+}
+
+void NeuralNetwork::AddRandomNeuron() {
+	Gene* randGene = nullptr;
+	do {
+		size_t num = rand() % genome.GetGeneCount();
+		randGene = &genome[num];
+	} while (!randGene->isEnabled);
+
+	auto indexOfNewNeuron = genome.ExtrapolateNeuronCount();
+
+	Gene g1;
+	g1.from = randGene->from;
+	g1.to = indexOfNewNeuron;
+	g1.weight = randGene->weight;
+	g1.isEnabled = true;
+
+	Gene g2;
+	g2.from = indexOfNewNeuron;
+	g2.to = randGene->to;
+	g2.weight = randGene->weight;
+	g2.isEnabled = true;
+
+	randGene->isEnabled = false;
+	genome.AppendGene(std::move(g1));
+	genome.AppendGene(std::move(g2));
+}
+
+void NeuralNetwork::AddRandomConnection() {
+	// TODO jnf: Implement a better solution
+	/*
+    auto GetRandomNumberBetween = [](size_t min, size_t max) {
+        if (min == max){
+            return min;
+        }
+        return rand() % (max - min) + min;
+    };
+    Gene newConnection;
+    auto highestIndex = GetGeneCount() - 1U;
+    auto randIndex = GetRandomNumberBetween(0U, highestIndex - 1U);
+    newConnection.from = genes[randIndex].from;
+    randIndex = GetRandomNumberBetween(randIndex + 1, highestIndex);
+    newConnection.to = genes[randIndex].to;
+    if (newConnection.from == newConnection.to) {
+        AddRandomConnection();
+    }
+    else {
+        genes.push_back(std::move(newConnection));
+    }
+    */
+}
+
+void NeuralNetwork::ShuffleWeights() {
+	for (size_t i = 0; i < genome.GetGeneCount(); i++) {
+		if (ShouldMutateWeight()) {
+			MutateWeightOfGeneAt(i);
+		}
+	}
+}
+
+void NeuralNetwork::MutateWeightOfGeneAt(size_t index) {
+	if (DidChanceOccure(parameters.advanced.mutation.chanceOfTotalWeightReset)) {
+		genome[index].SetRandomWeight();
+	} else {
+		PerturbWeightAt(index);
+	}
+}
+
+void NeuralNetwork::PerturbWeightAt(size_t index) {
+	constexpr float perturbanceBoundaries = 0.2f;
+	auto perturbance = (float)(rand() % 10'000) / 10'000.0f * perturbanceBoundaries;
+	if (rand() % 2) {
+		perturbance = -perturbance;
+	}
+	genome[index].weight += perturbance;
+	if (genome[index].weight < -1.0f) {
+		genome[index].weight = -1.0f;
+	}
+	else
+	if (genome[index].weight > 1.0f) {
+		genome[index].weight = 1.0f;
+	}
+}

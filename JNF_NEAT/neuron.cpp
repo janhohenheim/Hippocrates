@@ -1,5 +1,6 @@
 #include "neuron.h"
 #include <cmath>
+#include <stdexcept>
 
 Neuron::Neuron(const Connections& connections) :
 connections(connections) {

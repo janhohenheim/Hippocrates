@@ -20,7 +20,7 @@ int main() {
 	}
 	NeuralNetworkTrainer trainer(bodies, params);
 	trainer.TrainUntilFitnessEquals(100);
-	auto& champ = trainer.GetTrainedNeuralNetwork();
+	auto champ = trainer.GetTrainedNeuralNetwork();
     for (auto& body : bodies) {
         delete body;
     }

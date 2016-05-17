@@ -31,8 +31,18 @@ class NeuralNetwork {
 
 		void SetInputs(const std::vector<float>& inputs);
 		std::vector<float> GetOutputs();
+		void MutateGenes();
 
 	private:
+		static bool DidChanceOccure(float chance);
 		void BuildNetworkFromGenes();
 		void InterpretInputsAndOutputs();
+		bool ShouldAddNeuron() const { return DidChanceOccure(parameters.advanced.mutation.chanceForNeuralMutation); }
+		bool ShouldAddConnection() const { return DidChanceOccure(parameters.advanced.mutation.chanceForConnectionalMutation); }
+		bool ShouldMutateWeight() const { return DidChanceOccure(parameters.advanced.mutation.chanceForWeightMutation); }
+		void AddRandomNeuron();
+		void AddRandomConnection();
+		void ShuffleWeights();
+		void MutateWeightOfGeneAt(std::size_t index);
+		void PerturbWeightAt(std::size_t index);
 };
