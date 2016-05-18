@@ -29,8 +29,8 @@ class Genome {
 		std::size_t ExtrapolateNeuronCount() const;
 		std::size_t GetGeneCount() const;
 
-		void AppendGene(const Gene & gene) {genes.push_back(gene);}
-		void AppendGene(Gene && gene) {genes.push_back(std::move(gene));}
+		void AppendGene(const Gene& gene) {genes.push_back(gene);}
+		void AppendGene(Gene&& gene) {genes.push_back(std::move(gene));}
 
         const TrainingParameters& GetTrainingParameters() const { return parameters; }
 		double GetGeneticalDistanceFrom(const Genome& other) const;

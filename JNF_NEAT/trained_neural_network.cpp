@@ -1,4 +1,4 @@
-#include <bits/unique_ptr.h>
+#include <memory>
 #include "trained_neural_network.h"
 
 TrainedNeuralNetwork::TrainedNeuralNetwork(const NeuralNetwork& network):
@@ -21,6 +21,9 @@ TrainedNeuralNetwork TrainedNeuralNetwork::LoadFromFile(const std::string& fileN
 {
 	// TODO jnf Implementation
 	std::unique_ptr<TrainingParameters> params (new TrainingParameters);
+    params->numberOfInputs = 2;
+    params->numberOfOutputs = 1;
+    params->updatesPerGeneration =30;
 	Genome g(*params.get());
 	NeuralNetwork n(std::move(g));
 	return TrainedNeuralNetwork(std::move(n));

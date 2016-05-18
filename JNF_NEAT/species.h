@@ -26,10 +26,8 @@ class Species {
 		void LetPopulationLive();
 		void ResetToTeachableState();
 		Organism& GetFittestOrganism();
-
 		void SetPopulationsFitnessModifier();
-
-		Organism &GetOrganismToBreed();
+		Organism& GetOrganismToBreed();
 
 private:
 		void ElectRepresentative();

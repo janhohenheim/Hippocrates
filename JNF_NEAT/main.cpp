@@ -19,7 +19,7 @@ int main() {
         bodies.push_back(new XORSolver());
 	}
 	NeuralNetworkTrainer trainer(bodies, params);
-	trainer.TrainUntilGenerationEquals(100);
+	trainer.TrainUntilGenerationEquals(10000);
 	auto champ = trainer.GetTrainedNeuralNetwork();
     for (auto& body : bodies) {
         delete body;
@@ -30,11 +30,12 @@ int main() {
     for (auto& output : outputs) {
         std::cout << output << std::endl;
     }
+    /*
     champ = TrainedNeuralNetwork::LoadFromFile(file);
     outputs = champ.GetOutputs({ 0.0, 1.0 });
     for (auto& output : outputs) {
         std::cout << output << std::endl;
     }
-
+    */
 	return 0;
 }

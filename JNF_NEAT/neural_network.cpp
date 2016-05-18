@@ -57,6 +57,7 @@ NeuralNetwork& NeuralNetwork::operator=(const NeuralNetwork& other)
 	neurons = other.neurons;
 	inputNeurons.resize(other.inputNeurons.size());
 	outputNeurons.resize(other.outputNeurons.size());
+    const_cast<TrainingParameters&>(this->parameters) = other.parameters;
 
 	InterpretInputsAndOutputs();
 	return *this;
@@ -145,7 +146,7 @@ void NeuralNetwork::AddRandomNeuron() {
 
 void NeuralNetwork::AddRandomConnection() {
 	// TODO jnf: Implement a better solution
-	for (auto * out : outputNeurons){
+	for (auto* out : outputNeurons){
 		CategorizeNeuronBranchIntoLayers(*out);
 	}
 	std::map<size_t, std::vector<Neuron*>> layerMap;

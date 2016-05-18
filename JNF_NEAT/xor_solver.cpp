@@ -7,7 +7,7 @@ void XORSolver::Reset()
 }
 
 void XORSolver::Update(const std::vector<float>&  networkOutputs)
-{
+{    
 	int xorResult = currTraining->first ^ currTraining->second;
 	int networksXorResult = int(networkOutputs[0] > 0.5f);
 
@@ -15,6 +15,9 @@ void XORSolver::Update(const std::vector<float>&  networkOutputs)
 		fitness += 10;
 	}
     ++currTraining;
+    if (currTraining == trainingData.end()) {
+        currTraining = trainingData.begin();
+    }
 }
 
 int XORSolver::GetFitness() const
