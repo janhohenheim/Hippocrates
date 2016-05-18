@@ -36,9 +36,11 @@ void Neuron::SetInput(float input) {
     lastActionPotential = input;
 }
 
-void Neuron::SetDistanceFromOutput(std::size_t distanceFromOutput) {
-    if (distanceFromOutput > this->distanceFromOutput){
-        this->distanceFromOutput = distanceFromOutput;
+void Neuron::SetDistanceToOutputs(size_t distance) {
+    if(distance > distanceToOutputs){
+        distanceToOutputs = distance;
     }
 }
+
+
 

@@ -1,8 +1,8 @@
 #include "neural_network.h"
 #include <cmath>
-#include <stdexcept>
-#include <map>
+#include <unordered_map>
 #include <algorithm>
+#include <map>
 
 
 NeuralNetwork::NeuralNetwork(const TrainingParameters & parameters):
@@ -146,38 +146,29 @@ void NeuralNetwork::AddRandomNeuron() {
 
 void NeuralNetwork::AddRandomConnection() {
 	// TODO jnf: Implement a better solution
-    std::map<Neuron*, size_t> neuronIndexes;
-    for (int i = 0; i < neurons.size(); ++i) {
-        neuronIndexes[&neurons[i]] = i;
-    }
-    // Prepare Outputs
-    for (auto * out : outputNeurons) {
-        CategorizeNeuronBranchIntoLayers(*out);
-    }
-    // Prepare Inputs
-    for (auto * in : inputNeurons) {
-        in->SetInput(std::numeric_limits<size_t>::min());
-    }
-    auto sortByLayer = [](Neuron& lhs, Neuron& rhs) {
-        // The Neurons that are the farthest away from the Output come first
-        return lhs.GetDistanceFromOutput() > rhs.GetDistanceFromOutput();
-    };
-    
-    std::sort(neurons.begin(), neurons.end(), sortByLayer);
-
-    auto fromNeuronIndex = GetRandomNumberBetween(0U, neurons.size() - 1U - parameters.numberOfOutputs);
-    auto toNeuronIndex = GetRandomNumberBetween(std::max(fromNeuronIndex + 1U, (size_t)parameters.numberOfInputs), neurons.size());
-    auto& fromNeuron = neurons[fromNeuronIndex];
-    auto& toNeuron = neurons[toNeuronIndex];
-    
-    if (toNeuron.GetConnections().count(&fromNeuron) == 0U) {
-        Gene newGene;
-        newGene.isEnabled = true;
-        newGene.from = neuronIndexes[&fromNeuron];
-        newGene.to = neuronIndexes[&toNeuron];
-        toNeuron.AddConnection(&fromNeuron, newGene.weight);
-        genome.AppendGene((std::move(newGene)));
-    }
+	// TODO jnf: Implement a better solution
+	for (auto * out : outputNeurons){
+		CategorizeNeuronBranchIntoLayers(*out);
+	}
+	std::map<size_t, std::vector<Neuron*>> layerMap;
+	for (auto& neuron : neurons) {
+		layerMap[neuron.GetDistanceToOutputs()].push_back(&neuron);
+	}
+	auto highestLayer = layerMap.rbegin()->first + 1U;
+	auto fromLayer = rand() % (highestLayer - 1U) + 1U;
+	auto toLayer = rand() % (fromLayer);
+	auto fromNeuron = layerMap[fromLayer][rand() % layerMap[fromLayer].size()];
+	auto toNeuron = layerMap[toLayer][rand() % layerMap[toLayer].size()];
+	Gene newConnection;
+	newConnection.isEnabled = true;
+	size_t geneticalGeneIndex = 0U;
+	while (&neurons[geneticalGeneIndex++] != fromNeuron);
+	newConnection.from = geneticalGeneIndex - 1U;
+	geneticalGeneIndex = 0U;
+	while (&neurons[geneticalGeneIndex++] != toNeuron);
+	newConnection.to = geneticalGeneIndex - 1U;
+	toNeuron->AddConnection(fromNeuron, newConnection.weight);
+	genome.AppendGene((std::move(newConnection)));
 }
 
 void NeuralNetwork::ShuffleWeights() {
@@ -228,12 +219,14 @@ void NeuralNetwork::MutateGenesAndBuildNetwork() {
 	}
 }
 
-void NeuralNetwork::CategorizeNeuronBranchIntoLayers(Neuron& currNode, size_t currLayer) {
-	currNode.SetDistanceFromOutput(currLayer);
-	for (auto& in : currNode.GetConnections()){
+void NeuralNetwork::CategorizeNeuronBranchIntoLayers(Neuron &currNode, size_t currLayer) {
+	currNode.SetDistanceToOutputs(currLayer);
+	for (auto &in : currNode.GetConnections()) {
 		CategorizeNeuronBranchIntoLayers(*in.first, currLayer + 1U);
 	}
 }
+
+
 
 
 

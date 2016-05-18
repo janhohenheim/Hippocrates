@@ -1,14 +1,14 @@
 #pragma once
-#include <map>
 #include <cstddef>
+#include <unordered_map>
 
 class Neuron {
 	private:
-		using Connections = std::map<Neuron*, float>;
+		using Connections = std::unordered_map<Neuron*, float>;
 		Connections connections;
 		bool isSensor = false;
 		float lastActionPotential = 0.0f;
-		std::size_t distanceFromOutput;
+		size_t distanceToOutputs = 0U;
 
     public:
         Neuron() = default;
@@ -21,8 +21,8 @@ class Neuron {
 		const Connections& GetConnections() const {return connections;}
 		Connections& GetConnections() {return connections;}
 		float RequestDataAndGetActionPotential();
-		void SetDistanceFromOutput(std::size_t distanceFromOutput);
-		size_t GetDistanceFromOutput() const {return distanceFromOutput;}
+		size_t GetDistanceToOutputs() const {return distanceToOutputs; }
+		void SetDistanceToOutputs(size_t distance);
 
 	private:
 		static float sigmoid(float d);

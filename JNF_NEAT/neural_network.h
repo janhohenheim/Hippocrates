@@ -43,6 +43,5 @@ class NeuralNetwork {
 		void ShuffleWeights();
 		void MutateWeightOfGeneAt(std::size_t index);
 		void PerturbWeightAt(std::size_t index);
-
-	void CategorizeNeuronBranchIntoLayers(Neuron &currNode, size_t currLayer = 0U);
+		void CategorizeNeuronBranchIntoLayers (Neuron& currNode, size_t currLayer = 0U);
 };
