@@ -1,15 +1,13 @@
 #include "trained_neural_network.h"
 
-TrainedNeuralNetwork::TrainedNeuralNetwork(const Genome& genome):
-	trainedNetwork(genome)
+TrainedNeuralNetwork::TrainedNeuralNetwork(const NeuralNetwork& network):
+	trainedNetwork(network)
 {
-	// TODO jnf: This will Mutate the Genes, stop doing that
 }
 
-TrainedNeuralNetwork::TrainedNeuralNetwork(Genome&& genome) :
-    trainedNetwork(std::move(genome))
+TrainedNeuralNetwork::TrainedNeuralNetwork(NeuralNetwork&& network) :
+    trainedNetwork(std::move(network))
 {
-	// TODO jnf: This will Mutate the Genes, stop doing that
 }
 
 std::vector<float> TrainedNeuralNetwork::GetOutputs(const std::vector<float>& inputs)

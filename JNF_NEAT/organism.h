@@ -27,4 +27,5 @@ class Organism {
 		int GetOrCalculateFitness();
 		NeuralNetwork BreedWith(Organism& partner);
 		const Genome& GetGenome() const { return network.GetGenome(); }
+		const NeuralNetwork & GetNetwork() const {return network; }
 };

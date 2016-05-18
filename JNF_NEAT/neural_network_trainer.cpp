@@ -57,7 +57,7 @@ void NeuralNetworkTrainer::TrainUntilGenerationEquals(unsigned int generationsTo
 
 TrainedNeuralNetwork NeuralNetworkTrainer::GetTrainedNeuralNetwork()
 {
-    return TrainedNeuralNetwork(GetFittestOrganism().GetGenome());
+    return TrainedNeuralNetwork(GetFittestOrganism().GetNetwork());
 }
 
 Organism& NeuralNetworkTrainer::GetFittestOrganism() {
