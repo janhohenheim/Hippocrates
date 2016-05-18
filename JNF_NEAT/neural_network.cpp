@@ -1,6 +1,5 @@
 #include "neural_network.h"
 #include <cmath>
-#include <unordered_map>
 #include <algorithm>
 #include <map>
 
@@ -146,7 +145,6 @@ void NeuralNetwork::AddRandomNeuron() {
 
 void NeuralNetwork::AddRandomConnection() {
 	// TODO jnf: Implement a better solution
-	// TODO jnf: Implement a better solution
 	for (auto * out : outputNeurons){
 		CategorizeNeuronBranchIntoLayers(*out);
 	}
@@ -225,9 +223,3 @@ void NeuralNetwork::CategorizeNeuronBranchIntoLayers(Neuron &currNode, size_t cu
 		CategorizeNeuronBranchIntoLayers(*in.first, currLayer + 1U);
 	}
 }
-
-
-
-
-
-
