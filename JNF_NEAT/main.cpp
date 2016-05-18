@@ -30,7 +30,7 @@ int main() {
     for (auto& output : outputs) {
         std::cout << output << std::endl;
     }
-    champ.LoadFromFile(file);
+    champ = TrainedNeuralNetwork::LoadFromFile(file);
     outputs = champ.GetOutputs({ 0.0, 1.0 });
     for (auto& output : outputs) {
         std::cout << output << std::endl;

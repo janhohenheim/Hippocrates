@@ -11,8 +11,9 @@ class TrainedNeuralNetwork {
 		TrainedNeuralNetwork(const TrainedNeuralNetwork& other) = default;
 		~TrainedNeuralNetwork() = default;
 
+		TrainedNeuralNetwork& operator=(const TrainedNeuralNetwork& other) = default;
 
-		void LoadFromFile(const std::string& fileName);
+		static TrainedNeuralNetwork LoadFromFile(const std::string& fileName);
 		void SaveToFile(const std::string& fileName) const;
 
 		std::vector<float> GetOutputs(const std::vector<float>& inputs);
