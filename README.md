@@ -55,7 +55,12 @@ If you know what you're doing, you can change the members in the `advanced` stru
 
 <details>
 <summary>Example</summary>
-N/A
+```
+TrainingParameters params;
+params.numberOfInputs = 2;
+params.numberOfOutputs = 1;
+params.updatesPerGeneration = 4;
+```
 </details>
 
 
