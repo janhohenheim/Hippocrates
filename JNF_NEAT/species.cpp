@@ -23,11 +23,13 @@ void Species::AddOrganism(const Organism &organism)
 {
 	population.push_back(organism);
 	ElectRepresentative();
+    isSortedByFitness = false;
 }
 
 void Species::AddOrganism(Organism &&organism) {
 	population.push_back(std::move(organism));
 	ElectRepresentative();
+    isSortedByFitness = false;
 }
 
 
@@ -91,22 +93,38 @@ void Species::ResetToTeachableState() {
 }
 
 Organism& Species::GetFittestOrganism() {
-	// TODO jnf: Implementation with caching
-	auto CompareOrganisms = [&](Organism& lhs, Organism& rhs) {
-		return lhs.GetOrCalculateFitness() < rhs.GetOrCalculateFitness();
-	};
-	std::sort(population.begin(), population.end(), CompareOrganisms);
+    if (!isSortedByFitness) {
+        auto CompareOrganisms = [&](Organism& lhs, Organism& rhs) {
+            return lhs.GetOrCalculateFitness() < rhs.GetOrCalculateFitness();
+        };
+        std::sort(population.begin(), population.end(), CompareOrganisms);
+        isSortedByFitness = true;
+    }
 	return population.front();
 }
 
-Species &Species::operator=(Species &&other) {
+Species& Species::operator=(Species &&other) {
 	population = std::move(other.population);
 	ElectRepresentative();
 	return *this;
 }
 
-Organism &Species::GetOrganismToBreed() {
-	// TODO jnf: Implement fitness proportionate selection
-	// TODO jnf: Switch later to stochastic universal sampling
-	return population.front();
+Organism& Species::GetOrganismToBreed() {
+    // TODO jnf: Switch to stochastic universal sampling
+    auto totalSpeciesFitness = 0;
+    for (auto& organism : population) {
+        totalSpeciesFitness += organism.GetOrCalculateFitness();
+    }
+    double chance = 0.0;
+    auto GetChanceForOrganism = [&chance, &totalSpeciesFitness](Organism& organism) {
+        return chance + ((double)organism.GetOrCalculateFitness() / (double)totalSpeciesFitness);
+    };
+    for (auto& organism : population) {
+        double randNum = (double)(rand() % 10'000) / 9'999.0;;
+        chance = GetChanceForOrganism(organism);
+        if (randNum < chance) {
+            return organism;
+        }
+    }
+    return population.front();
 }

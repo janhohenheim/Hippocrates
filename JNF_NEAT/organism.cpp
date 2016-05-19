@@ -1,4 +1,5 @@
 #include <cstdlib>
+#include <algorithm>
 #include "organism.h"
 
 Organism::Organism(IBody* trainer, NeuralNetwork&& network) :
@@ -39,16 +40,17 @@ NeuralNetwork Organism::BreedWith(Organism& partner)
 	Genome childGenome(dominantOrLargerParent->GetGenome());
 
 	size_t i = 0U;
-    while (i < childGenome.GetGeneCount() && childGenome[i].historicalMarking == partnerGenome[i].historicalMarking) {
+    size_t sizeOfSmallerParent = std::min(this->GetGenome().GetGeneCount(), partner.GetGenome().GetGeneCount());
+    while (i < sizeOfSmallerParent && childGenome[i].historicalMarking == partnerGenome[i].historicalMarking) {
         if (rand() % 2 == 0) {
             childGenome[i] = partnerGenome[i];
         }
         ++i;
     }
 	if (parentsHaveSameFitness) {
-		// TODO jnf Remove double code
-        while (i < dominantOrLargerParent->GetGenome().GetGeneCount()) {
+        while (i < sizeOfSmallerParent) {
             if (rand() % 2 == 0) {
+                // TODO jnf: This can result in orphanated 'from's in case of added neuron
                 childGenome[i] = partnerGenome[i];
             }
             ++i;

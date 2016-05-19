@@ -8,6 +8,7 @@ class Species {
 	private:
 		std::vector<Organism> population;
 		Genome* representative = nullptr;
+        bool isSortedByFitness = false;
 
 	public:
 		Species() = default;
@@ -16,11 +17,11 @@ class Species {
         Species(const Species&& other) = delete;
         ~Species();
 
-		Species&operator=(Species && other);
+		Species& operator=(Species && other);
 
 		void AddOrganism(const Organism &organism);
 		void AddOrganism(Organism &&organism);
-        void Clear() { population.clear(); }
+        void Clear() { population.clear(); isSortedByFitness = false;}
 
 		bool IsCompatible(const Genome& genome) const;
 		void LetPopulationLive();

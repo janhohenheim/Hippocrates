@@ -100,10 +100,24 @@ void NeuralNetworkTrainer::Repopulate() {
     // TODO jnf Add Concurrency
 }
 
-Species &NeuralNetworkTrainer::SelectSpeciesToBreed() {
-	// TODO jnf: Implement fitness proportionate selection
-	// TODO jnf: Switch later to stochastic universal sampling
-	return species.front();
+Species& NeuralNetworkTrainer::SelectSpeciesToBreed() {
+	// TODO jnf: Switch to stochastic universal sampling
+    auto totalSpeciesFitness = 0;
+    for (auto& s : species) {
+        totalSpeciesFitness += s.GetFittestOrganism().GetOrCalculateFitness();
+    }
+    double chance = 0.0;
+    auto GetChanceForSpecies = [&chance, &totalSpeciesFitness](Species& species) {
+        return chance + ((double)species.GetFittestOrganism().GetOrCalculateFitness() / (double)totalSpeciesFitness);
+    };
+    for (auto& s : species) {
+        double randNum = (double)(rand() % 10'000) / 9'999.0;;
+        chance = GetChanceForSpecies(s);
+        if (randNum < chance) {
+            return s;
+        }
+    }
+    return species.front();
 }
 
 void NeuralNetworkTrainer::CategorizeOrganismsIntoSpecies(std::vector<Organism> && organisms) {
