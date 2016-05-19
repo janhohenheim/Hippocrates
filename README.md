@@ -54,13 +54,13 @@ You need to instantiate a `NeuralNetworkTrainer::TrainingParameters` object. You
 If you know what you're doing, you can change the members in the `advanced` structure to tweak the learning process.  
 
 <details>
-<summary>Example</summary>
+<summary>Example</summary>  
 ```
 TrainingParameters params;
 params.numberOfInputs = 2;
 params.numberOfOutputs = 1;
 params.updatesPerGeneration = 4;
-```
+```  
 </details>
 
 
