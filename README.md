@@ -42,7 +42,8 @@ You first have to provide an implementation of the `IBody` interface. You need t
 - Update()  
 - GetFitness()  
 - Reset  
-- ProvideNetworkWithInputs()    
+- ProvideNetworkWithInputs()  
+
 They are all explained in detail below.  
 <details>
 <summary>Example</summary>
