@@ -3,7 +3,8 @@
 
 Genome::Genome(const TrainingParameters& parameters) :
 	parameters(parameters),
-	genes(parameters.numberOfInputs * parameters.numberOfOutputs)
+	genes(parameters.numberOfInputs * parameters.numberOfOutputs),
+    neuronCount(parameters.numberOfInputs + parameters.numberOfOutputs)
 {
 	auto *currentGene = &genes.front();
 	for (auto in = 0U; in < parameters.numberOfInputs; ++in) {
@@ -15,21 +16,13 @@ Genome::Genome(const TrainingParameters& parameters) :
 	}
 }
 
-std::size_t Genome::ExtrapolateNeuronCount() const {
-	auto CompareToNeuron = [](const Gene& lhs, const Gene& rhs) {
-		return lhs.to < rhs.to;
-	};
-	auto maxNeuronGene = std::max_element(genes.begin(), genes.end(), CompareToNeuron);
-	// TODO jnf Maybe add lookup table
-	return maxNeuronGene->to + 1U;
-}
-
 std::size_t Genome::GetGeneCount() const {
 	return genes.size();
 }
 
 Genome& Genome::operator=(const Genome& other) {
 	this->genes = other.genes; 
+    this->neuronCount = other.neuronCount;
 	const_cast<TrainingParameters&>(this->parameters) = other.parameters;
 	return *this;
 }

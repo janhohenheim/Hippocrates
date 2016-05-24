@@ -66,7 +66,7 @@ NeuralNetwork& NeuralNetwork::operator=(const NeuralNetwork& other)
 
 void NeuralNetwork::BuildNetworkFromGenes()
 {
-    neurons.resize(genome.ExtrapolateNeuronCount());
+    neurons.resize(genome.GetNeuronCount());
     for (const auto& gene : genome) {
         if (gene.isEnabled) {
             neurons[gene.to].AddConnection({ &neurons[gene.from], gene.weight });
@@ -125,7 +125,7 @@ void NeuralNetwork::AddRandomNeuron() {
 		randGene = &genome[num];
 	} while (!randGene->isEnabled);
 
-	auto indexOfNewNeuron = genome.ExtrapolateNeuronCount();
+	auto indexOfNewNeuron = genome.GetNeuronCount();
 
 	Gene g1;
 	g1.from = randGene->from;
