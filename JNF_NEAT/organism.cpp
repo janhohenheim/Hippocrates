@@ -28,34 +28,27 @@ int Organism::GetOrCalculateFitness()
 NeuralNetwork Organism::BreedWith(Organism& partner)
 {
     bool parentsHaveSameFitness = this->GetOrCalculateFitness() == partner.GetOrCalculateFitness();
-    Organism* dominantOrLargerParent = nullptr;
+    Organism* dominantParent = nullptr;
     auto & partnerGenome = partner.GetGenome();
     if (parentsHaveSameFitness) {
-        // TODO jnf remove feature envy
-        dominantOrLargerParent = this->GetGenome().GetGeneCount() > partnerGenome.GetGeneCount() ? this : &partner;
+        dominantParent = rand() % 2 == 0 ? this : &partner;
     }
     else {
-        dominantOrLargerParent = this->GetOrCalculateFitness() > partner.GetOrCalculateFitness() ? this : &partner;
+        // TODO jnf remove feature envy
+        dominantParent = this->GetOrCalculateFitness() > partner.GetOrCalculateFitness() ? this : &partner;
     }
-	Genome childGenome(dominantOrLargerParent->GetGenome());
+	Genome childGenome(dominantParent->GetGenome());
 
-	size_t i = 0U;
     size_t sizeOfSmallerParent = std::min(this->GetGenome().GetGeneCount(), partner.GetGenome().GetGeneCount());
-    while (i < sizeOfSmallerParent && childGenome[i].historicalMarking == partnerGenome[i].historicalMarking) {
+	auto MarkingsAreSameAt = [&](size_t i) {
+		return childGenome[i].historicalMarking == partnerGenome[i].historicalMarking;
+	};
+	for (size_t i = 0U;	i < sizeOfSmallerParent && MarkingsAreSameAt(i); ++i) {
         if (rand() % 2 == 0) {
             childGenome[i] = partnerGenome[i];
         }
         ++i;
     }
-	if (parentsHaveSameFitness) {
-        while (i < sizeOfSmallerParent) {
-            if (rand() % 2 == 0) {
-                // TODO jnf: This can result in orphanated 'from's in case of added neuron
-                childGenome[i] = partnerGenome[i];
-            }
-            ++i;
-        }
-	}
     NeuralNetwork child(std::move(childGenome));
 	// It may look ineffective to return this by value, accessing the copy constructor
 	// But don't worry, RVO will take care of this.

@@ -31,7 +31,10 @@ class Genome {
 
 		void AppendGene(const Gene& gene) {genes.push_back(gene);}
 		void AppendGene(Gene&& gene) {genes.push_back(std::move(gene));}
+		void InsertGeneAt(const Gene& gene, size_t index) { genes.insert(genes.begin() + index, gene); }
+		void InsertGeneAt(Gene&& gene, size_t index) { genes.insert(genes.begin() + index, std::move(gene)); }
 
         const TrainingParameters& GetTrainingParameters() const { return parameters; }
 		double GetGeneticalDistanceFrom(const Genome& other) const;
+		bool DoesContainGene(const Gene& gene) const;
 };

@@ -140,6 +140,7 @@ void NeuralNetwork::AddRandomNeuron() {
 	g2.isEnabled = true;
 
 	randGene->isEnabled = false;
+
 	genome.AppendGene(std::move(g1));
 	genome.AppendGene(std::move(g2));
 }
@@ -166,8 +167,11 @@ void NeuralNetwork::AddRandomConnection() {
 	geneticalGeneIndex = 0U;
 	while (&neurons[geneticalGeneIndex++] != toNeuron);
 	newConnection.to = geneticalGeneIndex - 1U;
-	toNeuron->AddConnection(fromNeuron, newConnection.weight);
-	genome.AppendGene((std::move(newConnection)));
+
+	if (!genome.DoesContainGene(newConnection)) {
+		toNeuron->AddConnection(fromNeuron, newConnection.weight);
+		genome.AppendGene(std::move(newConnection));
+	}
 }
 
 void NeuralNetwork::ShuffleWeights() {
@@ -206,8 +210,7 @@ void NeuralNetwork::MutateGenesAndBuildNetwork() {
 	if (ShouldAddConnection()) {
 		BuildNetworkFromGenes();
 		AddRandomConnection();
-	}
-	else
+	} else
 	if (ShouldAddNeuron()) {
 		AddRandomNeuron();
 		BuildNetworkFromGenes();

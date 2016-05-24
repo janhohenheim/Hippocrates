@@ -60,3 +60,13 @@ double Genome::GetGeneticalDistanceFrom(const Genome& other) const {
 
 	return disjointGenesInfluence + averageWeightDifference;
 }
+
+bool Genome::DoesContainGene(const Gene & gene) const
+{
+	for (auto & g : genes) {
+		if (g.from == gene.from && g.to == gene.to) {
+			return true;
+		}
+	}
+	return false;
+}

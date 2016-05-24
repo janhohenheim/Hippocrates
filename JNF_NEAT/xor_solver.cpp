@@ -9,7 +9,7 @@ void XORSolver::Reset()
 void XORSolver::Update(const std::vector<float>&  networkOutputs)
 {    
 	int xorResult = currTraining->first ^ currTraining->second;
-	int networksXorResult = int(networkOutputs[0] > 0.5f);
+	int networksXorResult = int(networkOutputs.front() >= 0.5f);
 
 	if (xorResult == networksXorResult) {
 		fitness += 10;
