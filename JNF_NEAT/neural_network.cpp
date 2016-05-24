@@ -99,9 +99,11 @@ void NeuralNetwork::InterpretInputsAndOutputs()
 {
 	for (auto i = 0U; i < parameters.numberOfInputs; i++) {
 		inputNeurons[i] = &neurons[i];
+        inputNeurons[i]->SetInput(0.0f);
 	}
 	for (auto i = 0U; i < parameters.numberOfOutputs; i++) {
 		outputNeurons[i] = &neurons[genome[i * parameters.numberOfOutputs].to];
+        inputNeurons[i]->SetInput(0.0f);
 	}
 }
 
