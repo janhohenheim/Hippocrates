@@ -4,7 +4,11 @@
 
 class Neuron {
 	private:
-		using Connections = std::unordered_map<Neuron*, float>;
+        struct IncommingConnection {
+            Neuron* neuron;
+            float weight;
+        };
+		using Connections = std::vector<IncommingConnection>;
 		Connections connections;
 		bool isSensor = false;
 		float lastActionPotential = 0.0f;
@@ -17,7 +21,7 @@ class Neuron {
         ~Neuron() = default;
 
 		void SetInput(float input);
-		void AddConnection(Neuron* incoming, float weight);
+		void AddConnection(IncommingConnection&& connection);
 		const Connections& GetConnections() const {return connections;}
 		Connections& GetConnections() {return connections;}
 		float RequestDataAndGetActionPotential();

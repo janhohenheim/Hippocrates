@@ -69,7 +69,7 @@ void NeuralNetwork::BuildNetworkFromGenes()
     neurons.resize(genome.ExtrapolateNeuronCount());
     for (const auto& gene : genome) {
         if (gene.isEnabled) {
-            neurons[gene.to].AddConnection(&neurons[gene.from], gene.weight);
+            neurons[gene.to].AddConnection({ &neurons[gene.from], gene.weight });
         }
     }
     InterpretInputsAndOutputs();
@@ -169,7 +169,7 @@ void NeuralNetwork::AddRandomConnection() {
 	newConnection.to = geneticalGeneIndex - 1U;
 
 	if (!genome.DoesContainGene(newConnection)) {
-		toNeuron->AddConnection(fromNeuron, newConnection.weight);
+        toNeuron->AddConnection({ fromNeuron, newConnection.weight });
 		genome.AppendGene(std::move(newConnection));
 	}
 }
@@ -224,6 +224,6 @@ void NeuralNetwork::MutateGenesAndBuildNetwork() {
 void NeuralNetwork::CategorizeNeuronBranchIntoLayers(Neuron &currNode, size_t currLayer) {
 	currNode.SetDistanceToOutputs(currLayer);
 	for (auto &in : currNode.GetConnections()) {
-		CategorizeNeuronBranchIntoLayers(*in.first, currLayer + 1U);
+		CategorizeNeuronBranchIntoLayers(*in.neuron, currLayer + 1U);
 	}
 }

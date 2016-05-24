@@ -6,12 +6,12 @@ Neuron::Neuron(const Connections& connections) :
 connections(connections) {
 }
 
-void Neuron::AddConnection(Neuron* incoming, float weight)
+void Neuron::AddConnection(IncommingConnection&& connection)
 {
-    if (incoming == this || incoming == nullptr) {
+    if (connection.neuron == this || connection.neuron == nullptr) {
         throw std::invalid_argument("Invalid incomming connection");
     }
-	connections[incoming] = weight;
+    connections.push_back(std::move(connection));
 }
 
 float Neuron::RequestDataAndGetActionPotential() {
@@ -21,7 +21,7 @@ float Neuron::RequestDataAndGetActionPotential() {
 
     float incomingPotentials = 0.0f;
     for (auto& in : connections){
-        incomingPotentials += in.first->RequestDataAndGetActionPotential() * in.second;
+        incomingPotentials += in.neuron->RequestDataAndGetActionPotential() * in.weight;
     }
     lastActionPotential = sigmoid(incomingPotentials);
     return lastActionPotential;
