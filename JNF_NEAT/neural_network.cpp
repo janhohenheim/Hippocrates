@@ -191,8 +191,8 @@ void NeuralNetwork::MutateWeightOfGeneAt(size_t index) {
 }
 
 void NeuralNetwork::PerturbWeightAt(size_t index) {
-	constexpr float perturbanceBoundaries = 1.0f;
-	auto perturbance = (float)(rand() % 10'000) / 10'000.0f * perturbanceBoundaries;
+	constexpr float perturbanceBoundaries = 0.5f;
+	auto perturbance = (float)(rand() % 10'000) / 9'999.0f * perturbanceBoundaries;
 	if (rand() % 2) {
 		perturbance = -perturbance;
 	}

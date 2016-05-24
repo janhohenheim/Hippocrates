@@ -34,7 +34,6 @@ NeuralNetwork Organism::BreedWith(Organism& partner)
         dominantParent = rand() % 2 == 0 ? this : &partner;
     }
     else {
-        // TODO jnf remove feature envy
         dominantParent = this->GetOrCalculateFitness() > partner.GetOrCalculateFitness() ? this : &partner;
     }
 	Genome childGenome(dominantParent->GetGenome());
