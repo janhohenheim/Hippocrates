@@ -49,6 +49,10 @@ void Species::SetPopulationsFitnessModifier() {
 			}
 		}
 	}
+	if (fitnessSharingDivisor == 1U) {
+		return;
+	}
+
 	float fitnessSharingFactor = 1.0f / (float)fitnessSharingDivisor;
 
 	for (auto& organism : population){

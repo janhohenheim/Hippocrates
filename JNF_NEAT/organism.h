@@ -9,7 +9,7 @@ class Organism {
 		IBody* trainer = nullptr;
 		NeuralNetwork network;
 		int fitness = 0;
-		float fitnessModifier = 0.0f;
+		float fitnessModifier = 1.0f;
 		bool isFitnessUpToDate = false;
 
 	public:
