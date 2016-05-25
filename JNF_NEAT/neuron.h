@@ -12,7 +12,7 @@ class Neuron {
 		Connections connections;
 		bool isSensor = false;
 		float lastActionPotential = 0.0f;
-		size_t distanceToOutputs = 0U;
+		size_t layer = 0U;
 
     public:
         Neuron() = default;
@@ -25,8 +25,8 @@ class Neuron {
 		const Connections& GetConnections() const {return connections;}
 		Connections& GetConnections() {return connections;}
 		float RequestDataAndGetActionPotential();
-		size_t GetDistanceToOutputs() const {return distanceToOutputs; }
-		void SetDistanceToOutputs(size_t distance);
+		size_t GetLayer() const {return layer; }
+		void SetLayer(size_t layer);
 
 	private:
 		static float sigmoid(float d);

@@ -36,9 +36,9 @@ void Neuron::SetInput(float input) {
     lastActionPotential = input;
 }
 
-void Neuron::SetDistanceToOutputs(size_t distance) {
-    if(distance > distanceToOutputs){
-        distanceToOutputs = distance;
+void Neuron::SetLayer(size_t layer) {
+    if(layer > this->layer){
+        this->layer = layer;
     }
 }
 

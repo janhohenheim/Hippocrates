@@ -149,16 +149,14 @@ void NeuralNetwork::AddRandomNeuron() {
 
 void NeuralNetwork::AddRandomConnection() {
 	// TODO jnf: Implement a better solution
-	for (auto* out : outputNeurons){
-		CategorizeNeuronBranchIntoLayers(*out);
-	}
+    CategorizeNeuronsIntoLayers();	
 	std::map<size_t, std::vector<Neuron*>> layerMap;
 	for (auto& neuron : neurons) {
-		layerMap[neuron.GetDistanceToOutputs()].push_back(&neuron);
+		layerMap[neuron.GetLayer()].push_back(&neuron);
 	}
 	auto highestLayer = layerMap.rbegin()->first + 1U;
-	auto fromLayer = rand() % (highestLayer - 1U) + 1U;
-	auto toLayer = rand() % (fromLayer);
+	auto fromLayer = rand() % (highestLayer - 1U);
+    auto toLayer = GetRandomNumberBetween(fromLayer + 1U, highestLayer);
 	auto fromNeuron = layerMap[fromLayer][rand() % layerMap[fromLayer].size()];
 	auto toNeuron = layerMap[toLayer][rand() % layerMap[toLayer].size()];
 	Gene newConnection;
@@ -223,9 +221,28 @@ void NeuralNetwork::MutateGenesAndBuildNetwork() {
 	}
 }
 
-void NeuralNetwork::CategorizeNeuronBranchIntoLayers(Neuron &currNode, size_t currLayer) {
-	currNode.SetDistanceToOutputs(currLayer);
+void NeuralNetwork::CategorizeNeuronsIntoLayers()
+{
+    for (auto* out : outputNeurons) {
+        size_t currentLayer = 0U;
+        CategorizeNeuronBranchIntoLayers(*out, currentLayer);
+    }
+    size_t highestLayer = 0U;
+    for (auto* out : outputNeurons) {
+        if (out->GetLayer() > highestLayer) {
+            highestLayer = out->GetLayer();
+        };
+    }
+    for (auto* out : outputNeurons) {
+        out->SetLayer(highestLayer);
+    }
+}
+
+void NeuralNetwork::CategorizeNeuronBranchIntoLayers(Neuron& currNode, size_t& currLayer) {
+    auto layerOfThisNode = currLayer;
 	for (auto &in : currNode.GetConnections()) {
-		CategorizeNeuronBranchIntoLayers(*in.neuron, currLayer + 1U);
+        currLayer = layerOfThisNode;
+		CategorizeNeuronBranchIntoLayers(*in.neuron, currLayer);
 	}
+	currNode.SetLayer(currLayer++);
 }
