@@ -5,7 +5,7 @@
 NeuralNetworkTrainer::NeuralNetworkTrainer(std::vector<IBody*>& population, const TrainingParameters& parameters) :
 	parameters(parameters),
 	populationSize(population.size()),
-	trainers(population)
+	bodies(population)
 {
 	SetBodies(population);
 }
@@ -13,7 +13,7 @@ NeuralNetworkTrainer::NeuralNetworkTrainer(std::vector<IBody*>& population, cons
 NeuralNetworkTrainer::NeuralNetworkTrainer(std::vector<IBody*>& population, TrainingParameters&& parameters) :
 	parameters(parameters),
 	populationSize(population.size()),
-	trainers(population)
+	bodies(population)
 {
 	SetBodies(population);
 }
@@ -84,7 +84,7 @@ void NeuralNetworkTrainer::Repopulate() {
 		return num < int(100.0f * chance);
 	};
 
-	for (auto& trainer : trainers) {
+	for (auto& trainer : bodies) {
 		Species* sp = &SelectSpeciesToBreed();
 		auto & father = sp->GetOrganismToBreed();
 		if (DidChanceOccure(parameters.advanced.reproduction.chanceForInterspecialReproduction)){

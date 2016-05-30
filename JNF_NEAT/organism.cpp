@@ -29,7 +29,6 @@ NeuralNetwork Organism::BreedWith(Organism& partner)
 {
 	bool parentsHaveSameFitness = this->GetOrCalculateFitness() == partner.GetOrCalculateFitness();
 	Organism* dominantParent = nullptr;
-	auto & partnerGenome = partner.GetGenome();
 	if (parentsHaveSameFitness) {
 		dominantParent = rand() % 2 == 0 ? this : &partner;
 	}
@@ -39,14 +38,14 @@ NeuralNetwork Organism::BreedWith(Organism& partner)
 	Genome childGenome(dominantParent->GetGenome());
 
 	size_t sizeOfSmallerParent = std::min(this->GetGenome().GetGeneCount(), partner.GetGenome().GetGeneCount());
-	auto MarkingsAreSameAt = [&](size_t i) {
+	auto & partnerGenome = partner.GetGenome();
+	auto AreMarkingsSameAt = [&](size_t i) {
 		return childGenome[i].historicalMarking == partnerGenome[i].historicalMarking;
 	};
-	for (size_t i = 0U;	i < sizeOfSmallerParent && MarkingsAreSameAt(i); ++i) {
+	for (size_t i = 0U;	i < sizeOfSmallerParent && AreMarkingsSameAt(i); ++i) {
 		if (rand() % 2 == 0) {
 			childGenome[i] = partnerGenome[i];
 		}
-		++i;
 	}
 	NeuralNetwork child(std::move(childGenome));
 	// It may look ineffective to return this by value, accessing the copy constructor

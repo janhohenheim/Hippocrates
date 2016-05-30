@@ -14,7 +14,7 @@ class NeuralNetworkTrainer {
 		std::vector<Species> species;
 		TrainingParameters parameters;
 		size_t populationSize = 0U;
-		std::vector<IBody *>& trainers;
+		std::vector<IBody *>& bodies;
 
 	public:
 		NeuralNetworkTrainer() = delete;
