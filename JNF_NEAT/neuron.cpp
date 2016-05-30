@@ -6,7 +6,7 @@ Neuron::Neuron(const Connections& connections) :
 connections(connections) {
 }
 
-void Neuron::AddConnection(IncommingConnection&& connection)
+void Neuron::AddConnection(IncomingConnection&& connection)
 {
     if (connection.neuron == this || connection.neuron == nullptr) {
         throw std::invalid_argument("Invalid incomming connection");

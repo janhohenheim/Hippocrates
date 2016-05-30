@@ -4,11 +4,11 @@
 
 class Neuron {
 	private:
-		struct IncommingConnection {
-			Neuron* neuron;
-			float weight;
+		struct IncomingConnection {
+			Neuron* neuron = nullptr;
+			float weight = 0.0f;
 		};
-		using Connections = std::vector<IncommingConnection>;
+		using Connections = std::vector<IncomingConnection>;
 		Connections connections;
 		bool isSensor = false;
 		float lastActionPotential = 0.0f;
@@ -22,7 +22,7 @@ class Neuron {
 
 		void SetInput(float input);
 		bool IsSensor() const { return isSensor; }
-		void AddConnection(IncommingConnection&& connection);
+		void AddConnection(IncomingConnection&& connection);
 		const Connections& GetConnections() const {return connections;}
 		Connections& GetConnections() {return connections;}
 		float RequestDataAndGetActionPotential();
