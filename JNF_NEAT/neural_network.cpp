@@ -224,8 +224,7 @@ void NeuralNetwork::MutateGenesAndBuildNetwork() {
 void NeuralNetwork::CategorizeNeuronsIntoLayers()
 {
 	for (auto* out : outputNeurons) {
-		size_t currentLayer = 0U;
-		CategorizeNeuronBranchIntoLayers(*out, currentLayer);
+		CategorizeNeuronBranchIntoLayers(*out);
 	}
 	size_t highestLayer = 0U;
 	for (auto* out : outputNeurons) {
@@ -238,11 +237,9 @@ void NeuralNetwork::CategorizeNeuronsIntoLayers()
 	}
 }
 
-void NeuralNetwork::CategorizeNeuronBranchIntoLayers(Neuron& currNode, size_t& currLayer) {
-	auto layerOfThisNode = currLayer;
+void NeuralNetwork::CategorizeNeuronBranchIntoLayers(Neuron& currNode) {
 	for (auto &in : currNode.GetConnections()) {
-		currLayer = layerOfThisNode;
-		CategorizeNeuronBranchIntoLayers(*in.neuron, currLayer);
+		CategorizeNeuronBranchIntoLayers(*in.neuron);
+		currNode.SetLayer(in.neuron->GetLayer() + 1);
 	}
-	currNode.SetLayer(currLayer++);
 }

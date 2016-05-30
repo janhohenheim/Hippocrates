@@ -21,6 +21,7 @@ class Neuron {
 		~Neuron() = default;
 
 		void SetInput(float input);
+		bool IsSensor() const { return isSensor; }
 		void AddConnection(IncommingConnection&& connection);
 		const Connections& GetConnections() const {return connections;}
 		Connections& GetConnections() {return connections;}
