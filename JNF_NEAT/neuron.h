@@ -3,11 +3,12 @@
 #include <unordered_map>
 
 class Neuron {
-	private:
+    public:
 		struct IncomingConnection {
 			Neuron* neuron = nullptr;
 			float weight = 0.0f;
 		};
+	private:
 		using Connections = std::vector<IncomingConnection>;
 		Connections connections;
 		bool isSensor = false;

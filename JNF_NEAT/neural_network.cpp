@@ -69,7 +69,10 @@ void NeuralNetwork::BuildNetworkFromGenes()
 	neurons.resize(genome.GetNeuronCount());
 	for (const auto& gene : genome) {
 		if (gene.isEnabled) {
-			neurons[gene.to].AddConnection({ &neurons[gene.from], gene.weight });
+            Neuron::IncomingConnection connection;
+            connection.neuron = &neurons[gene.from];
+            connection.weight = gene.weight;
+			neurons[gene.to].AddConnection(std::move(connection));
 		}
 	}
 	InterpretInputsAndOutputs();
@@ -162,18 +165,21 @@ void NeuralNetwork::AddRandomConnection() {
 	auto toNeuron = layerMap[toLayer][rand() % layerMap[toLayer].size()];
 	
 	
-	Gene newConnection;
+	Gene connectionalGene;
 	size_t geneticalGeneIndex = 0U;
 	while (&neurons[geneticalGeneIndex++] != fromNeuron);
-	newConnection.from = geneticalGeneIndex - 1U;
+    connectionalGene.from = geneticalGeneIndex - 1U;
 	geneticalGeneIndex = 0U;
 	while (&neurons[geneticalGeneIndex++] != toNeuron);
-	newConnection.to = geneticalGeneIndex - 1U;
+    connectionalGene.to = geneticalGeneIndex - 1U;
 
 
-	if (!genome.DoesContainGene(newConnection)) {
-		toNeuron->AddConnection({ fromNeuron, newConnection.weight });
-		genome.AppendGene(std::move(newConnection));
+	if (!genome.DoesContainGene(connectionalGene)) {
+        Neuron::IncomingConnection connection;
+        connection.neuron = fromNeuron;
+        connection.weight = connectionalGene.weight;
+		toNeuron->AddConnection(std::move(connection));
+		genome.AppendGene(std::move(connectionalGene));
 	}
 }
 
