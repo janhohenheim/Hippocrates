@@ -111,7 +111,7 @@ Species& NeuralNetworkTrainer::SelectSpeciesToBreed() {
 		return chance + ((double)species.GetFittestOrganism().GetOrCalculateFitness() / (double)totalSpeciesFitness);
 	};
 	for (auto& s : species) {
-		double randNum = (double)(rand() % 10'000) / 9'999.0;;
+		double randNum = (double)(rand() % 10'000) / 9'999.0;
 		chance = GetChanceForSpecies(s);
 		if (randNum < chance) {
 			return s;
