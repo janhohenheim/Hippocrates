@@ -36,7 +36,7 @@ class NeuralNetwork {
 		void BuildNetworkFromGenes();
 		void InterpretInputsAndOutputs();
 		bool ShouldAddNeuron() const { return DidChanceOccure(parameters.advanced.mutation.chanceForNeuralMutation); }
-		bool ShouldAddConnection() const { return DidChanceOccure(parameters.advanced.mutation.chanceForConnectionalMutation); }
+		bool ShouldAddConnection() const;
 		bool ShouldMutateWeight() const { return DidChanceOccure(parameters.advanced.mutation.chanceForWeightMutation); }
 		void AddRandomNeuron();
 		void AddRandomConnection();

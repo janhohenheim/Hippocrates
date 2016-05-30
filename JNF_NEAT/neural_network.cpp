@@ -107,6 +107,13 @@ void NeuralNetwork::InterpretInputsAndOutputs()
 	}
 }
 
+bool NeuralNetwork::ShouldAddConnection() const
+{
+	const bool hasChanceOccured = DidChanceOccure(parameters.advanced.mutation.chanceForConnectionalMutation);
+	const bool hasSpaceForNewConnections = GetGenome().GetNeuronCount() > (parameters.numberOfInputs + parameters.numberOfOutputs);
+	return hasChanceOccured && hasSpaceForNewConnections;
+}
+
 bool NeuralNetwork::DidChanceOccure(float chance) {
 	auto num = rand() % 100;
 	return num < int(100.0f * chance);
@@ -148,25 +155,28 @@ void NeuralNetwork::AddRandomNeuron() {
 }
 
 void NeuralNetwork::AddRandomConnection() {
-	// TODO jnf: Implement a better solution
 	CategorizeNeuronsIntoLayers();	
 	std::map<size_t, std::vector<Neuron*>> layerMap;
 	for (auto& neuron : neurons) {
 		layerMap[neuron.GetLayer()].push_back(&neuron);
 	}
+
+
 	auto highestLayer = layerMap.rbegin()->first + 1U;
 	auto fromLayer = rand() % (highestLayer - 1U);
 	auto toLayer = GetRandomNumberBetween(fromLayer + 1U, highestLayer);
 	auto fromNeuron = layerMap[fromLayer][rand() % layerMap[fromLayer].size()];
 	auto toNeuron = layerMap[toLayer][rand() % layerMap[toLayer].size()];
+	
+	
 	Gene newConnection;
-	newConnection.isEnabled = true;
 	size_t geneticalGeneIndex = 0U;
 	while (&neurons[geneticalGeneIndex++] != fromNeuron);
 	newConnection.from = geneticalGeneIndex - 1U;
 	geneticalGeneIndex = 0U;
 	while (&neurons[geneticalGeneIndex++] != toNeuron);
 	newConnection.to = geneticalGeneIndex - 1U;
+
 
 	if (!genome.DoesContainGene(newConnection)) {
 		toNeuron->AddConnection({ fromNeuron, newConnection.weight });
@@ -185,7 +195,8 @@ void NeuralNetwork::ShuffleWeights() {
 void NeuralNetwork::MutateWeightOfGeneAt(size_t index) {
 	if (DidChanceOccure(parameters.advanced.mutation.chanceOfTotalWeightReset)) {
 		genome[index].SetRandomWeight();
-	} else {
+	} 
+	else {
 		PerturbWeightAt(index);
 	}
 }
@@ -199,8 +210,7 @@ void NeuralNetwork::PerturbWeightAt(size_t index) {
 	genome[index].weight += perturbance;
 	if (genome[index].weight < -1.0f) {
 		genome[index].weight = -1.0f;
-	}
-	else
+	} else
 	if (genome[index].weight > 1.0f) {
 		genome[index].weight = 1.0f;
 	}
