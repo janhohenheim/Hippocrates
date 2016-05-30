@@ -128,27 +128,20 @@ size_t NeuralNetwork::GetRandomNumberBetween(size_t min, size_t max)
 }
 
 void NeuralNetwork::AddRandomNeuron() {
-	Gene* randGene = nullptr;
-	do {
-		size_t num = rand() % genome.GetGeneCount();
-		randGene = &genome[num];
-	} while (!randGene->isEnabled);
-
+	auto& randGene = GetRandomEnabledGene();
 	auto indexOfNewNeuron = genome.GetNeuronCount();
 
 	Gene g1;
-	g1.from = randGene->from;
+	g1.from = randGene.from;
 	g1.to = indexOfNewNeuron;
-	g1.weight = randGene->weight;
-	g1.isEnabled = true;
+	g1.weight = randGene.weight;
 
 	Gene g2;
 	g2.from = indexOfNewNeuron;
-	g2.to = randGene->to;
-	g2.weight = randGene->weight;
-	g2.isEnabled = true;
+	g2.to = randGene.to;
+	g2.weight = randGene.weight;
 
-	randGene->isEnabled = false;
+	randGene.isEnabled = false;
 
 	genome.AppendGene(std::move(g1));
 	genome.AppendGene(std::move(g2));
@@ -278,4 +271,23 @@ void NeuralNetwork::CategorizeNeuronBranchIntoLayers(Neuron& currNode) {
 		CategorizeNeuronBranchIntoLayers(*in.neuron);
 		currNode.SetLayer(in.neuron->GetLayer() + 1);
 	}
+}
+
+Gene& NeuralNetwork::GetRandomEnabledGene()
+{
+	size_t num = rand() % genome.GetGeneCount();
+	auto& randGene = genome.begin() + num;
+	while (randGene != genome.end() && !randGene->isEnabled) {
+		++randGene;
+	}
+	if (randGene == genome.end()) {
+		randGene = genome.begin() + num;
+		while (randGene != genome.begin() && !randGene->isEnabled) {
+			--randGene;
+		}
+	}
+	if (!randGene->isEnabled) {
+		throw std::exception("Could not insert neuron because every gene is disabled");
+	}
+	return *randGene;
 }

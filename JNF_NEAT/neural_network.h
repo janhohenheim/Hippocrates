@@ -45,4 +45,5 @@ class NeuralNetwork {
 		void PerturbWeightAt(std::size_t index);
 		void CategorizeNeuronsIntoLayers();
 		void CategorizeNeuronBranchIntoLayers (Neuron& currNode);
+		Gene& GetRandomEnabledGene();
 };
