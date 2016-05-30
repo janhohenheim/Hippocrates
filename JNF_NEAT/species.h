@@ -8,20 +8,20 @@ class Species {
 	private:
 		std::vector<Organism> population;
 		Genome* representative = nullptr;
-        bool isSortedByFitness = false;
+		bool isSortedByFitness = false;
 
 	public:
 		Species() = default;
 		Species(const Species& other);
 		Species(Species&& other);
-        Species(const Species&& other) = delete;
-        ~Species();
+		Species(const Species&& other) = delete;
+		~Species();
 
 		Species& operator=(Species && other);
 
 		void AddOrganism(const Organism &organism);
 		void AddOrganism(Organism &&organism);
-        void Clear() { population.clear(); isSortedByFitness = false;}
+		void Clear() { population.clear(); isSortedByFitness = false;}
 
 		bool IsCompatible(const Genome& genome) const;
 		void LetPopulationLive();
@@ -32,7 +32,7 @@ class Species {
 
 private:
 		void ElectRepresentative();
-        void SelectRandomRepresentative();
+		void SelectRandomRepresentative();
 
 		template<class T>
 		constexpr bool IsAboveCompatibilityThreshold(T t) const;

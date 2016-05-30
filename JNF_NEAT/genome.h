@@ -8,7 +8,7 @@ class Genome {
 	private:
 		const TrainingParameters& parameters;
 		std::vector<Gene> genes;
-        size_t neuronCount = 0U;
+		size_t neuronCount = 0U;
 
 	public:
 		Genome() = delete;
@@ -19,26 +19,26 @@ class Genome {
 
 		Genome& operator=(const Genome& other);
 		const Gene& operator[](std::size_t index) const { return GetGeneAt(index); }
-        Gene& operator[](std::size_t index) { return GetGeneAt(index); }
+		Gene& operator[](std::size_t index) { return GetGeneAt(index); }
 		const Gene& GetGeneAt(std::size_t index) const { return genes[index]; }
-        Gene& GetGeneAt(std::size_t index) { return genes[index]; }
+		Gene& GetGeneAt(std::size_t index) { return genes[index]; }
 		auto begin() { return genes.begin(); }
 		auto begin() const { return genes.begin(); }
 		auto end() { return genes.end(); }
 		auto end() const { return genes.end(); }
 
-        std::size_t GetNeuronCount() const { return neuronCount; };
+		std::size_t GetNeuronCount() const { return neuronCount; };
 		std::size_t GetGeneCount() const;
 
-        void AppendGene(const Gene& gene) { AdjustNeuronCount(gene); genes.push_back(gene); }
-        void AppendGene(Gene&& gene) { AdjustNeuronCount(gene); genes.push_back(std::move(gene)); }
+		void AppendGene(const Gene& gene) { AdjustNeuronCount(gene); genes.push_back(gene); }
+		void AppendGene(Gene&& gene) { AdjustNeuronCount(gene); genes.push_back(std::move(gene)); }
 		void InsertGeneAt(const Gene& gene, size_t index) { AdjustNeuronCount(gene); genes.insert(genes.begin() + index, gene); }
 		void InsertGeneAt(Gene&& gene, size_t index) { AdjustNeuronCount(gene); genes.insert(genes.begin() + index, std::move(gene)); }
 
-        const TrainingParameters& GetTrainingParameters() const { return parameters; }
+		const TrainingParameters& GetTrainingParameters() const { return parameters; }
 		double GetGeneticalDistanceFrom(const Genome& other) const;
 		bool DoesContainGene(const Gene& gene) const;
 
-    private:
-        inline void AdjustNeuronCount(const Gene& gene){ if (gene.to + 1 > neuronCount) neuronCount = gene.to + 1; }
+	private:
+		inline void AdjustNeuronCount(const Gene& gene){ if (gene.to + 1 > neuronCount) neuronCount = gene.to + 1; }
 };

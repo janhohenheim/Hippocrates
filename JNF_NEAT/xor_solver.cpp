@@ -14,10 +14,10 @@ void XORSolver::Update(const std::vector<float>&  networkOutputs)
 	if (xorResult == networksXorResult) {
 		fitness += 10;
 	}
-    ++currTraining;
-    if (currTraining == trainingData.end()) {
-        currTraining = trainingData.begin();
-    }
+	++currTraining;
+	if (currTraining == trainingData.end()) {
+		currTraining = trainingData.begin();
+	}
 }
 
 int XORSolver::GetFitness() const

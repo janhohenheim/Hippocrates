@@ -11,7 +11,7 @@ NeuralNetworkTrainer::NeuralNetworkTrainer(std::vector<IBody*>& population, cons
 }
 
 NeuralNetworkTrainer::NeuralNetworkTrainer(std::vector<IBody*>& population, TrainingParameters&& parameters) :
-    parameters(parameters),
+	parameters(parameters),
 	populationSize(population.size()),
 	trainers(population)
 {
@@ -30,11 +30,11 @@ void NeuralNetworkTrainer::SetBodies(std::vector<IBody*>& bodies)
 	std::vector<Organism> organisms;
 	organisms.reserve(bodies.size());
 	Genome standardGenes(parameters);
-    for (auto& currTrainer : bodies) {
+	for (auto& currTrainer : bodies) {
 		NeuralNetwork network(standardGenes);
 		Organism organism(currTrainer, std::move(network));
 		organisms.push_back(std::move(organism));
-    }
+	}
 	CategorizeOrganismsIntoSpecies(std::move(organisms));
 }
 
@@ -57,7 +57,7 @@ void NeuralNetworkTrainer::TrainUntilGenerationEquals(unsigned int generationsTo
 
 TrainedNeuralNetwork NeuralNetworkTrainer::GetTrainedNeuralNetwork()
 {
-    return TrainedNeuralNetwork(GetFittestOrganism().GetNetwork());
+	return TrainedNeuralNetwork(GetFittestOrganism().GetNetwork());
 }
 
 Organism& NeuralNetworkTrainer::GetFittestOrganism() {
@@ -97,34 +97,34 @@ void NeuralNetworkTrainer::Repopulate() {
 	}
 	CategorizeOrganismsIntoSpecies(std::move(population));
 	ResetPopulationToTeachableState();
-    // TODO jnf Add Concurrency
+	// TODO jnf Add Concurrency
 }
 
 Species& NeuralNetworkTrainer::SelectSpeciesToBreed() {
 	// TODO jnf: Switch to stochastic universal sampling
-    auto totalSpeciesFitness = 0;
-    for (auto& s : species) {
-        totalSpeciesFitness += s.GetFittestOrganism().GetOrCalculateFitness();
-    }
-    double chance = 0.0;
-    auto GetChanceForSpecies = [&chance, &totalSpeciesFitness](Species& species) {
-        return chance + ((double)species.GetFittestOrganism().GetOrCalculateFitness() / (double)totalSpeciesFitness);
-    };
-    for (auto& s : species) {
-        double randNum = (double)(rand() % 10'000) / 9'999.0;;
-        chance = GetChanceForSpecies(s);
-        if (randNum < chance) {
-            return s;
-        }
-    }
-    return species.front();
+	auto totalSpeciesFitness = 0;
+	for (auto& s : species) {
+		totalSpeciesFitness += s.GetFittestOrganism().GetOrCalculateFitness();
+	}
+	double chance = 0.0;
+	auto GetChanceForSpecies = [&chance, &totalSpeciesFitness](Species& species) {
+		return chance + ((double)species.GetFittestOrganism().GetOrCalculateFitness() / (double)totalSpeciesFitness);
+	};
+	for (auto& s : species) {
+		double randNum = (double)(rand() % 10'000) / 9'999.0;;
+		chance = GetChanceForSpecies(s);
+		if (randNum < chance) {
+			return s;
+		}
+	}
+	return species.front();
 }
 
 void NeuralNetworkTrainer::CategorizeOrganismsIntoSpecies(std::vector<Organism> && organisms) {
-    for (auto& currSpecies : species) {
-        currSpecies.Clear();
-    }
-    for (auto& organism : organisms) {
+	for (auto& currSpecies : species) {
+		currSpecies.Clear();
+	}
+	for (auto& organism : organisms) {
 		bool isCompatibleWithExistingSpecies = false;
 		for (auto& currSpecies : species) {
 			if (currSpecies.IsCompatible(organism.GetGenome())) {

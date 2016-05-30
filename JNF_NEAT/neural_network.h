@@ -13,11 +13,11 @@ class NeuralNetwork {
 		const TrainingParameters& parameters;
 
 	public:
-        NeuralNetwork() = delete;
+		NeuralNetwork() = delete;
 		explicit NeuralNetwork(const TrainingParameters& parameters);
-        explicit NeuralNetwork(const Genome& genome);
-        explicit NeuralNetwork(Genome&& genome);
-        explicit NeuralNetwork(const Genome&& genome) = delete;
+		explicit NeuralNetwork(const Genome& genome);
+		explicit NeuralNetwork(Genome&& genome);
+		explicit NeuralNetwork(const Genome&& genome) = delete;
 		NeuralNetwork(const NeuralNetwork& other);
 		NeuralNetwork(NeuralNetwork&& other);
 		~NeuralNetwork() = default;
@@ -32,7 +32,7 @@ class NeuralNetwork {
 	private:
 		void MutateGenesAndBuildNetwork();
 		static bool DidChanceOccure(float chance);
-        static size_t GetRandomNumberBetween(size_t min, size_t max);
+		static size_t GetRandomNumberBetween(size_t min, size_t max);
 		void BuildNetworkFromGenes();
 		void InterpretInputsAndOutputs();
 		bool ShouldAddNeuron() const { return DidChanceOccure(parameters.advanced.mutation.chanceForNeuralMutation); }
@@ -43,6 +43,6 @@ class NeuralNetwork {
 		void ShuffleWeights();
 		void MutateWeightOfGeneAt(std::size_t index);
 		void PerturbWeightAt(std::size_t index);
-        void CategorizeNeuronsIntoLayers();
+		void CategorizeNeuronsIntoLayers();
 		void CategorizeNeuronBranchIntoLayers (Neuron& currNode, size_t& currLayer);
 };

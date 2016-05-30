@@ -2,34 +2,34 @@
 #include <algorithm>
 
 Species::Species(const Species & other) :
-    population(other.population)
+	population(other.population)
 {
-    ElectRepresentative();
+	ElectRepresentative();
 }
 
 Species::Species(Species && other) :
-    population(std::move(other.population))
+	population(std::move(other.population))
 {
-    ElectRepresentative();
+	ElectRepresentative();
 }
 
 Species::~Species()
 {
-    delete representative;
-    representative = nullptr;
+	delete representative;
+	representative = nullptr;
 }
 
 void Species::AddOrganism(const Organism &organism)
 {
 	population.push_back(organism);
 	ElectRepresentative();
-    isSortedByFitness = false;
+	isSortedByFitness = false;
 }
 
 void Species::AddOrganism(Organism &&organism) {
 	population.push_back(std::move(organism));
 	ElectRepresentative();
-    isSortedByFitness = false;
+	isSortedByFitness = false;
 }
 
 
@@ -62,20 +62,20 @@ void Species::SetPopulationsFitnessModifier() {
 
 void Species::ElectRepresentative()
 {
-    if (population.empty()) {
-        delete representative;
-        representative = nullptr;
-    } else {
-        SelectRandomRepresentative();
-    }
+	if (population.empty()) {
+		delete representative;
+		representative = nullptr;
+	} else {
+		SelectRandomRepresentative();
+	}
 }
 
 void Species::SelectRandomRepresentative() {
-    auto randomMember = rand() % population.size();
-    if (representative == nullptr) {
-        representative = new Genome(population[randomMember].GetGenome());
-    }
-    *representative = population[randomMember].GetGenome();
+	auto randomMember = rand() % population.size();
+	if (representative == nullptr) {
+		representative = new Genome(population[randomMember].GetGenome());
+	}
+	*representative = population[randomMember].GetGenome();
 }
 
 template <class T>
@@ -97,13 +97,13 @@ void Species::ResetToTeachableState() {
 }
 
 Organism& Species::GetFittestOrganism() {
-    if (!isSortedByFitness) {
-        auto CompareOrganisms = [&](Organism& lhs, Organism& rhs) {
-            return lhs.GetOrCalculateFitness() < rhs.GetOrCalculateFitness();
-        };
-        std::sort(population.begin(), population.end(), CompareOrganisms);
-        isSortedByFitness = true;
-    }
+	if (!isSortedByFitness) {
+		auto CompareOrganisms = [&](Organism& lhs, Organism& rhs) {
+			return lhs.GetOrCalculateFitness() < rhs.GetOrCalculateFitness();
+		};
+		std::sort(population.begin(), population.end(), CompareOrganisms);
+		isSortedByFitness = true;
+	}
 	return population.front();
 }
 
@@ -114,21 +114,21 @@ Species& Species::operator=(Species &&other) {
 }
 
 Organism& Species::GetOrganismToBreed() {
-    // TODO jnf: Switch to stochastic universal sampling
-    auto totalSpeciesFitness = 0;
-    for (auto& organism : population) {
-        totalSpeciesFitness += organism.GetOrCalculateFitness();
-    }
-    double chance = 0.0;
-    auto GetChanceForOrganism = [&chance, &totalSpeciesFitness](Organism& organism) {
-        return chance + ((double)organism.GetOrCalculateFitness() / (double)totalSpeciesFitness);
-    };
-    for (auto& organism : population) {
-        double randNum = (double)(rand() % 10'000) / 9'999.0;;
-        chance = GetChanceForOrganism(organism);
-        if (randNum < chance) {
-            return organism;
-        }
-    }
-    return population.front();
+	// TODO jnf: Switch to stochastic universal sampling
+	auto totalSpeciesFitness = 0;
+	for (auto& organism : population) {
+		totalSpeciesFitness += organism.GetOrCalculateFitness();
+	}
+	double chance = 0.0;
+	auto GetChanceForOrganism = [&chance, &totalSpeciesFitness](Organism& organism) {
+		return chance + ((double)organism.GetOrCalculateFitness() / (double)totalSpeciesFitness);
+	};
+	for (auto& organism : population) {
+		double randNum = (double)(rand() % 10'000) / 9'999.0;;
+		chance = GetChanceForOrganism(organism);
+		if (randNum < chance) {
+			return organism;
+		}
+	}
+	return population.front();
 }

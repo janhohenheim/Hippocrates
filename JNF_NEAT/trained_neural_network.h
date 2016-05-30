@@ -6,8 +6,8 @@ class TrainedNeuralNetwork {
 	public:
 		TrainedNeuralNetwork() = delete;
 		explicit TrainedNeuralNetwork(const NeuralNetwork& network);
-        explicit TrainedNeuralNetwork(NeuralNetwork&& network);
-        explicit TrainedNeuralNetwork(const NeuralNetwork&& network) = delete;
+		explicit TrainedNeuralNetwork(NeuralNetwork&& network);
+		explicit TrainedNeuralNetwork(const NeuralNetwork&& network) = delete;
 		TrainedNeuralNetwork(const TrainedNeuralNetwork& other) = default;
 		~TrainedNeuralNetwork() = default;
 

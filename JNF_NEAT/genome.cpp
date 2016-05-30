@@ -4,7 +4,7 @@
 Genome::Genome(const TrainingParameters& parameters) :
 	parameters(parameters),
 	genes(parameters.numberOfInputs * parameters.numberOfOutputs),
-    neuronCount(parameters.numberOfInputs + parameters.numberOfOutputs)
+	neuronCount(parameters.numberOfInputs + parameters.numberOfOutputs)
 {
 	auto *currentGene = &genes.front();
 	for (auto in = 0U; in < parameters.numberOfInputs; ++in) {
@@ -22,7 +22,7 @@ std::size_t Genome::GetGeneCount() const {
 
 Genome& Genome::operator=(const Genome& other) {
 	this->genes = other.genes; 
-    this->neuronCount = other.neuronCount;
+	this->neuronCount = other.neuronCount;
 	const_cast<TrainingParameters&>(this->parameters) = other.parameters;
 	return *this;
 }

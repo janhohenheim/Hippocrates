@@ -18,25 +18,25 @@ class NeuralNetworkTrainer {
 
 	public:
 		NeuralNetworkTrainer() = delete;
-        NeuralNetworkTrainer(std::vector<IBody*>& population, const TrainingParameters& parameters);
-        NeuralNetworkTrainer(std::vector<IBody*>& population, TrainingParameters&& parameters);
+		NeuralNetworkTrainer(std::vector<IBody*>& population, const TrainingParameters& parameters);
+		NeuralNetworkTrainer(std::vector<IBody*>& population, TrainingParameters&& parameters);
 		NeuralNetworkTrainer(const NeuralNetworkTrainer& other) = default;
 
-        ~NeuralNetworkTrainer() = default;
+		~NeuralNetworkTrainer() = default;
 
 		void TrainUntilFitnessEquals(int fitnessToReach);
 		void TrainUntilGenerationEquals(unsigned int generationsToTrain);
 
-        TrainedNeuralNetwork GetTrainedNeuralNetwork();
+		TrainedNeuralNetwork GetTrainedNeuralNetwork();
 
 	private:
 		void SetBodies(std::vector<IBody*>& bodies);
 		
 		void ResetPopulationToTeachableState();
 		void Repopulate();
-        void CategorizeOrganismsIntoSpecies(std::vector<Organism> && organisms);
+		void CategorizeOrganismsIntoSpecies(std::vector<Organism> && organisms);
 		void LetGenerationLive();
 
-	    Species &SelectSpeciesToBreed();
+		Species &SelectSpeciesToBreed();
 		Organism& GetFittestOrganism();
 };
