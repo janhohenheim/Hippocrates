@@ -74,8 +74,10 @@ void Species::SelectRandomRepresentative() {
 	auto randomMember = rand() % population.size();
 	if (representative == nullptr) {
 		representative = new Genome(population[randomMember].GetGenome());
-	}
-	*representative = population[randomMember].GetGenome();
+    }
+    else {
+        *representative = population[randomMember].GetGenome();
+    }
 }
 
 template <class T>

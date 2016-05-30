@@ -41,6 +41,3 @@ void Neuron::SetLayer(size_t layer) {
         this->layer = layer;
     }
 }
-
-
-

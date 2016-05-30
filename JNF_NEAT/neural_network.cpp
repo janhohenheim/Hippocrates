@@ -217,32 +217,6 @@ void NeuralNetwork::PerturbWeightAt(size_t index) {
 
 void NeuralNetwork::MutateGenesAndBuildNetwork() {
 	if (ShouldAddConnection()) {
-		/*
-		// TODO jnf: Delete this
-		Genome mockGenome(parameters);
-		mockGenome.GetGeneAt(mockGenome.GetGeneCount() - 1).isEnabled = false;
-		auto AddMockGene = [&](size_t from, size_t to, bool isEnabled = true) {
-			Gene mockGene;
-			mockGene.from = from;
-			mockGene.to = to;
-			mockGene.isEnabled = isEnabled;
-			mockGenome.AppendGene(mockGene);
-		};
-		AddMockGene(1, 3);
-		AddMockGene(3, 2, false);
-		AddMockGene(3, 4);
-		AddMockGene(4, 2, false);
-		AddMockGene(0, 4);
-		AddMockGene(3, 5);
-		AddMockGene(5, 4);
-		AddMockGene(5, 2);
-		AddMockGene(4, 6);
-		AddMockGene(6, 2, false);
-		AddMockGene(6, 7);
-		AddMockGene(7, 2);
-		// Was observed to generate from = 6, to = 5
-		genome = mockGenome;
-		*/
 		BuildNetworkFromGenes();
 		AddRandomConnection();
 	} else

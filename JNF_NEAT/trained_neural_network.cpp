@@ -33,4 +33,3 @@ void TrainedNeuralNetwork::SaveToFile(const std::string& fileName) const
 {
 	// TODO jnf Implementation
 }
-

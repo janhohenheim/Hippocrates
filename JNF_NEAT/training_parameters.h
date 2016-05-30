@@ -20,7 +20,7 @@ struct TrainingParameters {
 		} mutation;
 		struct Speciation {
 			float importanceOfDisjointGenes = 1.0f;
-			float importanceOfAverageWeightDifference = 0.4f;
+			float importanceOfAverageWeightDifference = 2.0f;
 			float compatibilityThreshold = 3.0f;
 		} speciation;
 		struct Reproduction {

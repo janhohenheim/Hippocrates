@@ -44,7 +44,8 @@ double Genome::GetGeneticalDistanceFrom(const Genome& other) const {
 
 	auto numberOfDisjointGenes = this->GetGeneCount() + other.GetGeneCount() - (size_t)2 * numberOfOverlapingGenes;
 	auto sizeOfBiggerGenome = std::max(this->GetGeneCount(), other.GetGeneCount());
-	auto disjointGenesInfluence = (double)numberOfDisjointGenes / (double)sizeOfBiggerGenome;
+    // TODO jnf: Think how we'll handle the next line
+	auto disjointGenesInfluence = (double)numberOfDisjointGenes /* / (double)sizeOfBiggerGenome*/;
 
 	auto averageWeightDifference = totalWeightDifference / (double)numberOfOverlapingGenes;
 
