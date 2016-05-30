@@ -44,6 +44,8 @@ NeuralNetwork Organism::BreedWith(Organism& partner)
 	};
 	for (size_t i = 0U;	i < sizeOfSmallerParent && AreMarkingsSameAt(i); ++i) {
 		if (rand() % 2 == 0) {
+			// TODO jnf:
+			// This can lead to a child with only disabled genes!
 			childGenome[i] = partnerGenome[i];
 		}
 	}
