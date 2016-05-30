@@ -12,7 +12,7 @@ void XORSolver::Update(const std::vector<float>&  networkOutputs)
 	int networksXorResult = int(networkOutputs.front() >= 0.5f);
 
 	if (xorResult == networksXorResult) {
-		fitness += 10;
+		fitness += (100.0 / (double)trainingData.size());
 	}
 	++currTraining;
 	if (currTraining == trainingData.end()) {
