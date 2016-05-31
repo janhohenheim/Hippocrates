@@ -1,22 +1,6 @@
 #include <memory>
 #include "trained_neural_network.h"
 
-TrainedNeuralNetwork::TrainedNeuralNetwork(const NeuralNetwork& network):
-	trainedNetwork(network)
-{
-}
-
-TrainedNeuralNetwork::TrainedNeuralNetwork(NeuralNetwork&& network) :
-	trainedNetwork(std::move(network))
-{
-}
-
-std::vector<float> TrainedNeuralNetwork::GetOutputs(const std::vector<float>& inputs)
-{
-	trainedNetwork.SetInputs(inputs);
-	return trainedNetwork.GetOutputs();
-}
-
 TrainedNeuralNetwork TrainedNeuralNetwork::LoadFromFile(const std::string& fileName)
 {
 	// TODO jnf Implementation
@@ -24,12 +8,24 @@ TrainedNeuralNetwork TrainedNeuralNetwork::LoadFromFile(const std::string& fileN
 	params->numberOfInputs = 2;
 	params->numberOfOutputs = 1;
 	params->updatesPerGeneration =30;
-	Genome g(*params.get());
-	NeuralNetwork n(std::move(g));
-	return TrainedNeuralNetwork(std::move(n));
+	TrainedNeuralNetwork net(*params.get());
+	return net;
 }
 
 void TrainedNeuralNetwork::SaveToFile(const std::string& fileName) const
 {
 	// TODO jnf Implementation
+}
+
+std::string TrainedNeuralNetwork::GetGenomeAsString() const{
+	std::string genomeString;
+	for (auto& gene : GetGenome()) {
+		genomeString +=
+			"Gene with marking #" + std::to_string(gene.historicalMarking) + ":\n"
+			+ "\t	from: " + std::to_string(gene.from) + "\n"
+			+ "\t	to: " + std::to_string(gene.to) + "\n"
+			+ "\t	weight: " + std::to_string(gene.weight) + "\n"
+			+ "\t	is enabled: " + std::to_string(gene.isEnabled) + "\n\n";
+	}
+	return genomeString;
 }

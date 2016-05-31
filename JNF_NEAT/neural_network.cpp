@@ -98,6 +98,12 @@ std::vector<float> NeuralNetwork::GetOutputs()
 	return outputs;
 }
 
+std::vector<float> NeuralNetwork::GetOutputs(const std::vector<float>& inputs)
+{
+	SetInputs(inputs);
+	return GetOutputs();
+}
+
 void NeuralNetwork::InterpretInputsAndOutputs()
 {
 	for (auto i = 0U; i < parameters.numberOfInputs; i++) {

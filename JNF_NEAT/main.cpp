@@ -26,6 +26,7 @@ int main() {
 	}
 
 	champ.SaveToFile(file);
+	std::cout << champ.GetGenomeAsString();
 	auto outputs = champ.GetOutputs({0.0, 1.0});
 	/*
 	champ = TrainedNeuralNetwork::LoadFromFile(file);
