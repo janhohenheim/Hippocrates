@@ -61,24 +61,9 @@ bool Species::IsCompatible(const Genome& genome) const {
 }
 
 void Species::SetPopulationsFitnessModifier() {
-	unsigned int fitnessSharingDivisor = 1U;
-
-	for (auto* lhs : population) {
-		for (auto* rhs : population) {
-			auto distance = lhs->GetGenome().GetGeneticalDistanceFrom(rhs->GetGenome());
-			if (IsAboveCompatibilityThreshold(distance)) {
-				++fitnessSharingDivisor;
-			}
-		}
-	}
-	if (fitnessSharingDivisor == 1U) {
-		return;
-	}
-
-	float fitnessSharingFactor = 1.0f / (float)fitnessSharingDivisor;
-
+	float fitnessModifier = 1.0f / (float)population.size();
 	for (auto* organism : population){
-		organism->SetFitnessModifier(fitnessSharingFactor);
+		organism->SetFitnessModifier(fitnessModifier);
 	}
 }
 
