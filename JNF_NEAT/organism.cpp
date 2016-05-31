@@ -15,14 +15,18 @@ void Organism::Update()
 	isFitnessUpToDate = false;
 }
 
-
 int Organism::GetOrCalculateFitness()
 {
-	if (!isFitnessUpToDate) {
-		fitness = trainer->GetFitness();
-		isFitnessUpToDate = true;
-	}
-	return (int)((float)fitness * fitnessModifier);
+	return (int)((float)GetOrCalculateRawFitness() * fitnessModifier);
+}
+
+int Organism::GetOrCalculateRawFitness()
+{
+    if (!isFitnessUpToDate) {
+        fitness = trainer->GetFitness();
+        isFitnessUpToDate = true;
+    }
+    return fitness;
 }
 
 NeuralNetwork Organism::BreedWith(Organism& partner)

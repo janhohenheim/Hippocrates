@@ -42,7 +42,7 @@ void NeuralNetworkTrainer::SetBodies(std::vector<IBody*>& bodies)
 
 void NeuralNetworkTrainer::TrainUntilFitnessEquals(int fitnessToReach) {
 	LetGenerationLive();
-	while (GetFittestOrganism().GetOrCalculateFitness() < fitnessToReach) {
+	while (GetFittestOrganism().GetOrCalculateRawFitness() < fitnessToReach) {
 		Repopulate();
 		LetGenerationLive();
 	}

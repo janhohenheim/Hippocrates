@@ -25,6 +25,7 @@ class Organism {
 		void Update();
 		void SetFitnessModifier(float factor) {fitnessModifier = factor;}
 		int GetOrCalculateFitness();
+        int GetOrCalculateRawFitness();
 		NeuralNetwork BreedWith(Organism& partner);
 		const Genome& GetGenome() const { return network.GetGenome(); }
 		const NeuralNetwork & GetNetwork() const {return network; }
