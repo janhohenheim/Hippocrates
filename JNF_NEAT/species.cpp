@@ -2,12 +2,12 @@
 #include <algorithm>
 
 Species::Species(const Organism& representative) {
-	population.push_back(representative);
+	population.push_back(new Organism(representative));
 	ElectRepresentative();
 }
 
 Species::Species(Organism && representative) {
-	population.push_back(std::move(representative));
+	population.push_back(new Organism(std::move(representative)));
 	ElectRepresentative();
 }
 
@@ -26,18 +26,32 @@ Species::Species(Species && other) :
 Species::~Species() {
 	delete representative;
 	representative = nullptr;
+    for (auto* organism : population) {
+        delete organism;
+        organism = nullptr;
+    }
 }
 
 void Species::AddOrganism(const Organism &organism) {
-	population.push_back(organism);
+	population.push_back(new Organism(organism));
 	ElectRepresentative();
 	isSortedByFitness = false;
 }
 
 void Species::AddOrganism(Organism &&organism) {
-	population.push_back(std::move(organism));
+	population.push_back(new Organism(std::move(organism)));
 	ElectRepresentative();
 	isSortedByFitness = false;
+}
+
+void Species::Clear()
+{
+    for (auto* organism : population) {
+        delete organism;
+        organism = nullptr;
+    }
+    population.clear(); 
+    isSortedByFitness = false;
 }
 
 
@@ -49,9 +63,9 @@ bool Species::IsCompatible(const Genome& genome) const {
 void Species::SetPopulationsFitnessModifier() {
 	unsigned int fitnessSharingDivisor = 1U;
 
-	for (auto& lhs : population) {
-		for (auto& rhs : population) {
-			auto distance = lhs.GetGenome().GetGeneticalDistanceFrom(rhs.GetGenome());
+	for (auto* lhs : population) {
+		for (auto* rhs : population) {
+			auto distance = lhs->GetGenome().GetGeneticalDistanceFrom(rhs->GetGenome());
 			if (IsAboveCompatibilityThreshold(distance)) {
 				++fitnessSharingDivisor;
 			}
@@ -63,8 +77,8 @@ void Species::SetPopulationsFitnessModifier() {
 
 	float fitnessSharingFactor = 1.0f / (float)fitnessSharingDivisor;
 
-	for (auto& organism : population){
-		organism.SetFitnessModifier(fitnessSharingFactor);
+	for (auto* organism : population){
+		organism->SetFitnessModifier(fitnessSharingFactor);
 	}
 }
 
@@ -81,10 +95,10 @@ void Species::ElectRepresentative() {
 void Species::SelectRandomRepresentative() {
 	auto randomMember = rand() % population.size();
 	if (representative == nullptr) {
-		representative = new Genome(population[randomMember].GetGenome());
+		representative = new Genome(population[randomMember]->GetGenome());
     }
     else {
-        *representative = population[randomMember].GetGenome();
+        *representative = population[randomMember]->GetGenome();
     }
 }
 
@@ -95,26 +109,26 @@ constexpr bool Species::IsAboveCompatibilityThreshold(T t) const
 }
 
 void Species::LetPopulationLive() {
-	for (auto& organism : population){
-		organism.Update();
+	for (auto* organism : population){
+		organism->Update();
 	}
 }
 
 void Species::ResetToTeachableState() {
-	for (auto& organism : population){
-		organism.Reset();
+	for (auto* organism : population){
+		organism->Reset();
 	}
 }
 
 Organism& Species::GetFittestOrganism() {
 	if (!isSortedByFitness) {
-		auto CompareOrganisms = [&](Organism& lhs, Organism& rhs) {
-			return lhs.GetOrCalculateFitness() < rhs.GetOrCalculateFitness();
+		auto CompareOrganisms = [&](Organism* lhs, Organism* rhs) {
+			return lhs->GetOrCalculateFitness() < rhs->GetOrCalculateFitness();
 		};
 		std::sort(population.begin(), population.end(), CompareOrganisms);
 		isSortedByFitness = true;
 	}
-	return population.front();
+	return *population.front();
 }
 
 Species& Species::operator=(Species &&other) {
@@ -126,19 +140,19 @@ Species& Species::operator=(Species &&other) {
 Organism& Species::GetOrganismToBreed() {
 	// TODO jnf: Switch to stochastic universal sampling
 	auto totalSpeciesFitness = 0;
-	for (auto& organism : population) {
-		totalSpeciesFitness += organism.GetOrCalculateFitness();
+	for (auto* organism : population) {
+		totalSpeciesFitness += organism->GetOrCalculateFitness();
 	}
 	double chance = 0.0;
 	auto GetChanceForOrganism = [&chance, &totalSpeciesFitness](Organism& organism) {
 		return chance + ((double)organism.GetOrCalculateFitness() / (double)totalSpeciesFitness);
 	};
-	for (auto& organism : population) {
+	for (auto* organism : population) {
 		double randNum = (double)(rand() % 10'000) / 9'999.0;;
-		chance = GetChanceForOrganism(organism);
+		chance = GetChanceForOrganism(*organism);
 		if (randNum < chance) {
-			return organism;
+			return *organism;
 		}
 	}
-	return population.front();
+	return *population.front();
 }

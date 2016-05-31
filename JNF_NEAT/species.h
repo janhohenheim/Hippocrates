@@ -6,7 +6,7 @@
 
 class Species {
 	private:
-		std::vector<Organism> population;
+		std::vector<Organism*> population;
 		Genome* representative = nullptr;
 		bool isSortedByFitness = false;
 
@@ -22,7 +22,7 @@ class Species {
 
 		void AddOrganism(const Organism& organism);
 		void AddOrganism(Organism&& organism);
-		void Clear() { population.clear(); isSortedByFitness = false;}
+        void Clear();
 
 		bool IsCompatible(const Genome& genome) const;
 		bool IsEmpty() const { return population.empty(); }
