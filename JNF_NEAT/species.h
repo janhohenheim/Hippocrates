@@ -11,19 +11,21 @@ class Species {
 		bool isSortedByFitness = false;
 
 	public:
-		Species() = default;
+		Species(const Organism& representative);
+		Species(Organism&& representative);
 		Species(const Species& other);
 		Species(Species&& other);
 		Species(const Species&& other) = delete;
 		~Species();
 
-		Species& operator=(Species && other);
+		Species& operator=(Species&& other);
 
-		void AddOrganism(const Organism &organism);
-		void AddOrganism(Organism &&organism);
+		void AddOrganism(const Organism& organism);
+		void AddOrganism(Organism&& organism);
 		void Clear() { population.clear(); isSortedByFitness = false;}
 
 		bool IsCompatible(const Genome& genome) const;
+		bool IsEmpty() const { return population.empty(); }
 		void LetPopulationLive();
 		void ResetToTeachableState();
 		Organism& GetFittestOrganism();

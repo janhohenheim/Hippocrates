@@ -1,6 +1,7 @@
 #include <algorithm>
 #include <stdexcept>
 #include "neural_network_trainer.h"
+#include <algorithm>
 
 NeuralNetworkTrainer::NeuralNetworkTrainer(std::vector<IBody*>& population, const TrainingParameters& parameters) :
 	parameters(parameters),
@@ -124,7 +125,7 @@ void NeuralNetworkTrainer::CategorizeOrganismsIntoSpecies(std::vector<Organism> 
 	for (auto& currSpecies : species) {
 		currSpecies.Clear();
 	}
-	for (auto& organism : organisms) {
+	for (auto&& organism : organisms) {
 		bool isCompatibleWithExistingSpecies = false;
 		for (auto& currSpecies : species) {
 			if (currSpecies.IsCompatible(organism.GetGenome())) {
@@ -134,16 +135,22 @@ void NeuralNetworkTrainer::CategorizeOrganismsIntoSpecies(std::vector<Organism> 
 			}
 		}
 		if (!isCompatibleWithExistingSpecies) {
-			species.push_back(std::move(Species()));
-			species.back().AddOrganism(std::move(organism));
+			Species newSpecies(std::move(organism));
+			species.push_back(std::move(newSpecies));
 		}
 	}
-	// TODO jnf Clear empty species
+
+	species.erase(
+		std::remove_if(species.begin(), species.end(), [](Species& s) {return s.IsEmpty(); }),
+		species.end()
+		);
 
 	auto CompareSpecies = [&](Species& lhs, Species& rhs) {
 		return lhs.GetFittestOrganism().GetOrCalculateFitness() < rhs.GetFittestOrganism().GetOrCalculateFitness();
 	};
+
 	std::sort(species.begin(), species.end(), CompareSpecies);
+
 	for (auto& sp : species){
 		sp.SetPopulationsFitnessModifier();
 	}

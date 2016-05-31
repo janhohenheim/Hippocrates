@@ -1,26 +1,34 @@
 #include "species.h"
 #include <algorithm>
 
+Species::Species(const Organism& representative) {
+	population.push_back(representative);
+	ElectRepresentative();
+}
+
+Species::Species(Organism && representative) {
+	population.push_back(std::move(representative));
+	ElectRepresentative();
+}
+
 Species::Species(const Species & other) :
 	population(other.population)
 {
-	ElectRepresentative();
+	representative = new Genome(*other.representative);
 }
 
 Species::Species(Species && other) :
 	population(std::move(other.population))
 {
-	ElectRepresentative();
+	representative = new Genome(std::move(*other.representative));
 }
 
-Species::~Species()
-{
+Species::~Species() {
 	delete representative;
 	representative = nullptr;
 }
 
-void Species::AddOrganism(const Organism &organism)
-{
+void Species::AddOrganism(const Organism &organism) {
 	population.push_back(organism);
 	ElectRepresentative();
 	isSortedByFitness = false;
@@ -60,12 +68,12 @@ void Species::SetPopulationsFitnessModifier() {
 	}
 }
 
-void Species::ElectRepresentative()
-{
+void Species::ElectRepresentative() {
 	if (population.empty()) {
 		delete representative;
 		representative = nullptr;
-	} else {
+	}
+	else {
 		SelectRandomRepresentative();
 	}
 }
