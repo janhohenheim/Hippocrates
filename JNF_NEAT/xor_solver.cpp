@@ -6,7 +6,7 @@ void XORSolver::Reset()
 	currTraining = trainingData.begin();
 }
 
-void XORSolver::Update(const std::vector<float>&  networkOutputs)
+void XORSolver::Update(const std::vector<float>& networkOutputs)
 {    
 	int xorResult = currTraining->first ^ currTraining->second;
 	int networksXorResult = int(networkOutputs.front() >= 0.5f);

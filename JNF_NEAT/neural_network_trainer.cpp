@@ -19,15 +19,13 @@ NeuralNetworkTrainer::NeuralNetworkTrainer(std::vector<IBody*>& population, Trai
 	SetBodies(population);
 }
 
-void NeuralNetworkTrainer::ResetPopulationToTeachableState()
-{
+void NeuralNetworkTrainer::ResetPopulationToTeachableState() {
 	for (auto& sp : species) {
 		sp.ResetToTeachableState();
 	}
 }
 
-void NeuralNetworkTrainer::SetBodies(std::vector<IBody*>& bodies)
-{
+void NeuralNetworkTrainer::SetBodies(std::vector<IBody*>& bodies) {
 	std::vector<Organism> organisms;
 	organisms.reserve(bodies.size());
 	Genome standardGenes(parameters);
@@ -56,8 +54,7 @@ void NeuralNetworkTrainer::TrainUntilGenerationEquals(unsigned int generationsTo
 	}
 }
 
-TrainedNeuralNetwork NeuralNetworkTrainer::GetTrainedNeuralNetwork()
-{
+TrainedNeuralNetwork NeuralNetworkTrainer::GetTrainedNeuralNetwork() {
 	return TrainedNeuralNetwork(GetFittestOrganism().GetGenome());
 }
 

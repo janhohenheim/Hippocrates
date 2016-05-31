@@ -3,7 +3,7 @@
 class XORSolver : public IBody {
 	public:
 		virtual void Reset() override;
-		virtual void Update(const std::vector<float>&  networkOutputs) override;
+		virtual void Update(const std::vector<float>& networkOutputs) override;
 		virtual int GetFitness() const override;
 
 		virtual std::vector<float> ProvideNetworkWithInputs() const override;

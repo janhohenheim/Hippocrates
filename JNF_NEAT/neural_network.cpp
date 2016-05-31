@@ -51,8 +51,7 @@ NeuralNetwork::NeuralNetwork(NeuralNetwork&& other) :
 	BuildNetworkFromGenes();
 }
 
-NeuralNetwork& NeuralNetwork::operator=(const NeuralNetwork& other)
-{
+NeuralNetwork& NeuralNetwork::operator=(const NeuralNetwork& other) {
 	genome = other.genome;
 	neurons = other.neurons;
 	inputNeurons.resize(other.inputNeurons.size());
@@ -64,8 +63,7 @@ NeuralNetwork& NeuralNetwork::operator=(const NeuralNetwork& other)
 }
 
 
-void NeuralNetwork::BuildNetworkFromGenes()
-{
+void NeuralNetwork::BuildNetworkFromGenes() {
 	neurons.resize(genome.GetNeuronCount());
 	for (const auto& gene : genome) {
 		if (gene.isEnabled) {
@@ -78,8 +76,7 @@ void NeuralNetwork::BuildNetworkFromGenes()
 	InterpretInputsAndOutputs();
 }
 
-void NeuralNetwork::SetInputs(const std::vector<float>& inputs)
-{
+void NeuralNetwork::SetInputs(const std::vector<float>& inputs) {
 	if (inputNeurons.size() != inputs.size()) {
 		throw std::out_of_range("Number of inputs provided doesn't match genetic information");
 	}
@@ -88,8 +85,7 @@ void NeuralNetwork::SetInputs(const std::vector<float>& inputs)
 	};
 }
 
-std::vector<float> NeuralNetwork::GetOutputs()
-{
+std::vector<float> NeuralNetwork::GetOutputs() {
 	std::vector<float> outputs;
 	outputs.reserve(outputNeurons.size());
 	for(auto& outputNeuron : outputNeurons) {
@@ -98,14 +94,12 @@ std::vector<float> NeuralNetwork::GetOutputs()
 	return outputs;
 }
 
-std::vector<float> NeuralNetwork::GetOutputs(const std::vector<float>& inputs)
-{
+std::vector<float> NeuralNetwork::GetOutputs(const std::vector<float>& inputs) {
 	SetInputs(inputs);
 	return GetOutputs();
 }
 
-void NeuralNetwork::InterpretInputsAndOutputs()
-{
+void NeuralNetwork::InterpretInputsAndOutputs() {
 	for (auto i = 0U; i < parameters.numberOfInputs; i++) {
 		inputNeurons[i] = &neurons[i];
 		inputNeurons[i]->SetInput(0.0f);
@@ -116,8 +110,7 @@ void NeuralNetwork::InterpretInputsAndOutputs()
 	}
 }
 
-bool NeuralNetwork::ShouldAddConnection() const
-{
+bool NeuralNetwork::ShouldAddConnection() const {
 	const bool hasChanceOccured = DidChanceOccure(parameters.advanced.mutation.chanceForConnectionalMutation);
 	const bool hasSpaceForNewConnections = GetGenome().GetNeuronCount() > (parameters.numberOfInputs + parameters.numberOfOutputs);
 	return hasChanceOccured && hasSpaceForNewConnections;
@@ -128,8 +121,7 @@ bool NeuralNetwork::DidChanceOccure(float chance) {
 	return num < int(100.0f * chance);
 }
 
-size_t NeuralNetwork::GetRandomNumberBetween(size_t min, size_t max)
-{
+size_t NeuralNetwork::GetRandomNumberBetween(size_t min, size_t max) {
 	if (min == max) {
 		return min;
 	}
@@ -236,8 +228,7 @@ void NeuralNetwork::MutateGenesAndBuildNetwork() {
 	}
 }
 
-void NeuralNetwork::CategorizeNeuronsIntoLayers()
-{
+void NeuralNetwork::CategorizeNeuronsIntoLayers() {
 	for (auto* out : outputNeurons) {
 		CategorizeNeuronBranchIntoLayers(*out);
 	}
@@ -259,8 +250,7 @@ void NeuralNetwork::CategorizeNeuronBranchIntoLayers(Neuron& currNode) {
 	}
 }
 
-Gene& NeuralNetwork::GetRandomEnabledGene()
-{
+Gene& NeuralNetwork::GetRandomEnabledGene() {
 	size_t num = rand() % genome.GetGeneCount();
 	auto& randGene = genome.begin() + num;
 	while (randGene != genome.end() && !randGene->isEnabled) {
