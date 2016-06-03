@@ -3,6 +3,7 @@
 #include "neuron.h"
 #include "genome.h"
 #include <vector>
+#include <map>
 
 class NeuralNetwork {
 	private:
@@ -11,6 +12,7 @@ class NeuralNetwork {
 		std::vector<Neuron*> inputNeurons;
 		std::vector<Neuron*> outputNeurons;
 		const TrainingParameters& parameters;
+        std::map<size_t, std::vector<Neuron*>> layerMap;
 
 	public:
 		NeuralNetwork() = delete;

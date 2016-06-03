@@ -52,6 +52,7 @@ NeuralNetwork::NeuralNetwork(NeuralNetwork&& other) :
 }
 
 NeuralNetwork& NeuralNetwork::operator=(const NeuralNetwork& other) {
+    layerMap = other.layerMap;
 	genome = other.genome;
 	neurons = other.neurons;
 	inputNeurons.resize(other.inputNeurons.size());
@@ -74,6 +75,7 @@ void NeuralNetwork::BuildNetworkFromGenes() {
 		}
 	}
 	InterpretInputsAndOutputs();
+    CategorizeNeuronsIntoLayers();
 }
 
 void NeuralNetwork::SetInputs(const std::vector<float>& inputs) {
@@ -86,6 +88,11 @@ void NeuralNetwork::SetInputs(const std::vector<float>& inputs) {
 }
 
 std::vector<float> NeuralNetwork::GetOutputs() {
+    for (size_t i = 1; i < layerMap.size() - 1; ++i) {
+        for (auto& neuron : layerMap[i]){
+            neuron->RequestDataAndGetActionPotential();
+        }
+    }
 	std::vector<float> outputs;
 	outputs.reserve(outputNeurons.size());
 	for(auto& outputNeuron : outputNeurons) {
@@ -108,13 +115,11 @@ void NeuralNetwork::InterpretInputsAndOutputs() {
     // Inputs
 	for (auto i = 0U; i < parameters.numberOfInputs; i++) {
 		inputNeurons[i] = &neurons[i + parameters.advanced.structure.numberOfBiasNeurons];
-		inputNeurons[i]->SetInput(0.0f);
 	}
 
     // Outputs
 	for (auto i = 0U; i < parameters.numberOfOutputs; i++) {
 		outputNeurons[i] = &neurons[genome[i * parameters.numberOfOutputs].to];
-		inputNeurons[i]->SetInput(0.0f);
 	}
 }
 
@@ -157,12 +162,13 @@ void NeuralNetwork::AddRandomNeuron() {
 }
 
 void NeuralNetwork::AddRandomConnection() {
-	CategorizeNeuronsIntoLayers();	
-	std::map<size_t, std::vector<Neuron*>> layerMap;
-	for (auto& neuron : neurons) {
-		layerMap[neuron.GetLayer()].push_back(&neuron);
-	}
+    // TODO jnf: Add recursive connections
 
+    // Get Random in
+    // Get Random out
+    // Compare Layers
+    // Set the bool
+	CategorizeNeuronsIntoLayers();	
 
 	auto highestLayer = layerMap.rbegin()->first + 1U;
 	auto fromLayer = rand() % (highestLayer - 1U);
@@ -249,12 +255,18 @@ void NeuralNetwork::CategorizeNeuronsIntoLayers() {
 	for (auto* out : outputNeurons) {
 		out->SetLayer(highestLayer);
 	}
+
+    for (auto& neuron : neurons) {
+        layerMap[neuron.GetLayer()].push_back(&neuron);
+    }
 }
 
 void NeuralNetwork::CategorizeNeuronBranchIntoLayers(Neuron& currNode) {
 	for (auto &in : currNode.GetConnections()) {
-		CategorizeNeuronBranchIntoLayers(*in.neuron);
-		currNode.SetLayer(in.neuron->GetLayer() + 1);
+        if (!in.isRecursive) {
+            CategorizeNeuronBranchIntoLayers(*in.neuron);
+            currNode.SetLayer(in.neuron->GetLayer() + 1);
+        }
 	}
 }
 

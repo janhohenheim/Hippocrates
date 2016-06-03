@@ -7,11 +7,11 @@ class Neuron {
 		struct IncomingConnection {
 			Neuron* neuron = nullptr;
 			float weight = 0.0f;
+            bool isRecursive = false;
 		};
 	private:
 		using Connections = std::vector<IncomingConnection>;
 		Connections connections;
-		bool isSensor = false;
 		float lastActionPotential = 0.0f;
 		size_t layer = 0U;
 
@@ -22,7 +22,6 @@ class Neuron {
 		~Neuron() = default;
 
 		void SetInput(float input);
-		bool IsSensor() const { return isSensor; }
 		void AddConnection(IncomingConnection&& connection);
 		const Connections& GetConnections() const {return connections;}
 		Connections& GetConnections() {return connections;}
