@@ -11,7 +11,7 @@ int main() {
 	params.numberOfOutputs = 1;
 	params.updatesPerGeneration = 4;
 
-	int populationCount = 100;
+	int populationCount = 150;
 	std::string file = "ChampGenome.genome";
 
 	std::vector<IBody*> bodies;

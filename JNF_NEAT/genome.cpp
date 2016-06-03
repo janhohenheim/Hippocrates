@@ -2,15 +2,15 @@
 #include <algorithm>
 
 Genome::Genome(const TrainingParameters& parameters) :
-	parameters(parameters),
-	genes(parameters.numberOfInputs * parameters.numberOfOutputs),
-	neuronCount(parameters.numberOfInputs + parameters.numberOfOutputs)
+    parameters(parameters),
+	genes((parameters.numberOfInputs + parameters.advanced.structure.numberOfBiasNeurons) * parameters.numberOfOutputs),
+	neuronCount((parameters.numberOfInputs + parameters.advanced.structure.numberOfBiasNeurons) + parameters.numberOfOutputs)
 {
 	auto *currentGene = &genes.front();
-	for (auto in = 0U; in < parameters.numberOfInputs; ++in) {
+	for (auto in = 0U; in < (parameters.numberOfInputs + parameters.advanced.structure.numberOfBiasNeurons); ++in) {
 		for (auto out = 0U; out < parameters.numberOfOutputs; ++out) {
 			currentGene->from = in;
-			currentGene->to = out + parameters.numberOfInputs;
+			currentGene->to = out + (parameters.numberOfInputs + parameters.advanced.structure.numberOfBiasNeurons);
 			++currentGene;
 		}
 	}

@@ -100,10 +100,18 @@ std::vector<float> NeuralNetwork::GetOutputs(const std::vector<float>& inputs) {
 }
 
 void NeuralNetwork::InterpretInputsAndOutputs() {
+    // Bias
+    for (auto i = 0U; i < parameters.advanced.structure.numberOfBiasNeurons; i++) {
+        neurons[i].SetInput(1.0f);
+    }
+
+    // Inputs
 	for (auto i = 0U; i < parameters.numberOfInputs; i++) {
-		inputNeurons[i] = &neurons[i];
+		inputNeurons[i] = &neurons[i + parameters.advanced.structure.numberOfBiasNeurons];
 		inputNeurons[i]->SetInput(0.0f);
 	}
+
+    // Outputs
 	for (auto i = 0U; i < parameters.numberOfOutputs; i++) {
 		outputNeurons[i] = &neurons[genome[i * parameters.numberOfOutputs].to];
 		inputNeurons[i]->SetInput(0.0f);
@@ -112,7 +120,7 @@ void NeuralNetwork::InterpretInputsAndOutputs() {
 
 bool NeuralNetwork::ShouldAddConnection() const {
 	const bool hasChanceOccured = DidChanceOccure(parameters.advanced.mutation.chanceForConnectionalMutation);
-	const bool hasSpaceForNewConnections = GetGenome().GetNeuronCount() > (parameters.numberOfInputs + parameters.numberOfOutputs);
+	const bool hasSpaceForNewConnections = GetGenome().GetNeuronCount() > (parameters.numberOfInputs + parameters.numberOfOutputs + parameters.advanced.structure.numberOfBiasNeurons);
 	return hasChanceOccured && hasSpaceForNewConnections;
 }
 
@@ -191,7 +199,7 @@ void NeuralNetwork::ShuffleWeights() {
 
 void NeuralNetwork::MutateWeightOfGeneAt(size_t index) {
 	if (DidChanceOccure(parameters.advanced.mutation.chanceOfTotalWeightReset)) {
-		genome[index].SetRandomWeight();
+        genome[index].SetRandomWeight();
 	} 
 	else {
 		PerturbWeightAt(index);

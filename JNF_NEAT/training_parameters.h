@@ -9,8 +9,8 @@ struct TrainingParameters {
 		struct Ranges {
 			int minFitness = std::numeric_limits<int>::min();
 			int maxFitness = 100;
-			float minNeuralCharge = 0.0f;
-			float maxNeuralCharge = 1.0f;
+			float minWeight = -1.0f;
+			float maxWeight = 1.0f;
 		} ranges;
 		struct Mutation {
 			float chanceForWeightMutation = 0.8f;
@@ -22,9 +22,13 @@ struct TrainingParameters {
 			float importanceOfDisjointGenes = 1.0f;
 			float importanceOfAverageWeightDifference = 2.0f;
 			float compatibilityThreshold = 3.0f;
+            bool normalizeForLargerGenome = false;
 		} speciation;
 		struct Reproduction {
 			float chanceForInterspecialReproduction = 0.001f;
 		} reproduction;
+        struct Structure {
+            size_t numberOfBiasNeurons = 1;
+        } structure;
 	} advanced;
 };
