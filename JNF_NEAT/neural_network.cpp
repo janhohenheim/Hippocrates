@@ -173,16 +173,24 @@ void NeuralNetwork::AddRandomConnection() {
             fromNeuronIndex--;
         }
     }
-    Gene newConnectionGene;
-    newConnectionGene.from = fromNeuronIndex;
-    newConnectionGene.to = toNeuronIndex;
+   
     auto& fromNeuron = neurons[fromNeuronIndex];
     auto& toNeuron = neurons[toNeuronIndex];
-    
-    auto& lowerNeuron = fromNeuron.GetLayer() <= toNeuron.GetLayer() ? fromNeuron : toNeuron;
-    auto& higherNeuron = fromNeuron.GetLayer() <= toNeuron.GetLayer() ? toNeuron : fromNeuron;
-
-    newConnectionGene.isRecursive = &lowerNeuron == &toNeuron;
+	Neuron* lowerNeuron = nullptr;
+	Neuron* higherNeuron = nullptr;
+	Gene newConnectionGene;
+	if (fromNeuron.GetLayer() <= toNeuron.GetLayer()){
+		lowerNeuron = &fromNeuron;
+		higherNeuron = &toNeuron;
+		newConnectionGene.from = fromNeuronIndex;
+		newConnectionGene.to = toNeuronIndex;
+	} else {
+		lowerNeuron = &toNeuron;
+		higherNeuron = &fromNeuron;
+		newConnectionGene.from = toNeuronIndex;
+		newConnectionGene.to = fromNeuronIndex;
+		newConnectionGene.isRecursive = true;
+	}
     if (!genome.DoesContainGene(newConnectionGene)) {
         Neuron::IncomingConnection newConnection;
         newConnection.isRecursive = newConnectionGene.isRecursive;
