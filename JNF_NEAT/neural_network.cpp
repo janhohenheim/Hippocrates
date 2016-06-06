@@ -164,7 +164,7 @@ void NeuralNetwork::AddRandomNeuron() {
 
 void NeuralNetwork::AddRandomConnection() {
     size_t fromNeuronIndex = rand() % neurons.size();
-    size_t toNeuronIndex = rand() % neurons.size();
+    size_t toNeuronIndex = (rand() % (neurons.size() -1)) + 1;
     if (fromNeuronIndex == toNeuronIndex) {
         if (fromNeuronIndex < (neurons.size() - 1)) {
             fromNeuronIndex++;
@@ -178,8 +178,8 @@ void NeuralNetwork::AddRandomConnection() {
     auto& fromNeuron = neurons[fromNeuronIndex];
     auto& toNeuron = neurons[toNeuronIndex];
     
-    auto& lowerNeuron = fromNeuron.GetLayer() < toNeuron.GetLayer() ? fromNeuron : toNeuron;
-    auto& higherNeuron = fromNeuron.GetLayer() < toNeuron.GetLayer() ? toNeuron : fromNeuron;
+    auto& lowerNeuron = fromNeuron.GetLayer() <= toNeuron.GetLayer() ? fromNeuron : toNeuron;
+    auto& higherNeuron = fromNeuron.GetLayer() <= toNeuron.GetLayer() ? toNeuron : fromNeuron;
 
     newConnectionGene.isRecursive = &lowerNeuron == &toNeuron;
     if (!genome.DoesContainGene(newConnectionGene)) {
