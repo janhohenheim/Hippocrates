@@ -164,7 +164,8 @@ void NeuralNetwork::AddRandomNeuron() {
 
 void NeuralNetwork::AddRandomConnection() {
     size_t fromNeuronIndex = rand() % neurons.size();
-    size_t toNeuronIndex = (rand() % (neurons.size() -1)) + 1;
+	auto inputRange = parameters.advanced.structure.numberOfBiasNeurons + parameters.numberOfInputs;
+    size_t toNeuronIndex = (rand() % (neurons.size() - inputRange)) + inputRange;
     if (fromNeuronIndex == toNeuronIndex) {
         if (fromNeuronIndex < (neurons.size() - 1)) {
             fromNeuronIndex++;
