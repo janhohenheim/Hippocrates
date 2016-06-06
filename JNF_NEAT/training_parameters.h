@@ -7,8 +7,6 @@ struct TrainingParameters {
 
 	struct Advanced {
 		struct Ranges {
-			int minFitness = std::numeric_limits<int>::min();
-			int maxFitness = 100;
 			float minWeight = -1.0f;
 			float maxWeight = 1.0f;
 		} ranges;

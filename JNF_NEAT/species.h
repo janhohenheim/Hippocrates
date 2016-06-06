@@ -7,10 +7,10 @@
 class Species {
 	private:
 		std::vector<Organism*> population;
-		Genome* representative = nullptr;
+        Organism* representative = nullptr;
 		bool isSortedByFitness = false;
         size_t numberOfStagnantGenerations = 0;
-        int fitnessHighscore = 0;
+        double fitnessHighscore = 0.0;
         const TrainingParameters& parameters;
 
 	public:

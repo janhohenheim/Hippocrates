@@ -8,8 +8,8 @@ class Organism {
 	private:
 		IBody* trainer = nullptr;
 		NeuralNetwork network;
-		int fitness = 0;
-		float fitnessModifier = 1.0f;
+        double fitness = 0.0;
+		double fitnessModifier = 1.0;
 		bool isFitnessUpToDate = false;
 
 	public:
@@ -23,9 +23,9 @@ class Organism {
 
 		void Reset() { trainer->Reset(); }
 		void Update();
-		void SetFitnessModifier(float factor) {fitnessModifier = factor;}
-		int GetOrCalculateFitness();
-        int GetOrCalculateRawFitness();
+		void SetFitnessModifier(double factor) {fitnessModifier = factor;}
+        double GetOrCalculateFitness();
+        double GetOrCalculateRawFitness();
 		NeuralNetwork BreedWith(Organism& partner);
 		const Genome& GetGenome() const { return network.GetGenome(); }
 		const NeuralNetwork & GetNetwork() const {return network; }

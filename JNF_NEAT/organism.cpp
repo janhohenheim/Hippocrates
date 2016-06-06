@@ -15,12 +15,12 @@ void Organism::Update()
 	isFitnessUpToDate = false;
 }
 
-int Organism::GetOrCalculateFitness()
+double Organism::GetOrCalculateFitness()
 {
-	return (int)((float)GetOrCalculateRawFitness() * fitnessModifier);
+	return (GetOrCalculateRawFitness() * fitnessModifier);
 }
 
-int Organism::GetOrCalculateRawFitness()
+double Organism::GetOrCalculateRawFitness()
 {
     if (!isFitnessUpToDate) {
         fitness = trainer->GetFitness();

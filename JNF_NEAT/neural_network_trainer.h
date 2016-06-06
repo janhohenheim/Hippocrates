@@ -24,7 +24,7 @@ class NeuralNetworkTrainer {
 
 		~NeuralNetworkTrainer() = default;
 
-		void TrainUntilFitnessEquals(int fitnessToReach);
+		void TrainUntilFitnessEquals(double fitnessToReach);
 		void TrainUntilGenerationEquals(unsigned int generationsToTrain);
 
 		TrainedNeuralNetwork GetTrainedNeuralNetwork();
@@ -35,11 +35,9 @@ class NeuralNetworkTrainer {
 		void ResetPopulationToTeachableState();
 		void Repopulate();
 		void LetGenerationLive();
-		void CategorizeOrganismsIntoSpecies(std::vector<Organism> && organisms);
         void PrepareSpeciesForPopulation();
-        void FillOrganismsIntoSpecies(std::vector<Organism> && organisms);
+        void FillOrganismIntoSpecies(Organism&& organism);
         void DeleteEmptySpecies();
-        void SetPopulationsFitnessModifiers();
 
 		Species &SelectSpeciesToBreed();
 		Organism& GetFittestOrganism();

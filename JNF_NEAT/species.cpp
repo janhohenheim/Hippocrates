@@ -17,14 +17,14 @@ Species::Species(const Species & other) :
 	population(other.population),
     parameters(other.parameters)
 {
-	representative = new Genome(*other.representative);
+	representative = new Organism(*other.representative);
 }
 
 Species::Species(Species && other) :
 	population(std::move(other.population)),
     parameters(other.parameters)
 {
-	representative = new Genome(std::move(*other.representative));
+	representative = new Organism(std::move(*other.representative));
 }
 
 Species::~Species() {
@@ -46,6 +46,7 @@ void Species::AddOrganism(Organism &&organism) {
 	population.push_back(new Organism(std::move(organism)));
 	ElectRepresentative();
 	isSortedByFitness = false;
+    SetPopulationsFitnessModifier();
 }
 
 void Species::Clear() {
@@ -68,23 +69,19 @@ void Species::Clear() {
 
 
 bool Species::IsCompatible(const Genome& genome) const {
-	auto distanceToSpecies = representative->GetGeneticalDistanceFrom(genome);
+	auto distanceToSpecies = representative->GetGenome().GetGeneticalDistanceFrom(genome);
 	return !IsAboveCompatibilityThreshold(distanceToSpecies);
 }
 
 void Species::SetPopulationsFitnessModifier() {
-	float fitnessModifier = 1.0f / (float)population.size();
+	double fitnessModifier = 1.0 / (double)population.size();
 	for (auto* organism : population){
 		organism->SetFitnessModifier(fitnessModifier);
 	}
 }
 
 void Species::ElectRepresentative() {
-	if (population.empty()) {
-		delete representative;
-		representative = nullptr;
-	}
-	else {
+	if (!population.empty()) {
 		SelectRandomRepresentative();
 	}
 }
@@ -92,16 +89,15 @@ void Species::ElectRepresentative() {
 void Species::SelectRandomRepresentative() {
 	auto randomMember = rand() % population.size();
 	if (representative == nullptr) {
-		representative = new Genome(population[randomMember]->GetGenome());
+		representative = new Organism(*population[randomMember]);
     }
     else {
-        *representative = population[randomMember]->GetGenome();
+        *representative = *population[randomMember];
     }
 }
 
 template <class T>
-constexpr bool Species::IsAboveCompatibilityThreshold(T t) const
-{
+constexpr bool Species::IsAboveCompatibilityThreshold(T t) const {
 	return t > representative->GetTrainingParameters().advanced.speciation.compatibilityThreshold;
 }
 
@@ -118,6 +114,9 @@ void Species::ResetToTeachableState() {
 }
 
 Organism& Species::GetFittestOrganism() {
+    if (population.empty()) {
+        return *representative;
+    }
 	if (!isSortedByFitness) {
 		auto CompareOrganisms = [&](Organism* lhs, Organism* rhs) {
 			return lhs->GetOrCalculateFitness() < rhs->GetOrCalculateFitness();
@@ -136,20 +135,27 @@ Species& Species::operator=(Species &&other) {
 
 Organism& Species::GetOrganismToBreed() {
 	// TODO jnf: Switch to stochastic universal sampling
-	auto totalSpeciesFitness = 0;
+    if (population.empty()) {
+        return *representative;
+    }
+    if (population.size() == 1) {
+        return *population.front();
+    }
+	double totalSpeciesFitness = 0.0;
 	for (auto* organism : population) {
 		totalSpeciesFitness += organism->GetOrCalculateFitness();
 	}
 	double chance = 0.0;
 	auto GetChanceForOrganism = [&chance, &totalSpeciesFitness](Organism& organism) {
-		return chance + ((double)organism.GetOrCalculateFitness() / (double)totalSpeciesFitness);
+		return chance + (organism.GetOrCalculateFitness() / totalSpeciesFitness);
 	};
-	for (auto* organism : population) {
-		double randNum = (double)(rand() % 10'000) / 9'999.0;;
-		chance = GetChanceForOrganism(*organism);
-		if (randNum < chance) {
-			return *organism;
-		}
-	}
-	return *population.front();
+    while (true) {
+        for (auto* organism : population) {
+            double randNum = (double)(rand() % 10'000) / 9'999.0;;
+            chance = GetChanceForOrganism(*organism);
+            if (randNum < chance) {
+                return *organism;
+            }
+        }
+    }
 }
