@@ -71,6 +71,7 @@ void NeuralNetwork::BuildNetworkFromGenes() {
             Neuron::IncomingConnection connection;
             connection.neuron = &neurons[gene.from];
             connection.weight = gene.weight;
+            connection.isRecursive = gene.isRecursive;
 			neurons[gene.to].AddConnection(std::move(connection));
 		}
 	}
@@ -162,37 +163,34 @@ void NeuralNetwork::AddRandomNeuron() {
 }
 
 void NeuralNetwork::AddRandomConnection() {
-    // TODO jnf: Add recursive connections
+    size_t fromNeuronIndex = rand() % neurons.size();
+    size_t toNeuronIndex = rand() % neurons.size();
+    if (fromNeuronIndex == toNeuronIndex) {
+        if (fromNeuronIndex < (neurons.size() - 1)) {
+            fromNeuronIndex++;
+        } else {
+            fromNeuronIndex--;
+        }
+    }
+    Gene newConnectionGene;
+    newConnectionGene.from = fromNeuronIndex;
+    newConnectionGene.to = toNeuronIndex;
+    auto& fromNeuron = neurons[fromNeuronIndex];
+    auto& toNeuron = neurons[toNeuronIndex];
+    
+    auto& lowerNeuron = fromNeuron.GetLayer() < toNeuron.GetLayer() ? fromNeuron : toNeuron;
+    auto& higherNeuron = fromNeuron.GetLayer() < toNeuron.GetLayer() ? toNeuron : fromNeuron;
 
-    // Get Random in
-    // Get Random out
-    // Compare Layers
-    // Set the bool
-	CategorizeNeuronsIntoLayers();	
+    newConnectionGene.isRecursive = &lowerNeuron == &toNeuron;
+    if (!genome.DoesContainGene(newConnectionGene)) {
+        Neuron::IncomingConnection newConnection;
+        newConnection.isRecursive = newConnectionGene.isRecursive;
+        newConnection.neuron = &lowerNeuron;
+        newConnection.weight = newConnectionGene.weight;
 
-	auto highestLayer = layerMap.rbegin()->first + 1U;
-	auto fromLayer = rand() % (highestLayer - 1U);
-	auto toLayer = GetRandomNumberBetween(fromLayer + 1U, highestLayer);
-	auto fromNeuron = layerMap[fromLayer][rand() % layerMap[fromLayer].size()];
-	auto toNeuron = layerMap[toLayer][rand() % layerMap[toLayer].size()];
-	
-	
-	Gene connectionalGene;
-	size_t geneticalGeneIndex = 0U;
-	while (&neurons[geneticalGeneIndex++] != fromNeuron);
-    connectionalGene.from = geneticalGeneIndex - 1U;
-	geneticalGeneIndex = 0U;
-	while (&neurons[geneticalGeneIndex++] != toNeuron);
-    connectionalGene.to = geneticalGeneIndex - 1U;
-
-
-	if (!genome.DoesContainGene(connectionalGene)) {
-        Neuron::IncomingConnection connection;
-        connection.neuron = fromNeuron;
-        connection.weight = connectionalGene.weight;
-		toNeuron->AddConnection(std::move(connection));
-		genome.AppendGene(std::move(connectionalGene));
-	}
+        genome.AppendGene(std::move(newConnectionGene));
+        higherNeuron.AddConnection(std::move(newConnection));
+    }
 }
 
 void NeuralNetwork::ShuffleWeights() {

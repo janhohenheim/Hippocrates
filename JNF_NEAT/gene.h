@@ -15,6 +15,7 @@ struct Gene {
 		float weight = 0.0f;
 		std::size_t historicalMarking = numberOfExistingGenes;
 		bool isEnabled = true;
+        bool isRecursive = false;
 		void SetRandomWeight();
 
 	private:
