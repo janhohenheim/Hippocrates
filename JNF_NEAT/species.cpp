@@ -1,24 +1,28 @@
 #include "species.h"
 #include <algorithm>
 
-Species::Species(const Organism& representative) {
+Species::Species(const Organism& representative) :
+parameters(representative.GetTrainingParameters()){
 	population.push_back(new Organism(representative));
 	ElectRepresentative();
 }
 
-Species::Species(Organism && representative) {
+Species::Species(Organism && representative) :
+    parameters(representative.GetTrainingParameters()) {
 	population.push_back(new Organism(std::move(representative)));
 	ElectRepresentative();
 }
 
 Species::Species(const Species & other) :
-	population(other.population)
+	population(other.population),
+    parameters(other.parameters)
 {
 	representative = new Genome(*other.representative);
 }
 
 Species::Species(Species && other) :
-	population(std::move(other.population))
+	population(std::move(other.population)),
+    parameters(other.parameters)
 {
 	representative = new Genome(std::move(*other.representative));
 }
@@ -44,8 +48,16 @@ void Species::AddOrganism(Organism &&organism) {
 	isSortedByFitness = false;
 }
 
-void Species::Clear()
-{
+void Species::Clear() {
+    const auto currentBestFitness = GetFittestOrganism().GetOrCalculateFitness();
+    if (fitnessHighscore < currentBestFitness) {
+        fitnessHighscore = currentBestFitness;
+        numberOfStagnantGenerations = 0;
+    }
+    else {
+        numberOfStagnantGenerations++;
+    }
+
     for (auto* organism : population) {
         delete organism;
         organism = nullptr;

@@ -2,7 +2,7 @@
 
 void XORSolver::Reset()
 {
-	fitness = 0;
+    correctEvaluations = 0;
 	currTraining = trainingData.begin();
 }
 
@@ -12,7 +12,7 @@ void XORSolver::Update(const std::vector<float>& networkOutputs)
 	int networksXorResult = int(networkOutputs.front() >= 0.5f);
 
 	if (xorResult == networksXorResult) {
-		fitness += (100.0 / (double)trainingData.size());
+        correctEvaluations++;
 	}
 	++currTraining;
 	if (currTraining == trainingData.end()) {
@@ -22,7 +22,7 @@ void XORSolver::Update(const std::vector<float>& networkOutputs)
 
 int XORSolver::GetFitness() const
 {
-	return fitness;
+	return correctEvaluations * correctEvaluations;
 }
 
 std::vector<float> XORSolver::ProvideNetworkWithInputs() const

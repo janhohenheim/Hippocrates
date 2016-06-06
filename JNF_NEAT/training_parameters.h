@@ -22,6 +22,7 @@ struct TrainingParameters {
 			float importanceOfDisjointGenes = 1.0f;
 			float importanceOfAverageWeightDifference = 2.0f;
 			float compatibilityThreshold = 3.0f;
+            size_t stagnantSpeciesClearThreshold = 15;
             bool normalizeForLargerGenome = false;
 		} speciation;
 		struct Reproduction {

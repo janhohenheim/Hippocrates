@@ -31,6 +31,7 @@ class NeuralNetwork {
 		void SetInputs(const std::vector<float>& inputs);
 		std::vector<float> GetOutputs();
 		std::vector<float> GetOutputs(const std::vector<float>& inputs);
+        const TrainingParameters& GetTrainingParameters() const { return parameters; }
 
 	private:
 		void MutateGenesAndBuildNetwork();

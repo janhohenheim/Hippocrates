@@ -9,6 +9,9 @@ class Species {
 		std::vector<Organism*> population;
 		Genome* representative = nullptr;
 		bool isSortedByFitness = false;
+        size_t numberOfStagnantGenerations = 0;
+        int fitnessHighscore = 0;
+        const TrainingParameters& parameters;
 
 	public:
 		Species(const Organism& representative);
@@ -26,6 +29,7 @@ class Species {
 
 		bool IsCompatible(const Genome& genome) const;
 		bool IsEmpty() const { return population.empty(); }
+        bool IsStagnant() const { return numberOfStagnantGenerations >= parameters.advanced.speciation.stagnantSpeciesClearThreshold; }
 		void LetPopulationLive();
 		void ResetToTeachableState();
 		Organism& GetFittestOrganism();

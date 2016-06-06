@@ -73,6 +73,55 @@ void NeuralNetworkTrainer::LetGenerationLive() {
 	}
 }
 
+void NeuralNetworkTrainer::PrepareSpeciesForPopulation() {
+    for (auto& currSpecies : species) {
+        currSpecies.Clear();
+    }
+
+    for (auto iter = species.begin(); iter != species.end(); ) {
+        if (iter->IsStagnant())
+            iter = species.erase(iter);
+        else
+            ++iter;
+    }
+}
+
+void NeuralNetworkTrainer::FillOrganismsIntoSpecies(std::vector<Organism>&& organisms) {
+    for (auto&& organism : organisms) {
+        bool isCompatibleWithExistingSpecies = false;
+        for (auto& currSpecies : species) {
+            if (currSpecies.IsCompatible(organism.GetGenome())) {
+                currSpecies.AddOrganism(std::move(organism));
+                isCompatibleWithExistingSpecies = true;
+                break;
+            }
+        }
+        if (!isCompatibleWithExistingSpecies) {
+            Species newSpecies(std::move(organism));
+            species.push_back(std::move(newSpecies));
+        }
+    }
+}
+
+void NeuralNetworkTrainer::DeleteEmptySpecies() {
+    species.erase(
+        std::remove_if(species.begin(), species.end(), [](const Species& s) {return s.IsEmpty(); }),
+        species.end()
+    );
+}
+
+void NeuralNetworkTrainer::SetPopulationsFitnessModifiers() {
+    auto CompareSpecies = [&](Species& lhs, Species& rhs) {
+        return lhs.GetFittestOrganism().GetOrCalculateFitness() < rhs.GetFittestOrganism().GetOrCalculateFitness();
+    };
+
+    std::sort(species.begin(), species.end(), CompareSpecies);
+
+    for (auto& sp : species) {
+        sp.SetPopulationsFitnessModifier();
+    }
+}
+
 void NeuralNetworkTrainer::Repopulate() {
 	std::vector<Organism> population;
 	population.reserve(populationSize);
@@ -119,36 +168,8 @@ Species& NeuralNetworkTrainer::SelectSpeciesToBreed() {
 }
 
 void NeuralNetworkTrainer::CategorizeOrganismsIntoSpecies(std::vector<Organism> && organisms) {
-	for (auto& currSpecies : species) {
-		currSpecies.Clear();
-	}
-	for (auto&& organism : organisms) {
-		bool isCompatibleWithExistingSpecies = false;
-		for (auto& currSpecies : species) {
-			if (currSpecies.IsCompatible(organism.GetGenome())) {
-				currSpecies.AddOrganism(std::move(organism));
-				isCompatibleWithExistingSpecies = true;
-				break;
-			}
-		}
-		if (!isCompatibleWithExistingSpecies) {
-			Species newSpecies(std::move(organism));
-			species.push_back(std::move(newSpecies));
-		}
-	}
-
-	species.erase(
-		std::remove_if(species.begin(), species.end(), [](Species& s) {return s.IsEmpty(); }),
-		species.end()
-		);
-
-	auto CompareSpecies = [&](Species& lhs, Species& rhs) {
-		return lhs.GetFittestOrganism().GetOrCalculateFitness() < rhs.GetFittestOrganism().GetOrCalculateFitness();
-	};
-
-	std::sort(species.begin(), species.end(), CompareSpecies);
-
-	for (auto& sp : species){
-		sp.SetPopulationsFitnessModifier();
-	}
+    PrepareSpeciesForPopulation();
+    FillOrganismsIntoSpecies(std::move(organisms));
+    DeleteEmptySpecies();
+    SetPopulationsFitnessModifiers();
 }

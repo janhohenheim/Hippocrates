@@ -34,8 +34,12 @@ class NeuralNetworkTrainer {
 		
 		void ResetPopulationToTeachableState();
 		void Repopulate();
-		void CategorizeOrganismsIntoSpecies(std::vector<Organism> && organisms);
 		void LetGenerationLive();
+		void CategorizeOrganismsIntoSpecies(std::vector<Organism> && organisms);
+        void PrepareSpeciesForPopulation();
+        void FillOrganismsIntoSpecies(std::vector<Organism> && organisms);
+        void DeleteEmptySpecies();
+        void SetPopulationsFitnessModifiers();
 
 		Species &SelectSpeciesToBreed();
 		Organism& GetFittestOrganism();
