@@ -194,11 +194,11 @@ void NeuralNetwork::AddRandomConnection() {
     if (!genome.DoesContainGene(newConnectionGene)) {
         Neuron::IncomingConnection newConnection;
         newConnection.isRecursive = newConnectionGene.isRecursive;
-        newConnection.neuron = &lowerNeuron;
+        newConnection.neuron = lowerNeuron;
         newConnection.weight = newConnectionGene.weight;
 
         genome.AppendGene(std::move(newConnectionGene));
-        higherNeuron.AddConnection(std::move(newConnection));
+        higherNeuron->AddConnection(std::move(newConnection));
     }
 }
 
