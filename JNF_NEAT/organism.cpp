@@ -17,11 +17,10 @@ void Organism::Update()
 
 double Organism::GetOrCalculateFitness()
 {
-	return (GetOrCalculateRawFitness() * fitnessModifier);
+	return ((double)GetOrCalculateRawFitness() * fitnessModifier);
 }
 
-double Organism::GetOrCalculateRawFitness()
-{
+size_t Organism::GetOrCalculateRawFitness() {
     if (!isFitnessUpToDate) {
         fitness = trainer->GetFitness();
         isFitnessUpToDate = true;

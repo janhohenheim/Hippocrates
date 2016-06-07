@@ -4,7 +4,7 @@ class XORSolver : public IBody {
 	public:
 		virtual void Reset() override;
 		virtual void Update(const std::vector<float>& networkOutputs) override;
-		virtual double GetFitness() const override;
+		virtual size_t GetFitness() const override;
 
 		virtual std::vector<float> ProvideNetworkWithInputs() const override;
 
