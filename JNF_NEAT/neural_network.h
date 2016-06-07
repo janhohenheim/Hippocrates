@@ -21,7 +21,7 @@ class NeuralNetwork {
 		explicit NeuralNetwork(Genome&& genome);
 		explicit NeuralNetwork(const Genome&& genome) = delete;
 		NeuralNetwork(const NeuralNetwork& other);
-		NeuralNetwork(NeuralNetwork&& other);
+		NeuralNetwork(NeuralNetwork&& other) = default;
 		~NeuralNetwork() = default;
 
 		NeuralNetwork& operator= (const NeuralNetwork& other);

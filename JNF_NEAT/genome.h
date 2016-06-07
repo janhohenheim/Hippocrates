@@ -30,10 +30,8 @@ class Genome {
 		std::size_t GetNeuronCount() const { return neuronCount; };
 		std::size_t GetGeneCount() const;
 
-		void AppendGene(const Gene& gene) { AdjustNeuronCount(gene); genes.push_back(gene); }
-		void AppendGene(Gene&& gene) { AdjustNeuronCount(gene); genes.push_back(std::move(gene)); }
-		void InsertGeneAt(const Gene& gene, size_t index) { AdjustNeuronCount(gene); genes.insert(genes.begin() + index, gene); }
-		void InsertGeneAt(Gene&& gene, size_t index) { AdjustNeuronCount(gene); genes.insert(genes.begin() + index, std::move(gene)); }
+		void AppendGene(Gene gene) { AdjustNeuronCount(gene); genes.push_back(std::move(gene)); }
+		void InsertGeneAt(Gene gene, size_t index) { AdjustNeuronCount(gene); genes.insert(genes.begin() + index, std::move(gene)); }
 
 		const TrainingParameters& GetTrainingParameters() const { return parameters; }
 		double GetGeneticalDistanceFrom(const Genome& other) const;

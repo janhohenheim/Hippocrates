@@ -7,29 +7,27 @@
 class Species {
 	private:
 		std::vector<Organism*> population;
-        Organism* representative = nullptr;
+        std::unique_ptr<Organism> representative = nullptr;
 		bool isSortedByFitness = false;
         size_t numberOfStagnantGenerations = 0;
-        double fitnessHighscore = 0.0;
+		size_t fitnessHighscore = 0;
         const TrainingParameters& parameters;
 
 	public:
 		Species(const Organism& representative);
 		Species(Organism&& representative);
-		Species(const Species& other);
-		Species(Species&& other);
-		Species(const Species&& other) = delete;
+		Species(const Species& other) = default;
+		Species(Species&& other) = default;
 		~Species();
 
 		Species& operator=(Species&& other);
 
-		void AddOrganism(const Organism& organism);
-		void AddOrganism(Organism&& organism);
-        void Clear();
+		void AddOrganism(Organism organism);
+        void AnalyzeAndClearPopulation();
 
 		bool IsCompatible(const Genome& genome) const;
 		bool IsEmpty() const { return population.empty(); }
-        bool IsStagnant() const { return numberOfStagnantGenerations >= parameters.advanced.speciation.stagnantSpeciesClearThreshold; }
+        bool IsStagnant() const { return (numberOfStagnantGenerations >= parameters.advanced.speciation.stagnantSpeciesClearThreshold); }
 		void LetPopulationLive();
 		void ResetToTeachableState();
 		Organism& GetFittestOrganism();

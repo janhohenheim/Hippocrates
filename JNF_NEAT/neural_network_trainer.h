@@ -36,7 +36,9 @@ class NeuralNetworkTrainer {
 		void Repopulate();
 		void LetGenerationLive();
         void PrepareSpeciesForPopulation();
-        void FillOrganismIntoSpecies(Organism&& organism);
+        void FillOrganismIntoSpecies(Organism organism);
+		void AnalyzeAndClearSpeciesPopulation();
+		void DeleteStagnantSpecies();
         void DeleteEmptySpecies();
 
 		Species &SelectSpeciesToBreed();

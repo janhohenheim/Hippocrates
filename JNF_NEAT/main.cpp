@@ -11,11 +11,11 @@ int main() {
 	params.numberOfOutputs = 1;
 	params.updatesPerGeneration = 4;
 
-	int populationCount = 150;
+	size_t populationCount = 150;
 	std::string file = "ChampGenome.genome";
 
 	std::vector<IBody*> bodies;
-	for (int i = 0; i < populationCount; ++i) {
+	for (size_t i = 0; i < populationCount; ++i) {
 		bodies.push_back(new XORSolver());
 	}
 	NeuralNetworkTrainer trainer(bodies, params);

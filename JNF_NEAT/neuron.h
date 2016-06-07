@@ -22,7 +22,7 @@ class Neuron {
 		~Neuron() = default;
 
 		void SetInput(float input);
-		void AddConnection(IncomingConnection&& connection);
+		void AddConnection(IncomingConnection connection);
 		const Connections& GetConnections() const {return connections;}
 		Connections& GetConnections() {return connections;}
 		float RequestDataAndGetActionPotential();

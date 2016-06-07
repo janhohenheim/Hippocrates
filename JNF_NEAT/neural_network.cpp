@@ -41,18 +41,8 @@ NeuralNetwork::NeuralNetwork(const NeuralNetwork& other) :
 	BuildNetworkFromGenes();
 }
 
-NeuralNetwork::NeuralNetwork(NeuralNetwork&& other) :
-	parameters(std::move(other.parameters)),
-	genome(std::move(other.genome)),
-	neurons(other.neurons.size()),
-	inputNeurons(std::move(other.inputNeurons.size())),
-	outputNeurons(std::move(other.outputNeurons.size()))
-{
-	BuildNetworkFromGenes();
-}
-
 NeuralNetwork& NeuralNetwork::operator=(const NeuralNetwork& other) {
-    layerMap = other.layerMap;
+	layerMap = other.layerMap;
 	genome = other.genome;
 	neurons = other.neurons;
 	inputNeurons.resize(other.inputNeurons.size());
@@ -68,15 +58,15 @@ void NeuralNetwork::BuildNetworkFromGenes() {
 	neurons.resize(genome.GetNeuronCount());
 	for (const auto& gene : genome) {
 		if (gene.isEnabled) {
-            Neuron::IncomingConnection connection;
-            connection.neuron = &neurons[gene.from];
-            connection.weight = gene.weight;
-            connection.isRecursive = gene.isRecursive;
+			Neuron::IncomingConnection connection;
+			connection.neuron = &neurons[gene.from];
+			connection.weight = gene.weight;
+			connection.isRecursive = gene.isRecursive;
 			neurons[gene.to].AddConnection(std::move(connection));
 		}
 	}
 	InterpretInputsAndOutputs();
-    CategorizeNeuronsIntoLayers();
+	CategorizeNeuronsIntoLayers();
 }
 
 void NeuralNetwork::SetInputs(const std::vector<float>& inputs) {
@@ -89,11 +79,11 @@ void NeuralNetwork::SetInputs(const std::vector<float>& inputs) {
 }
 
 std::vector<float> NeuralNetwork::GetOutputs() {
-    for (size_t i = 1; i < layerMap.size() - 1; ++i) {
-        for (auto& neuron : layerMap[i]){
-            neuron->RequestDataAndGetActionPotential();
-        }
-    }
+	for (size_t i = 1; i < layerMap.size() - 1; ++i) {
+		for (auto& neuron : layerMap[i]){
+			neuron->RequestDataAndGetActionPotential();
+		}
+	}
 	std::vector<float> outputs;
 	outputs.reserve(outputNeurons.size());
 	for(auto& outputNeuron : outputNeurons) {
@@ -108,17 +98,17 @@ std::vector<float> NeuralNetwork::GetOutputs(const std::vector<float>& inputs) {
 }
 
 void NeuralNetwork::InterpretInputsAndOutputs() {
-    // Bias
-    for (auto i = 0U; i < parameters.advanced.structure.numberOfBiasNeurons; i++) {
-        neurons[i].SetInput(1.0f);
-    }
+	// Bias
+	for (auto i = 0U; i < parameters.advanced.structure.numberOfBiasNeurons; i++) {
+		neurons[i].SetInput(1.0f);
+	}
 
-    // Inputs
+	// Inputs
 	for (auto i = 0U; i < parameters.numberOfInputs; i++) {
 		inputNeurons[i] = &neurons[i + parameters.advanced.structure.numberOfBiasNeurons];
 	}
 
-    // Outputs
+	// Outputs
 	for (auto i = 0U; i < parameters.numberOfOutputs; i++) {
 		outputNeurons[i] = &neurons[genome[i * parameters.numberOfOutputs].to];
 	}
@@ -163,19 +153,19 @@ void NeuralNetwork::AddRandomNeuron() {
 }
 
 void NeuralNetwork::AddRandomConnection() {
-    size_t fromNeuronIndex = rand() % neurons.size();
+	size_t fromNeuronIndex = rand() % neurons.size();
 	auto inputRange = parameters.advanced.structure.numberOfBiasNeurons + parameters.numberOfInputs;
-    size_t toNeuronIndex = (rand() % (neurons.size() - inputRange)) + inputRange;
-    if (fromNeuronIndex == toNeuronIndex) {
-        if (fromNeuronIndex < (neurons.size() - 1)) {
-            fromNeuronIndex++;
-        } else {
-            fromNeuronIndex--;
-        }
-    }
+	size_t toNeuronIndex = (rand() % (neurons.size() - inputRange)) + inputRange;
+	if (fromNeuronIndex == toNeuronIndex) {
+		if (fromNeuronIndex < (neurons.size() - 1)) {
+			fromNeuronIndex++;
+		} else {
+			fromNeuronIndex--;
+		}
+	}
    
-    auto& fromNeuron = neurons[fromNeuronIndex];
-    auto& toNeuron = neurons[toNeuronIndex];
+	auto& fromNeuron = neurons[fromNeuronIndex];
+	auto& toNeuron = neurons[toNeuronIndex];
 	Neuron* lowerNeuron = nullptr;
 	Neuron* higherNeuron = nullptr;
 	Gene newConnectionGene;
@@ -191,15 +181,16 @@ void NeuralNetwork::AddRandomConnection() {
 		newConnectionGene.to = fromNeuronIndex;
 		newConnectionGene.isRecursive = true;
 	}
-    if (!genome.DoesContainGene(newConnectionGene)) {
-        Neuron::IncomingConnection newConnection;
-        newConnection.isRecursive = newConnectionGene.isRecursive;
-        newConnection.neuron = lowerNeuron;
-        newConnection.weight = newConnectionGene.weight;
+	if (!genome.DoesContainGene(newConnectionGene)) {
+		Neuron::IncomingConnection newConnection;
+		newConnection.isRecursive = newConnectionGene.isRecursive;
+		newConnection.neuron = lowerNeuron;
+		newConnection.weight = newConnectionGene.weight;
 
-        genome.AppendGene(std::move(newConnectionGene));
-        higherNeuron->AddConnection(std::move(newConnection));
-    }
+		genome.AppendGene(std::move(newConnectionGene));
+		higherNeuron->AddConnection(std::move(newConnection));
+		CategorizeNeuronsIntoLayers();
+	}
 }
 
 void NeuralNetwork::ShuffleWeights() {
@@ -212,7 +203,7 @@ void NeuralNetwork::ShuffleWeights() {
 
 void NeuralNetwork::MutateWeightOfGeneAt(size_t index) {
 	if (DidChanceOccure(parameters.advanced.mutation.chanceOfTotalWeightReset)) {
-        genome[index].SetRandomWeight();
+		genome[index].SetRandomWeight();
 	} 
 	else {
 		PerturbWeightAt(index);
@@ -263,17 +254,17 @@ void NeuralNetwork::CategorizeNeuronsIntoLayers() {
 		out->SetLayer(highestLayer);
 	}
 
-    for (auto& neuron : neurons) {
-        layerMap[neuron.GetLayer()].push_back(&neuron);
-    }
+	for (auto& neuron : neurons) {
+		layerMap[neuron.GetLayer()].push_back(&neuron);
+	}
 }
 
 void NeuralNetwork::CategorizeNeuronBranchIntoLayers(Neuron& currNode) {
 	for (auto &in : currNode.GetConnections()) {
-        if (!in.isRecursive) {
-            CategorizeNeuronBranchIntoLayers(*in.neuron);
-            currNode.SetLayer(in.neuron->GetLayer() + 1);
-        }
+		if (!in.isRecursive) {
+			CategorizeNeuronBranchIntoLayers(*in.neuron);
+			currNode.SetLayer(in.neuron->GetLayer() + 1);
+		}
 	}
 }
 

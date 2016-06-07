@@ -7,64 +7,41 @@ parameters(representative.GetTrainingParameters()){
 	ElectRepresentative();
 }
 
-Species::Species(Organism && representative) :
+Species::Species(Organism&& representative) :
     parameters(representative.GetTrainingParameters()) {
 	population.push_back(new Organism(std::move(representative)));
 	ElectRepresentative();
 }
 
-Species::Species(const Species & other) :
-	population(other.population),
-    parameters(other.parameters)
-{
-	representative = new Organism(*other.representative);
-}
-
-Species::Species(Species && other) :
-	population(std::move(other.population)),
-    parameters(other.parameters)
-{
-	representative = new Organism(std::move(*other.representative));
-}
-
 Species::~Species() {
-	delete representative;
-	representative = nullptr;
     for (auto* organism : population) {
         delete organism;
         organism = nullptr;
     }
 }
 
-void Species::AddOrganism(const Organism &organism) {
-	population.push_back(new Organism(organism));
-	ElectRepresentative();
-	isSortedByFitness = false;
-}
-
-void Species::AddOrganism(Organism &&organism) {
+void Species::AddOrganism(Organism organism) {
 	population.push_back(new Organism(std::move(organism)));
 	ElectRepresentative();
 	isSortedByFitness = false;
     SetPopulationsFitnessModifier();
 }
 
-void Species::Clear() {
-    const auto currentBestFitness = GetFittestOrganism().GetOrCalculateFitness();
-    if (fitnessHighscore < currentBestFitness) {
-        fitnessHighscore = currentBestFitness;
-        numberOfStagnantGenerations = 0;
-    }
-    else {
-        numberOfStagnantGenerations++;
-    }
+void Species::AnalyzeAndClearPopulation() {
+	const auto currentBestFitness = GetFittestOrganism().GetOrCalculateRawFitness();
+	if (currentBestFitness > fitnessHighscore) {
+		fitnessHighscore = currentBestFitness;
+		numberOfStagnantGenerations = 0;
+	} else {
+		numberOfStagnantGenerations++;
+	}
 
     for (auto* organism : population) {
         delete organism;
         organism = nullptr;
     }
     population.clear(); 
-    isSortedByFitness = false;
+    isSortedByFitness = false;	
 }
 
 
@@ -89,9 +66,8 @@ void Species::ElectRepresentative() {
 void Species::SelectRandomRepresentative() {
 	auto randomMember = rand() % population.size();
 	if (representative == nullptr) {
-		representative = new Organism(*population[randomMember]);
-    }
-    else {
+		representative = std::make_unique<Organism>(*population[randomMember]);
+    } else {
         *representative = *population[randomMember];
     }
 }
@@ -105,6 +81,7 @@ void Species::LetPopulationLive() {
 	for (auto* organism : population){
 		organism->Update();
 	}
+	isSortedByFitness = false;
 }
 
 void Species::ResetToTeachableState() {
@@ -127,9 +104,12 @@ Organism& Species::GetFittestOrganism() {
 	return *population.front();
 }
 
-Species& Species::operator=(Species &&other) {
+Species& Species::operator=(Species&& other) {
 	population = std::move(other.population);
-	ElectRepresentative();
+	representative = std::move(other.representative);
+	isSortedByFitness = std::move(other.isSortedByFitness);
+	numberOfStagnantGenerations = std::move(other.numberOfStagnantGenerations);
+	fitnessHighscore = std::move(other.fitnessHighscore);
 	return *this;
 }
 
