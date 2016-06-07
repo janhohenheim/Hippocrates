@@ -24,7 +24,7 @@ class NeuralNetworkTrainer {
 
 		~NeuralNetworkTrainer() = default;
 
-		void TrainUntilFitnessEquals(size_t fitnessToReach);
+		void TrainUntilFitnessEquals(double fitnessToReach);
 		void TrainUntilGenerationEquals(unsigned int generationsToTrain);
 
 		TrainedNeuralNetwork GetTrainedNeuralNetwork();

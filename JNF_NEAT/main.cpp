@@ -19,7 +19,7 @@ int main() {
 		bodies.push_back(new XORSolver());
 	}
 	NeuralNetworkTrainer trainer(bodies, params);
-	trainer.TrainUntilFitnessEquals(16);
+	trainer.TrainUntilFitnessEquals(16.0);
 	auto champ = trainer.GetTrainedNeuralNetwork();
 	for (auto& body : bodies) {
 		delete body;

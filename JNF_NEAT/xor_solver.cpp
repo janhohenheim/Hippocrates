@@ -20,9 +20,9 @@ void XORSolver::Update(const std::vector<float>& networkOutputs)
 	}
 }
 
-size_t XORSolver::GetFitness() const
+double XORSolver::GetFitness() const
 {
-	return correctEvaluations * correctEvaluations;
+	return double(correctEvaluations * correctEvaluations);
 }
 
 std::vector<float> XORSolver::ProvideNetworkWithInputs() const

@@ -37,7 +37,7 @@ void NeuralNetworkTrainer::SetBodies(std::vector<IBody*>& bodies) {
 }
 
 
-void NeuralNetworkTrainer::TrainUntilFitnessEquals(size_t fitnessToReach) {
+void NeuralNetworkTrainer::TrainUntilFitnessEquals(double fitnessToReach) {
 	LetGenerationLive();
 	while (GetFittestOrganism().GetOrCalculateRawFitness() < fitnessToReach) {
 		Repopulate();
@@ -138,9 +138,6 @@ void NeuralNetworkTrainer::Repopulate() {
 
 Species& NeuralNetworkTrainer::SelectSpeciesToBreed() {
 	// TODO jnf: Switch to stochastic universal sampling
-    if (species.size() == 1) {
-        return species.front();
-    }
     double totalSpeciesFitness = 0.0;
 	for (auto& s : species) {
 		totalSpeciesFitness += s.GetFittestOrganism().GetOrCalculateFitness();

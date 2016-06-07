@@ -138,16 +138,13 @@ Organism& Species::GetOrganismToBreed() {
     if (population.empty()) {
         return *representative;
     }
-    if (population.size() == 1) {
-        return *population.front();
-    }
-	double totalSpeciesFitness = 0.0;
+	double totalPopulationFitness = 0.0;
 	for (auto* organism : population) {
-		totalSpeciesFitness += organism->GetOrCalculateFitness();
+		totalPopulationFitness += organism->GetOrCalculateFitness();
 	}
 	double chance = 0.0;
-	auto GetChanceForOrganism = [&chance, &totalSpeciesFitness](Organism& organism) {
-		return chance + (organism.GetOrCalculateFitness() / totalSpeciesFitness);
+	auto GetChanceForOrganism = [&chance, &totalPopulationFitness](Organism& organism) {
+		return chance + (organism.GetOrCalculateFitness() / totalPopulationFitness);
 	};
     while (true) {
         for (auto* organism : population) {

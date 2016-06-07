@@ -8,7 +8,7 @@ class Organism {
 	private:
 		IBody* trainer = nullptr;
 		NeuralNetwork network;
-		size_t fitness = 0;
+		double fitness = 0.0;
 		double fitnessModifier = 1.0;
 		bool isFitnessUpToDate = false;
 
@@ -25,7 +25,7 @@ class Organism {
 		void Update();
 		void SetFitnessModifier(double factor) {fitnessModifier = factor;}
         double GetOrCalculateFitness();
-		size_t GetOrCalculateRawFitness();
+		double GetOrCalculateRawFitness();
 		NeuralNetwork BreedWith(Organism& partner);
 		const Genome& GetGenome() const { return network.GetGenome(); }
 		const NeuralNetwork & GetNetwork() const {return network; }
