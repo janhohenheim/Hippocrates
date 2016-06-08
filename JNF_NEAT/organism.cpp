@@ -21,11 +21,11 @@ double Organism::GetOrCalculateFitness()
 }
 
 double Organism::GetOrCalculateRawFitness() {
-    if (!isFitnessUpToDate) {
-        fitness = trainer->GetFitness();
-        isFitnessUpToDate = true;
-    }
-    return fitness;
+	if (!isFitnessUpToDate) {
+		fitness = trainer->GetFitness();
+		isFitnessUpToDate = true;
+	}
+	return fitness;
 }
 
 NeuralNetwork Organism::BreedWith(Organism& partner)

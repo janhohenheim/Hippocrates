@@ -60,6 +60,7 @@ void Species::SetPopulationsFitnessModifier() {
 void Species::ElectRepresentative() {
 	if (!population.empty()) {
 		SelectRandomRepresentative();
+		//SelectFittestOrganismAsRepresentative();
 	}
 }
 
@@ -70,6 +71,15 @@ void Species::SelectRandomRepresentative() {
     } else {
         *representative = *population[randomMember];
     }
+}
+
+void Species::SelectFittestOrganismAsRepresentative() {
+	if (representative == nullptr) {
+		representative = std::make_unique<Organism>(GetFittestOrganism());
+	}
+	else {
+		*representative = GetFittestOrganism();
+	}
 }
 
 template <class T>
@@ -96,7 +106,7 @@ Organism& Species::GetFittestOrganism() {
     }
 	if (!isSortedByFitness) {
 		auto CompareOrganisms = [&](Organism* lhs, Organism* rhs) {
-			return lhs->GetOrCalculateFitness() < rhs->GetOrCalculateFitness();
+			return lhs->GetOrCalculateFitness() > rhs->GetOrCalculateFitness();
 		};
 		std::sort(population.begin(), population.end(), CompareOrganisms);
 		isSortedByFitness = true;

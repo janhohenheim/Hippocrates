@@ -34,7 +34,7 @@ int main() {
 	*/
 	std::vector<std::vector<float>> trainingData = { { 0.0f, 0.0f },{ 0.0f, 1.0f },{ 1.0f, 0.0f },{ 1.0f, 1.0f } };
 	for (auto & t : trainingData) {
-		std::cout << (int)(champ.GetOutputs(t).front() >= 0.5f) << "\t" << ((t.front() >= 0.5f) ^ (t.back() >= 0.5f)) << std::endl;
+		std::cout << (int)(champ.GetOutputs(t).front() >= 0.0f) << "\t" << ((t.front() >= 0.0f) ^ (t.back() >= 0.0f)) << std::endl;
 	}
 	return 0;
 }

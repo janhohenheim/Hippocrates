@@ -25,6 +25,7 @@ struct TrainingParameters {
 		} speciation;
 		struct Reproduction {
 			float chanceForInterspecialReproduction = 0.001f;
+			size_t minSpeciesSizeForChampConservation = 5;
 		} reproduction;
         struct Structure {
             size_t numberOfBiasNeurons = 1;

@@ -37,6 +37,7 @@ class Species {
 private:
 		void ElectRepresentative();
 		void SelectRandomRepresentative();
+		void SelectFittestOrganismAsRepresentative();
 
 		template<class T>
 		constexpr bool IsAboveCompatibilityThreshold(T t) const;

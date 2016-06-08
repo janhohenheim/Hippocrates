@@ -127,18 +127,18 @@ void NeuralNetworkTrainer::DeleteEmptySpecies() {
 void NeuralNetworkTrainer::Repopulate() {
     PrepareSpeciesForPopulation();
 	auto DidChanceOccure = [](float chance) {
-		auto num = rand() % 100;
-		return num < int(100.0f * chance);
+		auto num = rand() % 1000;
+		return num < int(1000.0f * chance);
 	};
 
 	for (auto& trainer : bodies) {
 		Species* sp = &SelectSpeciesToBreed();
-		auto & father = sp->GetOrganismToBreed();
+		auto& father = sp->GetOrganismToBreed();
 		if (DidChanceOccure(parameters.advanced.reproduction.chanceForInterspecialReproduction)){
 			sp = &SelectSpeciesToBreed();
 		}
 		auto& mother = sp->GetOrganismToBreed();
-		auto childNeuralNetwork(father.BreedWith(mother));
+		auto childNeuralNetwork(std::move(father.BreedWith(mother)));
 		Organism child(&*trainer, std::move(childNeuralNetwork));
         FillOrganismIntoSpecies(std::move(child));
 	}
