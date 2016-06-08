@@ -16,16 +16,14 @@ class NeuralNetwork {
 
 	public:
 		NeuralNetwork() = delete;
-		explicit NeuralNetwork(const TrainingParameters& parameters);
-		explicit NeuralNetwork(const Genome& genome);
-		explicit NeuralNetwork(Genome&& genome);
-		explicit NeuralNetwork(const Genome&& genome) = delete;
+		explicit NeuralNetwork(const TrainingParameters& parameters, bool shouldMutate = false);
+		explicit NeuralNetwork(Genome genome, bool shouldMutate = false);
 		NeuralNetwork(const NeuralNetwork& other);
 		NeuralNetwork(NeuralNetwork&& other) = default;
 		~NeuralNetwork() = default;
 
 		NeuralNetwork& operator= (const NeuralNetwork& other);
-
+		NeuralNetwork& operator= (NeuralNetwork&& other) = default;
 		const Genome& GetGenome() const { return genome; }
 
 		void SetInputs(const std::vector<float>& inputs);

@@ -4,31 +4,30 @@
 #include <map>
 
 
-NeuralNetwork::NeuralNetwork(const TrainingParameters & parameters):
+NeuralNetwork::NeuralNetwork(const TrainingParameters & parameters, bool shouldMutate):
 	parameters(parameters),
 	genome(parameters),
 	inputNeurons(parameters.numberOfInputs),
 	outputNeurons(parameters.numberOfOutputs)
 {
-	MutateGenesAndBuildNetwork();
+	if (shouldMutate) {
+		MutateGenesAndBuildNetwork();
+	} else {
+		BuildNetworkFromGenes();
+	}
 }
 
-NeuralNetwork::NeuralNetwork(const Genome& genome):
-	parameters(genome.GetTrainingParameters()),
-	genome(genome),
-	inputNeurons(genome.GetTrainingParameters().numberOfInputs),
-	outputNeurons(genome.GetTrainingParameters().numberOfOutputs)
-{
-	MutateGenesAndBuildNetwork();
-}
-
-NeuralNetwork::NeuralNetwork(Genome&& genome):
+NeuralNetwork::NeuralNetwork(Genome genome, bool shouldMutate):
 	parameters(genome.GetTrainingParameters()),
 	genome(std::move(genome)),
 	inputNeurons(genome.GetTrainingParameters().numberOfInputs),
 	outputNeurons(genome.GetTrainingParameters().numberOfOutputs)
 {
-	MutateGenesAndBuildNetwork();
+	if (shouldMutate) {
+		MutateGenesAndBuildNetwork();
+	} else {
+		BuildNetworkFromGenes();
+	}
 }
 
 NeuralNetwork::NeuralNetwork(const NeuralNetwork& other) :
@@ -52,7 +51,6 @@ NeuralNetwork& NeuralNetwork::operator=(const NeuralNetwork& other) {
 	InterpretInputsAndOutputs();
 	return *this;
 }
-
 
 void NeuralNetwork::BuildNetworkFromGenes() {
 	neurons.resize(genome.GetNeuronCount());
@@ -139,12 +137,14 @@ void NeuralNetwork::AddRandomNeuron() {
 	Gene g1;
 	g1.from = randGene.from;
 	g1.to = indexOfNewNeuron;
-	g1.weight = randGene.weight;
+	g1.weight = 1.0f;
+	g1.isRecursive = randGene.isRecursive;
 
 	Gene g2;
 	g2.from = indexOfNewNeuron;
 	g2.to = randGene.to;
 	g2.weight = randGene.weight;
+	g2.isRecursive = randGene.isRecursive;
 
 	randGene.isEnabled = false;
 
@@ -166,17 +166,11 @@ void NeuralNetwork::AddRandomConnection() {
    
 	auto& fromNeuron = neurons[fromNeuronIndex];
 	auto& toNeuron = neurons[toNeuronIndex];
-	Neuron* lowerNeuron = nullptr;
-	Neuron* higherNeuron = nullptr;
 	Gene newConnectionGene;
 	if (fromNeuron.GetLayer() <= toNeuron.GetLayer()){
-		lowerNeuron = &fromNeuron;
-		higherNeuron = &toNeuron;
 		newConnectionGene.from = fromNeuronIndex;
 		newConnectionGene.to = toNeuronIndex;
 	} else {
-		lowerNeuron = &toNeuron;
-		higherNeuron = &fromNeuron;
 		newConnectionGene.from = toNeuronIndex;
 		newConnectionGene.to = fromNeuronIndex;
 		newConnectionGene.isRecursive = true;
@@ -184,11 +178,11 @@ void NeuralNetwork::AddRandomConnection() {
 	if (!genome.DoesContainGene(newConnectionGene)) {
 		Neuron::IncomingConnection newConnection;
 		newConnection.isRecursive = newConnectionGene.isRecursive;
-		newConnection.neuron = lowerNeuron;
+		newConnection.neuron = &fromNeuron;
 		newConnection.weight = newConnectionGene.weight;
 
 		genome.AppendGene(std::move(newConnectionGene));
-		higherNeuron->AddConnection(std::move(newConnection));
+		toNeuron.AddConnection(std::move(newConnection));
 		CategorizeNeuronsIntoLayers();
 	}
 }
@@ -204,8 +198,7 @@ void NeuralNetwork::ShuffleWeights() {
 void NeuralNetwork::MutateWeightOfGeneAt(size_t index) {
 	if (DidChanceOccure(parameters.advanced.mutation.chanceOfTotalWeightReset)) {
 		genome[index].SetRandomWeight();
-	} 
-	else {
+	} else {
 		PerturbWeightAt(index);
 	}
 }

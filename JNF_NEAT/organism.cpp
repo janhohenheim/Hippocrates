@@ -50,7 +50,7 @@ NeuralNetwork Organism::BreedWith(Organism& partner)
 			childGenome[i].weight = partnerGenome[i].weight;
 		}
 	}
-	NeuralNetwork child(std::move(childGenome));
+	NeuralNetwork child(std::move(childGenome), true);
 	// It may look ineffective to return this by value, accessing the copy constructor
 	// But don't worry, RVO will take care of this.
 	// If your compiler doesn't optimize this, I'd recommend using what you'd call an "out parameter" in C#
