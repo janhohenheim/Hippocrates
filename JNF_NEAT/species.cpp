@@ -1,6 +1,9 @@
 #include "species.h"
 #include <algorithm>
 
+using namespace JNF_NEAT;
+using namespace std;
+
 Species::Species(const Organism& representative) :
 parameters(representative.GetTrainingParameters()){
 	population.push_back(new Organism(representative));
@@ -9,7 +12,7 @@ parameters(representative.GetTrainingParameters()){
 
 Species::Species(Organism&& representative) :
     parameters(representative.GetTrainingParameters()) {
-	population.push_back(new Organism(std::move(representative)));
+	population.push_back(new Organism(move(representative)));
 	ElectRepresentative();
 }
 
@@ -21,7 +24,7 @@ Species::~Species() {
 }
 
 void Species::AddOrganism(Organism organism) {
-	population.push_back(new Organism(std::move(organism)));
+	population.push_back(new Organism(move(organism)));
 	ElectRepresentative();
 	isSortedByFitness = false;
     SetPopulationsFitnessModifier();
@@ -67,7 +70,7 @@ void Species::ElectRepresentative() {
 void Species::SelectRandomRepresentative() {
 	auto randomMember = rand() % population.size();
 	if (representative == nullptr) {
-		representative = std::make_unique<Organism>(*population[randomMember]);
+		representative = make_unique<Organism>(*population[randomMember]);
     } else {
         *representative = *population[randomMember];
     }
@@ -75,9 +78,8 @@ void Species::SelectRandomRepresentative() {
 
 void Species::SelectFittestOrganismAsRepresentative() {
 	if (representative == nullptr) {
-		representative = std::make_unique<Organism>(GetFittestOrganism());
-	}
-	else {
+		representative = make_unique<Organism>(GetFittestOrganism());
+	} else {
 		*representative = GetFittestOrganism();
 	}
 }
@@ -108,18 +110,18 @@ Organism& Species::GetFittestOrganism() {
 		auto CompareOrganisms = [&](Organism* lhs, Organism* rhs) {
 			return lhs->GetOrCalculateFitness() > rhs->GetOrCalculateFitness();
 		};
-		std::sort(population.begin(), population.end(), CompareOrganisms);
+		sort(population.begin(), population.end(), CompareOrganisms);
 		isSortedByFitness = true;
 	}
 	return *population.front();
 }
 
 Species& Species::operator=(Species&& other) {
-	population = std::move(other.population);
-	representative = std::move(other.representative);
-	isSortedByFitness = std::move(other.isSortedByFitness);
-	numberOfStagnantGenerations = std::move(other.numberOfStagnantGenerations);
-	fitnessHighscore = std::move(other.fitnessHighscore);
+	population = move(other.population);
+	representative = move(other.representative);
+	isSortedByFitness = move(other.isSortedByFitness);
+	numberOfStagnantGenerations = move(other.numberOfStagnantGenerations);
+	fitnessHighscore = move(other.fitnessHighscore);
 	return *this;
 }
 
@@ -139,6 +141,7 @@ Organism& Species::GetOrganismToBreed() {
 	auto GetChanceForOrganism = [&chance, &totalPopulationFitness](Organism& organism) {
 		return chance + (organism.GetOrCalculateFitness() / totalPopulationFitness);
 	};
+
     while (true) {
         for (auto* organism : population) {
             double randNum = (double)(rand() % 10'000) / 9'999.0;;

@@ -4,39 +4,43 @@
 #include "training_parameters.h"
 #include <vector>
 
-class Genome {
-	private:
-		const TrainingParameters& parameters;
-		std::vector<Gene> genes;
-		size_t neuronCount = 0U;
+namespace JNF_NEAT {
 
-	public:
-		Genome() = delete;
-		explicit Genome(const TrainingParameters& parameters);
-		Genome(const Genome& other) = default;
-		Genome(Genome&& other) = default;
-		~Genome() = default;
+	class Genome {
+		private:
+			const TrainingParameters& parameters;
+			std::vector<Gene> genes;
+			size_t neuronCount = 0U;
 
-		Genome& operator=(const Genome& other);
-		const Gene& operator[](std::size_t index) const { return GetGeneAt(index); }
-		Gene& operator[](std::size_t index) { return GetGeneAt(index); }
-		const Gene& GetGeneAt(std::size_t index) const { return genes[index]; }
-		Gene& GetGeneAt(std::size_t index) { return genes[index]; }
-		auto begin() { return genes.begin(); }
-		auto begin() const { return genes.begin(); }
-		auto end() { return genes.end(); }
-		auto end() const { return genes.end(); }
+		public:
+			Genome() = delete;
+			explicit Genome(const TrainingParameters& parameters);
+			Genome(const Genome& other) = default;
+			Genome(Genome&& other) = default;
+			~Genome() = default;
 
-		std::size_t GetNeuronCount() const { return neuronCount; };
-		std::size_t GetGeneCount() const;
+			Genome& operator=(const Genome& other);
+			const Gene& operator[](std::size_t index) const { return GetGeneAt(index); }
+			Gene& operator[](std::size_t index) { return GetGeneAt(index); }
+			const Gene& GetGeneAt(std::size_t index) const { return genes[index]; }
+			Gene& GetGeneAt(std::size_t index) { return genes[index]; }
+			auto begin() { return genes.begin(); }
+			auto begin() const { return genes.begin(); }
+			auto end() { return genes.end(); }
+			auto end() const { return genes.end(); }
 
-		void AppendGene(Gene gene) { AdjustNeuronCount(gene); genes.push_back(std::move(gene)); }
-		void InsertGeneAt(Gene gene, size_t index) { AdjustNeuronCount(gene); genes.insert(genes.begin() + index, std::move(gene)); }
+			std::size_t GetNeuronCount() const { return neuronCount; };
+			std::size_t GetGeneCount() const;
 
-		const TrainingParameters& GetTrainingParameters() const { return parameters; }
-		double GetGeneticalDistanceFrom(const Genome& other) const;
-		bool DoesContainGene(const Gene& gene) const;
+			void AppendGene(Gene gene) { AdjustNeuronCount(gene); genes.push_back(std::move(gene)); }
+			void InsertGeneAt(Gene gene, size_t index) { AdjustNeuronCount(gene); genes.insert(genes.begin() + index, std::move(gene)); }
 
-	private:
-		inline void AdjustNeuronCount(const Gene& gene){ if (gene.to + 1 > neuronCount) neuronCount = gene.to + 1; }
-};
+			const TrainingParameters& GetTrainingParameters() const { return parameters; }
+			double GetGeneticalDistanceFrom(const Genome& other) const;
+			bool DoesContainGene(const Gene& gene) const;
+
+		private:
+			inline void AdjustNeuronCount(const Gene& gene) { if (gene.to + 1 > neuronCount) neuronCount = gene.to + 1; }
+	};
+
+}

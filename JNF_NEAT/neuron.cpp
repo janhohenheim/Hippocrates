@@ -2,6 +2,9 @@
 #include <cmath>
 #include <stdexcept>
 
+using namespace JNF_NEAT;
+using namespace std;
+
 Neuron::Neuron(const Connections& connections) :
 connections(connections) {
 }
@@ -9,9 +12,9 @@ connections(connections) {
 void Neuron::AddConnection(IncomingConnection connection)
 {
     if (connection.neuron == this || connection.neuron == nullptr) {
-        throw std::invalid_argument("Invalid incomming connection");
+        throw invalid_argument("Invalid incomming connection");
     }
-    connections.push_back(std::move(connection));
+    connections.push_back(move(connection));
 }
 
 float Neuron::RequestDataAndGetActionPotential() {
