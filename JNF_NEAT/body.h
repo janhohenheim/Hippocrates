@@ -3,8 +3,7 @@
 
 namespace JNF_NEAT {
 
-	class IBody
-	{
+	class IBody	{
 		public:
 			virtual ~IBody() = default;
 
