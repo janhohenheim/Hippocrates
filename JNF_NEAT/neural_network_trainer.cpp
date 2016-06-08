@@ -156,6 +156,9 @@ Species& NeuralNetworkTrainer::SelectSpeciesToBreed() {
 	for (auto& s : species) {
 		totalSpeciesFitness += s.GetFittestOrganism().GetOrCalculateFitness();
 	}
+	if (totalSpeciesFitness == 0) {
+		return species[rand() % species.size()];
+	}
 	double chance = 0.0;
 	auto GetChanceForSpecies = [&chance, &totalSpeciesFitness](Species& species) {
 		return chance + (species.GetFittestOrganism().GetOrCalculateFitness() / totalSpeciesFitness);

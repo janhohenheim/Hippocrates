@@ -122,6 +122,9 @@ Organism& Species::GetOrganismToBreed() {
 	for (auto* organism : population) {
 		totalPopulationFitness += organism->GetOrCalculateFitness();
 	}
+	if (totalPopulationFitness == 0) {
+		return *population[rand() % population.size()];
+	}
 	double chance = 0.0;
 	auto GetChanceForOrganism = [&chance, &totalPopulationFitness](Organism& organism) {
 		return chance + (organism.GetOrCalculateFitness() / totalPopulationFitness);
