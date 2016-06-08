@@ -4,8 +4,7 @@
 using namespace JNF_NEAT;
 using namespace std;
 
-TrainedNeuralNetwork TrainedNeuralNetwork::LoadFromFile(const string& fileName)
-{
+TrainedNeuralNetwork TrainedNeuralNetwork::LoadFromFile(const string& fileName) {
 	// TODO jnf Implementation
 	unique_ptr<TrainingParameters> params (new TrainingParameters);
 	params->numberOfInputs = 2;
@@ -15,12 +14,11 @@ TrainedNeuralNetwork TrainedNeuralNetwork::LoadFromFile(const string& fileName)
 	return net;
 }
 
-void TrainedNeuralNetwork::SaveToFile(const string& fileName) const
-{
+void TrainedNeuralNetwork::SaveToFile(const string& fileName) const {
 	// TODO jnf Implementation
 }
 
-string TrainedNeuralNetwork::GetGenomeAsString() const{
+string TrainedNeuralNetwork::GetGenomeAsString() const {
 	string genomeString;
 	for (auto& gene : GetGenome()) {
 		genomeString +=

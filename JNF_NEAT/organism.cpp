@@ -11,15 +11,13 @@ Organism::Organism(IBody* trainer, NeuralNetwork&& network) :
 {
 }
 
-void Organism::Update()
-{
+void Organism::Update() {
 	network.SetInputs(trainer->ProvideNetworkWithInputs());
 	trainer->Update(network.GetOutputs());
 	isFitnessUpToDate = false;
 }
 
-double Organism::GetOrCalculateFitness()
-{
+double Organism::GetOrCalculateFitness() {
 	return GetOrCalculateRawFitness() * fitnessModifier;
 }
 
@@ -31,8 +29,7 @@ double Organism::GetOrCalculateRawFitness() {
 	return fitness;
 }
 
-NeuralNetwork Organism::BreedWith(Organism& partner)
-{
+NeuralNetwork Organism::BreedWith(Organism& partner) {
 	bool parentsHaveSameFitness = this->GetOrCalculateFitness() == partner.GetOrCalculateFitness();
 	Organism* dominantParent = nullptr;
 	if (parentsHaveSameFitness) {

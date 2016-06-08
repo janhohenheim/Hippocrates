@@ -5,7 +5,7 @@ using namespace JNF_NEAT;
 using namespace std;
 
 Species::Species(const Organism& representative) :
-parameters(representative.GetTrainingParameters()){
+parameters(representative.GetTrainingParameters()) {
 	population.push_back(new Organism(representative));
 	ElectRepresentative();
 }
