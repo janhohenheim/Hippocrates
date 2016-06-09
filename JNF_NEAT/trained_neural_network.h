@@ -4,7 +4,7 @@
 
 namespace JNF_NEAT {
 
-	class TrainedNeuralNetwork : private NeuralNetwork {
+	class TrainedNeuralNetwork : public NeuralNetwork {
 		public:
 			NeuralNetwork::NeuralNetwork;
 			static TrainedNeuralNetwork LoadFromFile(const std::string& fileName);
