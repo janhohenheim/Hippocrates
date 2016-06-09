@@ -12,8 +12,9 @@ Organism::Organism(IBody* trainer, NeuralNetwork&& network) :
 }
 
 void Organism::Update() {
-	network.SetInputs(trainer->ProvideNetworkWithInputs());
-	trainer->Update(network.GetOutputs());
+	const auto inputs( move(trainer->ProvideNetworkWithInputs()) );
+	const auto outputs( move(network.GetOutputsUsingInputs(inputs)) );
+	trainer->Update(outputs);
 	isFitnessUpToDate = false;
 }
 

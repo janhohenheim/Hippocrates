@@ -86,7 +86,7 @@ void NeuralNetworkTrainer::PrepareSpeciesForPopulation() {
 	DeleteStagnantSpecies();	
 }
 
-void NeuralNetworkTrainer::FillOrganismIntoSpecies(Organism organism) {
+void NeuralNetworkTrainer::FillOrganismIntoSpecies(const Organism& organism) {
     bool isCompatibleWithExistingSpecies = false;
     for (auto& currSpecies : species) {
         if (currSpecies.IsCompatible(organism.GetGenome())) {
@@ -96,10 +96,24 @@ void NeuralNetworkTrainer::FillOrganismIntoSpecies(Organism organism) {
         }
     }
     if (!isCompatibleWithExistingSpecies) {
-        Species newSpecies(move(organism));
+        Species newSpecies(organism);
         species.push_back(move(newSpecies));
-    }
-    
+    } 
+}
+
+void NeuralNetworkTrainer::FillOrganismIntoSpecies(Organism&& organism) {
+	bool isCompatibleWithExistingSpecies = false;
+	for (auto& currSpecies : species) {
+		if (currSpecies.IsCompatible(organism.GetGenome())) {
+			currSpecies.AddOrganism(move(organism));
+			isCompatibleWithExistingSpecies = true;
+			break;
+		}
+	}
+	if (!isCompatibleWithExistingSpecies) {
+		Species newSpecies(move(organism));
+		species.push_back(move(newSpecies));
+	}
 }
 
 void NeuralNetworkTrainer::AnalyzeAndClearSpeciesPopulation() {

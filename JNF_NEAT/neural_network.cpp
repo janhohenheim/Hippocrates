@@ -19,7 +19,20 @@ NeuralNetwork::NeuralNetwork(const TrainingParameters & parameters, bool shouldM
 	}
 }
 
-NeuralNetwork::NeuralNetwork(Genome genome, bool shouldMutate):
+NeuralNetwork::NeuralNetwork(const Genome& genome, bool shouldMutate):
+	parameters(genome.GetTrainingParameters()),
+	genome(genome),
+	inputNeurons(genome.GetTrainingParameters().numberOfInputs),
+	outputNeurons(genome.GetTrainingParameters().numberOfOutputs)
+{
+	if (shouldMutate) {
+		MutateGenesAndBuildNetwork();
+	} else {
+		BuildNetworkFromGenes();
+	}
+}
+
+NeuralNetwork::NeuralNetwork(Genome&& genome, bool shouldMutate) :
 	parameters(genome.GetTrainingParameters()),
 	genome(move(genome)),
 	inputNeurons(genome.GetTrainingParameters().numberOfInputs),
@@ -27,7 +40,8 @@ NeuralNetwork::NeuralNetwork(Genome genome, bool shouldMutate):
 {
 	if (shouldMutate) {
 		MutateGenesAndBuildNetwork();
-	} else {
+	}
+	else {
 		BuildNetworkFromGenes();
 	}
 }
@@ -92,7 +106,7 @@ vector<float> NeuralNetwork::GetOutputs() {
 	return outputs;
 }
 
-vector<float> NeuralNetwork::GetOutputs(const vector<float>& inputs) {
+vector<float> NeuralNetwork::GetOutputsUsingInputs(const vector<float>& inputs) {
 	SetInputs(inputs);
 	return GetOutputs();
 }

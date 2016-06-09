@@ -11,7 +11,7 @@ parameters(representative.GetTrainingParameters()) {
 }
 
 Species::Species(Organism&& representative) :
-    parameters(representative.GetTrainingParameters()) {
+parameters(representative.GetTrainingParameters()) {
 	population.push_back(new Organism(move(representative)));
 	ElectRepresentative();
 }
@@ -23,11 +23,18 @@ Species::~Species() {
     }
 }
 
-void Species::AddOrganism(Organism organism) {
-	population.push_back(new Organism(move(organism)));
+void Species::AddOrganism(const Organism& organism) {
+	population.push_back(new Organism(organism));
 	ElectRepresentative();
 	isSortedByFitness = false;
     SetPopulationsFitnessModifier();
+}
+
+void Species::AddOrganism(Organism&& organism) {
+	population.push_back(new Organism(move(organism)));
+	ElectRepresentative();
+	isSortedByFitness = false;
+	SetPopulationsFitnessModifier();
 }
 
 void Species::AnalyzeAndClearPopulation() {

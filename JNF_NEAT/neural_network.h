@@ -19,7 +19,8 @@ namespace JNF_NEAT {
 		public:
 			NeuralNetwork() = delete;
 			explicit NeuralNetwork(const TrainingParameters& parameters, bool shouldMutate = false);
-			explicit NeuralNetwork(Genome genome, bool shouldMutate = false);
+			explicit NeuralNetwork(const Genome& genome, bool shouldMutate = false);
+			explicit NeuralNetwork(Genome&& genome, bool shouldMutate = false);
 			NeuralNetwork(const NeuralNetwork& other);
 			NeuralNetwork(NeuralNetwork&& other) = default;
 			~NeuralNetwork() = default;
@@ -27,13 +28,12 @@ namespace JNF_NEAT {
 			NeuralNetwork& operator= (const NeuralNetwork& other);
 			NeuralNetwork& operator= (NeuralNetwork&& other) = default;
 			const Genome& GetGenome() const { return genome; }
-
-			void SetInputs(const std::vector<float>& inputs);
-			std::vector<float> GetOutputs();
-			std::vector<float> GetOutputs(const std::vector<float>& inputs);
+			std::vector<float> GetOutputsUsingInputs(const std::vector<float>& inputs);
 			const TrainingParameters& GetTrainingParameters() const { return parameters; }
 
 		private:
+			void SetInputs(const std::vector<float>& inputs);
+			std::vector<float> GetOutputs();
 			void MutateGenesAndBuildNetwork();
 			static bool DidChanceOccure(float chance);
 			static size_t GetRandomNumberBetween(size_t min, size_t max);

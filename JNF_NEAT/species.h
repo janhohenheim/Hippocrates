@@ -9,7 +9,7 @@ namespace JNF_NEAT {
 	class Species {
 		private:
 			std::vector<Organism*> population;
-			std::unique_ptr<Organism> representative = nullptr;
+			std::unique_ptr<Organism> representative;
 			bool isSortedByFitness = false;
 			size_t numberOfStagnantGenerations = 0;
 			size_t fitnessHighscore = 0;
@@ -24,7 +24,8 @@ namespace JNF_NEAT {
 
 			Species& operator=(Species&& other);
 
-			void AddOrganism(Organism organism);
+			void AddOrganism(const Organism& organism);
+			void AddOrganism(Organism&& organism);
 			void AnalyzeAndClearPopulation();
 
 			bool IsCompatible(const Genome& genome) const;

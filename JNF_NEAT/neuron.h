@@ -3,8 +3,9 @@
 #include <unordered_map>
 
 namespace JNF_NEAT {
-
+	class NeuralNetwork;
 	class Neuron {
+		friend NeuralNetwork;
 		public:
 			struct IncomingConnection {
 				Neuron* neuron = nullptr;
@@ -24,14 +25,13 @@ namespace JNF_NEAT {
 			~Neuron() = default;
 
 			void SetInput(float input);
-			void AddConnection(IncomingConnection connection);
 			const Connections& GetConnections() const { return connections; }
-			Connections& GetConnections() { return connections; }
 			float RequestDataAndGetActionPotential();
 			size_t GetLayer() const { return layer; }
-			void SetLayer(size_t layer);
 
 		private:
+			void AddConnection(IncomingConnection connection);
+			void SetLayer(size_t layer);
 			static float sigmoid(float d);
 	};
 
