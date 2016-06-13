@@ -12,7 +12,7 @@ namespace JNF_NEAT {
 			std::unique_ptr<Organism> representative;
 			bool isSortedByFitness = false;
 			size_t numberOfStagnantGenerations = 0;
-			size_t fitnessHighscore = 0;
+			double fitnessHighscore = 0;
 			const TrainingParameters& parameters;
 
 		public:
