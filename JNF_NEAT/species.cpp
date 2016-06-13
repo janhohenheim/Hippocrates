@@ -1,5 +1,6 @@
 #include "species.h"
 #include <algorithm>
+#include <cstdlib>
 
 using namespace JNF_NEAT;
 using namespace std;
@@ -89,11 +90,6 @@ void Species::SelectFittestOrganismAsRepresentative() {
 	} else {
 		*representative = GetFittestOrganism();
 	}
-}
-
-template <class T>
-constexpr bool Species::IsAboveCompatibilityThreshold(T t) const {
-	return t > representative->GetTrainingParameters().advanced.speciation.compatibilityThreshold;
 }
 
 void Species::LetPopulationLive() {

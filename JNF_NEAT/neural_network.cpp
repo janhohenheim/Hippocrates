@@ -1,7 +1,5 @@
 #include "neural_network.h"
-#include <cmath>
-#include <algorithm>
-#include <map>
+#include <cstdlib>
 
 using namespace JNF_NEAT;
 using namespace std;
@@ -279,7 +277,8 @@ void NeuralNetwork::CategorizeNeuronBranchIntoLayers(Neuron& currNode) {
 
 Gene& NeuralNetwork::GetRandomEnabledGene() {
 	size_t num = rand() % genome.GetGeneCount();
-	auto& randGene = genome.begin() + num;
+	auto randGene = genome.begin();
+	randGene += num;
 	while (randGene != genome.end() && !randGene->isEnabled) {
 		++randGene;
 	}
@@ -290,7 +289,7 @@ Gene& NeuralNetwork::GetRandomEnabledGene() {
 		}
 	}
 	if (!randGene->isEnabled) {
-		throw exception("Could not insert neuron because every gene is disabled");
+        throw runtime_error("Could not insert neuron because every gene is disabled");
 	}
 	return *randGene;
 }

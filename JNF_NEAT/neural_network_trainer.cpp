@@ -2,6 +2,7 @@
 #include <stdexcept>
 #include "neural_network_trainer.h"
 #include <algorithm>
+#include <cstdlib>
 
 using namespace JNF_NEAT;
 using namespace std;

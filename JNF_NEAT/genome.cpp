@@ -1,5 +1,5 @@
+#include <cmath>
 #include "genome.h"
-#include <algorithm>
 
 using namespace JNF_NEAT;
 using namespace std;

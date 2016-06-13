@@ -1,6 +1,7 @@
 #pragma once
 #include <cstddef>
 #include <unordered_map>
+#include <vector>
 
 namespace JNF_NEAT {
 	class NeuralNetwork;

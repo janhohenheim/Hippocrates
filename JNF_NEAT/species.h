@@ -42,8 +42,10 @@ namespace JNF_NEAT {
 			void SelectRandomRepresentative();
 			void SelectFittestOrganismAsRepresentative();
 
-			template<class T>
-			constexpr bool IsAboveCompatibilityThreshold(T t) const;
+            template <class T>
+            inline constexpr bool IsAboveCompatibilityThreshold(T t) const {
+                return t > representative->GetTrainingParameters().advanced.speciation.compatibilityThreshold;
+            };
 	};
 
 }
