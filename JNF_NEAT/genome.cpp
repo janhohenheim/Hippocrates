@@ -1,5 +1,9 @@
+#include <cmath>
 #include "genome.h"
 #include <algorithm>
+
+using namespace JNF_NEAT;
+using namespace std;
 
 Genome::Genome(const TrainingParameters& parameters) :
     parameters(parameters),
@@ -16,7 +20,7 @@ Genome::Genome(const TrainingParameters& parameters) :
 	}
 }
 
-std::size_t Genome::GetGeneCount() const {
+size_t Genome::GetGeneCount() const {
 	return genes.size();
 }
 
@@ -32,18 +36,18 @@ double Genome::GetGeneticalDistanceFrom(const Genome& other) const {
 	double totalWeightDifference = 0.0;
 	size_t numberOfOverlapingGenes = 0;
 
-	size_t sizeOfSmallerGenome = std::min(this->GetGeneCount(), other.GetGeneCount());
+	size_t sizeOfSmallerGenome = min(this->GetGeneCount(), other.GetGeneCount());
 	auto IsHistoricalMarkingSameAt = [&](size_t i) {
 		return this->GetGeneAt(i).historicalMarking == other[i].historicalMarking;
 	};
 
 	for (size_t i = 0; i < sizeOfSmallerGenome && IsHistoricalMarkingSameAt(i); ++i) {
-		totalWeightDifference += (double)std::abs(this->GetGeneAt(i).weight - other[i].weight);
+		totalWeightDifference += (double)abs(this->GetGeneAt(i).weight - other[i].weight);
 		++numberOfOverlapingGenes;
 	}
 
 	auto numberOfDisjointGenes = this->GetGeneCount() + other.GetGeneCount() - (size_t)2 * numberOfOverlapingGenes;
-	auto sizeOfBiggerGenome = std::max(this->GetGeneCount(), other.GetGeneCount());
+	auto sizeOfBiggerGenome = max(this->GetGeneCount(), other.GetGeneCount());
     // TODO jnf: Think how we'll handle the next line
 	auto disjointGenesInfluence = (double)numberOfDisjointGenes /* / (double)sizeOfBiggerGenome*/;
 

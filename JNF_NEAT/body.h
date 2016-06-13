@@ -1,14 +1,17 @@
 #pragma once
 #include <vector>
 
-class IBody
-{
-	public:
-		virtual ~IBody() = default;
+namespace JNF_NEAT {
 
-		virtual void Reset() = 0;
-		virtual void Update(const std::vector<float>& networkOutputs) = 0;
-		virtual double GetFitness() const = 0;
+	class IBody	{
+		public:
+			virtual ~IBody() = default;
 
-		virtual std::vector<float> ProvideNetworkWithInputs() const = 0;
-};
+			virtual void Reset() = 0;
+			virtual void Update(const std::vector<float>& networkOutputs) = 0;
+			virtual double GetFitness() const = 0;
+
+			virtual std::vector<float> ProvideNetworkWithInputs() const = 0;
+	};
+
+}

@@ -4,30 +4,34 @@
 #include "training_parameters.h"
 #include "genome.h"
 
-class Organism {
-	private:
-		IBody* trainer = nullptr;
-		NeuralNetwork network;
-		double fitness = 0.0;
-		double fitnessModifier = 1.0;
-		bool isFitnessUpToDate = false;
+namespace JNF_NEAT {
 
-	public:
-		Organism(IBody* trainer, NeuralNetwork&& network);
-		Organism(IBody* trainer, const NeuralNetwork&& network) = delete;
-		Organism(const Organism& other) = default;
-		Organism(Organism&& other) = default;
-		~Organism() = default;
+	class Organism {
+		private:
+			IBody* trainer = nullptr;
+			NeuralNetwork network;
+			double fitness = 0.0;
+			double fitnessModifier = 1.0;
+			bool isFitnessUpToDate = false;
 
-		Organism& operator=(const Organism& other) = default;
+		public:
+			Organism(IBody* trainer, NeuralNetwork&& network);
+			Organism(IBody* trainer, const NeuralNetwork&& network) = delete;
+			Organism(const Organism& other) = default;
+			Organism(Organism&& other) = default;
+			~Organism() = default;
 
-		void Reset() { trainer->Reset(); }
-		void Update();
-		void SetFitnessModifier(double factor) {fitnessModifier = factor;}
-        double GetOrCalculateFitness();
-		double GetOrCalculateRawFitness();
-		NeuralNetwork BreedWith(Organism& partner);
-		const Genome& GetGenome() const { return network.GetGenome(); }
-		const NeuralNetwork & GetNetwork() const {return network; }
-        const TrainingParameters& GetTrainingParameters() const { return network.GetTrainingParameters(); }
-};
+			Organism& operator=(const Organism& other) = default;
+
+			void Reset() { trainer->Reset(); }
+			void Update();
+			void SetFitnessModifier(double factor) { fitnessModifier = factor; }
+			double GetOrCalculateFitness();
+			double GetOrCalculateRawFitness();
+			NeuralNetwork BreedWith(Organism& partner);
+			const Genome& GetGenome() const { return network.GetGenome(); }
+			const NeuralNetwork & GetNetwork() const { return network; }
+			const TrainingParameters& GetTrainingParameters() const { return network.GetTrainingParameters(); }
+	};
+
+}

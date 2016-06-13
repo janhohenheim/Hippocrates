@@ -2,21 +2,23 @@
 #include <algorithm>
 #include "organism.h"
 
+using namespace JNF_NEAT;
+using namespace std;
+
 Organism::Organism(IBody* trainer, NeuralNetwork&& network) :
 	trainer(trainer),
-	network(std::move(network))
+	network(move(network))
 {
 }
 
-void Organism::Update()
-{
-	network.SetInputs(trainer->ProvideNetworkWithInputs());
-	trainer->Update(network.GetOutputs());
+void Organism::Update() {
+	const auto inputs( move(trainer->ProvideNetworkWithInputs()) );
+	const auto outputs( move(network.GetOutputsUsingInputs(inputs)) );
+	trainer->Update(outputs);
 	isFitnessUpToDate = false;
 }
 
-double Organism::GetOrCalculateFitness()
-{
+double Organism::GetOrCalculateFitness() {
 	return GetOrCalculateRawFitness() * fitnessModifier;
 }
 
@@ -28,8 +30,7 @@ double Organism::GetOrCalculateRawFitness() {
 	return fitness;
 }
 
-NeuralNetwork Organism::BreedWith(Organism& partner)
-{
+NeuralNetwork Organism::BreedWith(Organism& partner) {
 	bool parentsHaveSameFitness = this->GetOrCalculateFitness() == partner.GetOrCalculateFitness();
 	Organism* dominantParent = nullptr;
 	if (parentsHaveSameFitness) {
@@ -40,7 +41,7 @@ NeuralNetwork Organism::BreedWith(Organism& partner)
 	}
 	Genome childGenome(dominantParent->GetGenome());
 
-	size_t sizeOfSmallerParent = std::min(this->GetGenome().GetGeneCount(), partner.GetGenome().GetGeneCount());
+	size_t sizeOfSmallerParent = min(this->GetGenome().GetGeneCount(), partner.GetGenome().GetGeneCount());
 	auto & partnerGenome = partner.GetGenome();
 	auto AreMarkingsSameAt = [&](size_t i) {
 		return childGenome[i].historicalMarking == partnerGenome[i].historicalMarking;
@@ -50,7 +51,7 @@ NeuralNetwork Organism::BreedWith(Organism& partner)
 			childGenome[i].weight = partnerGenome[i].weight;
 		}
 	}
-	NeuralNetwork child(std::move(childGenome), true);
+	NeuralNetwork child(move(childGenome), true);
 	// It may look ineffective to return this by value, accessing the copy constructor
 	// But don't worry, RVO will take care of this.
 	// If your compiler doesn't optimize this, I'd recommend using what you'd call an "out parameter" in C#

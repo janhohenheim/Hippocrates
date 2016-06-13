@@ -9,38 +9,43 @@
 #include <vector>
 #include <list>
 
-class NeuralNetworkTrainer {
-	private:
-		std::vector<Species> species;
-		TrainingParameters parameters;
-		size_t populationSize = 0U;
-		std::vector<IBody *>& bodies;
+namespace JNF_NEAT {
 
-	public:
-		NeuralNetworkTrainer() = delete;
-		NeuralNetworkTrainer(std::vector<IBody*>& population, const TrainingParameters& parameters);
-		NeuralNetworkTrainer(std::vector<IBody*>& population, TrainingParameters&& parameters);
-		NeuralNetworkTrainer(const NeuralNetworkTrainer& other) = default;
+	class NeuralNetworkTrainer {
+		private:
+			std::vector<Species> species;
+			TrainingParameters parameters;
+			size_t populationSize = 0U;
+			std::vector<IBody *>& bodies;
 
-		~NeuralNetworkTrainer() = default;
+		public:
+			NeuralNetworkTrainer() = delete;
+			NeuralNetworkTrainer(std::vector<IBody*>& population, const TrainingParameters& parameters);
+			NeuralNetworkTrainer(std::vector<IBody*>& population, TrainingParameters&& parameters);
+			NeuralNetworkTrainer(const NeuralNetworkTrainer& other) = default;
 
-		void TrainUntilFitnessEquals(double fitnessToReach);
-		void TrainUntilGenerationEquals(unsigned int generationsToTrain);
+			~NeuralNetworkTrainer() = default;
 
-		TrainedNeuralNetwork GetTrainedNeuralNetwork();
+			void TrainUntilFitnessEquals(double fitnessToReach);
+			void TrainUntilGenerationEquals(unsigned int generationsToTrain);
 
-	private:
-		void SetBodies(std::vector<IBody*>& bodies);
-		
-		void ResetPopulationToTeachableState();
-		void Repopulate();
-		void LetGenerationLive();
-        void PrepareSpeciesForPopulation();
-        void FillOrganismIntoSpecies(Organism organism);
-		void AnalyzeAndClearSpeciesPopulation();
-		void DeleteStagnantSpecies();
-        void DeleteEmptySpecies();
+			TrainedNeuralNetwork GetTrainedNeuralNetwork();
 
-		Species &SelectSpeciesToBreed();
-		Organism& GetFittestOrganism();
-};
+		private:
+			void SetBodies(std::vector<IBody*>& bodies);
+
+			void ResetPopulationToTeachableState();
+			void Repopulate();
+			void LetGenerationLive();
+			void PrepareSpeciesForPopulation();
+			void FillOrganismIntoSpecies(const Organism& organism);
+			void FillOrganismIntoSpecies(Organism&& organism);
+			void AnalyzeAndClearSpeciesPopulation();
+			void DeleteStagnantSpecies();
+			void DeleteEmptySpecies();
+
+			Species& SelectSpeciesToBreed();
+			Organism& GetFittestOrganism();
+	};
+
+}

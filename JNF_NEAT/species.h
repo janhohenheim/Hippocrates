@@ -4,41 +4,48 @@
 #include <memory>
 #include <functional>
 
-class Species {
-	private:
-		std::vector<Organism*> population;
-        std::unique_ptr<Organism> representative = nullptr;
-		bool isSortedByFitness = false;
-        size_t numberOfStagnantGenerations = 0;
-		size_t fitnessHighscore = 0;
-        const TrainingParameters& parameters;
+namespace JNF_NEAT {
 
-	public:
-		Species(const Organism& representative);
-		Species(Organism&& representative);
-		Species(const Species& other) = default;
-		Species(Species&& other) = default;
-		~Species();
+	class Species {
+		private:
+			std::vector<Organism*> population;
+			std::unique_ptr<Organism> representative;
+			bool isSortedByFitness = false;
+			size_t numberOfStagnantGenerations = 0;
+			double fitnessHighscore = 0;
+			const TrainingParameters& parameters;
 
-		Species& operator=(Species&& other);
+		public:
+			Species(const Organism& representative);
+			Species(Organism&& representative);
+			Species(const Species& other) = default;
+			Species(Species&& other) = default;
+			~Species();
 
-		void AddOrganism(Organism organism);
-        void AnalyzeAndClearPopulation();
+			Species& operator=(Species&& other);
 
-		bool IsCompatible(const Genome& genome) const;
-		bool IsEmpty() const { return population.empty(); }
-        bool IsStagnant() const { return (numberOfStagnantGenerations >= parameters.advanced.speciation.stagnantSpeciesClearThreshold); }
-		void LetPopulationLive();
-		void ResetToTeachableState();
-		Organism& GetFittestOrganism();
-		void SetPopulationsFitnessModifier();
-		Organism& GetOrganismToBreed();
+			void AddOrganism(const Organism& organism);
+			void AddOrganism(Organism&& organism);
+			void AnalyzeAndClearPopulation();
 
-private:
-		void ElectRepresentative();
-		void SelectRandomRepresentative();
-		void SelectFittestOrganismAsRepresentative();
+			bool IsCompatible(const Genome& genome) const;
+			bool IsEmpty() const { return population.empty(); }
+			bool IsStagnant() const { return (numberOfStagnantGenerations >= parameters.advanced.speciation.stagnantSpeciesClearThreshold); }
+			void LetPopulationLive();
+			void ResetToTeachableState();
+			Organism& GetFittestOrganism();
+			void SetPopulationsFitnessModifier();
+			Organism& GetOrganismToBreed();
 
-		template<class T>
-		constexpr bool IsAboveCompatibilityThreshold(T t) const;
-};
+		private:
+			void ElectRepresentative();
+			void SelectRandomRepresentative();
+			void SelectFittestOrganismAsRepresentative();
+
+            template <class T>
+            inline constexpr bool IsAboveCompatibilityThreshold(T t) const {
+                return t > representative->GetTrainingParameters().advanced.speciation.compatibilityThreshold;
+            };
+	};
+
+}

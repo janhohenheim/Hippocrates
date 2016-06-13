@@ -1,6 +1,9 @@
 #include "gene.h"
 #include <stdlib.h>
 
+using namespace JNF_NEAT;
+using namespace std;
+
 size_t Gene::numberOfExistingGenes = 0U;
 
 Gene::Gene() {

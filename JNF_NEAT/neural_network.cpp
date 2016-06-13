@@ -1,8 +1,8 @@
 #include "neural_network.h"
-#include <cmath>
-#include <algorithm>
-#include <map>
+#include <cstdlib>
 
+using namespace JNF_NEAT;
+using namespace std;
 
 NeuralNetwork::NeuralNetwork(const TrainingParameters & parameters, bool shouldMutate):
 	parameters(parameters),
@@ -17,15 +17,29 @@ NeuralNetwork::NeuralNetwork(const TrainingParameters & parameters, bool shouldM
 	}
 }
 
-NeuralNetwork::NeuralNetwork(Genome genome, bool shouldMutate):
+NeuralNetwork::NeuralNetwork(const Genome& genome, bool shouldMutate):
 	parameters(genome.GetTrainingParameters()),
-	genome(std::move(genome)),
+	genome(genome),
 	inputNeurons(genome.GetTrainingParameters().numberOfInputs),
 	outputNeurons(genome.GetTrainingParameters().numberOfOutputs)
 {
 	if (shouldMutate) {
 		MutateGenesAndBuildNetwork();
 	} else {
+		BuildNetworkFromGenes();
+	}
+}
+
+NeuralNetwork::NeuralNetwork(Genome&& genome, bool shouldMutate) :
+	parameters(genome.GetTrainingParameters()),
+	genome(move(genome)),
+	inputNeurons(genome.GetTrainingParameters().numberOfInputs),
+	outputNeurons(genome.GetTrainingParameters().numberOfOutputs)
+{
+	if (shouldMutate) {
+		MutateGenesAndBuildNetwork();
+	}
+	else {
 		BuildNetworkFromGenes();
 	}
 }
@@ -60,29 +74,29 @@ void NeuralNetwork::BuildNetworkFromGenes() {
 			connection.neuron = &neurons[gene.from];
 			connection.weight = gene.weight;
 			connection.isRecursive = gene.isRecursive;
-			neurons[gene.to].AddConnection(std::move(connection));
+			neurons[gene.to].AddConnection(move(connection));
 		}
 	}
 	InterpretInputsAndOutputs();
 	CategorizeNeuronsIntoLayers();
 }
 
-void NeuralNetwork::SetInputs(const std::vector<float>& inputs) {
+void NeuralNetwork::SetInputs(const vector<float>& inputs) {
 	if (inputNeurons.size() != inputs.size()) {
-		throw std::out_of_range("Number of inputs provided doesn't match genetic information");
+		throw out_of_range("Number of inputs provided doesn't match genetic information");
 	}
 	for(size_t i = 0U; i < inputNeurons.size(); ++i) {
 		inputNeurons[i]->SetInput(inputs[i]);
 	};
 }
 
-std::vector<float> NeuralNetwork::GetOutputs() {
+vector<float> NeuralNetwork::GetOutputs() {
 	for (size_t i = 1; i < layerMap.size() - 1; ++i) {
 		for (auto& neuron : layerMap[i]){
 			neuron->RequestDataAndGetActionPotential();
 		}
 	}
-	std::vector<float> outputs;
+	vector<float> outputs;
 	outputs.reserve(outputNeurons.size());
 	for(auto& outputNeuron : outputNeurons) {
 		outputs.push_back(outputNeuron->RequestDataAndGetActionPotential());
@@ -90,7 +104,7 @@ std::vector<float> NeuralNetwork::GetOutputs() {
 	return outputs;
 }
 
-std::vector<float> NeuralNetwork::GetOutputs(const std::vector<float>& inputs) {
+vector<float> NeuralNetwork::GetOutputsUsingInputs(const vector<float>& inputs) {
 	SetInputs(inputs);
 	return GetOutputs();
 }
@@ -148,8 +162,8 @@ void NeuralNetwork::AddRandomNeuron() {
 
 	randGene.isEnabled = false;
 
-	genome.AppendGene(std::move(g1));
-	genome.AppendGene(std::move(g2));
+	genome.AppendGene(move(g1));
+	genome.AppendGene(move(g2));
 }
 
 void NeuralNetwork::AddRandomConnection() {
@@ -181,8 +195,8 @@ void NeuralNetwork::AddRandomConnection() {
 		newConnection.neuron = &fromNeuron;
 		newConnection.weight = newConnectionGene.weight;
 
-		genome.AppendGene(std::move(newConnectionGene));
-		toNeuron.AddConnection(std::move(newConnection));
+		genome.AppendGene(move(newConnectionGene));
+		toNeuron.AddConnection(move(newConnection));
 		CategorizeNeuronsIntoLayers();
 	}
 }
@@ -263,7 +277,8 @@ void NeuralNetwork::CategorizeNeuronBranchIntoLayers(Neuron& currNode) {
 
 Gene& NeuralNetwork::GetRandomEnabledGene() {
 	size_t num = rand() % genome.GetGeneCount();
-	auto& randGene = genome.begin() + num;
+	auto randGene = genome.begin();
+	randGene += num;
 	while (randGene != genome.end() && !randGene->isEnabled) {
 		++randGene;
 	}
@@ -274,7 +289,7 @@ Gene& NeuralNetwork::GetRandomEnabledGene() {
 		}
 	}
 	if (!randGene->isEnabled) {
-		throw std::exception("Could not insert neuron because every gene is disabled");
+        throw runtime_error("Could not insert neuron because every gene is disabled");
 	}
 	return *randGene;
 }
