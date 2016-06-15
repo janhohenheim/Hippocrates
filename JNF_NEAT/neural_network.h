@@ -45,6 +45,8 @@ namespace JNF_NEAT {
 			void AddRandomNeuron();
 			void AddRandomConnection();
             std::pair<Neuron*, Neuron*> GetTwoUnconnectedNeurons();
+			bool CanNeuronsBeConnected(const Neuron& lhs, const Neuron& rhs) const;
+			bool AreNeuronsConnected(const Neuron& lhs, const Neuron& rhs) const;
 			void ShuffleWeights();
 			void MutateWeightOfGeneAt(std::size_t index);
 			void PerturbWeightAt(std::size_t index);

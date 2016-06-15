@@ -51,7 +51,7 @@ NeuralNetwork::NeuralNetwork(const NeuralNetwork& other) :
 	neurons(other.neurons.size()),
 	inputNeurons(other.inputNeurons.size()),
 	outputNeurons(other.outputNeurons.size()),
-    layerMap(other.layerMap)
+	layerMap(other.layerMap)
 {
 	BuildNetworkFromGenes();
 }
@@ -169,66 +169,71 @@ void NeuralNetwork::AddRandomNeuron() {
 }
 
 void NeuralNetwork::AddRandomConnection() {
-    // Data
-    auto NeuronPair(GetTwoUnconnectedNeurons());
-    auto& fromNeuron = *NeuronPair.first;
-    auto& toNeuron = *NeuronPair.second;
+	// Data
+	auto NeuronPair(GetTwoUnconnectedNeurons());
+	auto& fromNeuron = *NeuronPair.first;
+	auto& toNeuron = *NeuronPair.second;
 
-    // Gene
-    Gene newConnectionGene;
-    while (&neurons[newConnectionGene.from] != &fromNeuron) {
-        newConnectionGene.from++;
-    }
-    while (&neurons[newConnectionGene.to] != &toNeuron) {
-        newConnectionGene.to++;
-    }
-    if (fromNeuron.GetLayer() > toNeuron.GetLayer()) {
-        swap(newConnectionGene.from, newConnectionGene.to);
-        newConnectionGene.isRecursive = true;
-    }
+	// Gene
+	Gene newConnectionGene;
+	while (&neurons[newConnectionGene.from] != &fromNeuron) {
+		newConnectionGene.from++;
+	}
+	while (&neurons[newConnectionGene.to] != &toNeuron) {
+		newConnectionGene.to++;
+	}
+	if (fromNeuron.GetLayer() > toNeuron.GetLayer()) {
+		swap(newConnectionGene.from, newConnectionGene.to);
+		newConnectionGene.isRecursive = true;
+	}
 
-    // Connection
-    Neuron::IncomingConnection newConnection;
-    newConnection.isRecursive = newConnectionGene.isRecursive;
-    newConnection.neuron = &fromNeuron;
-    newConnection.weight = newConnectionGene.weight;
+	// Connection
+	Neuron::IncomingConnection newConnection;
+	newConnection.isRecursive = newConnectionGene.isRecursive;
+	newConnection.neuron = &fromNeuron;
+	newConnection.weight = newConnectionGene.weight;
 
-    genome.AppendGene(move(newConnectionGene));
-    toNeuron.AddConnection(move(newConnection));
-    CategorizeNeuronsIntoLayers();
-
+	genome.AppendGene(move(newConnectionGene));
+	toNeuron.AddConnection(move(newConnection));
+	CategorizeNeuronsIntoLayers();
 }
 
 pair<Neuron*, Neuron*> NeuralNetwork::GetTwoUnconnectedNeurons() {
-    vector<Neuron*> possibleFromNeurons;
-    possibleFromNeurons.reserve(neurons.size());
-    for (auto& n : neurons) {
-        possibleFromNeurons.push_back(&n);
-    }
-    random_shuffle(possibleFromNeurons.begin(), possibleFromNeurons.end());
-    vector<Neuron*> possibleToNeurons(possibleFromNeurons);
-    random_shuffle(possibleToNeurons.begin(), possibleToNeurons.end());
+	vector<Neuron*> possibleFromNeurons;
+	possibleFromNeurons.reserve(neurons.size());
+	for (auto& n : neurons) {
+		possibleFromNeurons.push_back(&n);
+	}
+	auto inputRange = parameters.numberOfInputs + parameters.advanced.structure.numberOfBiasNeurons;
+	vector<Neuron*> possibleToNeurons(possibleFromNeurons.begin() + inputRange, possibleFromNeurons.end());
+	
+	random_shuffle(possibleFromNeurons.begin(), possibleFromNeurons.end());
+	random_shuffle(possibleToNeurons.begin(), possibleToNeurons.end());
 
-    for (auto* f : possibleFromNeurons) {
-        for (auto* t : possibleToNeurons) {
-            bool areAlreadyConnected = false;
-            if (f == t) {
-                areAlreadyConnected = true;
-            } else {
-                for (auto& c : t->GetConnections()) {
-                    if (f == c.neuron) {
-                        areAlreadyConnected = true;
-                        break;
-                    }
-                }
-            }
-            if (!areAlreadyConnected) {
-                return make_pair<Neuron*, Neuron*>(move(f), move(t));
-            }
-        }
-    }
 
-    throw runtime_error("Tried to get two unconnected Neurons while every neuron is already connected");
+	for (auto* from : possibleFromNeurons) {
+		for (auto* to : possibleToNeurons) {
+			if (CanNeuronsBeConnected(*from, *to)) {
+				return {from, to};
+			}
+		}
+	}
+
+	throw runtime_error("Tried to get two unconnected Neurons while every neuron is already connected");
+}
+
+bool JNF_NEAT::NeuralNetwork::CanNeuronsBeConnected(const Neuron & lhs, const Neuron & rhs) const {
+	bool AreNeuronsTheSame = &lhs == &rhs;
+	return (!AreNeuronsTheSame && !AreNeuronsConnected(lhs, rhs));
+}
+
+bool NeuralNetwork::AreNeuronsConnected(const Neuron& lhs,const Neuron & rhs) const {
+	for (auto& connection : rhs.GetConnections()) {
+		if (&lhs == connection.neuron) {
+			return true;
+		}
+	}
+	return false;
 }
 
 void NeuralNetwork::ShuffleWeights() {
@@ -319,7 +324,7 @@ Gene& NeuralNetwork::GetRandomEnabledGene() {
 		}
 	}
 	if (!randGene->isEnabled) {
-        throw runtime_error("Could not insert neuron because every gene is disabled");
+		throw runtime_error("Could not insert neuron because every gene is disabled");
 	}
 	return *randGene;
 }
