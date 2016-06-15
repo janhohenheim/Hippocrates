@@ -73,9 +73,9 @@ void NeuralNetwork::BuildNetworkFromGenes() {
 	for (const auto& gene : genome) {
 		if (gene.isEnabled) {
 			Neuron::IncomingConnection connection;
-			connection.neuron = &neurons[gene.from];
 			connection.weight = gene.weight;
 			connection.isRecursive = gene.isRecursive;
+			connection.neuron = &neurons[gene.from];
 			neurons[gene.to].AddConnection(move(connection));
 		}
 	}
@@ -130,7 +130,8 @@ void NeuralNetwork::InterpretInputsAndOutputs() {
 
 bool NeuralNetwork::ShouldAddConnection() const {
 	const bool hasChanceOccured = DidChanceOccure(parameters.advanced.mutation.chanceForConnectionalMutation);
-	const bool hasSpaceForNewConnections = GetGenome().GetNeuronCount() > (parameters.numberOfInputs + parameters.numberOfOutputs + parameters.advanced.structure.numberOfBiasNeurons);
+	// TODO jnf: Come up with some dank math
+	const bool hasSpaceForNewConnections = true;
 	return hasChanceOccured && hasSpaceForNewConnections;
 }
 
@@ -183,7 +184,6 @@ void NeuralNetwork::AddRandomConnection() {
 		newConnectionGene.to++;
 	}
 	if (fromNeuron.GetLayer() > toNeuron.GetLayer()) {
-		swap(newConnectionGene.from, newConnectionGene.to);
 		newConnectionGene.isRecursive = true;
 	}
 
@@ -286,6 +286,7 @@ void NeuralNetwork::CategorizeNeuronsIntoLayers() {
 	for (auto* out : outputNeurons) {
 		CategorizeNeuronBranchIntoLayers(*out);
 	}
+
 	size_t highestLayer = 0U;
 	for (auto* out : outputNeurons) {
 		if (out->GetLayer() > highestLayer) {
@@ -303,7 +304,9 @@ void NeuralNetwork::CategorizeNeuronsIntoLayers() {
 
 void NeuralNetwork::CategorizeNeuronBranchIntoLayers(Neuron& currNode) {
 	for (auto &in : currNode.GetConnections()) {
-		if (!in.isRecursive) {
+		if (in.isRecursive) {
+			// TODO jnf: Cathegorize Recursive Neurons
+		} else {
 			CategorizeNeuronBranchIntoLayers(*in.neuron);
 			currNode.SetLayer(in.neuron->GetLayer() + 1);
 		}

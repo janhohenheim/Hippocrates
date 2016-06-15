@@ -26,7 +26,8 @@ string TrainedNeuralNetwork::GetGenomeAsString() const {
 			+ "\t	from: " + to_string(gene.from) + "\n"
 			+ "\t	to: " + to_string(gene.to) + "\n"
 			+ "\t	weight: " + to_string(gene.weight) + "\n"
-			+ "\t	is enabled: " + to_string(gene.isEnabled) + "\n\n";
+			+ "\t	is enabled: " + to_string(gene.isEnabled) + "\n";
+			+ "\t	is recursive: " + to_string(gene.isRecursive) + "\n\n";
 	}
 	return genomeString;
 }
