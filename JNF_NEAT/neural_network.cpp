@@ -1,5 +1,6 @@
 #include "neural_network.h"
 #include <cstdlib>
+#include <algorithm>
 
 using namespace JNF_NEAT;
 using namespace std;
@@ -49,7 +50,8 @@ NeuralNetwork::NeuralNetwork(const NeuralNetwork& other) :
 	genome(other.genome),
 	neurons(other.neurons.size()),
 	inputNeurons(other.inputNeurons.size()),
-	outputNeurons(other.outputNeurons.size())
+	outputNeurons(other.outputNeurons.size()),
+    layerMap(other.layerMap)
 {
 	BuildNetworkFromGenes();
 }
@@ -167,38 +169,66 @@ void NeuralNetwork::AddRandomNeuron() {
 }
 
 void NeuralNetwork::AddRandomConnection() {
-	size_t fromNeuronIndex = rand() % neurons.size();
-	auto inputRange = parameters.advanced.structure.numberOfBiasNeurons + parameters.numberOfInputs;
-	size_t toNeuronIndex = (rand() % (neurons.size() - inputRange)) + inputRange;
-	if (fromNeuronIndex == toNeuronIndex) {
-		if (fromNeuronIndex < (neurons.size() - 1)) {
-			fromNeuronIndex++;
-		} else {
-			fromNeuronIndex--;
-		}
-	}
-   
-	auto& fromNeuron = neurons[fromNeuronIndex];
-	auto& toNeuron = neurons[toNeuronIndex];
-	Gene newConnectionGene;
-	if (fromNeuron.GetLayer() <= toNeuron.GetLayer()){
-		newConnectionGene.from = fromNeuronIndex;
-		newConnectionGene.to = toNeuronIndex;
-	} else {
-		newConnectionGene.from = toNeuronIndex;
-		newConnectionGene.to = fromNeuronIndex;
-		newConnectionGene.isRecursive = true;
-	}
-	if (!genome.DoesContainGene(newConnectionGene)) {
-		Neuron::IncomingConnection newConnection;
-		newConnection.isRecursive = newConnectionGene.isRecursive;
-		newConnection.neuron = &fromNeuron;
-		newConnection.weight = newConnectionGene.weight;
+    // Data
+    auto NeuronPair(GetTwoUnconnectedNeurons());
+    auto& fromNeuron = *NeuronPair.first;
+    auto& toNeuron = *NeuronPair.second;
 
-		genome.AppendGene(move(newConnectionGene));
-		toNeuron.AddConnection(move(newConnection));
-		CategorizeNeuronsIntoLayers();
-	}
+    // Gene
+    Gene newConnectionGene;
+    while (&neurons[newConnectionGene.from] != &fromNeuron) {
+        newConnectionGene.from++;
+    }
+    while (&neurons[newConnectionGene.to] != &toNeuron) {
+        newConnectionGene.to++;
+    }
+    if (fromNeuron.GetLayer() > toNeuron.GetLayer()) {
+        swap(newConnectionGene.from, newConnectionGene.to);
+        newConnectionGene.isRecursive = true;
+    }
+
+    // Connection
+    Neuron::IncomingConnection newConnection;
+    newConnection.isRecursive = newConnectionGene.isRecursive;
+    newConnection.neuron = &fromNeuron;
+    newConnection.weight = newConnectionGene.weight;
+
+    genome.AppendGene(move(newConnectionGene));
+    toNeuron.AddConnection(move(newConnection));
+    CategorizeNeuronsIntoLayers();
+
+}
+
+pair<Neuron*, Neuron*> NeuralNetwork::GetTwoUnconnectedNeurons() {
+    vector<Neuron*> possibleFromNeurons;
+    possibleFromNeurons.reserve(neurons.size());
+    for (auto& n : neurons) {
+        possibleFromNeurons.push_back(&n);
+    }
+    random_shuffle(possibleFromNeurons.begin(), possibleFromNeurons.end());
+    vector<Neuron*> possibleToNeurons(possibleFromNeurons);
+    random_shuffle(possibleToNeurons.begin(), possibleToNeurons.end());
+
+    for (auto* f : possibleFromNeurons) {
+        for (auto* t : possibleToNeurons) {
+            bool areAlreadyConnected = false;
+            if (f == t) {
+                areAlreadyConnected = true;
+            } else {
+                for (auto& c : t->GetConnections()) {
+                    if (f == c.neuron) {
+                        areAlreadyConnected = true;
+                        break;
+                    }
+                }
+            }
+            if (!areAlreadyConnected) {
+                return make_pair<Neuron*, Neuron*>(move(f), move(t));
+            }
+        }
+    }
+
+    throw runtime_error("Tried to get two unconnected Neurons while every neuron is already connected");
 }
 
 void NeuralNetwork::ShuffleWeights() {

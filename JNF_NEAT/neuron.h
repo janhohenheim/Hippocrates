@@ -23,7 +23,11 @@ namespace JNF_NEAT {
 			Neuron() = default;
 			explicit Neuron(const Connections& connections);
 			Neuron(const Neuron& other) = default;
+            Neuron(Neuron&& other) = default;
 			~Neuron() = default;
+
+            Neuron& operator=(const Neuron& other) = default;
+            Neuron& operator=(Neuron&& other) = default;
 
 			void SetInput(float input);
 			const Connections& GetConnections() const { return connections; }

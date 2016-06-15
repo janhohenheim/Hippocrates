@@ -27,7 +27,6 @@ size_t Genome::GetGeneCount() const {
 Genome& Genome::operator=(const Genome& other) {
 	this->genes = other.genes; 
 	this->neuronCount = other.neuronCount;
-	const_cast<TrainingParameters&>(this->parameters) = other.parameters;
 	return *this;
 }
 
@@ -61,7 +60,8 @@ double Genome::GetGeneticalDistanceFrom(const Genome& other) const {
 
 bool Genome::DoesContainGene(const Gene& gene) const {
 	for (auto & g : genes) {
-		if (g.from == gene.from && g.to == gene.to && g.isRecursive == gene.isRecursive) {
+		if (g.from == gene.from && g.to == gene.to && g.isRecursive == gene.isRecursive 
+        /* || g.from == gene.to && g.from == gene.to */ ){
 			return true;
 		}
 	}

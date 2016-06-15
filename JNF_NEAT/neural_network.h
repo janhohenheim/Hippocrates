@@ -44,6 +44,7 @@ namespace JNF_NEAT {
 			bool ShouldMutateWeight() const { return DidChanceOccure(parameters.advanced.mutation.chanceForWeightMutation); }
 			void AddRandomNeuron();
 			void AddRandomConnection();
+            std::pair<Neuron*, Neuron*> GetTwoUnconnectedNeurons();
 			void ShuffleWeights();
 			void MutateWeightOfGeneAt(std::size_t index);
 			void PerturbWeightAt(std::size_t index);
