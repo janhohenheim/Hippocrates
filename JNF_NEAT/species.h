@@ -16,8 +16,7 @@ namespace JNF_NEAT {
 			const TrainingParameters& parameters;
 
 		public:
-			Species(const Organism& representative);
-			Species(Organism&& representative);
+			explicit Species(Organism representative);
 			Species(const Species& other) = default;
 			Species(Species&& other) = default;
 			~Species();
@@ -42,10 +41,10 @@ namespace JNF_NEAT {
 			void SelectRandomRepresentative();
 			void SelectFittestOrganismAsRepresentative();
 
-            template <class T>
-            inline constexpr bool IsAboveCompatibilityThreshold(T t) const {
-                return t > representative->GetTrainingParameters().advanced.speciation.compatibilityThreshold;
-            };
+			template <class T>
+			inline constexpr bool IsAboveCompatibilityThreshold(T t) const {
+				return t > representative->GetTrainingParameters().advanced.speciation.compatibilityThreshold;
+			};
 	};
 
 }

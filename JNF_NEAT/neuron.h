@@ -8,20 +8,20 @@ namespace JNF_NEAT {
 	class Neuron {
 		friend NeuralNetwork;
 		public:
-			struct IncomingConnection {
+			struct Connection {
 				Neuron* neuron = nullptr;
 				float weight = 0.0f;
 				bool isRecursive = false;
+                bool outGoing = false;
 			};
 		private:
-			using Connections = std::vector<IncomingConnection>;
-			Connections connections;
+			std::vector<Connection> connections;
 			float lastActionPotential = 0.0f;
 			size_t layer = 0U;
 
 		public:
 			Neuron() = default;
-			explicit Neuron(const Connections& connections);
+			explicit Neuron(std::vector<Connection> connections);
 			Neuron(const Neuron& other) = default;
             Neuron(Neuron&& other) = default;
 			~Neuron() = default;
@@ -30,12 +30,12 @@ namespace JNF_NEAT {
             Neuron& operator=(Neuron&& other) = default;
 
 			void SetInput(float input);
-			const Connections& GetConnections() const { return connections; }
+			const std::vector<Connection>& GetConnections() const { return connections; }
 			float RequestDataAndGetActionPotential();
 			size_t GetLayer() const { return layer; }
 
 		private:
-			void AddConnection(IncomingConnection connection);
+			void AddConnection(Connection connection);
 			void SetLayer(size_t layer);
 			static float sigmoid(float d);
 	};

@@ -5,11 +5,11 @@
 using namespace JNF_NEAT;
 using namespace std;
 
-Neuron::Neuron(const Connections& connections) :
-connections(connections) {
+Neuron::Neuron(vector<Connection> connections) :
+connections(std::move(connections)) {
 }
 
-void Neuron::AddConnection(IncomingConnection connection) {
+void Neuron::AddConnection(Connection connection) {
     if (connection.neuron == this || connection.neuron == nullptr) {
         throw invalid_argument("Invalid incomming connection");
     }
