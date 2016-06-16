@@ -19,7 +19,9 @@ void Neuron::AddConnection(Connection connection) {
 float Neuron::RequestDataAndGetActionPotential() {
     float incomingPotentials = 0.0f;
     for (auto& in : connections){
-        incomingPotentials += in.neuron->lastActionPotential * in.weight;
+        if (!in.outGoing) {
+            incomingPotentials += in.neuron->lastActionPotential * in.weight;
+        }
     }
     lastActionPotential = sigmoid(incomingPotentials);
     return lastActionPotential;

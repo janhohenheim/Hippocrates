@@ -20,8 +20,7 @@ namespace JNF_NEAT {
 
 		public:
 			NeuralNetworkTrainer() = delete;
-			NeuralNetworkTrainer(std::vector<IBody*>& population, const TrainingParameters& parameters);
-			NeuralNetworkTrainer(std::vector<IBody*>& population, TrainingParameters&& parameters);
+			NeuralNetworkTrainer(std::vector<IBody*>& population, TrainingParameters parameters);
 			NeuralNetworkTrainer(const NeuralNetworkTrainer& other) = default;
 
 			~NeuralNetworkTrainer() = default;

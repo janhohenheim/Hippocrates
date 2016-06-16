@@ -3,20 +3,13 @@
 #include "neural_network_trainer.h"
 #include <algorithm>
 #include <cstdlib>
+#include <iostream>
 
 using namespace JNF_NEAT;
 using namespace std;
 
-NeuralNetworkTrainer::NeuralNetworkTrainer(vector<IBody*>& population, const TrainingParameters& parameters) :
-	parameters(parameters),
-	populationSize(population.size()),
-	bodies(population)
-{
-	SetBodies(population);
-}
-
-NeuralNetworkTrainer::NeuralNetworkTrainer(vector<IBody*>& population, TrainingParameters&& parameters) :
-	parameters(parameters),
+NeuralNetworkTrainer::NeuralNetworkTrainer(vector<IBody*>& population, TrainingParameters parameters) :
+	parameters(move(parameters)),
 	populationSize(population.size()),
 	bodies(population)
 {
@@ -36,18 +29,21 @@ void NeuralNetworkTrainer::SetBodies(vector<IBody*>& bodies) {
 	for (auto& currTrainer : bodies) {
 		NeuralNetwork network(standardGenes);
 		Organism organism(currTrainer, move(network));
-        FillOrganismIntoSpecies(move(organism));
+		FillOrganismIntoSpecies(move(organism));
 	}
-    DeleteEmptySpecies();
+	DeleteEmptySpecies();
 }
 
 
 void NeuralNetworkTrainer::TrainUntilFitnessEquals(double fitnessToReach) {
 	LetGenerationLive();
+	size_t gen = 0;
 	while (GetFittestOrganism().GetOrCalculateRawFitness() < (fitnessToReach - 1e-6)) {
 		Repopulate();
 		LetGenerationLive();
+		gen++;
 	}
+	cout << "Training finished in " << gen << " Generations" << endl;
 }
 
 void NeuralNetworkTrainer::TrainUntilGenerationEquals(unsigned int generationsToTrain) {
@@ -66,11 +62,11 @@ Organism& NeuralNetworkTrainer::GetFittestOrganism() {
 	if (species.empty()) {
 		throw out_of_range("Your population is empty");
 	}
-    auto CompareSpecies = [&](Species& lhs, Species& rhs) {
-        return lhs.GetFittestOrganism().GetOrCalculateFitness() < rhs.GetFittestOrganism().GetOrCalculateFitness();
-    };
+	auto CompareSpecies = [&](Species& lhs, Species& rhs) {
+		return lhs.GetFittestOrganism().GetOrCalculateFitness() < rhs.GetFittestOrganism().GetOrCalculateFitness();
+	};
 
-    sort(species.begin(), species.end(), CompareSpecies);
+	sort(species.begin(), species.end(), CompareSpecies);
 	return species.front().GetFittestOrganism();
 }
 
@@ -88,18 +84,18 @@ void NeuralNetworkTrainer::PrepareSpeciesForPopulation() {
 }
 
 void NeuralNetworkTrainer::FillOrganismIntoSpecies(const Organism& organism) {
-    bool isCompatibleWithExistingSpecies = false;
-    for (auto& currSpecies : species) {
-        if (currSpecies.IsCompatible(organism.GetGenome())) {
-            currSpecies.AddOrganism(move(organism));
-            isCompatibleWithExistingSpecies = true;
-            break;
-        }
-    }
-    if (!isCompatibleWithExistingSpecies) {
-        Species newSpecies(organism);
-        species.push_back(move(newSpecies));
-    } 
+	bool isCompatibleWithExistingSpecies = false;
+	for (auto& currSpecies : species) {
+		if (currSpecies.IsCompatible(organism.GetGenome())) {
+			currSpecies.AddOrganism(move(organism));
+			isCompatibleWithExistingSpecies = true;
+			break;
+		}
+	}
+	if (!isCompatibleWithExistingSpecies) {
+		Species newSpecies(organism);
+		species.push_back(move(newSpecies));
+	} 
 }
 
 void NeuralNetworkTrainer::FillOrganismIntoSpecies(Organism&& organism) {
@@ -136,14 +132,14 @@ void NeuralNetworkTrainer::DeleteStagnantSpecies() {
 }
 
 void NeuralNetworkTrainer::DeleteEmptySpecies() {
-    species.erase(
-        remove_if(species.begin(), species.end(), [](const Species& s) {return s.IsEmpty(); }),
-        species.end()
-    );
+	species.erase(
+		remove_if(species.begin(), species.end(), [](const Species& s) {return s.IsEmpty(); }),
+		species.end()
+	);
 }
 
 void NeuralNetworkTrainer::Repopulate() {
-    PrepareSpeciesForPopulation();
+	PrepareSpeciesForPopulation();
 	auto DidChanceOccure = [](float chance) {
 		auto num = rand() % 1000;
 		return num < int(1000.0f * chance);
@@ -158,9 +154,9 @@ void NeuralNetworkTrainer::Repopulate() {
 		auto& mother = sp->GetOrganismToBreed();
 		auto childNeuralNetwork(move(father.BreedWith(mother)));
 		Organism child(&*trainer, move(childNeuralNetwork));
-        FillOrganismIntoSpecies(move(child));
+		FillOrganismIntoSpecies(move(child));
 	}
-    DeleteEmptySpecies();
+	DeleteEmptySpecies();
 	ResetPopulationToTeachableState();
 	// TODO jnf Add Concurrency
 }
@@ -170,7 +166,7 @@ Species& NeuralNetworkTrainer::SelectSpeciesToBreed() {
 	if (species.empty()) {
 		throw out_of_range("There are no species");
 	}
-    double totalSpeciesFitness = 0.0;
+	double totalSpeciesFitness = 0.0;
 	for (auto& s : species) {
 		totalSpeciesFitness += s.GetFittestOrganism().GetOrCalculateFitness();
 	}
@@ -181,13 +177,13 @@ Species& NeuralNetworkTrainer::SelectSpeciesToBreed() {
 	auto GetChanceForSpecies = [&chance, &totalSpeciesFitness](Species& species) {
 		return chance + (species.GetFittestOrganism().GetOrCalculateFitness() / totalSpeciesFitness);
 	};
-    while (true) {
-        for (auto& s : species) {
-            double randNum = (double)(rand() % 10'000) / 9'999.0;
-            chance = GetChanceForSpecies(s);
-            if (randNum < chance) {
-                return s;
-            }
-        }
-    }
+	while (true) {
+		for (auto& s : species) {
+			double randNum = (double)(rand() % 10'000) / 9'999.0;
+			chance = GetChanceForSpecies(s);
+			if (randNum < chance) {
+				return s;
+			}
+		}
+	}
 }
