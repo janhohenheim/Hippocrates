@@ -34,9 +34,3 @@ float Neuron::sigmoid(float d) {
 void Neuron::SetInput(float input) {
     lastActionPotential = input;
 }
-
-void Neuron::SetLayer(size_t layer) {
-    if(layer > this->layer){
-        this->layer = layer;
-    }
-}

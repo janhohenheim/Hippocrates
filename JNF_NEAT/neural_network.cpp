@@ -305,18 +305,19 @@ void NeuralNetwork::MutateGenesAndBuildNetwork() {
 }
 
 void NeuralNetwork::CategorizeNeuronsIntoLayers() {
-	for (auto* out : outputNeurons) {
-		CategorizeNeuronBranchIntoLayers(*out);
+    for (auto i = 0U; i < parameters.advanced.structure.numberOfBiasNeurons; i++) {
+        CategorizeNeuronBranchIntoLayers(neurons[i]);
+    }
+	for (auto* in : inputNeurons) {
+		CategorizeNeuronBranchIntoLayers(*in);
 	}
 
 	size_t highestLayer = 0U;
 	for (auto* out : outputNeurons) {
-		if (out->GetLayer() > highestLayer) {
-			highestLayer = out->GetLayer();
-		};
+        highestLayer = max(out->GetLayer(), highestLayer);
 	}
 	for (auto* out : outputNeurons) {
-		out->SetLayer(highestLayer);
+		out->layer = highestLayer;
 	}
 
 	for (auto& neuron : neurons) {
@@ -324,11 +325,21 @@ void NeuralNetwork::CategorizeNeuronsIntoLayers() {
 	}
 }
 
-void NeuralNetwork::CategorizeNeuronBranchIntoLayers(Neuron& currNode) {
+void NeuralNetwork::CategorizeNeuronBranchIntoLayers(Neuron& currNode, size_t currentDepth) {
+    currNode.layer = currentDepth;
+    const size_t nextLayer = currNode.layer + 1;
+    
+    
+    auto HasYetToBeLayered = [&nextLayer](const Neuron::Connection& c) {
+        return nextLayer > c.neuron->layer;
+    };
+    auto IsInHigherLayer = [](const Neuron::Connection& c) {
+        return (c.outGoing && !c.isRecursive) || (!c.outGoing && c.isRecursive);
+    };
+
 	for (auto &c : currNode.GetConnections()) {
-		if ((c.outGoing && c.isRecursive) || (!c.outGoing && !c.isRecursive)) {
-			CategorizeNeuronBranchIntoLayers(*c.neuron);
-			currNode.SetLayer(c.neuron->GetLayer() + 1);
+		if (HasYetToBeLayered(c) && IsInHigherLayer(c)) {
+			CategorizeNeuronBranchIntoLayers(*c.neuron, nextLayer);
 		}
 	}
 }

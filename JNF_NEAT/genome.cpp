@@ -60,8 +60,7 @@ double Genome::GetGeneticalDistanceFrom(const Genome& other) const {
 
 bool Genome::DoesContainGene(const Gene& gene) const {
 	for (auto & g : genes) {
-		if (g.from == gene.from && g.to == gene.to && g.isRecursive == gene.isRecursive 
-        /* || g.from == gene.to && g.from == gene.to */ ){
+		if (g.from == gene.from && g.to == gene.to && g.isRecursive == gene.isRecursive){
 			return true;
 		}
 	}

@@ -36,7 +36,6 @@ namespace JNF_NEAT {
 
 		private:
 			void AddConnection(Connection connection);
-			void SetLayer(size_t layer);
 			static float sigmoid(float d);
 	};
 

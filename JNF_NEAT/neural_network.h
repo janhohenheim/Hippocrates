@@ -51,7 +51,7 @@ namespace JNF_NEAT {
 			void MutateWeightOfGeneAt(std::size_t index);
 			void PerturbWeightAt(std::size_t index);
 			void CategorizeNeuronsIntoLayers();
-			void CategorizeNeuronBranchIntoLayers(Neuron& currNode);
+			void CategorizeNeuronBranchIntoLayers(Neuron& currNode, size_t currentDepth = 0);
 			Gene& GetRandomEnabledGene();
 	};
 
