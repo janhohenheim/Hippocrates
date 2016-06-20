@@ -9,8 +9,6 @@ namespace JNF_NEAT {
 			using NeuralNetwork::NeuralNetwork;
 			static TrainedNeuralNetwork LoadFromFile(const std::string& fileName);
 			void SaveToFile(const std::string& fileName) const;
-
-			std::string GetGenomeAsString() const;
 	};
 
 }

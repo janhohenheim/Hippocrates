@@ -27,3 +27,15 @@ void Gene::SetRandomWeight() {
 		weight = -weight;
 	}
 }
+
+std::string Gene::ToSTring() const {
+	string s("Gene Data:\n");
+	s+=		 "Historical marking: " + to_string(historicalMarking) + "\n"
+			+ "from: " + to_string(from) + "\n"
+			+ "to: " + to_string(to) + "\n"
+			+ "weight: " + to_string(weight) + "\n"
+			+ "is enabled: " + to_string(isEnabled) + "\n"
+			+ "is recursive: " + to_string(isRecursive) + "\n";
+	return s;
+}
+

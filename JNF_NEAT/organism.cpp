@@ -5,16 +5,16 @@
 using namespace JNF_NEAT;
 using namespace std;
 
-Organism::Organism(IBody* trainer, NeuralNetwork&& network) :
-	trainer(trainer),
+Organism::Organism(IBody* body, NeuralNetwork&& network) :
+	body(body),
 	network(move(network))
 {
 }
 
 void Organism::Update() {
-	const auto inputs( move(trainer->ProvideNetworkWithInputs()) );
+	const auto inputs( move(body->ProvideNetworkWithInputs()) );
 	const auto outputs( move(network.GetOutputsUsingInputs(inputs)) );
-	trainer->Update(outputs);
+	body->Update(outputs);
 	isFitnessUpToDate = false;
 }
 
@@ -24,7 +24,7 @@ double Organism::GetOrCalculateFitness() {
 
 double Organism::GetOrCalculateRawFitness() {
 	if (!isFitnessUpToDate) {
-		fitness = trainer->GetFitness();
+		fitness = body->GetFitness();
 		isFitnessUpToDate = true;
 	}
 	return fitness;
@@ -56,4 +56,12 @@ NeuralNetwork Organism::BreedWith(Organism& partner) {
 	// But don't worry, RVO will take care of this.
 	// If your compiler doesn't optimize this, I'd recommend using what you'd call an "out parameter" in C#
 	return child;
+}
+
+std::string Organism::ToString() const {
+	string s("Organism Data:\n");
+	s += "Fitness: " + to_string(fitness) + "\n"
+		 + "Fitness Modifier: " + to_string(fitnessModifier) + "\n"
+		 + network.ToString() + "\n";
+	return s;
 }

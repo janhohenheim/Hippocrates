@@ -3,6 +3,7 @@
 #include "gene.h"
 #include "training_parameters.h"
 #include <vector>
+#include <string>
 
 namespace JNF_NEAT {
 
@@ -38,7 +39,7 @@ namespace JNF_NEAT {
 			const TrainingParameters& GetTrainingParameters() const { return parameters; }
 			double GetGeneticalDistanceFrom(const Genome& other) const;
 			bool DoesContainGene(const Gene& gene) const;
-
+			std::string ToString() const;
 		private:
 			inline void AdjustNeuronCount(const Gene& gene) { if (gene.to + 1 > neuronCount) neuronCount = gene.to + 1; }
 	};

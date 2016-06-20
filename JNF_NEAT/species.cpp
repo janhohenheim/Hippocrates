@@ -149,3 +149,19 @@ Organism& Species::GetOrganismToBreed() {
         }
     }
 }
+
+std::string Species::ToString() const {
+	string s("Species Data:\n");
+	s += "Fitness Highscore: " + to_string(fitnessHighscore) + "\n"
+		+ "Number of stagnant Species: " + to_string(numberOfStagnantGenerations) + "\n\n"
+
+		+ "Representative:\n" + representative->ToString() + "\n"
+
+		+ "Population:\n";
+	for (const auto& organism : population){
+		s += organism->ToString() + "\n";
+	}
+	s += "\n";
+	return s;
+}
+

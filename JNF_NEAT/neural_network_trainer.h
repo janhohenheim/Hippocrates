@@ -17,6 +17,7 @@ namespace JNF_NEAT {
 			TrainingParameters parameters;
 			size_t populationSize = 0U;
 			std::vector<IBody *>& bodies;
+			size_t generationsPassed = 0;
 
 		public:
 			NeuralNetworkTrainer() = delete;
@@ -29,7 +30,7 @@ namespace JNF_NEAT {
 			void TrainUntilGenerationEquals(unsigned int generationsToTrain);
 
 			TrainedNeuralNetwork GetTrainedNeuralNetwork();
-
+			std::string ToString () const;
 		private:
 			void SetBodies(std::vector<IBody*>& bodies);
 

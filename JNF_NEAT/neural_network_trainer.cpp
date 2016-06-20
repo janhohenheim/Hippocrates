@@ -1,9 +1,8 @@
 #include <algorithm>
 #include <stdexcept>
 #include "neural_network_trainer.h"
-#include <algorithm>
-#include <cstdlib>
 #include <iostream>
+
 
 using namespace JNF_NEAT;
 using namespace std;
@@ -24,6 +23,7 @@ void NeuralNetworkTrainer::ResetPopulationToTeachableState() {
 
 void NeuralNetworkTrainer::SetBodies(vector<IBody*>& bodies) {
 	species.clear();
+	generationsPassed = 0;
 
 	Genome standardGenes(parameters);
 	for (auto& currTrainer : bodies) {
@@ -37,20 +37,20 @@ void NeuralNetworkTrainer::SetBodies(vector<IBody*>& bodies) {
 
 void NeuralNetworkTrainer::TrainUntilFitnessEquals(double fitnessToReach) {
 	LetGenerationLive();
-	size_t gen = 0;
 	while (GetFittestOrganism().GetOrCalculateRawFitness() < (fitnessToReach - 1e-6)) {
 		Repopulate();
 		LetGenerationLive();
-		gen++;
+		generationsPassed++;
 	}
-	cout << "Training finished in " << gen << " Generations" << endl;
 }
 
 void NeuralNetworkTrainer::TrainUntilGenerationEquals(unsigned int generationsToTrain) {
+	generationsToTrain += generationsPassed;
 	LetGenerationLive();
-	for (unsigned int i = 0; i < generationsToTrain; ++i) {
+	while (generationsPassed < generationsToTrain) {
 		Repopulate();
 		LetGenerationLive();
+		generationsPassed++;
 	}
 }
 
@@ -186,4 +186,16 @@ Species& NeuralNetworkTrainer::SelectSpeciesToBreed() {
 			}
 		}
 	}
+}
+
+std::string NeuralNetworkTrainer::ToString() const {
+	string s("Neural Network Data:\n");
+	s += "Population size: " + to_string(populationSize) + "\n"
+		 + "generations passed: " + to_string(generationsPassed) + "\n"
+		 + "Species:\n";
+	for (const auto& sp: species){
+		s += sp.ToString() + "\n";
+	}
+	s += "\n";
+	return s;
 }

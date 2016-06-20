@@ -1,6 +1,6 @@
 #pragma once
 #include <cstddef>
-
+#include <string>
 namespace JNF_NEAT {
 
 	struct Gene {
@@ -19,7 +19,7 @@ namespace JNF_NEAT {
 			bool isEnabled = true;
 			bool isRecursive = false;
 			void SetRandomWeight();
-
+			std::string ToSTring() const;
 		private:
 			static std::size_t numberOfExistingGenes;
 	};

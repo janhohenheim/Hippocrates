@@ -33,6 +33,7 @@ namespace JNF_NEAT {
 			const std::vector<Connection>& GetConnections() const { return connections; }
 			float RequestDataAndGetActionPotential();
 			size_t GetLayer() const { return layer; }
+			std::string ToString() const;
 
 		private:
 			void AddConnection(Connection connection);

@@ -1,5 +1,4 @@
 #include "neural_network.h"
-#include <cstdlib>
 #include <algorithm>
 
 using namespace JNF_NEAT;
@@ -228,7 +227,7 @@ pair<Neuron*, Neuron*> NeuralNetwork::GetTwoUnconnectedNeurons() {
 	}
 	auto inputRange = parameters.numberOfInputs + parameters.advanced.structure.numberOfBiasNeurons;
 	vector<Neuron*> possibleToNeurons(possibleFromNeurons.begin() + inputRange, possibleFromNeurons.end());
-	
+
 	random_shuffle(possibleFromNeurons.begin(), possibleFromNeurons.end());
 	random_shuffle(possibleToNeurons.begin(), possibleToNeurons.end());
 
@@ -328,8 +327,8 @@ void NeuralNetwork::CategorizeNeuronsIntoLayers() {
 void NeuralNetwork::CategorizeNeuronBranchIntoLayers(Neuron& currNode, size_t currentDepth) {
     currNode.layer = currentDepth;
     const size_t nextLayer = currNode.layer + 1;
-    
-    
+
+
     auto HasYetToBeLayered = [&nextLayer](const Neuron::Connection& c) {
         return nextLayer > c.neuron->layer;
     };
@@ -361,4 +360,14 @@ Gene& NeuralNetwork::GetRandomEnabledGene() {
 		throw runtime_error("Could not insert neuron because every gene is disabled");
 	}
 	return *randGene;
+}
+
+std::string NeuralNetwork::ToString() const {
+	string s("Neural Network Data:\n");
+	for (size_t i = 0; i < neurons.size(); ++i) {
+		s += "Neuron Nr. " + to_string(i) + ":\n" +
+			neurons[i].ToString() + "\n";
+	}
+	s += genome.ToString() + "\n";
+	return s;
 }

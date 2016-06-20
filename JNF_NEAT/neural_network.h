@@ -30,7 +30,7 @@ namespace JNF_NEAT {
 			const Genome& GetGenome() const { return genome; }
 			std::vector<float> GetOutputsUsingInputs(const std::vector<float>& inputs);
 			const TrainingParameters& GetTrainingParameters() const { return parameters; }
-
+			std::string ToString() const;
 		private:
 			void SetInputs(const std::vector<float>& inputs);
 			std::vector<float> GetOutputs();

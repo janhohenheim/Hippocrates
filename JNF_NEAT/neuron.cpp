@@ -11,7 +11,7 @@ connections(std::move(connections)) {
 
 void Neuron::AddConnection(Connection connection) {
     if (connection.neuron == this || connection.neuron == nullptr) {
-        throw invalid_argument("Invalid incomming connection");
+        throw invalid_argument("Invalid incoming connection");
     }
     connections.push_back(move(connection));
 }
@@ -28,9 +28,18 @@ float Neuron::RequestDataAndGetActionPotential() {
 }
 
 float Neuron::sigmoid(float d) {
-    return (float)tanh(d);
+    return tanh(d);
 }
 
 void Neuron::SetInput(float input) {
     lastActionPotential = input;
 }
+
+
+string Neuron::ToString() const {
+    string s ("Neuron Data:\n");
+    s += "Layer: " + to_string(layer) + "\n";
+    s += "Last Action Potential: " + to_string(lastActionPotential) + "\n";
+    return s;
+}
+

@@ -35,6 +35,7 @@ namespace JNF_NEAT {
 			Organism& GetFittestOrganism();
 			void SetPopulationsFitnessModifier();
 			Organism& GetOrganismToBreed();
+			std::string ToString() const;
 
 		private:
 			void ElectRepresentative();
