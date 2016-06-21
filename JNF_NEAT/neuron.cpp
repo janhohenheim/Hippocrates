@@ -1,6 +1,7 @@
 #include "neuron.h"
 #include <cmath>
 #include <stdexcept>
+#include <string>
 
 using namespace JNF_NEAT;
 using namespace std;
@@ -37,9 +38,10 @@ void Neuron::SetInput(float input) {
 
 
 string Neuron::ToString() const {
-    string s ("Neuron Data:\n");
-    s += "Layer: " + to_string(layer) + "\n";
-    s += "Last Action Potential: " + to_string(lastActionPotential) + "\n";
-    return s;
+    string s ("{\n");
+	s +=  "\"layer\": " + to_string(layer) + ",\n"
+		+ "\"lastActionPotential\": " + to_string(lastActionPotential) + "\n"
+		+ "}";
+	return s;
 }
 

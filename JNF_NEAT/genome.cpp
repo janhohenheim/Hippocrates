@@ -68,10 +68,13 @@ bool Genome::DoesContainGene(const Gene& gene) const {
 }
 
 string Genome::ToString() const {
-	string s("Genome Data:\n");
+	string s("{\n");
+	s += "\"genome\": [\n";
 	for (const auto& gene : genes) {
-		s += gene.ToSTring() + "\n";
+		s += gene.ToSTring() + ",\n";
 	}
-	s += "\n";
+	s.erase(s.rfind(','));
+	s += "]\n}";
+
 	return s;
 }

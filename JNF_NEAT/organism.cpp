@@ -59,9 +59,10 @@ NeuralNetwork Organism::BreedWith(Organism& partner) {
 }
 
 std::string Organism::ToString() const {
-	string s("Organism Data:\n");
-	s += "Fitness: " + to_string(fitness) + "\n"
-		 + "Fitness Modifier: " + to_string(fitnessModifier) + "\n"
-		 + network.ToString() + "\n";
+	string s("{\n");
+	s += "\"fitness\": " + to_string(fitness) + ",\n"
+		+ "\"fitnessModifier\": " + to_string(fitnessModifier) + ",\n";
+	s += "\"network\": " + network.ToString() + "\n";
+	s += "}";
 	return s;
 }

@@ -363,11 +363,13 @@ Gene& NeuralNetwork::GetRandomEnabledGene() {
 }
 
 std::string NeuralNetwork::ToString() const {
-	string s("Neural Network Data:\n");
-	for (size_t i = 0; i < neurons.size(); ++i) {
-		s += "Neuron Nr. " + to_string(i) + ":\n" +
-			neurons[i].ToString() + "\n";
+	string s("{\n");
+	s += "\"neurons\":[\n";
+	for (const auto& neuron : neurons) {
+		s += neuron.ToString() + ",\n";
 	}
-	s += genome.ToString() + "\n";
+	s.erase(s.rfind(","));
+	s += "],\n";
+	s += "\"genome\": " + genome.ToString() + "\n}";
 	return s;
 }

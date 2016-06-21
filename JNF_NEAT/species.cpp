@@ -151,17 +151,16 @@ Organism& Species::GetOrganismToBreed() {
 }
 
 std::string Species::ToString() const {
-	string s("Species Data:\n");
-	s += "Fitness Highscore: " + to_string(fitnessHighscore) + "\n"
-		+ "Number of stagnant Species: " + to_string(numberOfStagnantGenerations) + "\n\n"
-
-		+ "Representative:\n" + representative->ToString() + "\n"
-
-		+ "Population:\n";
+	string s("{\n");
+	s += "\"fitnessHighscore\": " + to_string(fitnessHighscore) + ",\n"
+		+ "\"numberOfStagnantGenerations\": " + to_string(numberOfStagnantGenerations) + ",\n"
+		+ "\"representative\": \n" + representative->ToString() + ",\n"
+		+ "\"population\": [\n";
 	for (const auto& organism : population){
-		s += organism->ToString() + "\n";
+		s += organism->ToString() + ",\n";
 	}
-	s += "\n";
+	s.erase(s.rfind(","));
+	s += "]\n}";
 	return s;
 }
 

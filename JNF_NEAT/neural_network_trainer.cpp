@@ -189,13 +189,14 @@ Species& NeuralNetworkTrainer::SelectSpeciesToBreed() {
 }
 
 std::string NeuralNetworkTrainer::ToString() const {
-	string s("Neural Network Data:\n");
-	s += "Population size: " + to_string(populationSize) + "\n"
-		 + "generations passed: " + to_string(generationsPassed) + "\n"
-		 + "Species:\n";
+	string s("{\n");
+	s += "\"populationSize\": " + to_string(populationSize) + ",\n"
+		 + "\"generationsPassed\": " + to_string(generationsPassed) + ",\n"
+		 + "\"species\": [\n";
 	for (const auto& sp: species){
-		s += sp.ToString() + "\n";
+		s += sp.ToString() + ",\n";
 	}
-	s += "\n";
+	s.erase(s.rfind(","));
+	s += "]\n}";
 	return s;
 }
