@@ -1,5 +1,6 @@
 #include "neural_network.h"
 #include <algorithm>
+#include <sstream>
 
 using namespace JNF_NEAT;
 using namespace std;
@@ -304,16 +305,16 @@ void NeuralNetwork::MutateGenesAndBuildNetwork() {
 }
 
 void NeuralNetwork::CategorizeNeuronsIntoLayers() {
-    for (auto i = 0U; i < parameters.advanced.structure.numberOfBiasNeurons; i++) {
-        CategorizeNeuronBranchIntoLayers(neurons[i]);
-    }
+	for (auto i = 0U; i < parameters.advanced.structure.numberOfBiasNeurons; i++) {
+		CategorizeNeuronBranchIntoLayers(neurons[i]);
+	}
 	for (auto* in : inputNeurons) {
 		CategorizeNeuronBranchIntoLayers(*in);
 	}
 
 	size_t highestLayer = 0U;
 	for (auto* out : outputNeurons) {
-        highestLayer = max(out->GetLayer(), highestLayer);
+		highestLayer = max(out->GetLayer(), highestLayer);
 	}
 	for (auto* out : outputNeurons) {
 		out->layer = highestLayer;
@@ -325,16 +326,16 @@ void NeuralNetwork::CategorizeNeuronsIntoLayers() {
 }
 
 void NeuralNetwork::CategorizeNeuronBranchIntoLayers(Neuron& currNode, size_t currentDepth) {
-    currNode.layer = currentDepth;
-    const size_t nextLayer = currNode.layer + 1;
+	currNode.layer = currentDepth;
+	const size_t nextLayer = currNode.layer + 1;
 
 
-    auto HasYetToBeLayered = [&nextLayer](const Neuron::Connection& c) {
-        return nextLayer > c.neuron->layer;
-    };
-    auto IsInHigherLayer = [](const Neuron::Connection& c) {
-        return (c.outGoing && !c.isRecursive) || (!c.outGoing && c.isRecursive);
-    };
+	auto HasYetToBeLayered = [&nextLayer](const Neuron::Connection& c) {
+		return nextLayer > c.neuron->layer;
+	};
+	auto IsInHigherLayer = [](const Neuron::Connection& c) {
+		return (c.outGoing && !c.isRecursive) || (!c.outGoing && c.isRecursive);
+	};
 
 	for (auto &c : currNode.GetConnections()) {
 		if (HasYetToBeLayered(c) && IsInHigherLayer(c)) {
@@ -362,14 +363,16 @@ Gene& NeuralNetwork::GetRandomEnabledGene() {
 	return *randGene;
 }
 
-std::string NeuralNetwork::ToString() const {
-	string s("{\n");
-	s += "\"neurons\":[\n";
-	for (const auto& neuron : neurons) {
-		s += neuron.ToString() + ",\n";
+void NeuralNetwork::ExportJSON(std::ostream& output) const{
+	stringstream s;
+	s << "{\"neurons\":[";
+	for (size_t i = 0; i < neurons.size() - 1; ++i) {
+		neurons[i].ExportJSON(s);
+		s << ",";
 	}
-	s.erase(s.rfind(","));
-	s += "],\n";
-	s += "\"genome\": " + genome.ToString() + "\n}";
-	return s;
+	neurons.back().ExportJSON(s);
+	s << "],\"genome\":";
+	genome.ExportJSON(s);
+	s << "}";
+	output << s.rdbuf();
 }

@@ -1,7 +1,7 @@
 #include "neuron.h"
 #include <cmath>
 #include <stdexcept>
-#include <string>
+#include <sstream>
 
 using namespace JNF_NEAT;
 using namespace std;
@@ -11,37 +11,36 @@ connections(std::move(connections)) {
 }
 
 void Neuron::AddConnection(Connection connection) {
-    if (connection.neuron == this || connection.neuron == nullptr) {
-        throw invalid_argument("Invalid incoming connection");
-    }
-    connections.push_back(move(connection));
+	if (connection.neuron == this || connection.neuron == nullptr) {
+		throw invalid_argument("Invalid incoming connection");
+	}
+	connections.push_back(move(connection));
 }
 
 float Neuron::RequestDataAndGetActionPotential() {
-    float incomingPotentials = 0.0f;
-    for (auto& in : connections){
-        if (!in.outGoing) {
-            incomingPotentials += in.neuron->lastActionPotential * in.weight;
-        }
-    }
-    lastActionPotential = sigmoid(incomingPotentials);
-    return lastActionPotential;
+	float incomingPotentials = 0.0f;
+	for (auto& in : connections){
+		if (!in.outGoing) {
+			incomingPotentials += in.neuron->lastActionPotential * in.weight;
+		}
+	}
+	lastActionPotential = sigmoid(incomingPotentials);
+	return lastActionPotential;
 }
 
 float Neuron::sigmoid(float d) {
-    return tanh(d);
+	return tanh(d);
 }
 
 void Neuron::SetInput(float input) {
-    lastActionPotential = input;
+	lastActionPotential = input;
 }
 
 
-string Neuron::ToString() const {
-    string s ("{\n");
-	s +=  "\"layer\": " + to_string(layer) + ",\n"
-		+ "\"lastActionPotential\": " + to_string(lastActionPotential) + "\n"
-		+ "}";
-	return s;
+void Neuron::ExportJSON(ostream& output) const {
+	stringstream s;
+	s << "{\"layer\":" << layer << ","
+		<< "\"lastActionPotential\":" << lastActionPotential << "}";
+	output << s.rdbuf();
 }
 

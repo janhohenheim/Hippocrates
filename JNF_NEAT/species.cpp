@@ -1,6 +1,7 @@
 #include "species.h"
 #include <algorithm>
 #include <cstdlib>
+#include <sstream>
 
 using namespace JNF_NEAT;
 using namespace std;
@@ -150,17 +151,20 @@ Organism& Species::GetOrganismToBreed() {
     }
 }
 
-std::string Species::ToString() const {
-	string s("{\n");
-	s += "\"fitnessHighscore\": " + to_string(fitnessHighscore) + ",\n"
-		+ "\"numberOfStagnantGenerations\": " + to_string(numberOfStagnantGenerations) + ",\n"
-		+ "\"representative\": \n" + representative->ToString() + ",\n"
-		+ "\"population\": [\n";
-	for (const auto& organism : population){
-		s += organism->ToString() + ",\n";
+void Species::ExportJSON(ostream& output) const {
+	stringstream s;
+	s << "{\"fitnessHighscore\":" << fitnessHighscore << ","
+		<< "\"numberOfStagnantGenerations\":" << numberOfStagnantGenerations << ","
+		<< "\"representative\":";
+	representative->ExportJSON(s);
+	s << ","
+	<< "\"population\": [";
+	for (size_t i = 0; i < population.size() - 1; ++i) {
+		population[i]->ExportJSON(s);
+		s << ",";
 	}
-	s.erase(s.rfind(","));
-	s += "]\n}";
-	return s;
+	population.back()->ExportJSON(s);
+	s << "]}";
+	output << s.rdbuf();
 }
 

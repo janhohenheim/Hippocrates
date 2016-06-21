@@ -1,6 +1,7 @@
 #include <cmath>
 #include "genome.h"
 #include <algorithm>
+#include <sstream>
 
 using namespace JNF_NEAT;
 using namespace std;
@@ -67,14 +68,14 @@ bool Genome::DoesContainGene(const Gene& gene) const {
 	return false;
 }
 
-string Genome::ToString() const {
-	string s("{\n");
-	s += "\"genome\": [\n";
-	for (const auto& gene : genes) {
-		s += gene.ToSTring() + ",\n";
+void Genome::ExportJSON(ostream& output) const {
+	stringstream s;
+	s << "{\"genome\":[";
+	for (size_t i = 0; i < genes.size() - 1; ++i) {
+		genes[i].ExportJSON(s);
+		s << ",";
 	}
-	s.erase(s.rfind(','));
-	s += "]\n}";
-
-	return s;
+	genes.back().ExportJSON(s);
+	s << "]}";
+	output << s.rdbuf();
 }

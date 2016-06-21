@@ -30,7 +30,7 @@ namespace JNF_NEAT {
 			void TrainUntilGenerationEquals(unsigned int generationsToTrain);
 
 			TrainedNeuralNetwork GetTrainedNeuralNetwork();
-			std::string ToString () const;
+			void ExportJSON(std::ostream& output) const;
 		private:
 			void SetBodies(std::vector<IBody*>& bodies);
 

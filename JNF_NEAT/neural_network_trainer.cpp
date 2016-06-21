@@ -2,6 +2,7 @@
 #include <stdexcept>
 #include "neural_network_trainer.h"
 #include <iostream>
+#include <sstream>
 
 
 using namespace JNF_NEAT;
@@ -188,15 +189,16 @@ Species& NeuralNetworkTrainer::SelectSpeciesToBreed() {
 	}
 }
 
-std::string NeuralNetworkTrainer::ToString() const {
-	string s("{\n");
-	s += "\"populationSize\": " + to_string(populationSize) + ",\n"
-		 + "\"generationsPassed\": " + to_string(generationsPassed) + ",\n"
-		 + "\"species\": [\n";
-	for (const auto& sp: species){
-		s += sp.ToString() + ",\n";
+void NeuralNetworkTrainer::ExportJSON(ostream& output) const {
+	stringstream s;
+	s << "{\"populationSize\":" << to_string(populationSize) << ","
+		 << "\"generationsPassed\":" << to_string(generationsPassed) << ","
+		 << "\"species\":[";
+	for (size_t i = 0; i < species.size() - 1; ++i) {
+		species[i].ExportJSON(s);
+		s << ",";
 	}
-	s.erase(s.rfind(","));
-	s += "]\n}";
-	return s;
+	species.back().ExportJSON(s);
+	s << "]}";
+	output << s.rdbuf();
 }
