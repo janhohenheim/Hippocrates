@@ -1,6 +1,6 @@
 # JNF_NEAT
 
-My implementation of Kenneth Stanley and Risto Miikkulainen's NEAT (NeuroEvolution
+Implementation of Kenneth Stanley and Risto Miikkulainen's NEAT (NeuroEvolution
 of Augmenting Topologies, http://nn.cs.utexas.edu/downloads/papers/stanley.ec02.pdf).
 
 It focuses (in contrast to other implementations) on
