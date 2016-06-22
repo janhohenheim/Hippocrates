@@ -1,7 +1,7 @@
 #include "neuron.h"
 #include <cmath>
 #include <stdexcept>
-#include <sstream>
+#include <string>
 
 using namespace JNF_NEAT;
 using namespace std;
@@ -37,10 +37,13 @@ void Neuron::SetInput(float input) {
 }
 
 
-void Neuron::ExportJSON(ostream& output) const {
-	stringstream s;
-	s << "{\"layer\":" << layer << ","
-		<< "\"lastActionPotential\":" << lastActionPotential << "}";
-	output << s.rdbuf();
+string Neuron::GetJSON() const {
+	string s("{\"layer\":");
+	s += to_string(layer);
+	s += ",";
+	s += "\"lastActionPotential\":";
+	s += to_string(lastActionPotential);
+	s += "}";
+	return s;
 }
 

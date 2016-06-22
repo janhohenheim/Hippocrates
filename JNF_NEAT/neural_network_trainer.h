@@ -7,7 +7,6 @@
 #include "species.h"
 #include "trained_neural_network.h"
 #include <vector>
-#include <list>
 
 namespace JNF_NEAT {
 
@@ -27,10 +26,12 @@ namespace JNF_NEAT {
 			~NeuralNetworkTrainer() = default;
 
 			void TrainUntilFitnessEquals(double fitnessToReach);
-			void TrainUntilGenerationEquals(unsigned int generationsToTrain);
+			//void TrainAndLogUntilFitnessEquals(double fitnessToReach, ostream& output);
+			void TrainUntilGenerationEquals(size_t generationsToTrain);
+			//void TrainAndLogUntilGenerationEquals(double fitnessToReach, ostream& output);
 
 			TrainedNeuralNetwork GetTrainedNeuralNetwork();
-			void ExportJSON(std::ostream& output) const;
+			std::string GetJSON() const;
 		private:
 			void SetBodies(std::vector<IBody*>& bodies);
 

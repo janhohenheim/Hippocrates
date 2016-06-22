@@ -2,7 +2,6 @@
 #include <stdexcept>
 #include "neural_network_trainer.h"
 #include <iostream>
-#include <sstream>
 
 
 using namespace JNF_NEAT;
@@ -45,7 +44,7 @@ void NeuralNetworkTrainer::TrainUntilFitnessEquals(double fitnessToReach) {
 	}
 }
 
-void NeuralNetworkTrainer::TrainUntilGenerationEquals(unsigned int generationsToTrain) {
+void NeuralNetworkTrainer::TrainUntilGenerationEquals(size_t generationsToTrain) {
 	generationsToTrain += generationsPassed;
 	LetGenerationLive();
 	while (generationsPassed < generationsToTrain) {
@@ -189,16 +188,19 @@ Species& NeuralNetworkTrainer::SelectSpeciesToBreed() {
 	}
 }
 
-void NeuralNetworkTrainer::ExportJSON(ostream& output) const {
-	stringstream s;
-	s << "{\"populationSize\":" << to_string(populationSize) << ","
-		 << "\"generationsPassed\":" << to_string(generationsPassed) << ","
-		 << "\"species\":[";
+string NeuralNetworkTrainer::GetJSON() const {
+	string s("{\"populationSize\":");
+	s += to_string(populationSize);
+	s += ",";
+	s += "\"generationsPassed\":";
+	s += to_string(generationsPassed);
+	s += ",";
+	s += "\"species\":[";
 	for (size_t i = 0; i < species.size() - 1; ++i) {
-		species[i].ExportJSON(s);
-		s << ",";
+		s += species[i].GetJSON();
+		s += ",";
 	}
-	species.back().ExportJSON(s);
-	s << "]}";
-	output << s.rdbuf();
+	s += species.back().GetJSON();
+	s += "]}";
+	return s;
 }

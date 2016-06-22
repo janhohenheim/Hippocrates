@@ -1,6 +1,5 @@
 #include <cstdlib>
 #include <algorithm>
-#include <sstream>
 #include "organism.h"
 
 using namespace JNF_NEAT;
@@ -59,12 +58,15 @@ NeuralNetwork Organism::BreedWith(Organism& partner) {
 	return child;
 }
 
-void Organism::ExportJSON(ostream& output) const {
-	stringstream s;
-	s << "{\"fitness\":" << fitness << ","
-	  << "\"fitnessModifier\":" << fitnessModifier << ","
-	  << "\"network\":";
-	network.ExportJSON(s);
-	s << "}";
-	output << s.rdbuf();
+string Organism::GetJSON() const {
+	string s("{\"fitness\":");
+	s += to_string(fitness);
+	s += ",";
+	s += "\"fitnessModifier\":"; 
+	s += to_string(fitnessModifier);
+	s += ",";
+	s += "\"network\":";
+	s += network.GetJSON();
+	s += "}";
+	return s;
 }

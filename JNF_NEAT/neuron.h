@@ -1,6 +1,5 @@
 #pragma once
 #include <cstddef>
-#include <unordered_map>
 #include <vector>
 
 namespace JNF_NEAT {
@@ -33,7 +32,7 @@ namespace JNF_NEAT {
 			const std::vector<Connection>& GetConnections() const { return connections; }
 			float RequestDataAndGetActionPotential();
 			size_t GetLayer() const { return layer; }
-			void ExportJSON(std::ostream& output) const;
+			std::string GetJSON() const;
 
 		private:
 			void AddConnection(Connection connection);

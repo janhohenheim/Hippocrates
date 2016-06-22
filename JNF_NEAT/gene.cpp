@@ -1,6 +1,5 @@
 #include "gene.h"
 #include <stdlib.h>
-#include <sstream>
 
 using namespace JNF_NEAT;
 using namespace std;
@@ -29,17 +28,23 @@ void Gene::SetRandomWeight() {
 	}
 }
 
-void Gene::ExportJSON(ostream& output) const {
+string Gene::GetJSON() const {
 	auto BoolToString = [](bool b) {
 		return b ? "true" : "false";
 	};
-	stringstream s;
-	s << "{\"historicalMarking\":" << historicalMarking << ","
-		<< "\"from\":" << from << ","
-		<< "\"to\":" << to << ","
-		<< "\"weight\":" << weight << ","
-		<< "\"isEnabled\":" << BoolToString(isEnabled) << ","
-		<< "\"isRecursive\":" << BoolToString(isRecursive) << "}";
-	output << s.rdbuf();
+	string s("{\"historicalMarking\":");
+	s += to_string(historicalMarking);
+	s += ",\"from\":";
+	s += to_string(from);
+	s += ",\"to\":";
+	s += to_string(to);
+	s += ",\"weight\":";
+	s += to_string(weight);
+	s += ",\"isEnabled\":";
+	s += BoolToString(isEnabled);
+	s += ",\"isRecursive\":";
+	s += BoolToString(isRecursive);
+	s += "}";
+	return s;
 }
 

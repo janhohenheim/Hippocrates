@@ -1,6 +1,5 @@
 #include "neural_network.h"
 #include <algorithm>
-#include <sstream>
 
 using namespace JNF_NEAT;
 using namespace std;
@@ -363,16 +362,15 @@ Gene& NeuralNetwork::GetRandomEnabledGene() {
 	return *randGene;
 }
 
-void NeuralNetwork::ExportJSON(std::ostream& output) const{
-	stringstream s;
-	s << "{\"neurons\":[";
+string NeuralNetwork::GetJSON() const{
+	string s("{\"neurons\":[");
 	for (size_t i = 0; i < neurons.size() - 1; ++i) {
-		neurons[i].ExportJSON(s);
-		s << ",";
+		s += neurons[i].GetJSON();
+		s += ",";
 	}
-	neurons.back().ExportJSON(s);
-	s << "],\"genome\":";
-	genome.ExportJSON(s);
-	s << "}";
-	output << s.rdbuf();
+	s += neurons.back().GetJSON();
+	s += "],\"genome\":";
+	s += genome.GetJSON();
+	s += "}";
+	return s;
 }

@@ -32,7 +32,7 @@ namespace JNF_NEAT {
 			const Genome& GetGenome() const { return network.GetGenome(); }
 			const NeuralNetwork & GetNetwork() const { return network; }
 			const TrainingParameters& GetTrainingParameters() const { return network.GetTrainingParameters(); }
-			void ExportJSON(std::ostream& output) const;
+			std::string GetJSON() const;
 	};
 
 }

@@ -1,7 +1,6 @@
 #include "species.h"
 #include <algorithm>
 #include <cstdlib>
-#include <sstream>
 
 using namespace JNF_NEAT;
 using namespace std;
@@ -13,17 +12,17 @@ parameters(representative.GetTrainingParameters()) {
 }
 
 Species::~Species() {
-    for (auto* organism : population) {
-        delete organism;
-        organism = nullptr;
-    }
+	for (auto* organism : population) {
+		delete organism;
+		organism = nullptr;
+	}
 }
 
 void Species::AddOrganism(const Organism& organism) {
 	population.push_back(new Organism(organism));
 	ElectRepresentative();
 	isSortedByFitness = false;
-    SetPopulationsFitnessModifier();
+	SetPopulationsFitnessModifier();
 }
 
 void Species::AddOrganism(Organism&& organism) {
@@ -42,12 +41,12 @@ void Species::AnalyzeAndClearPopulation() {
 		numberOfStagnantGenerations++;
 	}
 
-    for (auto* organism : population) {
-        delete organism;
-        organism = nullptr;
-    }
-    population.clear(); 
-    isSortedByFitness = false;	
+	for (auto* organism : population) {
+		delete organism;
+		organism = nullptr;
+	}
+	population.clear(); 
+	isSortedByFitness = false;	
 }
 
 
@@ -74,9 +73,9 @@ void Species::SelectRandomRepresentative() {
 	auto randomMember = rand() % population.size();
 	if (representative == nullptr) {
 		representative = make_unique<Organism>(*population[randomMember]);
-    } else {
-        *representative = *population[randomMember];
-    }
+	} else {
+		*representative = *population[randomMember];
+	}
 }
 
 void Species::SelectFittestOrganismAsRepresentative() {
@@ -101,9 +100,9 @@ void Species::ResetToTeachableState() {
 }
 
 Organism& Species::GetFittestOrganism() {
-    if (population.empty()) {
-        return *representative;
-    }
+	if (population.empty()) {
+		return *representative;
+	}
 	if (!isSortedByFitness) {
 		auto CompareOrganisms = [&](Organism* lhs, Organism* rhs) {
 			return lhs->GetOrCalculateFitness() > rhs->GetOrCalculateFitness();
@@ -125,9 +124,9 @@ Species& Species::operator=(Species&& other) {
 
 Organism& Species::GetOrganismToBreed() {
 	// TODO jnf: Switch to stochastic universal sampling
-    if (population.empty()) {
-        return *representative;
-    }
+	if (population.empty()) {
+		return *representative;
+	}
 	double totalPopulationFitness = 0.0;
 	for (auto* organism : population) {
 		totalPopulationFitness += organism->GetOrCalculateFitness();
@@ -140,31 +139,31 @@ Organism& Species::GetOrganismToBreed() {
 		return chance + (organism.GetOrCalculateFitness() / totalPopulationFitness);
 	};
 
-    while (true) {
-        for (auto* organism : population) {
-            double randNum = (double)(rand() % 10'000) / 9'999.0;;
-            chance = GetChanceForOrganism(*organism);
-            if (randNum < chance) {
-                return *organism;
-            }
-        }
-    }
+	while (true) {
+		for (auto* organism : population) {
+			double randNum = (double)(rand() % 10'000) / 9'999.0;;
+			chance = GetChanceForOrganism(*organism);
+			if (randNum < chance) {
+				return *organism;
+			}
+		}
+	}
 }
 
-void Species::ExportJSON(ostream& output) const {
-	stringstream s;
-	s << "{\"fitnessHighscore\":" << fitnessHighscore << ","
-		<< "\"numberOfStagnantGenerations\":" << numberOfStagnantGenerations << ","
-		<< "\"representative\":";
-	representative->ExportJSON(s);
-	s << ","
-	<< "\"population\": [";
+string Species::GetJSON() const {
+	string s("{\"fitnessHighscore\":");
+	s += to_string(fitnessHighscore);
+	s += ",\"numberOfStagnantGenerations\":";
+	s += to_string(numberOfStagnantGenerations);
+	s += ",\"representative\":";
+	s += representative->GetJSON();
+	s += ",\"population\": [";
 	for (size_t i = 0; i < population.size() - 1; ++i) {
-		population[i]->ExportJSON(s);
-		s << ",";
+		s += population[i]->GetJSON();
+		s += ",";
 	}
-	population.back()->ExportJSON(s);
-	s << "]}";
-	output << s.rdbuf();
+	s += population.back()->GetJSON();
+	s += "]}";
+	return s;
 }
 

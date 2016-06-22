@@ -1,13 +1,12 @@
 #include <cmath>
 #include "genome.h"
 #include <algorithm>
-#include <sstream>
 
 using namespace JNF_NEAT;
 using namespace std;
 
 Genome::Genome(const TrainingParameters& parameters) :
-    parameters(parameters),
+	parameters(parameters),
 	genes((parameters.numberOfInputs + parameters.advanced.structure.numberOfBiasNeurons) * parameters.numberOfOutputs),
 	neuronCount((parameters.numberOfInputs + parameters.advanced.structure.numberOfBiasNeurons) + parameters.numberOfOutputs)
 {
@@ -48,7 +47,7 @@ double Genome::GetGeneticalDistanceFrom(const Genome& other) const {
 
 	auto numberOfDisjointGenes = this->GetGeneCount() + other.GetGeneCount() - (size_t)2 * numberOfOverlapingGenes;
 	auto sizeOfBiggerGenome = max(this->GetGeneCount(), other.GetGeneCount());
-    // TODO jnf: Think how we'll handle the next line
+	// TODO jnf: Think how we'll handle the next line
 	auto disjointGenesInfluence = (double)numberOfDisjointGenes /* / (double)sizeOfBiggerGenome*/;
 
 	auto averageWeightDifference = totalWeightDifference / (double)numberOfOverlapingGenes;
@@ -68,14 +67,13 @@ bool Genome::DoesContainGene(const Gene& gene) const {
 	return false;
 }
 
-void Genome::ExportJSON(ostream& output) const {
-	stringstream s;
-	s << "{\"genome\":[";
+string Genome::GetJSON() const {
+	string s("{\"genome\":[");
 	for (size_t i = 0; i < genes.size() - 1; ++i) {
-		genes[i].ExportJSON(s);
-		s << ",";
+		s += genes[i].GetJSON();
+		s += ",";
 	}
-	genes.back().ExportJSON(s);
-	s << "]}";
-	output << s.rdbuf();
+	s += genes.back().GetJSON();
+	s += "]}";
+	return s;
 }
