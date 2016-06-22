@@ -3,6 +3,8 @@
 Implementation of Kenneth Stanley and Risto Miikkulainen's NEAT (NeuroEvolution
 of Augmenting Topologies, http://nn.cs.utexas.edu/downloads/papers/stanley.ec02.pdf).
 
+[Usage example](https://github.com/SirRade/JNF_NEAT_Examples)
+
 It focuses (in contrast to other implementations) on
 
 - Speed - through modern and efficient C++14
