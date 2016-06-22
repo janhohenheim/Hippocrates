@@ -7,10 +7,14 @@
 #include "species.h"
 #include "trained_neural_network.h"
 #include <vector>
+#include <chrono>
 
 namespace JNF_NEAT {
 
 	class NeuralNetworkTrainer {
+		public:
+			bool loggingEnabled = false;
+
 		private:
 			std::vector<Species> species;
 			TrainingParameters parameters;
@@ -26,15 +30,15 @@ namespace JNF_NEAT {
 			~NeuralNetworkTrainer() = default;
 
 			void TrainUntilFitnessEquals(double fitnessToReach);
-			//void TrainAndLogUntilFitnessEquals(double fitnessToReach, ostream& output);
 			void TrainUntilGenerationEquals(size_t generationsToTrain);
-			//void TrainAndLogUntilGenerationEquals(double fitnessToReach, ostream& output);
 
 			TrainedNeuralNetwork GetTrainedNeuralNetwork();
 			std::string GetJSON() const;
+
 		private:
 			void SetBodies(std::vector<IBody*>& bodies);
-
+			void TrainGeneration();
+			void LogCurrentGeneration();
 			void ResetPopulationToTeachableState();
 			void Repopulate();
 			void LetGenerationLive();
@@ -46,7 +50,10 @@ namespace JNF_NEAT {
 			void DeleteEmptySpecies();
 
 			Species& SelectSpeciesToBreed();
-			Organism& GetFittestOrganism();
+			Organism& GetFittestOrganism();			
+			std::chrono::system_clock::time_point trainingStart;
+			static constexpr auto logFolder = L"/json_dumps/";
+			static constexpr auto logFileExtension = L".json";
 	};
 
 }

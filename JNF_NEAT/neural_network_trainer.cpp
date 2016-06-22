@@ -2,7 +2,11 @@
 #include <stdexcept>
 #include "neural_network_trainer.h"
 #include <iostream>
-
+#include <experimental\filesystem>
+#include <fstream>
+#include <iomanip>
+#include <time.h>
+#include <sstream>
 
 using namespace JNF_NEAT;
 using namespace std;
@@ -35,25 +39,47 @@ void NeuralNetworkTrainer::SetBodies(vector<IBody*>& bodies) {
 }
 
 
+
 void NeuralNetworkTrainer::TrainUntilFitnessEquals(double fitnessToReach) {
+	trainingStart = chrono::system_clock::now();
 	LetGenerationLive();
 	while (GetFittestOrganism().GetOrCalculateRawFitness() < (fitnessToReach - 1e-6)) {
-		Repopulate();
-		LetGenerationLive();
-		generationsPassed++;
+		TrainGeneration();
 	}
 }
 
 void NeuralNetworkTrainer::TrainUntilGenerationEquals(size_t generationsToTrain) {
+	trainingStart = chrono::system_clock::now();
 	generationsToTrain += generationsPassed;
 	LetGenerationLive();
 	while (generationsPassed < generationsToTrain) {
-		Repopulate();
-		LetGenerationLive();
-		generationsPassed++;
+		TrainGeneration();
 	}
 }
 
+void JNF_NEAT::NeuralNetworkTrainer::TrainGeneration()
+{
+	Repopulate();
+	LetGenerationLive();
+	generationsPassed++;
+	if (loggingEnabled) {
+		LogCurrentGeneration();
+	}
+}
+
+void NeuralNetworkTrainer::LogCurrentGeneration() {
+	wstring currentDir(experimental::filesystem::current_path().c_str());
+	wstring dumpDir(currentDir + logFolder);
+	experimental::filesystem::create_directory(dumpDir);
+
+	wstring sessionDir(dumpDir + to_wstring(trainingStart.time_since_epoch().count()) + L"/");
+	experimental::filesystem::create_directory(sessionDir);
+
+	wstring logFileName(sessionDir + L"generation_" + to_wstring(generationsPassed) + logFileExtension);
+	ofstream logFile(logFileName);
+	logFile << GetJSON();
+	logFile.close();
+}
 TrainedNeuralNetwork NeuralNetworkTrainer::GetTrainedNeuralNetwork() {
 	return TrainedNeuralNetwork(GetFittestOrganism().GetGenome());
 }
