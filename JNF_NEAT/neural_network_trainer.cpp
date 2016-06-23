@@ -11,12 +11,12 @@
 using namespace JNF_NEAT;
 using namespace std;
 
-NeuralNetworkTrainer::NeuralNetworkTrainer(vector<IBody*>& population, TrainingParameters parameters) :
+NeuralNetworkTrainer::NeuralNetworkTrainer(vector<shared_ptr<IBody>> population, TrainingParameters parameters) :
 	parameters(move(parameters)),
 	populationSize(population.size()),
-	bodies(population)
+	bodies(move(population))
 {
-	SetBodies(population);
+	CreateInitialOrganisms();
 }
 
 void NeuralNetworkTrainer::ResetPopulationToTeachableState() {
@@ -24,20 +24,6 @@ void NeuralNetworkTrainer::ResetPopulationToTeachableState() {
 		sp.ResetToTeachableState();
 	}
 }
-
-void NeuralNetworkTrainer::SetBodies(vector<IBody*>& bodies) {
-	species.clear();
-	generationsPassed = 0;
-
-	Genome standardGenes(parameters);
-	for (auto& currTrainer : bodies) {
-		NeuralNetwork network(standardGenes);
-		Organism organism(currTrainer, move(network));
-		FillOrganismIntoSpecies(move(organism));
-	}
-	DeleteEmptySpecies();
-}
-
 
 
 void NeuralNetworkTrainer::TrainUntilFitnessEquals(double fitnessToReach) {
@@ -54,6 +40,15 @@ void NeuralNetworkTrainer::TrainUntilGenerationEquals(size_t generationsToTrain)
 	LetGenerationLive();
 	while (generationsPassed < generationsToTrain) {
 		TrainGeneration();
+	}
+}
+
+void JNF_NEAT::NeuralNetworkTrainer::CreateInitialOrganisms() {
+	Genome standardGenes(parameters);
+	for (auto currTrainer : bodies) {
+		NeuralNetwork network(standardGenes);
+		Organism organism(currTrainer, move(network));
+		FillOrganismIntoSpecies(move(organism));
 	}
 }
 
@@ -107,21 +102,6 @@ void NeuralNetworkTrainer::LetGenerationLive() {
 void NeuralNetworkTrainer::PrepareSpeciesForPopulation() {
 	AnalyzeAndClearSpeciesPopulation();
 	DeleteStagnantSpecies();	
-}
-
-void NeuralNetworkTrainer::FillOrganismIntoSpecies(const Organism& organism) {
-	bool isCompatibleWithExistingSpecies = false;
-	for (auto& currSpecies : species) {
-		if (currSpecies.IsCompatible(organism.GetGenome())) {
-			currSpecies.AddOrganism(move(organism));
-			isCompatibleWithExistingSpecies = true;
-			break;
-		}
-	}
-	if (!isCompatibleWithExistingSpecies) {
-		Species newSpecies(organism);
-		species.push_back(move(newSpecies));
-	} 
 }
 
 void NeuralNetworkTrainer::FillOrganismIntoSpecies(Organism&& organism) {
@@ -179,7 +159,7 @@ void NeuralNetworkTrainer::Repopulate() {
 		}
 		auto& mother = sp->GetOrganismToBreed();
 		auto childNeuralNetwork(move(father.BreedWith(mother)));
-		Organism child(&*trainer, move(childNeuralNetwork));
+		Organism child(trainer, move(childNeuralNetwork));
 		FillOrganismIntoSpecies(move(child));
 	}
 	DeleteEmptySpecies();

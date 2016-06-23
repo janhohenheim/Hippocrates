@@ -7,26 +7,12 @@ using namespace std;
 
 Species::Species(Organism representative) :
 parameters(representative.GetTrainingParameters()) {
-	population.push_back(new Organism(move(representative)));
+	population.push_back(make_unique<Organism>(move(representative)));
 	ElectRepresentative();
-}
-
-Species::~Species() {
-	for (auto* organism : population) {
-		delete organism;
-		organism = nullptr;
-	}
-}
-
-void Species::AddOrganism(const Organism& organism) {
-	population.push_back(new Organism(organism));
-	ElectRepresentative();
-	isSortedByFitness = false;
-	SetPopulationsFitnessModifier();
 }
 
 void Species::AddOrganism(Organism&& organism) {
-	population.push_back(new Organism(move(organism)));
+	population.push_back(make_unique<Organism>(move(organism)));
 	ElectRepresentative();
 	isSortedByFitness = false;
 	SetPopulationsFitnessModifier();
@@ -40,11 +26,6 @@ void Species::AnalyzeAndClearPopulation() {
 	} else {
 		numberOfStagnantGenerations++;
 	}
-
-	for (auto* organism : population) {
-		delete organism;
-		organism = nullptr;
-	}
 	population.clear(); 
 	isSortedByFitness = false;	
 }
@@ -57,7 +38,7 @@ bool Species::IsCompatible(const Genome& genome) const {
 
 void Species::SetPopulationsFitnessModifier() {
 	double fitnessModifier = 1.0 / (double)population.size();
-	for (auto* organism : population){
+	for (auto& organism : population){
 		organism->SetFitnessModifier(fitnessModifier);
 	}
 }
@@ -87,14 +68,14 @@ void Species::SelectFittestOrganismAsRepresentative() {
 }
 
 void Species::LetPopulationLive() {
-	for (auto* organism : population){
+	for (auto& organism : population){
 		organism->Update();
 	}
 	isSortedByFitness = false;
 }
 
 void Species::ResetToTeachableState() {
-	for (auto* organism : population){
+	for (auto& organism : population){
 		organism->Reset();
 	}
 }
@@ -104,7 +85,7 @@ Organism& Species::GetFittestOrganism() {
 		return *representative;
 	}
 	if (!isSortedByFitness) {
-		auto CompareOrganisms = [&](Organism* lhs, Organism* rhs) {
+		auto CompareOrganisms = [&](unique_ptr<Organism>& lhs, unique_ptr<Organism>& rhs) {
 			return lhs->GetOrCalculateFitness() > rhs->GetOrCalculateFitness();
 		};
 		sort(population.begin(), population.end(), CompareOrganisms);
@@ -128,7 +109,7 @@ Organism& Species::GetOrganismToBreed() {
 		return *representative;
 	}
 	double totalPopulationFitness = 0.0;
-	for (auto* organism : population) {
+	for (auto& organism : population) {
 		totalPopulationFitness += organism->GetOrCalculateFitness();
 	}
 	if (totalPopulationFitness == 0) {
@@ -140,7 +121,7 @@ Organism& Species::GetOrganismToBreed() {
 	};
 
 	while (true) {
-		for (auto* organism : population) {
+		for (auto& organism : population) {
 			double randNum = (double)(rand() % 10'000) / 9'999.0;;
 			chance = GetChanceForOrganism(*organism);
 			if (randNum < chance) {

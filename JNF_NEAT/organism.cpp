@@ -5,7 +5,7 @@
 using namespace JNF_NEAT;
 using namespace std;
 
-Organism::Organism(IBody* body, NeuralNetwork&& network) :
+Organism::Organism(std::shared_ptr<IBody> body, NeuralNetwork&& network) :
 	body(body),
 	network(move(network))
 {

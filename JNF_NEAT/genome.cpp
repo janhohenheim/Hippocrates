@@ -10,7 +10,7 @@ Genome::Genome(const TrainingParameters& parameters) :
 	genes((parameters.numberOfInputs + parameters.advanced.structure.numberOfBiasNeurons) * parameters.numberOfOutputs),
 	neuronCount((parameters.numberOfInputs + parameters.advanced.structure.numberOfBiasNeurons) + parameters.numberOfOutputs)
 {
-	auto *currentGene = &genes.front();
+	auto currentGene = genes.begin();
 	for (auto in = 0U; in < (parameters.numberOfInputs + parameters.advanced.structure.numberOfBiasNeurons); ++in) {
 		for (auto out = 0U; out < parameters.numberOfOutputs; ++out) {
 			currentGene->from = in;

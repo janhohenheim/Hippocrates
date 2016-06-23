@@ -8,6 +8,7 @@
 #include "trained_neural_network.h"
 #include <vector>
 #include <chrono>
+#include <memory>
 
 namespace JNF_NEAT {
 
@@ -19,31 +20,29 @@ namespace JNF_NEAT {
 			std::vector<Species> species;
 			TrainingParameters parameters;
 			size_t populationSize = 0U;
-			std::vector<IBody *>& bodies;
+			std::vector<std::shared_ptr<IBody>> bodies;
 			size_t generationsPassed = 0;
 
 		public:
 			NeuralNetworkTrainer() = delete;
-			NeuralNetworkTrainer(std::vector<IBody*>& population, TrainingParameters parameters);
+			NeuralNetworkTrainer(std::vector<std::shared_ptr<IBody>> population, TrainingParameters parameters);
 			NeuralNetworkTrainer(const NeuralNetworkTrainer& other) = default;
 
 			~NeuralNetworkTrainer() = default;
 
 			void TrainUntilFitnessEquals(double fitnessToReach);
 			void TrainUntilGenerationEquals(size_t generationsToTrain);
-
 			TrainedNeuralNetwork GetTrainedNeuralNetwork();
 			std::string GetJSON() const;
 
 		private:
-			void SetBodies(std::vector<IBody*>& bodies);
+			void CreateInitialOrganisms();
 			void TrainGeneration();
 			void LogCurrentGeneration();
 			void ResetPopulationToTeachableState();
 			void Repopulate();
 			void LetGenerationLive();
 			void PrepareSpeciesForPopulation();
-			void FillOrganismIntoSpecies(const Organism& organism);
 			void FillOrganismIntoSpecies(Organism&& organism);
 			void AnalyzeAndClearSpeciesPopulation();
 			void DeleteStagnantSpecies();
@@ -55,5 +54,4 @@ namespace JNF_NEAT {
 			static constexpr auto logFolder = L"/json_dumps/";
 			static constexpr auto logFileExtension = L".json";
 	};
-
 }

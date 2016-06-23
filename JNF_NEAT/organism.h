@@ -3,20 +3,21 @@
 #include "body.h"
 #include "training_parameters.h"
 #include "genome.h"
+#include <memory>
 
 namespace JNF_NEAT {
 
 	class Organism {
 		private:
-			IBody* body = nullptr;
+			std::shared_ptr<IBody> body;
 			NeuralNetwork network;
 			double fitness = 0.0;
 			double fitnessModifier = 1.0;
 			bool isFitnessUpToDate = false;
 
 		public:
-			Organism(IBody* body, NeuralNetwork&& network);
-			Organism(IBody* body, const NeuralNetwork&& network) = delete;
+			Organism(std::shared_ptr<IBody> body, NeuralNetwork&& network);
+			Organism(std::shared_ptr<IBody> body, const NeuralNetwork&& network) = delete;
 			Organism(const Organism& other) = default;
 			Organism(Organism&& other) = default;
 			~Organism() = default;
