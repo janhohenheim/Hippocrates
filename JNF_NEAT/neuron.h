@@ -1,6 +1,7 @@
 #pragma once
 #include <cstddef>
 #include <vector>
+#include <string>
 
 namespace JNF_NEAT {
 	class NeuralNetwork;

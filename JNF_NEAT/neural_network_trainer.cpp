@@ -2,11 +2,9 @@
 #include <stdexcept>
 #include "neural_network_trainer.h"
 #include <iostream>
-#include <experimental\filesystem>
+#include <experimental/filesystem>
 #include <fstream>
 #include <iomanip>
-#include <time.h>
-#include <sstream>
 
 using namespace JNF_NEAT;
 using namespace std;
@@ -27,19 +25,19 @@ void NeuralNetworkTrainer::ResetPopulationToTeachableState() {
 
 
 void NeuralNetworkTrainer::TrainUntilFitnessEquals(double fitnessToReach) {
-	trainingStart = chrono::system_clock::now();
+	auto timestamp = chrono::system_clock::now();
 	LetGenerationLive();
 	while (GetFittestOrganism().GetOrCalculateRawFitness() < (fitnessToReach - 1e-6)) {
-		TrainGeneration();
+		TrainGenerationAndLogTimestamp(timestamp);
 	}
 }
 
 void NeuralNetworkTrainer::TrainUntilGenerationEquals(size_t generationsToTrain) {
-	trainingStart = chrono::system_clock::now();
+    auto timestamp = chrono::system_clock::now();
 	generationsToTrain += generationsPassed;
 	LetGenerationLive();
 	while (generationsPassed < generationsToTrain) {
-		TrainGeneration();
+        TrainGenerationAndLogTimestamp(timestamp);
 	}
 }
 
@@ -52,25 +50,69 @@ void JNF_NEAT::NeuralNetworkTrainer::CreateInitialOrganisms() {
 	}
 }
 
-void JNF_NEAT::NeuralNetworkTrainer::TrainGeneration()
+void JNF_NEAT::NeuralNetworkTrainer::TrainGenerationAndLogTimestamp(const std::chrono::system_clock::time_point& timestamp)
 {
 	Repopulate();
 	LetGenerationLive();
 	generationsPassed++;
 	if (loggingEnabled) {
-		LogCurrentGeneration();
+		LogCurrentGenerationWithTimestamp(timestamp);
 	}
 }
 
-void NeuralNetworkTrainer::LogCurrentGeneration() {
-	wstring currentDir(experimental::filesystem::current_path().c_str());
-	wstring dumpDir(currentDir + logFolder);
+
+auto GetCurrentDir(const char*) {
+    return string((char*)experimental::filesystem::current_path().c_str());
+}
+
+auto GetCurrentDir(const wchar_t*) {
+    return wstring((wchar_t*)experimental::filesystem::current_path().c_str());
+}
+
+auto GetLogFolder (string) {
+	return string("/json_dumps/");
+}
+auto GetLogFolder (wstring){
+	return wstring(L"/json_dumps/");
+}
+auto GetLogFileExtension (string) {
+	return string(".json");
+}
+auto GetLogFileExtension (wstring) {
+	return wstring(L".json");
+}
+
+auto GetSessionDir(string dumpDir, std::chrono::system_clock::time_point timestamp){
+	return string(dumpDir + to_string(timestamp.time_since_epoch().count()) + "/");
+}
+
+auto GetSessionDir(wstring dumpDir, std::chrono::system_clock::time_point timestamp){
+	return wstring(dumpDir + to_wstring(timestamp.time_since_epoch().count()) + L"/");
+}
+
+auto GetLogFileName(string sessionDir, size_t generationsPassed, string logFileExtension){
+	return string(sessionDir + "generation_" + to_string(generationsPassed) + logFileExtension);
+}
+
+auto GetLogFileName(wstring sessionDir, size_t generationsPassed, wstring logFileExtension){
+	return wstring(sessionDir + L"generation_" + to_wstring(generationsPassed) + logFileExtension);
+}
+
+void NeuralNetworkTrainer::LogCurrentGenerationWithTimestamp(const std::chrono::system_clock::time_point& timestamp) {
+	auto* pathType = experimental::filesystem::current_path().c_str();
+    auto currentDir = GetCurrentDir(pathType);
+	auto logFolder = GetLogFolder(pathType);
+	auto logFileExtension = GetLogFileExtension(pathType);
+
+
+	auto dumpDir(currentDir + logFolder);
 	experimental::filesystem::create_directory(dumpDir);
 
-	wstring sessionDir(dumpDir + to_wstring(trainingStart.time_since_epoch().count()) + L"/");
+	auto sessionDir = GetSessionDir(dumpDir, timestamp);
 	experimental::filesystem::create_directory(sessionDir);
 
-	wstring logFileName(sessionDir + L"generation_" + to_wstring(generationsPassed) + logFileExtension);
+	auto logFileName = GetLogFileName(sessionDir, generationsPassed, logFileExtension);
+
 	ofstream logFile(logFileName);
 	logFile << GetJSON();
 	logFile.close();

@@ -37,8 +37,8 @@ namespace JNF_NEAT {
 
 		private:
 			void CreateInitialOrganisms();
-			void TrainGeneration();
-			void LogCurrentGeneration();
+			void TrainGenerationAndLogTimestamp(const std::chrono::system_clock::time_point& timestamp);
+			void LogCurrentGenerationWithTimestamp(const std::chrono::system_clock::time_point& timestamp);
 			void ResetPopulationToTeachableState();
 			void Repopulate();
 			void LetGenerationLive();
@@ -49,9 +49,6 @@ namespace JNF_NEAT {
 			void DeleteEmptySpecies();
 
 			Species& SelectSpeciesToBreed();
-			Organism& GetFittestOrganism();			
-			std::chrono::system_clock::time_point trainingStart;
-			static constexpr auto logFolder = L"/json_dumps/";
-			static constexpr auto logFileExtension = L".json";
+			Organism& GetFittestOrganism();		
 	};
 }
