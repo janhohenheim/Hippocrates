@@ -130,7 +130,7 @@ void NeuralNetwork::InterpretInputsAndOutputs() {
 
 	// Outputs
 	for (auto i = 0U; i < parameters.numberOfOutputs; i++) {
-		outputNeurons[i] = &neurons[genome[i * parameters.numberOfOutputs].to];
+		outputNeurons[i] = &neurons[genome[i].to];
 	}
 }
 
