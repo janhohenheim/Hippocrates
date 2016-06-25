@@ -60,7 +60,7 @@ void JNF_NEAT::NeuralNetworkTrainer::TrainGenerationAndLogTimestamp(const std::c
 	}
 }
 
-
+// TODO jnf: Put all this platform independency shit into an own class
 auto GetCurrentDir(const char*) {
     return string((char*)experimental::filesystem::current_path().c_str());
 }
@@ -106,11 +106,15 @@ void NeuralNetworkTrainer::LogCurrentGenerationWithTimestamp(const std::chrono::
 
 
 	auto dumpDir(currentDir + logFolder);
-	experimental::filesystem::create_directory(dumpDir);
+	if (!experimental::filesystem::exists(dumpDir)){
+		experimental::filesystem::create_directory(dumpDir);
+	}
+
 
 	auto sessionDir = GetSessionDir(dumpDir, timestamp);
-	experimental::filesystem::create_directory(sessionDir);
-
+	if (!experimental::filesystem::exists(sessionDir)) {
+		experimental::filesystem::create_directory(sessionDir);
+	}
 	auto logFileName = GetLogFileName(sessionDir, generationsPassed, logFileExtension);
 
 	ofstream logFile(logFileName);
