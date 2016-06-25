@@ -27,3 +27,24 @@ void Gene::SetRandomWeight() {
 		weight = -weight;
 	}
 }
+
+string Gene::GetJSON() const {
+	auto BoolToString = [](bool b) {
+		return b ? "true" : "false";
+	};
+	string s("{\"historicalMarking\":");
+	s += to_string(historicalMarking);
+	s += ",\"from\":";
+	s += to_string(from);
+	s += ",\"to\":";
+	s += to_string(to);
+	s += ",\"weight\":";
+	s += to_string(weight);
+	s += ",\"isEnabled\":";
+	s += BoolToString(isEnabled);
+	s += ",\"isRecursive\":";
+	s += BoolToString(isRecursive);
+	s += "}";
+	return s;
+}
+

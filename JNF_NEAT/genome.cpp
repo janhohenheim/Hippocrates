@@ -6,11 +6,11 @@ using namespace JNF_NEAT;
 using namespace std;
 
 Genome::Genome(const TrainingParameters& parameters) :
-    parameters(parameters),
+	parameters(parameters),
 	genes((parameters.numberOfInputs + parameters.advanced.structure.numberOfBiasNeurons) * parameters.numberOfOutputs),
 	neuronCount((parameters.numberOfInputs + parameters.advanced.structure.numberOfBiasNeurons) + parameters.numberOfOutputs)
 {
-	auto *currentGene = &genes.front();
+	auto currentGene = genes.begin();
 	for (auto in = 0U; in < (parameters.numberOfInputs + parameters.advanced.structure.numberOfBiasNeurons); ++in) {
 		for (auto out = 0U; out < parameters.numberOfOutputs; ++out) {
 			currentGene->from = in;
@@ -27,7 +27,6 @@ size_t Genome::GetGeneCount() const {
 Genome& Genome::operator=(const Genome& other) {
 	this->genes = other.genes; 
 	this->neuronCount = other.neuronCount;
-	const_cast<TrainingParameters&>(this->parameters) = other.parameters;
 	return *this;
 }
 
@@ -48,7 +47,7 @@ double Genome::GetGeneticalDistanceFrom(const Genome& other) const {
 
 	auto numberOfDisjointGenes = this->GetGeneCount() + other.GetGeneCount() - (size_t)2 * numberOfOverlapingGenes;
 	auto sizeOfBiggerGenome = max(this->GetGeneCount(), other.GetGeneCount());
-    // TODO jnf: Think how we'll handle the next line
+	// TODO jnf: Think how we'll handle the next line
 	auto disjointGenesInfluence = (double)numberOfDisjointGenes /* / (double)sizeOfBiggerGenome*/;
 
 	auto averageWeightDifference = totalWeightDifference / (double)numberOfOverlapingGenes;
@@ -61,9 +60,20 @@ double Genome::GetGeneticalDistanceFrom(const Genome& other) const {
 
 bool Genome::DoesContainGene(const Gene& gene) const {
 	for (auto & g : genes) {
-		if (g.from == gene.from && g.to == gene.to && g.isRecursive == gene.isRecursive) {
+		if (g.from == gene.from && g.to == gene.to && g.isRecursive == gene.isRecursive){
 			return true;
 		}
 	}
 	return false;
+}
+
+string Genome::GetJSON() const {
+	string s("{\"genome\":[");
+	for (size_t i = 0; i < genes.size() - 1; ++i) {
+		s += genes[i].GetJSON();
+		s += ",";
+	}
+	s += genes.back().GetJSON();
+	s += "]}";
+	return s;
 }

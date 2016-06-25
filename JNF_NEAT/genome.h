@@ -38,7 +38,7 @@ namespace JNF_NEAT {
 			const TrainingParameters& GetTrainingParameters() const { return parameters; }
 			double GetGeneticalDistanceFrom(const Genome& other) const;
 			bool DoesContainGene(const Gene& gene) const;
-
+			std::string GetJSON() const;
 		private:
 			inline void AdjustNeuronCount(const Gene& gene) { if (gene.to + 1 > neuronCount) neuronCount = gene.to + 1; }
 	};

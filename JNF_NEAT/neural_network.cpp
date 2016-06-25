@@ -1,5 +1,5 @@
 #include "neural_network.h"
-#include <cstdlib>
+#include <algorithm>
 
 using namespace JNF_NEAT;
 using namespace std;
@@ -49,7 +49,8 @@ NeuralNetwork::NeuralNetwork(const NeuralNetwork& other) :
 	genome(other.genome),
 	neurons(other.neurons.size()),
 	inputNeurons(other.inputNeurons.size()),
-	outputNeurons(other.outputNeurons.size())
+	outputNeurons(other.outputNeurons.size()),
+	layerMap(other.layerMap)
 {
 	BuildNetworkFromGenes();
 }
@@ -70,11 +71,18 @@ void NeuralNetwork::BuildNetworkFromGenes() {
 	neurons.resize(genome.GetNeuronCount());
 	for (const auto& gene : genome) {
 		if (gene.isEnabled) {
-			Neuron::IncomingConnection connection;
-			connection.neuron = &neurons[gene.from];
-			connection.weight = gene.weight;
-			connection.isRecursive = gene.isRecursive;
-			neurons[gene.to].AddConnection(move(connection));
+			Neuron::Connection in;
+			in.weight = gene.weight;
+			in.isRecursive = gene.isRecursive;
+			in.neuron = &neurons[gene.from];
+			neurons[gene.to].AddConnection(move(in));
+
+			Neuron::Connection out;
+			out.weight = gene.weight;
+			out.isRecursive = gene.isRecursive;
+			out.neuron = &neurons[gene.to];
+			out.outGoing = true;
+			neurons[gene.from].AddConnection(move(out));
 		}
 	}
 	InterpretInputsAndOutputs();
@@ -128,8 +136,17 @@ void NeuralNetwork::InterpretInputsAndOutputs() {
 
 bool NeuralNetwork::ShouldAddConnection() const {
 	const bool hasChanceOccured = DidChanceOccure(parameters.advanced.mutation.chanceForConnectionalMutation);
-	const bool hasSpaceForNewConnections = GetGenome().GetNeuronCount() > (parameters.numberOfInputs + parameters.numberOfOutputs + parameters.advanced.structure.numberOfBiasNeurons);
-	return hasChanceOccured && hasSpaceForNewConnections;
+	if (!hasChanceOccured) {
+		return false;
+	}
+	const size_t inputLayerSize = parameters.numberOfInputs + parameters.advanced.structure.numberOfBiasNeurons;
+	const size_t n = genome.GetNeuronCount() - inputLayerSize;
+	size_t numberOfPossibleConnections = n * (n - 1);
+	numberOfPossibleConnections += inputLayerSize * n;
+
+	const size_t generatedNeurons = genome.GetNeuronCount() - (inputLayerSize + parameters.numberOfOutputs);
+	const bool hasSpaceForNewConnections = genome.GetGeneCount() < (numberOfPossibleConnections + generatedNeurons);
+	return hasSpaceForNewConnections;
 }
 
 bool NeuralNetwork::DidChanceOccure(float chance) {
@@ -167,38 +184,77 @@ void NeuralNetwork::AddRandomNeuron() {
 }
 
 void NeuralNetwork::AddRandomConnection() {
-	size_t fromNeuronIndex = rand() % neurons.size();
-	auto inputRange = parameters.advanced.structure.numberOfBiasNeurons + parameters.numberOfInputs;
-	size_t toNeuronIndex = (rand() % (neurons.size() - inputRange)) + inputRange;
-	if (fromNeuronIndex == toNeuronIndex) {
-		if (fromNeuronIndex < (neurons.size() - 1)) {
-			fromNeuronIndex++;
-		} else {
-			fromNeuronIndex--;
-		}
-	}
-   
-	auto& fromNeuron = neurons[fromNeuronIndex];
-	auto& toNeuron = neurons[toNeuronIndex];
+	// Data
+	auto NeuronPair(GetTwoUnconnectedNeurons());
+	auto& fromNeuron = *NeuronPair.first;
+	auto& toNeuron = *NeuronPair.second;
+
+	// Gene
 	Gene newConnectionGene;
-	if (fromNeuron.GetLayer() <= toNeuron.GetLayer()){
-		newConnectionGene.from = fromNeuronIndex;
-		newConnectionGene.to = toNeuronIndex;
-	} else {
-		newConnectionGene.from = toNeuronIndex;
-		newConnectionGene.to = fromNeuronIndex;
+	while (&neurons[newConnectionGene.from] != &fromNeuron) {
+		newConnectionGene.from++;
+	}
+	while (&neurons[newConnectionGene.to] != &toNeuron) {
+		newConnectionGene.to++;
+	}
+	if (fromNeuron.GetLayer() > toNeuron.GetLayer()) {
 		newConnectionGene.isRecursive = true;
 	}
-	if (!genome.DoesContainGene(newConnectionGene)) {
-		Neuron::IncomingConnection newConnection;
-		newConnection.isRecursive = newConnectionGene.isRecursive;
-		newConnection.neuron = &fromNeuron;
-		newConnection.weight = newConnectionGene.weight;
 
-		genome.AppendGene(move(newConnectionGene));
-		toNeuron.AddConnection(move(newConnection));
-		CategorizeNeuronsIntoLayers();
+	// Connection
+	Neuron::Connection in;
+	in.isRecursive = newConnectionGene.isRecursive;
+	in.neuron = &fromNeuron;
+	in.weight = newConnectionGene.weight;
+	toNeuron.AddConnection(move(in));
+
+	Neuron::Connection out;
+	out.isRecursive = newConnectionGene.isRecursive;
+	out.neuron = &toNeuron;
+	out.weight = newConnectionGene.weight;
+	out.outGoing = true;
+	fromNeuron.AddConnection(move(out));
+
+	genome.AppendGene(move(newConnectionGene));
+	CategorizeNeuronsIntoLayers();
+}
+
+pair<Neuron*, Neuron*> NeuralNetwork::GetTwoUnconnectedNeurons() {
+	vector<Neuron*> possibleFromNeurons;
+	possibleFromNeurons.reserve(neurons.size());
+	for (auto& n : neurons) {
+		possibleFromNeurons.push_back(&n);
 	}
+	auto inputRange = parameters.numberOfInputs + parameters.advanced.structure.numberOfBiasNeurons;
+	vector<Neuron*> possibleToNeurons(possibleFromNeurons.begin() + inputRange, possibleFromNeurons.end());
+
+	random_shuffle(possibleFromNeurons.begin(), possibleFromNeurons.end());
+	random_shuffle(possibleToNeurons.begin(), possibleToNeurons.end());
+
+
+	for (auto* from : possibleFromNeurons) {
+		for (auto* to : possibleToNeurons) {
+			if (CanNeuronsBeConnected(*from, *to)) {
+				return {from, to};
+			}
+		}
+	}
+
+	throw runtime_error("Tried to get two unconnected Neurons while every neuron is already connected");
+}
+
+bool JNF_NEAT::NeuralNetwork::CanNeuronsBeConnected(const Neuron & lhs, const Neuron & rhs) const {
+	bool AreNeuronsTheSame = &lhs == &rhs;
+	return (!AreNeuronsTheSame && !AreNeuronsConnected(lhs, rhs));
+}
+
+bool NeuralNetwork::AreNeuronsConnected(const Neuron& lhs,const Neuron & rhs) const {
+	for (auto& connection : rhs.GetConnections()) {
+		if (!connection.outGoing && &lhs == connection.neuron) {
+			return true;
+		}
+	}
+	return false;
 }
 
 void NeuralNetwork::ShuffleWeights() {
@@ -248,17 +304,19 @@ void NeuralNetwork::MutateGenesAndBuildNetwork() {
 }
 
 void NeuralNetwork::CategorizeNeuronsIntoLayers() {
-	for (auto* out : outputNeurons) {
-		CategorizeNeuronBranchIntoLayers(*out);
+	for (auto i = 0U; i < parameters.advanced.structure.numberOfBiasNeurons; i++) {
+		CategorizeNeuronBranchIntoLayers(neurons[i]);
 	}
+	for (auto* in : inputNeurons) {
+		CategorizeNeuronBranchIntoLayers(*in);
+	}
+
 	size_t highestLayer = 0U;
 	for (auto* out : outputNeurons) {
-		if (out->GetLayer() > highestLayer) {
-			highestLayer = out->GetLayer();
-		};
+		highestLayer = max(out->GetLayer(), highestLayer);
 	}
 	for (auto* out : outputNeurons) {
-		out->SetLayer(highestLayer);
+		out->layer = highestLayer;
 	}
 
 	for (auto& neuron : neurons) {
@@ -266,11 +324,21 @@ void NeuralNetwork::CategorizeNeuronsIntoLayers() {
 	}
 }
 
-void NeuralNetwork::CategorizeNeuronBranchIntoLayers(Neuron& currNode) {
-	for (auto &in : currNode.GetConnections()) {
-		if (!in.isRecursive) {
-			CategorizeNeuronBranchIntoLayers(*in.neuron);
-			currNode.SetLayer(in.neuron->GetLayer() + 1);
+void NeuralNetwork::CategorizeNeuronBranchIntoLayers(Neuron& currNode, size_t currentDepth) {
+	currNode.layer = currentDepth;
+	const size_t nextLayer = currNode.layer + 1;
+
+
+	auto HasYetToBeLayered = [&nextLayer](const Neuron::Connection& c) {
+		return nextLayer > c.neuron->layer;
+	};
+	auto IsInHigherLayer = [](const Neuron::Connection& c) {
+		return (c.outGoing && !c.isRecursive) || (!c.outGoing && c.isRecursive);
+	};
+
+	for (auto &c : currNode.GetConnections()) {
+		if (HasYetToBeLayered(c) && IsInHigherLayer(c)) {
+			CategorizeNeuronBranchIntoLayers(*c.neuron, nextLayer);
 		}
 	}
 }
@@ -289,7 +357,20 @@ Gene& NeuralNetwork::GetRandomEnabledGene() {
 		}
 	}
 	if (!randGene->isEnabled) {
-        throw runtime_error("Could not insert neuron because every gene is disabled");
+		throw runtime_error("Could not insert neuron because every gene is disabled");
 	}
 	return *randGene;
+}
+
+string NeuralNetwork::GetJSON() const{
+	string s("{\"neurons\":[");
+	for (size_t i = 0; i < neurons.size() - 1; ++i) {
+		s += neurons[i].GetJSON();
+		s += ",";
+	}
+	s += neurons.back().GetJSON();
+	s += "],\"genome\":";
+	s += genome.GetJSON();
+	s += "}";
+	return s;
 }

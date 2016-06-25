@@ -30,7 +30,7 @@ namespace JNF_NEAT {
 			const Genome& GetGenome() const { return genome; }
 			std::vector<float> GetOutputsUsingInputs(const std::vector<float>& inputs);
 			const TrainingParameters& GetTrainingParameters() const { return parameters; }
-
+			std::string GetJSON() const;
 		private:
 			void SetInputs(const std::vector<float>& inputs);
 			std::vector<float> GetOutputs();
@@ -44,11 +44,14 @@ namespace JNF_NEAT {
 			bool ShouldMutateWeight() const { return DidChanceOccure(parameters.advanced.mutation.chanceForWeightMutation); }
 			void AddRandomNeuron();
 			void AddRandomConnection();
+            std::pair<Neuron*, Neuron*> GetTwoUnconnectedNeurons();
+			bool CanNeuronsBeConnected(const Neuron& lhs, const Neuron& rhs) const;
+			bool AreNeuronsConnected(const Neuron& lhs, const Neuron& rhs) const;
 			void ShuffleWeights();
 			void MutateWeightOfGeneAt(std::size_t index);
 			void PerturbWeightAt(std::size_t index);
 			void CategorizeNeuronsIntoLayers();
-			void CategorizeNeuronBranchIntoLayers(Neuron& currNode);
+			void CategorizeNeuronBranchIntoLayers(Neuron& currNode, size_t currentDepth = 0);
 			Gene& GetRandomEnabledGene();
 	};
 

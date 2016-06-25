@@ -23,15 +23,15 @@ namespace JNF_NEAT {
 				float importanceOfDisjointGenes = 1.0f;
 				float importanceOfAverageWeightDifference = 2.0f;
 				float compatibilityThreshold = 3.0f;
-				size_t stagnantSpeciesClearThreshold = 15;
+				std::size_t stagnantSpeciesClearThreshold = 15;
 				bool normalizeForLargerGenome = false;
 			} speciation;
 			struct Reproduction {
 				float chanceForInterspecialReproduction = 0.001f;
-				size_t minSpeciesSizeForChampConservation = 5;
+				std::size_t minSpeciesSizeForChampConservation = 5;
 			} reproduction;
 			struct Structure {
-				size_t numberOfBiasNeurons = 1;
+				std::size_t numberOfBiasNeurons = 1;
 			} structure;
 		} advanced;
 	};

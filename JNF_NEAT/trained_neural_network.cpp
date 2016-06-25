@@ -17,16 +17,3 @@ TrainedNeuralNetwork TrainedNeuralNetwork::LoadFromFile(const string& fileName) 
 void TrainedNeuralNetwork::SaveToFile(const string& fileName) const {
 	// TODO jnf Implementation
 }
-
-string TrainedNeuralNetwork::GetGenomeAsString() const {
-	string genomeString;
-	for (auto& gene : GetGenome()) {
-		genomeString +=
-			"Gene with marking #" + to_string(gene.historicalMarking) + ":\n"
-			+ "\t	from: " + to_string(gene.from) + "\n"
-			+ "\t	to: " + to_string(gene.to) + "\n"
-			+ "\t	weight: " + to_string(gene.weight) + "\n"
-			+ "\t	is enabled: " + to_string(gene.isEnabled) + "\n\n";
-	}
-	return genomeString;
-}

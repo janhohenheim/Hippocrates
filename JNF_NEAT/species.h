@@ -8,7 +8,7 @@ namespace JNF_NEAT {
 
 	class Species {
 		private:
-			std::vector<Organism*> population;
+			std::vector<std::unique_ptr<Organism>> population;
 			std::unique_ptr<Organism> representative;
 			bool isSortedByFitness = false;
 			size_t numberOfStagnantGenerations = 0;
@@ -16,15 +16,12 @@ namespace JNF_NEAT {
 			const TrainingParameters& parameters;
 
 		public:
-			Species(const Organism& representative);
-			Species(Organism&& representative);
+			explicit Species(Organism representative);
 			Species(const Species& other) = default;
 			Species(Species&& other) = default;
-			~Species();
 
 			Species& operator=(Species&& other);
 
-			void AddOrganism(const Organism& organism);
 			void AddOrganism(Organism&& organism);
 			void AnalyzeAndClearPopulation();
 
@@ -36,16 +33,17 @@ namespace JNF_NEAT {
 			Organism& GetFittestOrganism();
 			void SetPopulationsFitnessModifier();
 			Organism& GetOrganismToBreed();
+			std::string GetJSON() const;
 
 		private:
 			void ElectRepresentative();
 			void SelectRandomRepresentative();
 			void SelectFittestOrganismAsRepresentative();
 
-            template <class T>
-            inline constexpr bool IsAboveCompatibilityThreshold(T t) const {
-                return t > representative->GetTrainingParameters().advanced.speciation.compatibilityThreshold;
-            };
+			template <class T>
+			inline constexpr bool IsAboveCompatibilityThreshold(T t) const {
+				return t > representative->GetTrainingParameters().advanced.speciation.compatibilityThreshold;
+			};
 	};
 
 }

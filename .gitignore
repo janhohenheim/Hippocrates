@@ -1,3 +1,8 @@
+# Application specific
+*.json
+*.nn
+*/json_dumps/
+
 # Created by .ignore support plugin (hsz.mobi)
 ### OSX template
 .DS_Store
