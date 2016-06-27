@@ -140,9 +140,11 @@ bool NeuralNetwork::ShouldAddConnection() const {
 		return false;
 	}
 	const size_t inputLayerSize = parameters.numberOfInputs + parameters.advanced.structure.numberOfBiasNeurons;
-	const size_t n = genome.GetNeuronCount() - inputLayerSize;
+	const size_t outputLayerSize = parameters.numberOfOutputs;
+	const size_t n = genome.GetNeuronCount() - inputLayerSize - outputLayerSize;
 	size_t numberOfPossibleConnections = n * (n - 1);
 	numberOfPossibleConnections += inputLayerSize * n;
+	numberOfPossibleConnections += outputLayerSize * n;
 
 	const size_t generatedNeurons = genome.GetNeuronCount() - (inputLayerSize + parameters.numberOfOutputs);
 	const bool hasSpaceForNewConnections = genome.GetGeneCount() < (numberOfPossibleConnections + generatedNeurons);
@@ -152,13 +154,6 @@ bool NeuralNetwork::ShouldAddConnection() const {
 bool NeuralNetwork::DidChanceOccure(float chance) {
 	auto num = rand() % 100;
 	return num < int(100.0f * chance);
-}
-
-size_t NeuralNetwork::GetRandomNumberBetween(size_t min, size_t max) {
-	if (min == max) {
-		return min;
-	}
-	return rand() % (max - min) + min;
 }
 
 void NeuralNetwork::AddRandomNeuron() {
@@ -245,7 +240,24 @@ pair<Neuron*, Neuron*> NeuralNetwork::GetTwoUnconnectedNeurons() {
 
 bool JNF_NEAT::NeuralNetwork::CanNeuronsBeConnected(const Neuron & lhs, const Neuron & rhs) const {
 	bool AreNeuronsTheSame = &lhs == &rhs;
-	return (!AreNeuronsTheSame && !AreNeuronsConnected(lhs, rhs));
+	return (!AreNeuronsTheSame && !AreBothNeuronsOutputs(lhs, rhs) && !AreNeuronsConnected(lhs, rhs));
+}
+
+bool NeuralNetwork::AreBothNeuronsOutputs(const Neuron &lhs, const Neuron &rhs) const {
+	bool isLhsOutput = false;
+	bool isRhsOutput = false;
+	for (const auto& output: outputNeurons){
+		if (output == &lhs){
+			isLhsOutput = true;
+		}
+		else if (output == &rhs){
+			isRhsOutput = true;
+		}
+		if (isLhsOutput && isRhsOutput){
+			return true;
+		}
+	}
+	return false;
 }
 
 bool NeuralNetwork::AreNeuronsConnected(const Neuron& lhs,const Neuron & rhs) const {
