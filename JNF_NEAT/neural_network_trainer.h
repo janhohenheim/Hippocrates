@@ -6,8 +6,8 @@
 #include "organism.h"
 #include "species.h"
 #include "trained_neural_network.h"
+#include "logger.h"
 #include <vector>
-#include <chrono>
 #include <memory>
 
 namespace JNF_NEAT {
@@ -22,6 +22,7 @@ namespace JNF_NEAT {
 			size_t populationSize = 0U;
 			std::vector<std::shared_ptr<IBody>> bodies;
 			size_t generationsPassed = 0;
+			Logger logger;
 
 		public:
 			NeuralNetworkTrainer() = delete;
@@ -37,8 +38,8 @@ namespace JNF_NEAT {
 
 		private:
 			void CreateInitialOrganisms();
-			void TrainGenerationAndLogTimestamp(const std::chrono::system_clock::time_point& timestamp);
-			void LogCurrentGenerationWithTimestamp(const std::chrono::system_clock::time_point& timestamp);
+			void TrainGenerationAndLog();
+			
 			void ResetPopulationToTeachableState();
 			void Repopulate();
 			void LetGenerationLive();

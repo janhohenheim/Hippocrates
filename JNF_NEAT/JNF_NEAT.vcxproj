@@ -149,6 +149,7 @@
   <ItemGroup>
     <ClCompile Include="gene.cpp" />
     <ClCompile Include="genome.cpp" />
+    <ClCompile Include="logger.cpp" />
     <ClCompile Include="organism.cpp" />
     <ClCompile Include="neural_network_trainer.cpp" />
     <ClCompile Include="neural_network.cpp" />
@@ -160,6 +161,7 @@
     <ClInclude Include="gene.h" />
     <ClInclude Include="genome.h" />
     <ClInclude Include="body.h" />
+    <ClInclude Include="logger.h" />
     <ClInclude Include="organism.h" />
     <ClInclude Include="species.h" />
     <ClInclude Include="neural_network_trainer.h" />
