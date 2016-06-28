@@ -68,12 +68,12 @@ bool Genome::DoesContainGene(const Gene& gene) const {
 }
 
 string Genome::GetJSON() const {
-	string s("{\"genome\":[");
+	string s("[");
 	for (size_t i = 0; i < genes.size() - 1; ++i) {
 		s += genes[i].GetJSON();
 		s += ",";
 	}
 	s += genes.back().GetJSON();
-	s += "]}";
+	s += "]";
 	return s;
 }
