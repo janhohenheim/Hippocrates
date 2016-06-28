@@ -345,7 +345,7 @@ void NeuralNetwork::CategorizeNeuronBranchIntoLayers(Neuron& currNode, size_t cu
 		return nextLayer > c.neuron->layer;
 	};
 	auto IsInHigherLayer = [](const Neuron::Connection& c) {
-		return (c.outGoing && !c.isRecursive) || (!c.outGoing && c.isRecursive);
+		return (c.outGoing != c.isRecursive);
 	};
 
 	for (auto &c : currNode.GetConnections()) {
