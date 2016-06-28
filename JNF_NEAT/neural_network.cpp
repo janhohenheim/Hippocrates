@@ -141,10 +141,10 @@ bool NeuralNetwork::ShouldAddConnection() const {
 	}
 	const size_t inputLayerSize = parameters.numberOfInputs + parameters.advanced.structure.numberOfBiasNeurons;
 	const size_t outputLayerSize = parameters.numberOfOutputs;
-	const size_t n = genome.GetNeuronCount() - inputLayerSize - outputLayerSize;
-	size_t numberOfPossibleConnections = n * (n - 1);
-	numberOfPossibleConnections += inputLayerSize * n;
-	numberOfPossibleConnections += outputLayerSize * n;
+	const size_t hiddenLayerSize = genome.GetNeuronCount() - inputLayerSize - outputLayerSize;
+	size_t numberOfPossibleConnections = hiddenLayerSize * (hiddenLayerSize - 1);
+	numberOfPossibleConnections += hiddenLayerSize * inputLayerSize;
+	numberOfPossibleConnections += hiddenLayerSize * outputLayerSize;
 
 	const size_t generatedNeurons = genome.GetNeuronCount() - (inputLayerSize + parameters.numberOfOutputs);
 	const bool hasSpaceForNewConnections = genome.GetGeneCount() < (numberOfPossibleConnections + generatedNeurons);
