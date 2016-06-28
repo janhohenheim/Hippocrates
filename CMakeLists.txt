@@ -20,6 +20,8 @@ set(SOURCE_FILES
     JNF_NEAT/species.h
     JNF_NEAT/trained_neural_network.cpp
     JNF_NEAT/trained_neural_network.h
+	JNF_NEAT/logger.cpp
+	JNF_NEAT/logger.h
     JNF_NEAT/training_parameters.h
     )
 
