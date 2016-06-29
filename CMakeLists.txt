@@ -26,6 +26,7 @@ set(SOURCE_FILES
     )
 
 add_library(${LIBRARY_NAME}
-STATIC
+SHARED
 ${SOURCE_FILES})
+set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
 target_link_libraries(JNF_NEAT -lstdc++fs)
