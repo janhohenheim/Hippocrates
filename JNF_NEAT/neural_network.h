@@ -24,19 +24,18 @@ namespace JNF_NEAT {
 			NeuralNetwork(const NeuralNetwork& other);
 			NeuralNetwork(NeuralNetwork&& other) = default;
 			~NeuralNetwork() = default;
-
 			NeuralNetwork& operator= (const NeuralNetwork& other);
 			NeuralNetwork& operator= (NeuralNetwork&& other) = default;
+
 			const Genome& GetGenome() const { return genome; }
-			std::vector<float> GetOutputsUsingInputs(const std::vector<float>& inputs);
+			std::vector<float> GetOutputsUsingInputs(std::vector<float> inputs);
 			const TrainingParameters& GetTrainingParameters() const { return parameters; }
 			std::string GetJSON() const;
 		private:
-			void SetInputs(const std::vector<float>& inputs);
+			void SetInputs(std::vector<float> inputs);
 			std::vector<float> GetOutputs();
 			void MutateGenesAndBuildNetwork();
 			static bool DidChanceOccure(float chance);
-			static size_t GetRandomNumberBetween(size_t min, size_t max);
 			void BuildNetworkFromGenes();
 			void InterpretInputsAndOutputs();
 			bool ShouldAddNeuron() const { return DidChanceOccure(parameters.advanced.mutation.chanceForNeuralMutation); }

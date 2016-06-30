@@ -25,11 +25,12 @@ namespace JNF_NEAT {
 			Logger logger;
 
 		public:
-			NeuralNetworkTrainer() = delete;
 			NeuralNetworkTrainer(std::vector<std::shared_ptr<IBody>> population, TrainingParameters parameters);
 			NeuralNetworkTrainer(const NeuralNetworkTrainer& other) = default;
-
+			NeuralNetworkTrainer(NeuralNetworkTrainer&& other) = default;
 			~NeuralNetworkTrainer() = default;
+			NeuralNetworkTrainer& operator=(const NeuralNetworkTrainer&) = default;
+			NeuralNetworkTrainer& operator=(NeuralNetworkTrainer&&) = default;
 
 			void TrainUntilFitnessEquals(double fitnessToReach);
 			void TrainUntilGenerationEquals(size_t generationsToTrain);

@@ -17,12 +17,11 @@ namespace JNF_NEAT {
 
 		public:
 			Organism(std::shared_ptr<IBody> body, NeuralNetwork&& network);
-			Organism(std::shared_ptr<IBody> body, const NeuralNetwork&& network) = delete;
 			Organism(const Organism& other) = default;
 			Organism(Organism&& other) = default;
 			~Organism() = default;
-
 			Organism& operator=(const Organism& other) = default;
+			Organism& operator=(Organism&& other) = default;
 
 			void Reset() { body->Reset(); }
 			void Update();

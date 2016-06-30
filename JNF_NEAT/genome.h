@@ -18,8 +18,9 @@ namespace JNF_NEAT {
 			Genome(const Genome& other) = default;
 			Genome(Genome&& other) = default;
 			~Genome() = default;
-
 			Genome& operator=(const Genome& other);
+			Genome& operator=(Genome&& other) = default;
+
 			const Gene& operator[](std::size_t index) const { return GetGeneAt(index); }
 			Gene& operator[](std::size_t index) { return GetGeneAt(index); }
 			const Gene& GetGeneAt(std::size_t index) const { return genes[index]; }

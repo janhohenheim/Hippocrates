@@ -89,12 +89,12 @@ void NeuralNetwork::BuildNetworkFromGenes() {
 	CategorizeNeuronsIntoLayers();
 }
 
-void NeuralNetwork::SetInputs(const vector<float>& inputs) {
+void NeuralNetwork::SetInputs(vector<float> inputs) {
 	if (inputNeurons.size() != inputs.size()) {
 		throw out_of_range("Number of inputs provided doesn't match genetic information");
 	}
 	for(size_t i = 0U; i < inputNeurons.size(); ++i) {
-		inputNeurons[i]->SetInput(inputs[i]);
+		inputNeurons[i]->SetInput(move(inputs[i]));
 	};
 }
 
@@ -112,8 +112,8 @@ vector<float> NeuralNetwork::GetOutputs() {
 	return outputs;
 }
 
-vector<float> NeuralNetwork::GetOutputsUsingInputs(const vector<float>& inputs) {
-	SetInputs(inputs);
+vector<float> NeuralNetwork::GetOutputsUsingInputs(vector<float> inputs) {
+	SetInputs(move(inputs));
 	return GetOutputs();
 }
 

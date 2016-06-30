@@ -19,7 +19,7 @@ namespace JNF_NEAT {
 			explicit Species(Organism representative);
 			Species(const Species& other) = default;
 			Species(Species&& other) = default;
-
+			~Species() = default;
 			Species& operator=(Species&& other);
 
 			void AddOrganism(Organism&& organism);
