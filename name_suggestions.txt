@@ -3,3 +3,6 @@
 - Atlas
 - Ember
 - Prometheus
+- Amber
+- Derpneat
+- JNFNEAT
