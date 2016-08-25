@@ -4,7 +4,7 @@
 using namespace JNF_NEAT;
 using namespace std;
 
-TrainedNeuralNetwork TrainedNeuralNetwork::LoadFromFile(const string& fileName) {
+auto TrainedNeuralNetwork::LoadFromFile(const string& fileName) -> TrainedNeuralNetwork {
 	// TODO jnf Implementation
 	unique_ptr<TrainingParameters> params (new TrainingParameters);
 	params->numberOfInputs = 2;
@@ -14,6 +14,6 @@ TrainedNeuralNetwork TrainedNeuralNetwork::LoadFromFile(const string& fileName) 
 	return net;
 }
 
-void TrainedNeuralNetwork::SaveToFile(const string& fileName) const {
+auto TrainedNeuralNetwork::SaveToFile(const string& fileName) const -> void {
 	// TODO jnf Implementation
 }

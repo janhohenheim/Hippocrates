@@ -11,18 +11,18 @@ Organism::Organism(std::shared_ptr<IBody> body, NeuralNetwork&& network) :
 {
 }
 
-void Organism::Update() {
+auto Organism::Update() -> void{
 	const auto inputs( move(body->ProvideNetworkWithInputs()) );
 	const auto outputs( move(network.GetOutputsUsingInputs(inputs)) );
 	body->Update(outputs);
 	isFitnessUpToDate = false;
 }
 
-double Organism::GetOrCalculateFitness() {
+auto Organism::GetOrCalculateFitness() -> double {
 	return GetOrCalculateRawFitness() * fitnessModifier;
 }
 
-double Organism::GetOrCalculateRawFitness() {
+auto Organism::GetOrCalculateRawFitness() -> double {
 	if (!isFitnessUpToDate) {
 		fitness = body->GetFitness();
 		isFitnessUpToDate = true;
@@ -30,7 +30,7 @@ double Organism::GetOrCalculateRawFitness() {
 	return fitness;
 }
 
-NeuralNetwork Organism::BreedWith(Organism& partner) {
+auto Organism::BreedWith(Organism& partner) -> NeuralNetwork {
 	bool parentsHaveSameFitness = this->GetOrCalculateFitness() == partner.GetOrCalculateFitness();
 	Organism* dominantParent = nullptr;
 	if (parentsHaveSameFitness) {
@@ -58,7 +58,7 @@ NeuralNetwork Organism::BreedWith(Organism& partner) {
 	return child;
 }
 
-string Organism::GetJSON() const {
+auto Organism::GetJSON() const -> string {
 	string s("{\"fitness\":");
 	s += to_string(fitness);
 	s += ",";

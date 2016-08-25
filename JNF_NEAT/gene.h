@@ -9,8 +9,12 @@ namespace JNF_NEAT {
 			Gene(const Gene& other) = default;
 			Gene(Gene&& other) = default;
 			~Gene() = default;
-			Gene& operator=(const Gene& other) = default;
-			Gene& operator=(Gene&& other) = default;
+
+			auto operator=(const Gene& other) -> Gene& = default;
+			auto operator=(Gene&& other) -> Gene& = default;
+
+			auto SetRandomWeight() -> void;
+			auto GetJSON() const -> std::string;
 
 			std::size_t from = 0;
 			std::size_t to = 0;
@@ -18,8 +22,6 @@ namespace JNF_NEAT {
 			std::size_t historicalMarking = numberOfExistingGenes++;
 			bool isEnabled = true;
 			bool isRecursive = false;
-			void SetRandomWeight();
-			std::string GetJSON() const;
 
 		private:
 			static std::size_t numberOfExistingGenes;

@@ -13,14 +13,14 @@ NeuralNetworkTrainer::NeuralNetworkTrainer(vector<shared_ptr<IBody>> population,
 	CreateInitialOrganisms();
 }
 
-void NeuralNetworkTrainer::ResetPopulationToTeachableState() {
+auto NeuralNetworkTrainer::ResetPopulationToTeachableState() -> void {
 	for (auto& sp : species) {
 		sp.ResetToTeachableState();
 	}
 }
 
 
-void NeuralNetworkTrainer::TrainUntilFitnessEquals(double fitnessToReach) {
+auto NeuralNetworkTrainer::TrainUntilFitnessEquals(double fitnessToReach) -> void {
 	if (loggingEnabled) {
 		logger.CreateLoggingDirs();
 	}
@@ -30,7 +30,7 @@ void NeuralNetworkTrainer::TrainUntilFitnessEquals(double fitnessToReach) {
 	}
 }
 
-void NeuralNetworkTrainer::TrainUntilGenerationEquals(size_t generationsToTrain) {
+auto NeuralNetworkTrainer::TrainUntilGenerationEquals(size_t generationsToTrain) -> void {
 	if (loggingEnabled) {
 		logger.CreateLoggingDirs();
 	}
@@ -41,7 +41,11 @@ void NeuralNetworkTrainer::TrainUntilGenerationEquals(size_t generationsToTrain)
 	}
 }
 
-void JNF_NEAT::NeuralNetworkTrainer::CreateInitialOrganisms() {
+auto NeuralNetworkTrainer::GetTrainedNeuralNetwork() -> TrainedNeuralNetwork { 
+    return TrainedNeuralNetwork(GetFittestOrganism().GetGenome()); 
+}
+
+auto NeuralNetworkTrainer::CreateInitialOrganisms() -> void {
 	Genome standardGenes(parameters);
 	for (auto currTrainer : bodies) {
 		NeuralNetwork network(standardGenes);
@@ -50,8 +54,7 @@ void JNF_NEAT::NeuralNetworkTrainer::CreateInitialOrganisms() {
 	}
 }
 
-void JNF_NEAT::NeuralNetworkTrainer::TrainGenerationAndLog()
-{
+auto NeuralNetworkTrainer::TrainGenerationAndLog() -> void {
 	Repopulate();
 	LetGenerationLive();
 	generationsPassed++;
@@ -60,14 +63,7 @@ void JNF_NEAT::NeuralNetworkTrainer::TrainGenerationAndLog()
 	}
 }
 
-// TODO jnf: Put all this platform independency shit into an own class
-
-
-TrainedNeuralNetwork NeuralNetworkTrainer::GetTrainedNeuralNetwork() {
-	return TrainedNeuralNetwork(GetFittestOrganism().GetGenome());
-}
-
-Organism& NeuralNetworkTrainer::GetFittestOrganism() {
+auto NeuralNetworkTrainer::GetFittestOrganism() -> Organism& {
 	if (species.empty()) {
 		throw out_of_range("Your population is empty");
 	}
@@ -79,7 +75,7 @@ Organism& NeuralNetworkTrainer::GetFittestOrganism() {
 	return species.front().GetFittestOrganism();
 }
 
-void NeuralNetworkTrainer::LetGenerationLive() {
+auto NeuralNetworkTrainer::LetGenerationLive() -> void {
 	for (unsigned int i = 0; i < parameters.updatesPerGeneration; ++i) {
 		for (auto& sp : species) {
 			sp.LetPopulationLive();
@@ -87,12 +83,12 @@ void NeuralNetworkTrainer::LetGenerationLive() {
 	}
 }
 
-void NeuralNetworkTrainer::PrepareSpeciesForPopulation() {
+auto NeuralNetworkTrainer::PrepareSpeciesForPopulation() -> void {
 	AnalyzeAndClearSpeciesPopulation();
 	DeleteStagnantSpecies();	
 }
 
-void NeuralNetworkTrainer::FillOrganismIntoSpecies(Organism&& organism) {
+auto NeuralNetworkTrainer::FillOrganismIntoSpecies(Organism&& organism) -> void {
 	bool isCompatibleWithExistingSpecies = false;
 	for (auto& currSpecies : species) {
 		if (currSpecies.IsCompatible(organism.GetGenome())) {
@@ -107,13 +103,13 @@ void NeuralNetworkTrainer::FillOrganismIntoSpecies(Organism&& organism) {
 	}
 }
 
-void NeuralNetworkTrainer::AnalyzeAndClearSpeciesPopulation() {
+auto NeuralNetworkTrainer::AnalyzeAndClearSpeciesPopulation() -> void {
 	for (auto& currSpecies : species) {
 		currSpecies.AnalyzeAndClearPopulation();
 	}
 }
 
-void NeuralNetworkTrainer::DeleteStagnantSpecies() {
+auto NeuralNetworkTrainer::DeleteStagnantSpecies() -> void {
 	auto IsStagnant = [](Species& species) {
 		return species.IsStagnant();
 	};
@@ -125,14 +121,14 @@ void NeuralNetworkTrainer::DeleteStagnantSpecies() {
 	species.erase(removePos, species.end());
 }
 
-void NeuralNetworkTrainer::DeleteEmptySpecies() {
+auto NeuralNetworkTrainer::DeleteEmptySpecies() -> void {
 	species.erase(
 		remove_if(species.begin(), species.end(), [](const Species& s) {return s.IsEmpty(); }),
 		species.end()
 	);
 }
 
-void NeuralNetworkTrainer::Repopulate() {
+auto NeuralNetworkTrainer::Repopulate() -> void {
 	PrepareSpeciesForPopulation();
 	auto DidChanceOccure = [](float chance) {
 		auto num = rand() % 1000;
@@ -155,7 +151,7 @@ void NeuralNetworkTrainer::Repopulate() {
 	// TODO jnf Add Concurrency
 }
 
-Species& NeuralNetworkTrainer::SelectSpeciesToBreed() {
+auto NeuralNetworkTrainer::SelectSpeciesToBreed() -> Species& {
 	// TODO jnf: Switch to stochastic universal sampling
 	if (species.empty()) {
 		throw out_of_range("There are no species");
@@ -182,7 +178,7 @@ Species& NeuralNetworkTrainer::SelectSpeciesToBreed() {
 	}
 }
 
-string NeuralNetworkTrainer::GetJSON() const {
+auto NeuralNetworkTrainer::GetJSON() const -> string {
 	string s("{\"populationSize\":");
 	s += to_string(populationSize);
 	s += ",";

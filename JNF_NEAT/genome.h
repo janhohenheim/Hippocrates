@@ -10,7 +10,7 @@ namespace JNF_NEAT {
 		private:
 			const TrainingParameters& parameters;
 			std::vector<Gene> genes;
-			size_t neuronCount = 0U;
+			std::size_t neuronCount = 0U;
 
 		public:
 			Genome() = delete;
@@ -18,30 +18,32 @@ namespace JNF_NEAT {
 			Genome(const Genome& other) = default;
 			Genome(Genome&& other) = default;
 			~Genome() = default;
-			Genome& operator=(const Genome& other);
-			Genome& operator=(Genome&& other) = default;
 
-			const Gene& operator[](std::size_t index) const { return GetGeneAt(index); }
-			Gene& operator[](std::size_t index) { return GetGeneAt(index); }
-			const Gene& GetGeneAt(std::size_t index) const { return genes[index]; }
-			Gene& GetGeneAt(std::size_t index) { return genes[index]; }
+			auto operator=(const Genome& other) -> Genome&;
+			auto operator=(Genome&& other) -> Genome& = default;
+
+            auto operator[](std::size_t index) const -> const Gene& { return GetGeneAt(index); }
+            auto operator[](std::size_t index) -> Gene& { return GetGeneAt(index); }
+            auto GetGeneAt(std::size_t index) const -> const Gene& { return genes[index]; }
+            auto GetGeneAt(std::size_t index) -> Gene& { return genes[index]; }
 			auto begin() { return genes.begin(); }
 			auto begin() const { return genes.begin(); }
 			auto end() { return genes.end(); }
 			auto end() const { return genes.end(); }
 
-			std::size_t GetNeuronCount() const { return neuronCount; };
-			std::size_t GetGeneCount() const;
+			auto GetNeuronCount() const { return neuronCount; }
+            auto GetGeneCount() const { return genes.size(); }
 
-			void AppendGene(Gene gene) { AdjustNeuronCount(gene); genes.push_back(std::move(gene)); }
-			void InsertGeneAt(Gene gene, size_t index) { AdjustNeuronCount(gene); genes.insert(genes.begin() + index, std::move(gene)); }
+            auto AppendGene(Gene gene) -> void;
+            auto InsertGeneAt(Gene gene, size_t index) -> void;
 
-			const TrainingParameters& GetTrainingParameters() const { return parameters; }
-			double GetGeneticalDistanceFrom(const Genome& other) const;
-			bool DoesContainGene(const Gene& gene) const;
-			std::string GetJSON() const;
+			auto GetTrainingParameters() const -> const TrainingParameters& { return parameters; }
+			auto GetGeneticalDistanceFrom(const Genome& other) const -> double;
+			auto DoesContainGene(const Gene& gene) const -> bool;
+			auto GetJSON() const -> std::string;
+
 		private:
-			inline void AdjustNeuronCount(const Gene& gene) { if (gene.to + 1 > neuronCount) neuronCount = gene.to + 1; }
+            auto AdjustNeuronCount(const Gene& gene) -> void;
 	};
 
 }

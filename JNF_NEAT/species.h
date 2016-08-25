@@ -11,7 +11,7 @@ namespace JNF_NEAT {
 			std::vector<std::unique_ptr<Organism>> population;
 			std::unique_ptr<Organism> representative;
 			bool isSortedByFitness = false;
-			size_t numberOfStagnantGenerations = 0;
+			std::size_t numberOfStagnantGenerations = 0;
 			double fitnessHighscore = 0;
 			const TrainingParameters& parameters;
 
@@ -20,30 +20,34 @@ namespace JNF_NEAT {
 			Species(const Species& other) = default;
 			Species(Species&& other) = default;
 			~Species() = default;
-			Species& operator=(Species&& other);
 
-			void AddOrganism(Organism&& organism);
-			void AnalyzeAndClearPopulation();
+			auto operator=(Species&& other) -> Species&;
 
-			bool IsCompatible(const Genome& genome) const;
-			bool IsEmpty() const { return population.empty(); }
-			bool IsStagnant() const { return (numberOfStagnantGenerations >= parameters.advanced.speciation.stagnantSpeciesClearThreshold); }
-			void LetPopulationLive();
-			void ResetToTeachableState();
-			Organism& GetFittestOrganism();
-			void SetPopulationsFitnessModifier();
-			Organism& GetOrganismToBreed();
-			std::string GetJSON() const;
+			auto AddOrganism(Organism&& organism) -> void;
+			auto AnalyzeAndClearPopulation() -> void;
+
+			auto IsCompatible(const Genome& genome) const -> bool;
+            auto IsEmpty() const -> bool { return population.empty(); }
+            auto IsStagnant() const -> bool;
+            auto LetPopulationLive() -> void;
+            auto ResetToTeachableState() -> void;
+			auto GetFittestOrganism() -> Organism&;
+			auto SetPopulationsFitnessModifier() -> void;
+			auto GetOrganismToBreed() -> Organism&;
+			auto GetJSON() const -> std::string;
 
 		private:
-			void ElectRepresentative();
-			void SelectRandomRepresentative();
-			void SelectFittestOrganismAsRepresentative();
+			auto ElectRepresentative() -> void;
+            auto SelectRandomRepresentative() -> void;
+            auto SelectFittestOrganismAsRepresentative() -> void;
 
 			template <class T>
-			inline constexpr bool IsAboveCompatibilityThreshold(T t) const {
-				return t > representative->GetTrainingParameters().advanced.speciation.compatibilityThreshold;
-			};
+			constexpr auto IsAboveCompatibilityThreshold(T t) const -> bool {
+                return t > representative->GetTrainingParameters().
+                                            advanced.
+                                            speciation.
+                                            compatibilityThreshold;
+            };
 	};
 
 }

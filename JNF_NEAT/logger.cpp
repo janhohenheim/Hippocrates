@@ -3,7 +3,7 @@
 using namespace std;
 using namespace JNF_NEAT;
 
-void Logger::CreateLoggingDirs() {
+auto Logger::CreateLoggingDirs() -> void {
 	timestamp = chrono::system_clock::now();
 
 	auto* pathType = experimental::filesystem::current_path().c_str();
@@ -26,52 +26,52 @@ void Logger::CreateLoggingDirs() {
 	SetFullLoggingPath(sessionDir);
 }
 
-string Logger::GetCurrentDir(const char*) {
+auto Logger::GetCurrentDir(const char*) -> string {
 	return std::string((char*)std::experimental::filesystem::current_path().c_str());
 }
 
-wstring Logger::GetCurrentDir(const wchar_t*) {
+auto Logger::GetCurrentDir(const wchar_t*) -> wstring {
 	return std::wstring((wchar_t*)std::experimental::filesystem::current_path().c_str());
 }
 
-string Logger::GetLogFolder(const string&) {
+auto Logger::GetLogFolder(const string&) -> string {
 	return string("/json_dumps/");
 }
-wstring Logger::GetLogFolder(const wstring&) {
+auto Logger::GetLogFolder(const wstring&) -> wstring {
 	return wstring(L"/json_dumps/");
 }
-string Logger::GetLogFileExtension(const string&) {
+auto Logger::GetLogFileExtension(const string&) -> string {
 	return string(".json");
 }
-wstring Logger::GetLogFileExtension(const wstring&) {
+auto Logger::GetLogFileExtension(const wstring&) -> wstring {
 	return wstring(L".json");
 }
 
-string Logger::GetSessionDir(const string& dumpDir) {
+auto Logger::GetSessionDir(const string& dumpDir) -> string {
 	return string(dumpDir + to_string(timestamp.time_since_epoch().count()) + "/");
 }
 
-wstring  Logger::GetSessionDir(const wstring& dumpDir) {
+auto  Logger::GetSessionDir(const wstring& dumpDir) -> wstring {
 	return wstring(dumpDir + to_wstring(timestamp.time_since_epoch().count()) + L"/");
 }
 
-string  Logger::GetLogFileName(const string& sessionDir, size_t generationsPassed) {
+auto Logger::GetLogFileName(const string& sessionDir, size_t generationsPassed) -> string {
 	return string(sessionDir + "generation_" + to_string(generationsPassed) + GetLogFileExtension(sessionDir));
 }
 
-wstring Logger::GetLogFileName(const wstring& sessionDir, size_t generationsPassed) {
+auto Logger::GetLogFileName(const wstring& sessionDir, size_t generationsPassed) -> wstring {
 	return wstring(sessionDir + L"generation_" + to_wstring(generationsPassed) + GetLogFileExtension(sessionDir));
 }
 
-void JNF_NEAT::Logger::SetFullLoggingPath(const std::string& path){
+auto JNF_NEAT::Logger::SetFullLoggingPath(const std::string& path) -> void {
 	fullLoggingPathOnUnix = path;
 }
 
-void JNF_NEAT::Logger::SetFullLoggingPath(const std::wstring& path){
+auto JNF_NEAT::Logger::SetFullLoggingPath(const std::wstring& path) -> void {
 	fullLoggingPathOnWindows = path;
 }
 
-void Logger::LogGeneration(size_t generation, const std::string& log) {
+auto Logger::LogGeneration(size_t generation, const std::string& log) -> void {
 	if (!fullLoggingPathOnWindows.empty()) {
 		auto logFileName = GetLogFileName(fullLoggingPathOnWindows, generation);
 		ofstream logFile(logFileName);

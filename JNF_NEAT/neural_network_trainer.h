@@ -29,28 +29,29 @@ namespace JNF_NEAT {
 			NeuralNetworkTrainer(const NeuralNetworkTrainer& other) = default;
 			NeuralNetworkTrainer(NeuralNetworkTrainer&& other) = default;
 			~NeuralNetworkTrainer() = default;
-			NeuralNetworkTrainer& operator=(const NeuralNetworkTrainer&) = default;
-			NeuralNetworkTrainer& operator=(NeuralNetworkTrainer&&) = default;
 
-			void TrainUntilFitnessEquals(double fitnessToReach);
-			void TrainUntilGenerationEquals(size_t generationsToTrain);
-			TrainedNeuralNetwork GetTrainedNeuralNetwork();
-			std::string GetJSON() const;
+			auto operator=(const NeuralNetworkTrainer&) -> NeuralNetworkTrainer& = default;
+			auto operator=(NeuralNetworkTrainer&&) -> NeuralNetworkTrainer& = default;
+
+			auto TrainUntilFitnessEquals(double fitnessToReach) -> void;
+            auto TrainUntilGenerationEquals(size_t generationsToTrain) -> void;
+            auto GetTrainedNeuralNetwork() -> TrainedNeuralNetwork;
+			auto GetJSON() const -> std::string;
 
 		private:
-			void CreateInitialOrganisms();
-			void TrainGenerationAndLog();
+			auto CreateInitialOrganisms() -> void;
+			auto TrainGenerationAndLog() -> void;
 			
-			void ResetPopulationToTeachableState();
-			void Repopulate();
-			void LetGenerationLive();
-			void PrepareSpeciesForPopulation();
-			void FillOrganismIntoSpecies(Organism&& organism);
-			void AnalyzeAndClearSpeciesPopulation();
-			void DeleteStagnantSpecies();
-			void DeleteEmptySpecies();
+			auto ResetPopulationToTeachableState() -> void;
+			auto Repopulate() -> void;
+			auto LetGenerationLive() -> void;
+			auto PrepareSpeciesForPopulation() -> void;
+			auto FillOrganismIntoSpecies(Organism&& organism) -> void;
+			auto AnalyzeAndClearSpeciesPopulation() -> void;
+			auto DeleteStagnantSpecies() -> void;
+			auto DeleteEmptySpecies() -> void;
 
-			Species& SelectSpeciesToBreed();
-			Organism& GetFittestOrganism();		
+			auto SelectSpeciesToBreed() -> Species&;
+			auto GetFittestOrganism() -> Organism&;
 	};
 }

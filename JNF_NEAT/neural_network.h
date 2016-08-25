@@ -24,35 +24,47 @@ namespace JNF_NEAT {
 			NeuralNetwork(const NeuralNetwork& other);
 			NeuralNetwork(NeuralNetwork&& other) = default;
 			~NeuralNetwork() = default;
-			NeuralNetwork& operator= (const NeuralNetwork& other);
-			NeuralNetwork& operator= (NeuralNetwork&& other) = default;
 
-			const Genome& GetGenome() const { return genome; }
-			std::vector<float> GetOutputsUsingInputs(std::vector<float> inputs);
-			const TrainingParameters& GetTrainingParameters() const { return parameters; }
-			std::string GetJSON() const;
+			auto operator= (const NeuralNetwork& other) -> NeuralNetwork&;
+			auto operator= (NeuralNetwork&& other) -> NeuralNetwork& = default;
+
+			auto GetGenome() const -> const Genome& { return genome; }
+			auto GetOutputsUsingInputs(std::vector<float> inputs) -> std::vector<float>;
+            auto GetTrainingParameters() const -> const TrainingParameters& { return parameters; }
+
+			auto GetJSON() const -> std::string;
+
 		private:
-			void SetInputs(std::vector<float> inputs);
-			std::vector<float> GetOutputs();
-			void MutateGenesAndBuildNetwork();
-			static bool DidChanceOccure(float chance);
-			void BuildNetworkFromGenes();
-			void InterpretInputsAndOutputs();
-			bool ShouldAddNeuron() const { return DidChanceOccure(parameters.advanced.mutation.chanceForNeuralMutation); }
-			bool ShouldAddConnection() const;
-			bool ShouldMutateWeight() const { return DidChanceOccure(parameters.advanced.mutation.chanceForWeightMutation); }
-			void AddRandomNeuron();
-			void AddRandomConnection();
-			std::pair<Neuron*, Neuron*> GetTwoUnconnectedNeurons();
-			bool CanNeuronsBeConnected(const Neuron& lhs, const Neuron& rhs) const;
-			bool AreBothNeuronsOutputs(const Neuron& lhs, const Neuron& rhs) const;
-			bool AreNeuronsConnected(const Neuron& lhs, const Neuron& rhs) const;
-			void ShuffleWeights();
-			void MutateWeightOfGeneAt(std::size_t index);
-			void PerturbWeightAt(std::size_t index);
-			void CategorizeNeuronsIntoLayers();
-			void CategorizeNeuronBranchIntoLayers(Neuron& currNode, size_t currentDepth = 0);
-			Gene& GetRandomEnabledGene();
+			static auto DidChanceOccure(float chance) -> bool;
+
+			auto SetInputs(std::vector<float> inputs) -> void;
+			auto GetOutputs() -> std::vector<float>;
+
+			auto MutateGenesAndBuildNetwork() -> void;
+            auto BuildNetworkFromGenes() -> void;
+            auto InterpretInputsAndOutputs() -> void;
+
+            auto ShouldAddNeuron() const -> bool;
+            auto ShouldAddConnection() const -> bool;
+            auto ShouldMutateWeight() const -> bool;
+
+			auto AddRandomNeuron() -> void;
+			auto AddRandomConnection() -> void;
+
+			auto GetTwoUnconnectedNeurons() -> std::pair<Neuron*, Neuron*>;
+            auto GetRandomEnabledGene() -> Gene&;
+
+            auto CanNeuronsBeConnected(const Neuron& lhs, const Neuron& rhs) const -> bool;
+            auto AreBothNeuronsOutputs(const Neuron& lhs, const Neuron& rhs) const -> bool;
+            auto AreNeuronsConnected(const Neuron& lhs, const Neuron& rhs) const -> bool;
+
+			auto ShuffleWeights() -> void;
+			auto MutateWeightOfGeneAt(std::size_t index) -> void;
+			auto PerturbWeightAt(std::size_t index) -> void;
+
+			auto CategorizeNeuronsIntoLayers() -> void;
+			auto CategorizeNeuronBranchIntoLayers(Neuron& currNode, size_t currentDepth = 0) -> void;
+			
 	};
 
 }

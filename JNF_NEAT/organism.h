@@ -20,19 +20,20 @@ namespace JNF_NEAT {
 			Organism(const Organism& other) = default;
 			Organism(Organism&& other) = default;
 			~Organism() = default;
-			Organism& operator=(const Organism& other) = default;
-			Organism& operator=(Organism&& other) = default;
 
-			void Reset() { body->Reset(); }
-			void Update();
-			void SetFitnessModifier(double factor) { fitnessModifier = factor; }
-			double GetOrCalculateFitness();
-			double GetOrCalculateRawFitness();
-			NeuralNetwork BreedWith(Organism& partner);
-			const Genome& GetGenome() const { return network.GetGenome(); }
-			const NeuralNetwork & GetNetwork() const { return network; }
-			const TrainingParameters& GetTrainingParameters() const { return network.GetTrainingParameters(); }
-			std::string GetJSON() const;
+			auto operator=(const Organism& other) -> Organism& = default;
+			auto operator=(Organism&& other) -> Organism& = default;
+
+			auto Reset() -> void { body->Reset(); }
+			auto Update() -> void;
+			auto SetFitnessModifier(double factor) -> void { fitnessModifier = factor; }
+			auto GetOrCalculateFitness() -> double;
+			auto GetOrCalculateRawFitness() -> double;
+			auto BreedWith(Organism& partner) -> NeuralNetwork;
+			auto GetGenome() const -> const Genome& { return network.GetGenome(); }
+			auto GetNetwork() const -> const NeuralNetwork& { return network; }
+			auto GetTrainingParameters() const -> const TrainingParameters& { return network.GetTrainingParameters(); }
+			auto GetJSON() const -> std::string;
 	};
 
 }

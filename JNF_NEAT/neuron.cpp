@@ -10,14 +10,14 @@ Neuron::Neuron(vector<Connection> connections) :
 connections(std::move(connections)) {
 }
 
-void Neuron::AddConnection(Connection connection) {
+auto Neuron::AddConnection(Connection connection) -> void {
 	if (connection.neuron == this || connection.neuron == nullptr) {
 		throw invalid_argument("Invalid incoming connection");
 	}
 	connections.push_back(move(connection));
 }
 
-float Neuron::RequestDataAndGetActionPotential() {
+auto Neuron::RequestDataAndGetActionPotential() -> float{
 	float incomingPotentials = 0.0f;
 	for (auto& in : connections){
 		if (!in.outGoing) {
@@ -28,11 +28,11 @@ float Neuron::RequestDataAndGetActionPotential() {
 	return lastActionPotential;
 }
 
-float Neuron::sigmoid(float d) {
+auto Neuron::sigmoid(float d) -> float {
 	return tanh(d);
 }
 
-void Neuron::SetInput(float input) {
+auto Neuron::SetInput(float input) -> void{
 	lastActionPotential = input;
 }
 

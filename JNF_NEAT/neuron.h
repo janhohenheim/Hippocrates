@@ -17,7 +17,7 @@ namespace JNF_NEAT {
 		private:
 			std::vector<Connection> connections;
 			float lastActionPotential = 0.0f;
-			size_t layer = 0U;
+            std::size_t layer = 0U;
 
 		public:
 			Neuron() = default;
@@ -25,18 +25,19 @@ namespace JNF_NEAT {
 			Neuron(const Neuron& other) = default;
 			Neuron(Neuron&& other) = default;
 			~Neuron() = default;
-			Neuron& operator=(const Neuron& other) = default;
-			Neuron& operator=(Neuron&& other) = default;
 
-			void SetInput(float input);
-			const std::vector<Connection>& GetConnections() const { return connections; }
-			float RequestDataAndGetActionPotential();
-			size_t GetLayer() const { return layer; }
-			std::string GetJSON() const;
+			auto operator=(const Neuron& other) -> Neuron& = default;
+			auto operator=(Neuron&& other) -> Neuron& = default;
+
+			auto SetInput(float input) -> void;
+			auto GetConnections() const -> const std::vector<Connection>& { return connections; }
+			auto RequestDataAndGetActionPotential() -> float;
+			auto GetLayer() const -> std::size_t { return layer; }
+			auto GetJSON() const -> std::string;
 
 		private:
-			void AddConnection(Connection connection);
-			static float sigmoid(float d);
+			auto AddConnection(Connection connection) -> void;
+			static auto sigmoid(float d) -> float;
 	};
 
 }

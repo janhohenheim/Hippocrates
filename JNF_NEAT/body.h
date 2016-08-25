@@ -8,15 +8,16 @@ namespace JNF_NEAT {
 			IBody() = default;
 			IBody(const IBody&) = default;
 			IBody(IBody&&) = default;
-			IBody& operator=(const IBody&)& = default;
-			IBody& operator=(IBody&&)& = default;
 			virtual ~IBody() = default;
 
-			virtual void Reset() = 0;
-			virtual void Update(const std::vector<float>& networkOutputs) = 0;
-			virtual double GetFitness() const = 0;
+            virtual auto operator=(const IBody&)& ->IBody& = default;
+            virtual auto operator=(IBody&&)& -> IBody& = default;
 
-			virtual std::vector<float> ProvideNetworkWithInputs() const = 0;
+			virtual auto Reset() -> void = 0;
+			virtual auto Update(const std::vector<float>& networkOutputs) -> void = 0;
+			virtual auto GetFitness() const -> double = 0;
+
+			virtual auto ProvideNetworkWithInputs() const -> std::vector<float> = 0;
 	};
 
 }

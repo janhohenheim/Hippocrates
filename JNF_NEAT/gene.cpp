@@ -11,7 +11,7 @@ Gene::Gene() {
 	numberOfExistingGenes++;
 }
 
-void Gene::SetRandomWeight() {
+auto Gene::SetRandomWeight() -> void {
 	/*
 	const auto& min = parameters.advanced.ranges.minWeight;
 	const auto& max = parameters.advanced.ranges.maxWeight;
@@ -28,7 +28,7 @@ void Gene::SetRandomWeight() {
 	}
 }
 
-string Gene::GetJSON() const {
+auto Gene::GetJSON() const -> string {
 	auto BoolToString = [](bool b) {
 		return b ? "true" : "false";
 	};

@@ -20,18 +20,24 @@ Genome::Genome(const TrainingParameters& parameters) :
 	}
 }
 
-size_t Genome::GetGeneCount() const {
-	return genes.size();
-}
 
-Genome& Genome::operator=(const Genome& other) {
+auto Genome::operator=(const Genome& other) -> Genome& {
 	this->genes = other.genes; 
 	this->neuronCount = other.neuronCount;
 	return *this;
 }
 
+auto Genome::AppendGene(Gene gene) -> void { 
+    AdjustNeuronCount(gene); 
+    genes.push_back(std::move(gene)); 
+}
 
-double Genome::GetGeneticalDistanceFrom(const Genome& other) const {
+auto Genome::InsertGeneAt(Gene gene, size_t index) -> void {
+    AdjustNeuronCount(gene); 
+    genes.insert(genes.begin() + index, std::move(gene)); 
+}
+
+auto Genome::GetGeneticalDistanceFrom(const Genome& other) const -> double {
 	double totalWeightDifference = 0.0;
 	size_t numberOfOverlapingGenes = 0;
 
@@ -58,7 +64,7 @@ double Genome::GetGeneticalDistanceFrom(const Genome& other) const {
 	return disjointGenesInfluence + averageWeightDifference;
 }
 
-bool Genome::DoesContainGene(const Gene& gene) const {
+auto Genome::DoesContainGene(const Gene& gene) const -> bool{
 	for (auto & g : genes) {
 		if (g.from == gene.from && g.to == gene.to && g.isRecursive == gene.isRecursive){
 			return true;
@@ -67,7 +73,7 @@ bool Genome::DoesContainGene(const Gene& gene) const {
 	return false;
 }
 
-string Genome::GetJSON() const {
+auto Genome::GetJSON() const -> string {
 	string s("[");
 	for (size_t i = 0; i < genes.size() - 1; ++i) {
 		s += genes[i].GetJSON();
@@ -76,4 +82,10 @@ string Genome::GetJSON() const {
 	s += genes.back().GetJSON();
 	s += "]";
 	return s;
+}
+
+auto Genome::AdjustNeuronCount(const Gene & gene) -> void { 
+    if (gene.to + 1 > neuronCount) {
+        neuronCount = gene.to + 1;
+    }
 }
