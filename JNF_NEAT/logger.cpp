@@ -72,7 +72,7 @@ auto JNF_NEAT::Logger::SetFullLoggingPath(const std::wstring& path) -> void {
 }
 
 auto Logger::LogGeneration(size_t generation, const std::string& log) -> void {
-#ifdef __WINAPI
+#if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
 	if (!fullLoggingPathOnWindows.empty()) {
 		auto logFileName = GetLogFileName(fullLoggingPathOnWindows, generation);
 		ofstream logFile(logFileName);
