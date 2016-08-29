@@ -72,18 +72,24 @@ auto JNF_NEAT::Logger::SetFullLoggingPath(const std::wstring& path) -> void {
 }
 
 auto Logger::LogGeneration(size_t generation, const std::string& log) -> void {
+#ifdef __WINAPI
 	if (!fullLoggingPathOnWindows.empty()) {
 		auto logFileName = GetLogFileName(fullLoggingPathOnWindows, generation);
 		ofstream logFile(logFileName);
 		logFile << log;
 		logFile.close();
-	} else 
+
+		return;
+	}
+#else
 	if (!fullLoggingPathOnUnix.empty()) {
 		auto logFileName = GetLogFileName(fullLoggingPathOnUnix, generation);
 		ofstream logFile(logFileName);
 		logFile << log;
 		logFile.close();
-	} else {
-		throw runtime_error("No logging directory found. Did you forget to call Logger::CreateLoggingDirs()?");
+
+		return;
 	}
+#endif
+	throw runtime_error("No logging directory found. Did you forget to call Logger::CreateLoggingDirs()?");
 }
