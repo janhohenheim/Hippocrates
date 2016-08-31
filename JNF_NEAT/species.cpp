@@ -76,7 +76,9 @@ auto JNF_NEAT::Species::IsStagnant() const -> bool {
 
 auto Species::LetPopulationLive() -> void{
 	for (auto& organism : population){
-		organism->Update();
+		while (!organism->HasFinishedTask()){
+			organism->Update();
+		}
 	}
 	isSortedByFitness = false;
 }

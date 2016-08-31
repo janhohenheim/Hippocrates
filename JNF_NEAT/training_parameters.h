@@ -4,9 +4,10 @@
 namespace JNF_NEAT {
 
 	struct TrainingParameters {
+		TrainingParameters(unsigned int numberOfInputs, unsigned int numberOfOutputs ) :
+				numberOfInputs(numberOfInputs), numberOfOutputs(numberOfOutputs) {}
 		unsigned int numberOfInputs = 0U;
 		unsigned int numberOfOutputs = 0U;
-		unsigned int updatesPerGeneration = 1U;
 
 		struct Advanced {
 			struct Ranges {

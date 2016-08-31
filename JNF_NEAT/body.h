@@ -15,6 +15,7 @@ namespace JNF_NEAT {
 
 			virtual auto Reset() -> void = 0;
 			virtual auto Update(const std::vector<float>& networkOutputs) -> void = 0;
+			virtual auto HasFinishedTask() const -> bool = 0;
 			virtual auto GetFitness() const -> double = 0;
 
 			virtual auto ProvideNetworkWithInputs() const -> std::vector<float> = 0;

@@ -31,7 +31,7 @@ namespace JNF_NEAT {
 			auto GetOrCalculateRawFitness() -> double;
 			auto BreedWith(Organism& partner) -> NeuralNetwork;
 			auto GetGenome() const -> const Genome& { return network.GetGenome(); }
-			auto GetNetwork() const -> const NeuralNetwork& { return network; }
+			auto HasFinishedTask() const -> bool { return body->HasFinishedTask(); }
 			auto GetTrainingParameters() const -> const TrainingParameters& { return network.GetTrainingParameters(); }
 			auto GetJSON() const -> std::string;
 	};

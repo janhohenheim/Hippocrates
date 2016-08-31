@@ -6,10 +6,7 @@ using namespace std;
 
 auto TrainedNeuralNetwork::LoadFromFile(const string& fileName) -> TrainedNeuralNetwork {
 	// TODO jnf Implementation
-	unique_ptr<TrainingParameters> params (new TrainingParameters);
-	params->numberOfInputs = 2;
-	params->numberOfOutputs = 1;
-	params->updatesPerGeneration =30;
+	unique_ptr<TrainingParameters> params (new TrainingParameters(2, 1));
 	TrainedNeuralNetwork net(*params.get());
 	return net;
 }

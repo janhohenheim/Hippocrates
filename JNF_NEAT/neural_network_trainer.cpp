@@ -76,10 +76,8 @@ auto NeuralNetworkTrainer::GetFittestOrganism() -> Organism& {
 }
 
 auto NeuralNetworkTrainer::LetGenerationLive() -> void {
-	for (unsigned int i = 0; i < parameters.updatesPerGeneration; ++i) {
-		for (auto& sp : species) {
-			sp.LetPopulationLive();
-		}
+	for (auto& sp : species) {
+		sp.LetPopulationLive();
 	}
 }
 
