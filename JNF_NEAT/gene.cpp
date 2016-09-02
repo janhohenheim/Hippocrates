@@ -8,7 +8,6 @@ size_t Gene::numberOfExistingGenes = 0U;
 
 Gene::Gene() {
 	SetRandomWeight();
-	numberOfExistingGenes++;
 }
 
 auto Gene::SetRandomWeight() -> void {
