@@ -146,11 +146,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="convolutional_neural_network.h" />
-    <ClInclude Include="iconvolutional_matrix.h" />
+    <ClInclude Include="ipooler.h" />
+    <ClInclude Include="multi_dimensional_matrix.h" />
+    <ClInclude Include="neural_network.h" />
+    <ClInclude Include="matrix.h" />
+    <ClInclude Include="neuron.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="convolutional_neural_network.cpp" />
+    <ClCompile Include="matrix.cpp" />
+    <ClCompile Include="multi_dimensional_matrix.cpp" />
+    <ClCompile Include="neural_network.cpp" />
+    <ClCompile Include="neuron.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

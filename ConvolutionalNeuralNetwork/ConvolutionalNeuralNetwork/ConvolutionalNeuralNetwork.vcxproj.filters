@@ -13,18 +13,42 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Convolutional">
+      <UniqueIdentifier>{d818345f-75a0-411b-88a4-a34d2a204565}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Convolutional">
+      <UniqueIdentifier>{389a33df-d3f3-46ea-bd9a-2b08c43e265a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="convolutional_neural_network.cpp">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="neural_network.h">
+      <Filter>Header Files\Convolutional</Filter>
+    </ClInclude>
+    <ClInclude Include="ipooler.h">
+      <Filter>Header Files\Convolutional</Filter>
+    </ClInclude>
+    <ClInclude Include="neuron.h">
+      <Filter>Header Files\Convolutional</Filter>
+    </ClInclude>
+    <ClInclude Include="multi_dimensional_matrix.h">
+      <Filter>Header Files\Convolutional</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix.h">
+      <Filter>Header Files\Convolutional</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="neural_network.cpp">
+      <Filter>Source Files\Convolutional</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="convolutional_neural_network.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="iconvolutional_matrix.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <ClCompile Include="multi_dimensional_matrix.cpp">
+      <Filter>Source Files\Convolutional</Filter>
+    </ClCompile>
+    <ClCompile Include="matrix.cpp">
+      <Filter>Source Files\Convolutional</Filter>
+    </ClCompile>
+    <ClCompile Include="neuron.cpp">
+      <Filter>Source Files\Convolutional</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
