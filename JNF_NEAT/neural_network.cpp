@@ -316,10 +316,9 @@ auto NeuralNetwork::PerturbWeightAt(size_t index) -> void {
 	if (genome[index].weight < -1.0f) {
 		genome[index].weight = -1.0f;
 	}
-	else
-		if (genome[index].weight > 1.0f) {
-			genome[index].weight = 1.0f;
-		}
+	else if (genome[index].weight > 1.0f) {
+		genome[index].weight = 1.0f;
+	}
 }
 
 auto NeuralNetwork::MutateGenesAndBuildNetwork() -> void {
@@ -327,15 +326,15 @@ auto NeuralNetwork::MutateGenesAndBuildNetwork() -> void {
 		BuildNetworkFromGenes();
 		AddRandomConnection();
 	}
-	else
+	else {
 		if (ShouldAddNeuron()) {
 			AddRandomNeuron();
-			BuildNetworkFromGenes();
-		}
-		else {
+		} else {
 			ShuffleWeights();
-			BuildNetworkFromGenes();
 		}
+
+		BuildNetworkFromGenes();
+	}
 }
 
 auto NeuralNetwork::CategorizeNeuronsIntoLayers() -> void {
