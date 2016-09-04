@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 project(JNF_NEAT)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
-set(LIBRARY_NAME JNF_NEAT)
 set(SOURCE_FILES
     JNF_NEAT/body.h
     JNF_NEAT/gene.cpp
@@ -20,13 +19,14 @@ set(SOURCE_FILES
     JNF_NEAT/species.h
     JNF_NEAT/trained_neural_network.cpp
     JNF_NEAT/trained_neural_network.h
+    JNF_NEAT/training_parameters.h    
 	JNF_NEAT/logger.cpp
-	JNF_NEAT/logger.h
-    JNF_NEAT/training_parameters.h
-    )
+	JNF_NEAT/logger.h	
+	
+	Examples/Examples/xor_solver.cpp
+    Examples/Examples/xor_solver.h
+    Examples/Examples/main.cpp
+	)
 
-add_library(${LIBRARY_NAME}
-SHARED
-${SOURCE_FILES})
-set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
+add_executable(JNF_NEAT ${SOURCE_FILES})
 target_link_libraries(JNF_NEAT -lstdc++fs)
