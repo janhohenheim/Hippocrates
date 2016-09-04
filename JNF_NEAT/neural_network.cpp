@@ -364,16 +364,16 @@ auto NeuralNetwork::CategorizeNeuronBranchIntoLayers(Neuron& currNode, size_t cu
 	const size_t nextLayer = currNode.layer + 1;
 
 
-	auto HasYetToBeLayered = [&nextLayer](const Neuron::Connection& c) {
-		return nextLayer > c.neuron->layer;
+	auto HasYetToBeLayered = [&nextLayer](const auto& connection) {
+		return nextLayer > connection.neuron->layer;
 	};
-	auto IsInHigherLayer = [](const Neuron::Connection& c) {
-		return (c.outGoing != c.isRecursive);
+	auto IsInHigherLayer = [](const auto& connection) {
+		return (connection.outGoing != connection.isRecursive);
 	};
 
-	for (auto &c : currNode.GetConnections()) {
-		if (HasYetToBeLayered(c) && IsInHigherLayer(c)) {
-			CategorizeNeuronBranchIntoLayers(*c.neuron, nextLayer);
+	for (auto &connection : currNode.GetConnections()) {
+		if (HasYetToBeLayered(connection) && IsInHigherLayer(connection)) {
+			CategorizeNeuronBranchIntoLayers(*connection.neuron, nextLayer);
 		}
 	}
 }
