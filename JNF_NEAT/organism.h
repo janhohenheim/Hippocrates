@@ -21,15 +21,15 @@ public:
 	Organism(Organism&& other) = default;
 	~Organism() = default;
 
-	auto operator=(const Organism& other)->Organism& = default;
-	auto operator=(Organism&& other)->Organism& = default;
+	auto operator=(const Organism& other) -> Organism& = default;
+	auto operator=(Organism&& other) -> Organism& = default;
 
 	auto Reset() -> void { body->Reset(); }
 	auto Update() -> void;
 	auto SetFitnessModifier(double factor) -> void { fitnessModifier = factor; }
 	auto GetOrCalculateFitness() -> double;
 	auto GetOrCalculateRawFitness() -> double;
-	auto BreedWith(Organism& partner)->NeuralNetwork;
+	auto BreedWith(Organism& partner) -> NeuralNetwork;
 	auto GetGenome() const -> const Genome&{ return network.GetGenome(); }
 	auto HasFinishedTask() const -> bool { return body->HasFinishedTask(); }
 	auto GetTrainingParameters() const -> const TrainingParameters&{ return network.GetTrainingParameters(); }

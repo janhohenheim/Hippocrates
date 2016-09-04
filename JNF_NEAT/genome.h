@@ -19,12 +19,12 @@ public:
 	Genome(Genome&& other) = default;
 	~Genome() = default;
 
-	auto operator=(const Genome& other)->Genome&;
-	auto operator=(Genome&& other)->Genome& = default;
+	auto operator=(const Genome& other) -> Genome&;
+	auto operator=(Genome&& other) -> Genome& = default;
 
-	auto operator[](std::size_t index) const -> const Gene&{ return GetGeneAt(index); }
+	auto operator[](std::size_t index) const -> const Gene& { return GetGeneAt(index); }
 	auto operator[](std::size_t index) -> Gene& { return GetGeneAt(index); }
-	auto GetGeneAt(std::size_t index) const -> const Gene&{ return genes[index]; }
+	auto GetGeneAt(std::size_t index) const -> const Gene& { return genes[index]; }
 	auto GetGeneAt(std::size_t index) -> Gene& { return genes[index]; }
 	auto begin() { return genes.begin(); }
 	auto begin() const { return genes.begin(); }
@@ -37,7 +37,7 @@ public:
 	auto AppendGene(Gene gene) -> void;
 	auto InsertGeneAt(Gene gene, size_t index) -> void;
 
-	auto GetTrainingParameters() const -> const TrainingParameters&{ return parameters; }
+	auto GetTrainingParameters() const -> const TrainingParameters& { return parameters; }
 	auto GetGeneticalDistanceFrom(const Genome& other) const -> double;
 	auto DoesContainGene(const Gene& gene) const -> bool;
 	auto GetJSON() const->std::string;

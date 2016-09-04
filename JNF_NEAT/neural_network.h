@@ -25,11 +25,11 @@ public:
 	NeuralNetwork(NeuralNetwork&& other) = default;
 	~NeuralNetwork() = default;
 
-	auto operator= (const NeuralNetwork& other)->NeuralNetwork&;
-	auto operator= (NeuralNetwork&& other)->NeuralNetwork& = default;
+	auto operator= (const NeuralNetwork& other) -> NeuralNetwork&;
+	auto operator= (NeuralNetwork&& other) -> NeuralNetwork& = default;
 
 	auto GetGenome() const -> const Genome&{ return genome; }
-	auto GetOutputsUsingInputs(std::vector<float> inputs)->std::vector<float>;
+	auto GetOutputsUsingInputs(std::vector<float> inputs) -> std::vector<float>;
 	auto GetTrainingParameters() const -> const TrainingParameters&{ return parameters; }
 
 	auto GetJSON() const->std::string;
@@ -38,7 +38,7 @@ private:
 	static auto DidChanceOccure(float chance) -> bool;
 
 	auto SetInputs(std::vector<float> inputs) -> void;
-	auto GetOutputs()->std::vector<float>;
+	auto GetOutputs() -> std::vector<float>;
 
 	auto MutateGenesAndBuildNetwork() -> void;
 	auto BuildNetworkFromGenes() -> void;
@@ -51,8 +51,8 @@ private:
 	auto AddRandomNeuron() -> void;
 	auto AddRandomConnection() -> void;
 
-	auto GetTwoUnconnectedNeurons()->std::pair<Neuron*, Neuron*>;
-	auto GetRandomEnabledGene()->Gene&;
+	auto GetTwoUnconnectedNeurons() -> std::pair<Neuron*, Neuron*>;
+	auto GetRandomEnabledGene() -> Gene&;
 
 	auto CanNeuronsBeConnected(const Neuron& lhs, const Neuron& rhs) const -> bool;
 	auto AreBothNeuronsOutputs(const Neuron& lhs, const Neuron& rhs) const -> bool;

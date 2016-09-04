@@ -26,8 +26,8 @@ public:
 	Neuron(Neuron&& other) = default;
 	~Neuron() = default;
 
-	auto operator=(const Neuron& other)->Neuron& = default;
-	auto operator=(Neuron&& other)->Neuron& = default;
+	auto operator=(const Neuron& other) -> Neuron& = default;
+	auto operator=(Neuron&& other) -> Neuron& = default;
 
 	auto SetInput(float input) -> void;
 	auto GetConnections() const -> const std::vector<Connection>& { return connections; }

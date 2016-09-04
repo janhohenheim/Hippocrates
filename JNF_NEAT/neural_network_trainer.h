@@ -30,12 +30,12 @@ public:
 	NeuralNetworkTrainer(NeuralNetworkTrainer&& other) = default;
 	~NeuralNetworkTrainer() = default;
 
-	auto operator=(const NeuralNetworkTrainer&)->NeuralNetworkTrainer& = default;
-	auto operator=(NeuralNetworkTrainer&&)->NeuralNetworkTrainer& = default;
+	auto operator=(const NeuralNetworkTrainer&) -> NeuralNetworkTrainer& = default;
+	auto operator=(NeuralNetworkTrainer&&) -> NeuralNetworkTrainer& = default;
 
 	auto TrainUntilFitnessEquals(double fitnessToReach) -> void;
 	auto TrainUntilGenerationEquals(size_t generationsToTrain) -> void;
-	auto GetTrainedNeuralNetwork()->TrainedNeuralNetwork;
+	auto GetTrainedNeuralNetwork() -> TrainedNeuralNetwork;
 	auto GetJSON() const->std::string;
 
 private:
@@ -51,7 +51,7 @@ private:
 	auto DeleteStagnantSpecies() -> void;
 	auto DeleteEmptySpecies() -> void;
 
-	auto SelectSpeciesToBreed()->Species&;
-	auto GetFittestOrganism()->Organism&;
+	auto SelectSpeciesToBreed() -> Species&;
+	auto GetFittestOrganism() -> Organism&;
 };
 }

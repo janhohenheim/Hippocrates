@@ -21,7 +21,7 @@ public:
 	Species(Species&& other) = default;
 	~Species() = default;
 
-	auto operator=(Species&& other)->Species&;
+	auto operator=(Species&& other) -> Species&;
 
 	auto AddOrganism(Organism&& organism) -> void;
 	auto AnalyzeAndClearPopulation() -> void;
@@ -31,9 +31,9 @@ public:
 	auto IsStagnant() const -> bool;
 	auto LetPopulationLive() -> void;
 	auto ResetToTeachableState() -> void;
-	auto GetFittestOrganism()->Organism&;
+	auto GetFittestOrganism() -> Organism&;
 	auto SetPopulationsFitnessModifier() -> void;
-	auto GetOrganismToBreed()->Organism&;
+	auto GetOrganismToBreed() -> Organism&;
 	auto GetJSON() const->std::string;
 
 private:

@@ -155,7 +155,7 @@ auto Species::GetJSON() const -> string {
 		s += population[i]->GetJSON();
 		s += ",";
 	}
-	s += population.back()->GetJSON();
+	s += population.back() -> GetJSON();
 	s += "]}";
 	return s;
 }

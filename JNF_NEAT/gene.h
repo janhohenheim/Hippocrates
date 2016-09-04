@@ -10,8 +10,8 @@ public:
 	Gene(Gene&& other) = default;
 	~Gene() = default;
 
-	auto operator=(const Gene& other)->Gene& = default;
-	auto operator=(Gene&& other)->Gene& = default;
+	auto operator=(const Gene& other) -> Gene& = default;
+	auto operator=(Gene&& other) -> Gene& = default;
 
 	auto SetRandomWeight() -> void;
 	auto GetJSON() const->std::string;
