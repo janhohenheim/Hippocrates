@@ -6,7 +6,7 @@ using namespace JNF_NEAT;
 using namespace std;
 
 Species::Species(Organism representative) :
-parameters(representative.GetTrainingParameters()) {
+	parameters(representative.GetTrainingParameters()) {
 	population.push_back(make_unique<Organism>(move(representative)));
 	ElectRepresentative();
 }
@@ -23,11 +23,12 @@ auto Species::AnalyzeAndClearPopulation() -> void {
 	if (currentBestFitness > fitnessHighscore) {
 		fitnessHighscore = currentBestFitness;
 		numberOfStagnantGenerations = 0;
-	} else {
+	}
+	else {
 		numberOfStagnantGenerations++;
 	}
-	population.clear(); 
-	isSortedByFitness = false;	
+	population.clear();
+	isSortedByFitness = false;
 }
 
 
@@ -36,9 +37,9 @@ auto Species::IsCompatible(const Genome& genome) const -> bool {
 	return !IsAboveCompatibilityThreshold(distanceToSpecies);
 }
 
-auto Species::SetPopulationsFitnessModifier() -> void{
+auto Species::SetPopulationsFitnessModifier() -> void {
 	double fitnessModifier = 1.0 / (double)population.size();
-	for (auto& organism : population){
+	for (auto& organism : population) {
 		organism->SetFitnessModifier(fitnessModifier);
 	}
 }
@@ -54,7 +55,8 @@ auto Species::SelectRandomRepresentative() -> void {
 	auto randomMember = rand() % population.size();
 	if (representative == nullptr) {
 		representative = make_unique<Organism>(*population[randomMember]);
-	} else {
+	}
+	else {
 		*representative = *population[randomMember];
 	}
 }
@@ -62,29 +64,30 @@ auto Species::SelectRandomRepresentative() -> void {
 auto Species::SelectFittestOrganismAsRepresentative() -> void {
 	if (representative == nullptr) {
 		representative = make_unique<Organism>(GetFittestOrganism());
-	} else {
+	}
+	else {
 		*representative = GetFittestOrganism();
 	}
 }
 
-auto JNF_NEAT::Species::IsStagnant() const -> bool { 
-    return (numberOfStagnantGenerations >= parameters.
-                                            advanced.
-                                            speciation.
-                                            stagnantSpeciesClearThreshold); 
+auto JNF_NEAT::Species::IsStagnant() const -> bool {
+	return (numberOfStagnantGenerations >= parameters.
+		advanced.
+		speciation.
+		stagnantSpeciesClearThreshold);
 }
 
-auto Species::LetPopulationLive() -> void{
-	for (auto& organism : population){
-		while (!organism->HasFinishedTask()){
+auto Species::LetPopulationLive() -> void {
+	for (auto& organism : population) {
+		while (!organism->HasFinishedTask()) {
 			organism->Update();
 		}
 	}
 	isSortedByFitness = false;
 }
 
-auto Species::ResetToTeachableState() -> void{
-	for (auto& organism : population){
+auto Species::ResetToTeachableState() -> void {
+	for (auto& organism : population) {
 		organism->Reset();
 	}
 }

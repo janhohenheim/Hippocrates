@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{337DE957-C60C-4D14-8762-D2A19BAE3394}</ProjectGuid>
+    <ProjectGuid>{E57CB6A8-8F78-4B4E-9EB1-CAE23B5B88FE}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Examples</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
@@ -146,19 +146,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\JNF_NEAT\gene.cpp" />
-    <ClCompile Include="..\..\JNF_NEAT\genome.cpp" />
-    <ClCompile Include="..\..\JNF_NEAT\logger.cpp" />
-    <ClCompile Include="..\..\JNF_NEAT\neural_network.cpp" />
-    <ClCompile Include="..\..\JNF_NEAT\neural_network_trainer.cpp" />
-    <ClCompile Include="..\..\JNF_NEAT\neuron.cpp" />
-    <ClCompile Include="..\..\JNF_NEAT\organism.cpp" />
-    <ClCompile Include="..\..\JNF_NEAT\species.cpp" />
-    <ClCompile Include="..\..\JNF_NEAT\trained_neural_network.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="xor_solver.cpp" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="..\..\JNF_NEAT\body.h" />
     <ClInclude Include="..\..\JNF_NEAT\gene.h" />
     <ClInclude Include="..\..\JNF_NEAT\genome.h" />
@@ -171,6 +158,19 @@
     <ClInclude Include="..\..\JNF_NEAT\trained_neural_network.h" />
     <ClInclude Include="..\..\JNF_NEAT\training_parameters.h" />
     <ClInclude Include="xor_solver.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\JNF_NEAT\gene.cpp" />
+    <ClCompile Include="..\..\JNF_NEAT\genome.cpp" />
+    <ClCompile Include="..\..\JNF_NEAT\logger.cpp" />
+    <ClCompile Include="..\..\JNF_NEAT\neural_network.cpp" />
+    <ClCompile Include="..\..\JNF_NEAT\neural_network_trainer.cpp" />
+    <ClCompile Include="..\..\JNF_NEAT\neuron.cpp" />
+    <ClCompile Include="..\..\JNF_NEAT\organism.cpp" />
+    <ClCompile Include="..\..\JNF_NEAT\species.cpp" />
+    <ClCompile Include="..\..\JNF_NEAT\trained_neural_network.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="xor_solver.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

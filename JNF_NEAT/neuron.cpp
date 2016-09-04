@@ -7,7 +7,7 @@ using namespace JNF_NEAT;
 using namespace std;
 
 Neuron::Neuron(vector<Connection> connections) :
-connections(std::move(connections)) {
+	connections(std::move(connections)) {
 }
 
 auto Neuron::AddConnection(Connection connection) -> void {
@@ -17,9 +17,9 @@ auto Neuron::AddConnection(Connection connection) -> void {
 	connections.push_back(move(connection));
 }
 
-auto Neuron::RequestDataAndGetActionPotential() -> float{
+auto Neuron::RequestDataAndGetActionPotential() -> float {
 	float incomingPotentials = 0.0f;
-	for (auto& in : connections){
+	for (auto& in : connections) {
 		if (!in.outGoing) {
 			incomingPotentials += in.neuron->lastActionPotential * in.weight;
 		}
@@ -32,7 +32,7 @@ auto Neuron::sigmoid(float d) -> float {
 	return tanh(d);
 }
 
-auto Neuron::SetInput(float input) -> void{
+auto Neuron::SetInput(float input) -> void {
 	lastActionPotential = input;
 }
 

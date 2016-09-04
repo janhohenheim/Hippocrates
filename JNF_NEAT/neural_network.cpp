@@ -4,7 +4,7 @@
 using namespace JNF_NEAT;
 using namespace std;
 
-NeuralNetwork::NeuralNetwork(const TrainingParameters & parameters, bool shouldMutate):
+NeuralNetwork::NeuralNetwork(const TrainingParameters & parameters, bool shouldMutate) :
 	parameters(parameters),
 	genome(parameters),
 	inputNeurons(parameters.numberOfInputs),
@@ -12,12 +12,13 @@ NeuralNetwork::NeuralNetwork(const TrainingParameters & parameters, bool shouldM
 {
 	if (shouldMutate) {
 		MutateGenesAndBuildNetwork();
-	} else {
+	}
+	else {
 		BuildNetworkFromGenes();
 	}
 }
 
-NeuralNetwork::NeuralNetwork(const Genome& genome, bool shouldMutate):
+NeuralNetwork::NeuralNetwork(const Genome& genome, bool shouldMutate) :
 	parameters(genome.GetTrainingParameters()),
 	genome(genome),
 	inputNeurons(genome.GetTrainingParameters().numberOfInputs),
@@ -25,7 +26,8 @@ NeuralNetwork::NeuralNetwork(const Genome& genome, bool shouldMutate):
 {
 	if (shouldMutate) {
 		MutateGenesAndBuildNetwork();
-	} else {
+	}
+	else {
 		BuildNetworkFromGenes();
 	}
 }
@@ -67,7 +69,7 @@ auto NeuralNetwork::operator=(const NeuralNetwork& other) -> NeuralNetwork& {
 	return *this;
 }
 
-auto NeuralNetwork::BuildNetworkFromGenes() -> void{
+auto NeuralNetwork::BuildNetworkFromGenes() -> void {
 	neurons.resize(genome.GetNeuronCount());
 	for (const auto& gene : genome) {
 		if (gene.isEnabled) {
@@ -89,24 +91,24 @@ auto NeuralNetwork::BuildNetworkFromGenes() -> void{
 	CategorizeNeuronsIntoLayers();
 }
 
-auto NeuralNetwork::SetInputs(vector<float> inputs) -> void{
+auto NeuralNetwork::SetInputs(vector<float> inputs) -> void {
 	if (inputNeurons.size() != inputs.size()) {
 		throw out_of_range("Number of inputs provided doesn't match genetic information");
 	}
-	for(size_t i = 0U; i < inputNeurons.size(); ++i) {
+	for (size_t i = 0U; i < inputNeurons.size(); ++i) {
 		inputNeurons[i]->SetInput(move(inputs[i]));
 	};
 }
 
 auto NeuralNetwork::GetOutputs() -> vector<float> {
 	for (size_t i = 1; i < layerMap.size() - 1; ++i) {
-		for (auto& neuron : layerMap[i]){
+		for (auto& neuron : layerMap[i]) {
 			neuron->RequestDataAndGetActionPotential();
 		}
 	}
 	vector<float> outputs;
 	outputs.reserve(outputNeurons.size());
-	for(auto& outputNeuron : outputNeurons) {
+	for (auto& outputNeuron : outputNeurons) {
 		outputs.push_back(outputNeuron->RequestDataAndGetActionPotential());
 	}
 	return outputs;
@@ -134,13 +136,13 @@ auto NeuralNetwork::InterpretInputsAndOutputs() -> void {
 	}
 }
 
-auto NeuralNetwork::ShouldAddNeuron() const -> bool { 
-    return DidChanceOccure(
-        parameters.
-        advanced.
-        mutation.
-        chanceForNeuralMutation
-    ); 
+auto NeuralNetwork::ShouldAddNeuron() const -> bool {
+	return DidChanceOccure(
+		parameters.
+		advanced.
+		mutation.
+		chanceForNeuralMutation
+	);
 }
 
 auto NeuralNetwork::ShouldAddConnection() const -> bool {
@@ -160,13 +162,13 @@ auto NeuralNetwork::ShouldAddConnection() const -> bool {
 	return hasSpaceForNewConnections;
 }
 
-auto NeuralNetwork::ShouldMutateWeight() const -> bool { 
-    return DidChanceOccure(
-        parameters.
-        advanced.
-        mutation.
-        chanceForWeightMutation
-    ); 
+auto NeuralNetwork::ShouldMutateWeight() const -> bool {
+	return DidChanceOccure(
+		parameters.
+		advanced.
+		mutation.
+		chanceForWeightMutation
+	);
 }
 
 auto NeuralNetwork::DidChanceOccure(float chance) -> bool {
@@ -248,7 +250,7 @@ auto NeuralNetwork::GetTwoUnconnectedNeurons() -> pair<Neuron*, Neuron*> {
 	for (auto* from : possibleFromNeurons) {
 		for (auto* to : possibleToNeurons) {
 			if (CanNeuronsBeConnected(*from, *to)) {
-				return {from, to};
+				return{ from, to };
 			}
 		}
 	}
@@ -264,21 +266,21 @@ auto JNF_NEAT::NeuralNetwork::CanNeuronsBeConnected(const Neuron & lhs, const Ne
 auto NeuralNetwork::AreBothNeuronsOutputs(const Neuron &lhs, const Neuron &rhs) const -> bool {
 	bool isLhsOutput = false;
 	bool isRhsOutput = false;
-	for (const auto& output: outputNeurons){
-		if (output == &lhs){
+	for (const auto& output : outputNeurons) {
+		if (output == &lhs) {
 			isLhsOutput = true;
 		}
-		else if (output == &rhs){
+		else if (output == &rhs) {
 			isRhsOutput = true;
 		}
-		if (isLhsOutput && isRhsOutput){
+		if (isLhsOutput && isRhsOutput) {
 			return true;
 		}
 	}
 	return false;
 }
 
-auto NeuralNetwork::AreNeuronsConnected(const Neuron& lhs,const Neuron & rhs) const -> bool {
+auto NeuralNetwork::AreNeuronsConnected(const Neuron& lhs, const Neuron & rhs) const -> bool {
 	for (auto& connection : rhs.GetConnections()) {
 		if (!connection.outGoing && &lhs == connection.neuron) {
 			return true;
@@ -298,7 +300,8 @@ auto NeuralNetwork::ShuffleWeights() -> void {
 auto NeuralNetwork::MutateWeightOfGeneAt(size_t index) -> void {
 	if (DidChanceOccure(parameters.advanced.mutation.chanceOfTotalWeightReset)) {
 		genome[index].SetRandomWeight();
-	} else {
+	}
+	else {
 		PerturbWeightAt(index);
 	}
 }
@@ -312,25 +315,27 @@ auto NeuralNetwork::PerturbWeightAt(size_t index) -> void {
 	genome[index].weight += perturbance;
 	if (genome[index].weight < -1.0f) {
 		genome[index].weight = -1.0f;
-	} else
-	if (genome[index].weight > 1.0f) {
-		genome[index].weight = 1.0f;
 	}
+	else
+		if (genome[index].weight > 1.0f) {
+			genome[index].weight = 1.0f;
+		}
 }
 
 auto NeuralNetwork::MutateGenesAndBuildNetwork() -> void {
 	if (ShouldAddConnection()) {
 		BuildNetworkFromGenes();
 		AddRandomConnection();
-	} else
-	if (ShouldAddNeuron()) {
-		AddRandomNeuron();
-		BuildNetworkFromGenes();
 	}
-	else {
-		ShuffleWeights();
-		BuildNetworkFromGenes();
-	}
+	else
+		if (ShouldAddNeuron()) {
+			AddRandomNeuron();
+			BuildNetworkFromGenes();
+		}
+		else {
+			ShuffleWeights();
+			BuildNetworkFromGenes();
+		}
 }
 
 auto NeuralNetwork::CategorizeNeuronsIntoLayers() -> void {

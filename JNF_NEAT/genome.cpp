@@ -22,19 +22,19 @@ Genome::Genome(const TrainingParameters& parameters) :
 
 
 auto Genome::operator=(const Genome& other) -> Genome& {
-	this->genes = other.genes; 
+	this->genes = other.genes;
 	this->neuronCount = other.neuronCount;
 	return *this;
 }
 
-auto Genome::AppendGene(Gene gene) -> void { 
-    AdjustNeuronCount(gene); 
-    genes.push_back(std::move(gene)); 
+auto Genome::AppendGene(Gene gene) -> void {
+	AdjustNeuronCount(gene);
+	genes.push_back(std::move(gene));
 }
 
 auto Genome::InsertGeneAt(Gene gene, size_t index) -> void {
-    AdjustNeuronCount(gene); 
-    genes.insert(genes.begin() + index, std::move(gene)); 
+	AdjustNeuronCount(gene);
+	genes.insert(genes.begin() + index, std::move(gene));
 }
 
 auto Genome::GetGeneticalDistanceFrom(const Genome& other) const -> double {
@@ -64,9 +64,9 @@ auto Genome::GetGeneticalDistanceFrom(const Genome& other) const -> double {
 	return disjointGenesInfluence + averageWeightDifference;
 }
 
-auto Genome::DoesContainGene(const Gene& gene) const -> bool{
+auto Genome::DoesContainGene(const Gene& gene) const -> bool {
 	for (auto & g : genes) {
-		if (g.from == gene.from && g.to == gene.to && g.isRecursive == gene.isRecursive){
+		if (g.from == gene.from && g.to == gene.to && g.isRecursive == gene.isRecursive) {
 			return true;
 		}
 	}
@@ -84,8 +84,8 @@ auto Genome::GetJSON() const -> string {
 	return s;
 }
 
-auto Genome::AdjustNeuronCount(const Gene & gene) -> void { 
-    if (gene.to + 1 > neuronCount) {
-        neuronCount = gene.to + 1;
-    }
+auto Genome::AdjustNeuronCount(const Gene & gene) -> void {
+	if (gene.to + 1 > neuronCount) {
+		neuronCount = gene.to + 1;
+	}
 }

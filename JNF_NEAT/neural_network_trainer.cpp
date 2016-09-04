@@ -41,8 +41,8 @@ auto NeuralNetworkTrainer::TrainUntilGenerationEquals(size_t generationsToTrain)
 	}
 }
 
-auto NeuralNetworkTrainer::GetTrainedNeuralNetwork() -> TrainedNeuralNetwork { 
-    return TrainedNeuralNetwork(GetFittestOrganism().GetGenome()); 
+auto NeuralNetworkTrainer::GetTrainedNeuralNetwork() -> TrainedNeuralNetwork {
+	return TrainedNeuralNetwork(GetFittestOrganism().GetGenome());
 }
 
 auto NeuralNetworkTrainer::CreateInitialOrganisms() -> void {
@@ -83,7 +83,7 @@ auto NeuralNetworkTrainer::LetGenerationLive() -> void {
 
 auto NeuralNetworkTrainer::PrepareSpeciesForPopulation() -> void {
 	AnalyzeAndClearSpeciesPopulation();
-	DeleteStagnantSpecies();	
+	DeleteStagnantSpecies();
 }
 
 auto NeuralNetworkTrainer::FillOrganismIntoSpecies(Organism&& organism) -> void {
@@ -136,7 +136,7 @@ auto NeuralNetworkTrainer::Repopulate() -> void {
 	for (auto& trainer : bodies) {
 		Species* sp = &SelectSpeciesToBreed();
 		auto& father = sp->GetOrganismToBreed();
-		if (DidChanceOccure(parameters.advanced.reproduction.chanceForInterspecialReproduction)){
+		if (DidChanceOccure(parameters.advanced.reproduction.chanceForInterspecialReproduction)) {
 			sp = &SelectSpeciesToBreed();
 		}
 		auto& mother = sp->GetOrganismToBreed();

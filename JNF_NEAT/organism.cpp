@@ -11,9 +11,9 @@ Organism::Organism(std::shared_ptr<IBody> body, NeuralNetwork&& network) :
 {
 }
 
-auto Organism::Update() -> void{
-	const auto inputs( move(body->ProvideNetworkWithInputs()) );
-	const auto outputs( move(network.GetOutputsUsingInputs(inputs)) );
+auto Organism::Update() -> void {
+	const auto inputs(move(body->ProvideNetworkWithInputs()));
+	const auto outputs(move(network.GetOutputsUsingInputs(inputs)));
 	body->Update(outputs);
 	isFitnessUpToDate = false;
 }
@@ -46,7 +46,7 @@ auto Organism::BreedWith(Organism& partner) -> NeuralNetwork {
 	auto AreMarkingsSameAt = [&](size_t i) {
 		return childGenome[i].historicalMarking == partnerGenome[i].historicalMarking;
 	};
-	for (size_t i = 0U;	i < sizeOfSmallerParent && AreMarkingsSameAt(i); ++i) {
+	for (size_t i = 0U; i < sizeOfSmallerParent && AreMarkingsSameAt(i); ++i) {
 		if (rand() % 2 == 0) {
 			childGenome[i].weight = partnerGenome[i].weight;
 		}
@@ -62,7 +62,7 @@ auto Organism::GetJSON() const -> string {
 	string s("{\"fitness\":");
 	s += to_string(fitness);
 	s += ",";
-	s += "\"fitnessModifier\":"; 
+	s += "\"fitnessModifier\":";
 	s += to_string(fitnessModifier);
 	s += ",";
 	s += "\"network\":";
