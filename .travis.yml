@@ -1,4 +1,10 @@
 language: cpp
+addons:
+  apt:
+    packages:
+      - g++-6
+      - cmake
+
 script:
   - cmake CMakeLists.txt
   - make
