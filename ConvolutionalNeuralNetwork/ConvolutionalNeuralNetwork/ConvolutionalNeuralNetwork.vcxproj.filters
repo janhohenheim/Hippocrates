@@ -36,6 +36,15 @@
     <ClInclude Include="matrix.h">
       <Filter>Header Files\Convolutional</Filter>
     </ClInclude>
+    <ClInclude Include="multi_dimensional_matrix_parser.h">
+      <Filter>Header Files\Convolutional</Filter>
+    </ClInclude>
+    <ClInclude Include="training_data.h">
+      <Filter>Header Files\Convolutional</Filter>
+    </ClInclude>
+    <ClInclude Include="neural_network_trainer.h">
+      <Filter>Header Files\Convolutional</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="neural_network.cpp">
@@ -48,6 +57,12 @@
       <Filter>Source Files\Convolutional</Filter>
     </ClCompile>
     <ClCompile Include="neuron.cpp">
+      <Filter>Source Files\Convolutional</Filter>
+    </ClCompile>
+    <ClCompile Include="multi_dimensional_matrix_parser.cpp">
+      <Filter>Source Files\Convolutional</Filter>
+    </ClCompile>
+    <ClCompile Include="neural_network_trainer.cpp">
       <Filter>Source Files\Convolutional</Filter>
     </ClCompile>
   </ItemGroup>

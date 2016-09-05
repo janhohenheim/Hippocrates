@@ -10,6 +10,7 @@ public:
 	using type = std::vector<Matrix>;
 
 	MultiDimensionalMatrix(type subDimensions);
+
 	auto& begin() { return subDimensions.begin(); }
 	const auto& begin() const { return subDimensions.begin(); }
 	auto& end() { return subDimensions.end(); }

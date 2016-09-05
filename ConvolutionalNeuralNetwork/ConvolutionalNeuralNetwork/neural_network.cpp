@@ -15,7 +15,7 @@ auto NeuralNetwork::Subsample(const Neuron & neuron) -> void {
 	ApplyToAllMatrices(neuron.ExtractFeature);
 }
 
-auto Convolutional::NeuralNetwork::ApplyToAllMatrices(std::function<Matrix(const Matrix&)> function) -> void {
+auto NeuralNetwork::ApplyToAllMatrices(std::function<Matrix(const Matrix&)> function) -> void {
 	MultiDimensionalMatrix::type featureDimensions;
 	featureDimensions.reserve(matrix.GetDimensionCount());
 	for (auto & submatrix : matrix) {

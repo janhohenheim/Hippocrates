@@ -147,15 +147,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="ipooler.h" />
+    <ClInclude Include="multi_dimensional_matrix_parser.h" />
     <ClInclude Include="multi_dimensional_matrix.h" />
     <ClInclude Include="neural_network.h" />
     <ClInclude Include="matrix.h" />
+    <ClInclude Include="neural_network_trainer.h" />
     <ClInclude Include="neuron.h" />
+    <ClInclude Include="training_data.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="matrix.cpp" />
     <ClCompile Include="multi_dimensional_matrix.cpp" />
+    <ClCompile Include="multi_dimensional_matrix_parser.cpp" />
     <ClCompile Include="neural_network.cpp" />
+    <ClCompile Include="neural_network_trainer.cpp" />
     <ClCompile Include="neuron.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
