@@ -1,4 +1,5 @@
 # JNF_NEAT
+[![Build Status](https://travis-ci.org/SirRade/JNF_NEAT.svg?branch=development)](https://travis-ci.org/SirRade/JNF_NEAT)
 
 Implementation of Kenneth Stanley and Risto Miikkulainen's NEAT (NeuroEvolution
 of Augmenting Topologies, http://nn.cs.utexas.edu/downloads/papers/stanley.ec02.pdf).
