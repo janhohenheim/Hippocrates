@@ -1,10 +1,10 @@
 language: cpp
+sudo: required
+dist: trusty
 addons:
   apt:
     packages:
       - g++-6
-      - cmake
-
 script:
   - cmake CMakeLists.txt
   - make
