@@ -5,6 +5,8 @@ addons:
   apt:
     packages:
       - g++-6
+    sources:
+      - ubuntu-toolchain-r-test
 script:
   - cmake CMakeLists.txt
   - make
