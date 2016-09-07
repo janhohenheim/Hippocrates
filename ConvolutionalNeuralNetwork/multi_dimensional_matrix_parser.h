@@ -9,7 +9,7 @@ public:
     using Sentence = std::string;
 
     static auto Parse(const Image& image) -> MultiDimensionalMatrix;
-    static auto Parse(const Sentence& sentence)->MultiDimensionalMatrix;
+    static auto Parse(const Sentence& sentence) -> MultiDimensionalMatrix;
 };
 
 }

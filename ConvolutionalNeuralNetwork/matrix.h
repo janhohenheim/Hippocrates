@@ -17,8 +17,8 @@ public:
 
 	auto GetSubmatrix(std::size_t width, std::size_t height) -> Matrix;
 
-	auto GetHeight() const { return width; }
-	auto GetWidth() const { return height; }
+	auto GetHeight() const { return height; }
+	auto GetWidth() const { return width; }
 	auto GetSize() const { return GetHeight() * GetWidth(); }
 
 private:
