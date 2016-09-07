@@ -4,6 +4,8 @@ project(CNN_Code)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
 
 set(SOURCE_FILES
+    ConvolutionalNeuralNetwork/main.cpp
+
     ConvolutionalNeuralNetwork/ipooler.h
     ConvolutionalNeuralNetwork/matrix.cpp
     ConvolutionalNeuralNetwork/matrix.h
@@ -18,6 +20,9 @@ set(SOURCE_FILES
     ConvolutionalNeuralNetwork/neuron.cpp
     ConvolutionalNeuralNetwork/neuron.h
     ConvolutionalNeuralNetwork/training_data.h
-    ConvolutionalNeuralNetwork/main.cpp ConvolutionalNeuralNetwork/imulti_dimensional_parser.h ConvolutionalNeuralNetwork/ImageParser.cpp ConvolutionalNeuralNetwork/ImageParser.h ConvolutionalNeuralNetwork/SentenceParser.cpp ConvolutionalNeuralNetwork/SentenceParser.h)
+    ConvolutionalNeuralNetwork/ImageParser.cpp
+    ConvolutionalNeuralNetwork/ImageParser.h
+    ConvolutionalNeuralNetwork/SentenceParser.cpp
+    ConvolutionalNeuralNetwork/SentenceParser.h)
 
 add_executable(CNN_Code ${SOURCE_FILES})
