@@ -6,9 +6,13 @@ namespace Convolutional {
 
 class Neuron {
 public:
-	virtual auto ExtractFeature(const Matrix& matrix) const -> Matrix;
-	virtual auto GetBias() const -> std::size_t;
-	virtual auto GetWeights() const -> std::vector<std::size_t>;
+	auto ExtractFeature(const Matrix& matrix) const -> Matrix;
+	auto GetBias() const { return bias; }
+	auto GetWeights() const { return weights; }
+
+private:
+	std::size_t bias = 0;
+	std::vector<std::size_t> weights;
 };
 
 }

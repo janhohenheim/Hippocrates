@@ -18,6 +18,6 @@ set(SOURCE_FILES
     ConvolutionalNeuralNetwork/neuron.cpp
     ConvolutionalNeuralNetwork/neuron.h
     ConvolutionalNeuralNetwork/training_data.h
-    ConvolutionalNeuralNetwork/main.cpp)
+    ConvolutionalNeuralNetwork/main.cpp ConvolutionalNeuralNetwork/imulti_dimensional_parser.h ConvolutionalNeuralNetwork/ImageParser.cpp ConvolutionalNeuralNetwork/ImageParser.h ConvolutionalNeuralNetwork/SentenceParser.cpp ConvolutionalNeuralNetwork/SentenceParser.h)
 
 add_executable(CNN_Code ${SOURCE_FILES})

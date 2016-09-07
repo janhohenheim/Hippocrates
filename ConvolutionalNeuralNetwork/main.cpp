@@ -26,7 +26,7 @@ auto GetTrainigData() {
 }
 
 int main() {
-    TrainingData trainingData(GetTrainigData());
+    auto trainingData(GetTrainigData());
     NeuralNetworktrainer networktrainer(std::move(trainingData));
 
     auto trainedNetwork = networktrainer.Train();
