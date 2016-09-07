@@ -19,6 +19,12 @@
     <Filter Include="Source Files\Convolutional">
       <UniqueIdentifier>{389a33df-d3f3-46ea-bd9a-2b08c43e265a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Convolutional\InputData">
+      <UniqueIdentifier>{ed721f91-0b0a-4bb9-b862-e8c52fb151bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Convolutional\InputData">
+      <UniqueIdentifier>{97d73516-a6a1-415d-81f5-529977541780}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="neural_network.h">
@@ -36,13 +42,22 @@
     <ClInclude Include="matrix.h">
       <Filter>Header Files\Convolutional</Filter>
     </ClInclude>
-    <ClInclude Include="multi_dimensional_matrix_parser.h">
-      <Filter>Header Files\Convolutional</Filter>
-    </ClInclude>
     <ClInclude Include="training_data.h">
       <Filter>Header Files\Convolutional</Filter>
     </ClInclude>
     <ClInclude Include="neural_network_trainer.h">
+      <Filter>Header Files\Convolutional</Filter>
+    </ClInclude>
+    <ClInclude Include="image.h">
+      <Filter>Header Files\Convolutional\InputData</Filter>
+    </ClInclude>
+    <ClInclude Include="sentence.h">
+      <Filter>Header Files\Convolutional\InputData</Filter>
+    </ClInclude>
+    <ClInclude Include="iinput_data.h">
+      <Filter>Header Files\Convolutional\InputData</Filter>
+    </ClInclude>
+    <ClInclude Include="multi_matrix_factory.h">
       <Filter>Header Files\Convolutional</Filter>
     </ClInclude>
   </ItemGroup>
@@ -59,10 +74,19 @@
     <ClCompile Include="neuron.cpp">
       <Filter>Source Files\Convolutional</Filter>
     </ClCompile>
-    <ClCompile Include="multi_dimensional_matrix_parser.cpp">
+    <ClCompile Include="neural_network_trainer.cpp">
       <Filter>Source Files\Convolutional</Filter>
     </ClCompile>
-    <ClCompile Include="neural_network_trainer.cpp">
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files\Convolutional</Filter>
+    </ClCompile>
+    <ClCompile Include="image.cpp">
+      <Filter>Source Files\Convolutional\InputData</Filter>
+    </ClCompile>
+    <ClCompile Include="sentence.cpp">
+      <Filter>Source Files\Convolutional\InputData</Filter>
+    </ClCompile>
+    <ClCompile Include="multi_matrix_factory.cpp">
       <Filter>Source Files\Convolutional</Filter>
     </ClCompile>
   </ItemGroup>

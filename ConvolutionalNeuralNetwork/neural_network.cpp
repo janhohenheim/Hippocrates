@@ -12,7 +12,7 @@ auto NeuralNetwork::Pool(const IPooler& pooler) -> void {
 }
 
 auto NeuralNetwork::Subsample(const Neuron & neuron) -> void {
-	ApplyToAllMatrices(neuron.ExtractFeature);
+	ApplyToAllMatrices({ neuron.ExtractFeature });
 }
 
 auto NeuralNetwork::ApplyToAllMatrices(std::function<Matrix(const Matrix&)> function) -> void {

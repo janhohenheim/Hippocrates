@@ -2,11 +2,10 @@
 using namespace Convolutional;
 
 
-Matrix::Matrix(std::size_t width, std::size_t height):
-	width(width),
-	height(height)
+Matrix::Matrix(Size size):
+	size(size)
 {
-	elements.reserve(GetSize());
+	elements.reserve(GetElementCount());
 }
 
 /*
@@ -19,7 +18,7 @@ Matrix& Convolutional::Matrix::operator=(const Matrix & other)
 }
 */
 
-auto Matrix::GetSubmatrix(std::size_t width, std::size_t height) -> Matrix
+auto Matrix::GetSubmatrix(Matrix::Position position, Matrix::Size size) -> Matrix
 {
-	return Matrix(width, height);
+	return Matrix(GetSize());
 }
