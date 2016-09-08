@@ -18,7 +18,23 @@ public:
 	auto Pool(const IPooler& pooler) -> void;
 	auto Subsample(const Neuron& neuron) -> void;
 
-	auto ApplyToAllMatrices(std::function<Matrix(const Matrix&)> function) -> void;
+    template<typename T>
+    auto ApplyToAllMatrices(T&& function) -> void {
+        MultiDimensionalMatrix::SubDimensionType featureDimensions;
+        featureDimensions.reserve(matrix.GetDimensionCount());
+        for (auto& submatrix : matrix) {
+            for (std::size_t y = 0; y < submatrix.GetSize().height; ++y) {
+                for (std::size_t x = 0; x < submatrix.GetSize().width; ++x) {
+                    Matrix::Position pos;
+                    pos.x = x;
+                    pos.y = y;
+                    auto processedMatrix = function(pos, submatrix);
+                    featureDimensions.push_back(std::move(processedMatrix));
+                }
+            }
+        }
+        MultiDimensionalMatrix feature(std::move(featureDimensions));
+    }
 
 private:
 	MultiDimensionalMatrix matrix;

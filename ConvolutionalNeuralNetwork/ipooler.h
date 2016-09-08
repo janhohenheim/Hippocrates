@@ -5,7 +5,7 @@ namespace Convolutional {
 
 class IPooler {
 public:
-	virtual auto Pool(const Matrix& net) const -> Matrix = 0;
+	virtual auto Pool(Matrix::Position position, const Matrix& net) const -> Matrix = 0;
 };
 
 }

@@ -11,10 +11,10 @@ public:
 	auto GetWeights() const { return weights; }
 
 private:
-    static auto sigmoid(Matrix::elementType n) -> double;
+	static auto sigmoid(Matrix::elementType n) -> double;
 	double bias = 0;
 	std::vector<double> weights;
-    Matrix::Size receptiveField;
+	Matrix::Size receptiveField;
 };
 
 }
