@@ -8,7 +8,7 @@ public:
         Data data;
         Classification classification;
     };
-    TrainingData(const std::vector<CategorizedData>& categorizedData) : categorizedData(categorizedData) {};
+    explicit TrainingData(const std::vector<CategorizedData>& categorizedData) : categorizedData(categorizedData) {};
 
 private:
     const std::vector<CategorizedData>& categorizedData;

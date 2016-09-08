@@ -4,19 +4,21 @@
 
 namespace Convolutional {
 
-template <typename Category>
+template <typename TrainingData>
 class NeuralNetworktrainer {
 public:
-    using Data = TrainingData<MultiMatrix, Category>;
-    NeuralNetworktrainer(const std::vector<Data>& trainingData):
-        trainingData(trainingData){};
+	explicit NeuralNetworktrainer(const std::vector<TrainingData>& trainingData):
+		trainingData(trainingData){};
 
-    auto Train() {
-        return MultiMatrix({});
-    }
+	auto Train() {
+		for (const auto& currTrainigSet : trainingData) {
+			auto currInput = MultiMatrixFactory::GetMultiMatrix(currTrainigSet.data);
+		}
+		return MultiMatrix({});
+	}
 
 private:
-    const std::vector<Data>& trainingData;
+	const std::vector<TrainingData>& trainingData;
 };
 
 }

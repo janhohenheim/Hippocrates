@@ -16,7 +16,7 @@ public:
 	};
 
 public:
-	Matrix(Size size);
+	explicit Matrix(Size size);
 	/*
 	Matrix(const Matrix& other) = default;
 	Matrix(Matrix&& other) = default;
@@ -27,13 +27,14 @@ public:
 	auto GetElementAt(Position position) const-> elementType;
 	auto GetElementAt(Position position) -> elementType&;
 
-	auto GetSize() const { return size; }
-	auto GetElementCount() const { return GetSize().height * GetSize().width; }
+	auto GetSize() const noexcept { return size; }
+	auto GetElementCount() const noexcept { return GetSize().height * GetSize().width; }
 	
-	auto begin() { return elements.begin(); }
-	const auto begin() const { return elements.begin(); }
-	auto end() { return elements.end(); }
-	const auto end() const { return elements.end(); }
+	auto begin() noexcept { return elements.begin(); }
+	const auto begin() const noexcept { return elements.begin(); }
+	auto end() noexcept { return elements.end(); }
+	const auto end() const noexcept { return elements.end(); }
+
 private:
 	const Size size;
 	std::vector<elementType> elements;

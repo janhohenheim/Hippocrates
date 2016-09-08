@@ -18,8 +18,7 @@ Matrix& Convolutional::Matrix::operator=(const Matrix & other)
 }
 */
 
-auto Matrix::GetSubmatrix(Matrix::Position position, Matrix::Size size) const -> Matrix
-{
+auto Matrix::GetSubmatrix(Matrix::Position position, Matrix::Size size) const -> Matrix {
 	Matrix subMatrix {size};
 	Position subPos;
 	for (; subPos.y < size.width; ++subPos.y) {
@@ -33,12 +32,10 @@ auto Matrix::GetSubmatrix(Matrix::Position position, Matrix::Size size) const ->
 	return subMatrix;
 }
 
-auto Convolutional::Matrix::GetElementAt(Position position) const -> elementType
-{
-	return GetElementAt(position);
+auto Convolutional::Matrix::GetElementAt(Position position) const -> elementType {
+	return elements[position.x * GetSize().width + position.y];
 }
 
-auto Convolutional::Matrix::GetElementAt(Position position) -> elementType&
-{
+auto Convolutional::Matrix::GetElementAt(Position position) -> elementType& {
 	return elements[position.x * GetSize().width + position.y];
 }
