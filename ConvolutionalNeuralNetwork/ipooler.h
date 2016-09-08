@@ -7,7 +7,7 @@ namespace SubSampler {
 
 class IPooler : public ISubSampler {
 public:
-
+    
 };
 
 }

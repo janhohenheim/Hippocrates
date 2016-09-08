@@ -11,10 +11,10 @@ namespace Convolutional {
 class NeuralNetwork {
 public:
 	NeuralNetwork(MultiDimensionalMatrix matrix);
-	NeuralNetwork(const InputData::IInputData& input) :
+	NeuralNetwork(const InputData::IInputData& input) : 
 		NeuralNetwork(std::move(MultiMatrixFactory::GetMultiMatrix(input))) {}
 
-
+	
 	auto Subsample(const SubSampler::ISubSampler& subsampler) -> void;
 
 private:

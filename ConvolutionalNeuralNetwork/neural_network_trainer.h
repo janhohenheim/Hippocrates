@@ -7,16 +7,16 @@ namespace Convolutional {
 template <typename Category>
 class NeuralNetworktrainer {
 public:
-	using Data = TrainingData<MultiDimensionalMatrix, Category>;
-	NeuralNetworktrainer(const std::vector<Data>& trainingData) :
-		trainingData(trainingData) {};
+    using Data = TrainingData<MultiDimensionalMatrix, Category>;
+    NeuralNetworktrainer(const std::vector<Data>& trainingData):
+        trainingData(trainingData){};
 
-	auto Train() {
-		return MultiDimensionalMatrix({});
-	}
+    auto Train() {
+        return MultiDimensionalMatrix({});
+    }
 
 private:
-	const std::vector<Data>& trainingData;
+    const std::vector<Data>& trainingData;
 };
 
 }

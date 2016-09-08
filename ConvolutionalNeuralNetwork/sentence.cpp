@@ -2,5 +2,5 @@
 
 auto Convolutional::InputData::Sentence::GetMultiDimensionalMatrix() const -> MultiDimensionalMatrix
 {
-	return MultiDimensionalMatrix({});
+    return MultiDimensionalMatrix({});
 }

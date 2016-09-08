@@ -10,7 +10,7 @@ auto Neuron::ProcessMatrix(Matrix::Position position, const Matrix& matrix) cons
 		throw std::invalid_argument("Number of weights in neuron does not match number of elements in matrix");
 	}
 
-	Matrix featureMap{ matrix.GetSubmatrix(position, receptiveField) };
+	Matrix featureMap{matrix.GetSubmatrix(position, receptiveField)};
 
 	Matrix::elementType featureValue = 0;
 	auto weight = weights.begin();

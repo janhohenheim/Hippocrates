@@ -3,7 +3,7 @@
 using namespace Convolutional;
 
 
-NeuralNetwork::NeuralNetwork(MultiDimensionalMatrix matrix) :
+NeuralNetwork::NeuralNetwork(MultiDimensionalMatrix matrix):
 	matrix(std::move(matrix))
 {
 }

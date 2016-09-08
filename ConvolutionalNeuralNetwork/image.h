@@ -7,7 +7,7 @@ namespace InputData {
 class Image : public IInputData {
 public:
 	using Type = std::nullptr_t;
-	auto GetMultiDimensionalMatrix() const -> MultiDimensionalMatrix override;
+    auto GetMultiDimensionalMatrix() const->MultiDimensionalMatrix override;
 };
 
 }

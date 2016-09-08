@@ -3,6 +3,6 @@
 using namespace Convolutional;
 
 MultiDimensionalMatrix::MultiDimensionalMatrix(SubDimensionType subDimensions) :
-	subDimensions(std::move(subDimensions))
+subDimensions(std::move(subDimensions))
 {
 }
