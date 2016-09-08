@@ -1,28 +1,10 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.2.2)
 project(CNN_Code)
 
+file(GLOB SOURCES ConvolutionalNeuralNetwork/*.cpp ConvolutionalNeuralNetwork/*.h)
+
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
-
-set(SOURCE_FILES
-    ConvolutionalNeuralNetwork/main.cpp
-
-    ConvolutionalNeuralNetwork/ipooler.h
-    ConvolutionalNeuralNetwork/matrix.cpp
-    ConvolutionalNeuralNetwork/matrix.h
-    ConvolutionalNeuralNetwork/multi_dimensional_matrix.cpp
-    ConvolutionalNeuralNetwork/multi_dimensional_matrix.h
-    ConvolutionalNeuralNetwork/multi_dimensional_matrix_parser.cpp
-    ConvolutionalNeuralNetwork/multi_dimensional_matrix_parser.h
-    ConvolutionalNeuralNetwork/neural_network.cpp
-    ConvolutionalNeuralNetwork/neural_network.h
-    ConvolutionalNeuralNetwork/neural_network_trainer.cpp
-    ConvolutionalNeuralNetwork/neural_network_trainer.h
-    ConvolutionalNeuralNetwork/neuron.cpp
-    ConvolutionalNeuralNetwork/neuron.h
-    ConvolutionalNeuralNetwork/training_data.h
-    ConvolutionalNeuralNetwork/ImageParser.cpp
-    ConvolutionalNeuralNetwork/ImageParser.h
-    ConvolutionalNeuralNetwork/SentenceParser.cpp
-    ConvolutionalNeuralNetwork/SentenceParser.h)
+set(SOURCE_FILES ${SOURCES})
 
 add_executable(CNN_Code ${SOURCE_FILES})
