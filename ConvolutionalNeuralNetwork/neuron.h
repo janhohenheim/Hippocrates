@@ -6,13 +6,15 @@ namespace Convolutional {
 
 class Neuron {
 public:
-	auto ExtractFeature(const Matrix& matrix) const -> Matrix;
+	auto ExtractFeature(Matrix::Position position, const Matrix& matrix) const -> Matrix;
 	auto GetBias() const { return bias; }
 	auto GetWeights() const { return weights; }
 
 private:
-	std::size_t bias = 0;
-	std::vector<std::size_t> weights;
+    static auto sigmoid(Matrix::elementType n) -> double;
+	double bias = 0;
+	std::vector<double> weights;
+    Matrix::Size receptiveField;
 };
 
 }

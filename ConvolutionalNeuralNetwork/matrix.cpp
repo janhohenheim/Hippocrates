@@ -3,9 +3,9 @@ using namespace Convolutional;
 
 
 Matrix::Matrix(Size size):
-	size(size)
+	size(size),
+    elements(size.height * size.width)
 {
-	elements.reserve(GetElementCount());
 }
 
 /*
@@ -18,7 +18,27 @@ Matrix& Convolutional::Matrix::operator=(const Matrix & other)
 }
 */
 
-auto Matrix::GetSubmatrix(Matrix::Position position, Matrix::Size size) -> Matrix
+auto Matrix::GetSubmatrix(Matrix::Position position, Matrix::Size size) const -> Matrix
 {
-	return Matrix(GetSize());
+    Matrix subMatrix {size};
+    Position subPos;
+    for (; subPos.y < size.width; ++subPos.y) {
+        for (; subPos.x < size.height; ++subPos.x) {
+            Position macroPos = position;
+            macroPos.x += subPos.x;
+            macroPos.y += subPos.y;
+            subMatrix.GetElementAt(subPos) = GetElementAt(macroPos);
+        }
+    }
+	return subMatrix;
+}
+
+auto Convolutional::Matrix::GetElementAt(Position position) const -> elementType
+{
+    return GetElementAt(position);
+}
+
+auto Convolutional::Matrix::GetElementAt(Position position) -> elementType&
+{
+	return elements[position.x * GetSize().width + position.y];
 }

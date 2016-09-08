@@ -17,6 +17,7 @@ public:
 
 	auto Pool(const IPooler& pooler) -> void;
 	auto Subsample(const Neuron& neuron) -> void;
+
 	auto ApplyToAllMatrices(std::function<Matrix(const Matrix&)> function) -> void;
 
 private:
