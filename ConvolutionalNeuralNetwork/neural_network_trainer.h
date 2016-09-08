@@ -10,8 +10,7 @@ public:
     using Data = TrainingData<MultiDimensionalMatrix, Category>;
     NeuralNetworktrainer(const std::vector<Data>& trainingData):
         trainingData(trainingData){};
-    auto Train() 
-    {
+    auto Train() {
         return MultiDimensionalMatrix({});
     }
 

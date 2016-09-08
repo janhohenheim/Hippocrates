@@ -8,9 +8,9 @@ NeuralNetwork::NeuralNetwork(MultiDimensionalMatrix matrix):
 }
 
 auto NeuralNetwork::Pool(const IPooler& pooler) -> void {
-    ApplyToAllMatrices([&pooler](Matrix::Position pos, const Matrix& matrix) {return pooler.Pool(pos, matrix);});
+    matrix = ApplyToAllDimensions([&pooler](Matrix::Position pos, const Matrix& matrix) {return pooler.Pool(pos, matrix);});
 }
 
 auto NeuralNetwork::Subsample(const Neuron & neuron) -> void {
-	ApplyToAllMatrices([&neuron](Matrix::Position pos, const Matrix& matrix) {return neuron.ExtractFeature(pos, matrix); });
+    matrix = ApplyToAllDimensions([&neuron](Matrix::Position pos, const Matrix& matrix) {return neuron.ExtractFeature(pos, matrix); });
 }

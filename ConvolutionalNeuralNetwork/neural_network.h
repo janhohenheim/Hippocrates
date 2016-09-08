@@ -19,21 +19,19 @@ public:
 	auto Subsample(const Neuron& neuron) -> void;
 
     template<typename T>
-    auto ApplyToAllMatrices(T&& function) -> void {
-        MultiDimensionalMatrix::SubDimensionType featureDimensions;
-        featureDimensions.reserve(matrix.GetDimensionCount());
+    auto ApplyToAllDimensions(T&& function) {
+        MultiDimensionalMatrix::SubDimensionType dimensions;
+        dimensions.reserve(matrix.GetDimensionCount());
         for (auto& submatrix : matrix) {
-            for (std::size_t y = 0; y < submatrix.GetSize().height; ++y) {
-                for (std::size_t x = 0; x < submatrix.GetSize().width; ++x) {
-                    Matrix::Position pos;
-                    pos.x = x;
-                    pos.y = y;
+            Matrix::Position pos;
+            for (; pos.y < submatrix.GetSize().height; ++pos.y) {
+                for (; pos.x < submatrix.GetSize().width; ++pos.x) {
                     auto processedMatrix = function(pos, submatrix);
-                    featureDimensions.push_back(std::move(processedMatrix));
+                    dimensions.push_back(std::move(processedMatrix));
                 }
             }
         }
-        MultiDimensionalMatrix feature(std::move(featureDimensions));
+        return dimensions;
     }
 
 private:
