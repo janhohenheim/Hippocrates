@@ -5,6 +5,5 @@ file(GLOB SOURCES ConvolutionalNeuralNetwork/*.cpp ConvolutionalNeuralNetwork/*.
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
-set(SOURCE_FILES ${SOURCES})
 
-add_executable(CNN_Code ${SOURCE_FILES})
+add_executable(CNN_Code ${SOURCES})
