@@ -1,8 +1,9 @@
 #include "neuron.h"
 
 using namespace Convolutional;
+using namespace SubSampler;
 
-auto Neuron::ExtractFeature(Matrix::Position position, const Matrix& matrix) const -> Matrix
+auto Neuron::ProcessMatrix(Matrix::Position position, const Matrix& matrix) const -> Matrix
 {
     if (matrix.GetElementCount() != weights.size()) {
         throw std::invalid_argument("Number of weights in neuron does not match number of elements in matrix");
@@ -25,7 +26,7 @@ auto Neuron::ExtractFeature(Matrix::Position position, const Matrix& matrix) con
     return featureMap;
 }
 
-auto Convolutional::Neuron::sigmoid(Matrix::elementType n) -> double
+auto Neuron::sigmoid(Matrix::elementType n) -> double
 {
 	return tanh(n);
 }

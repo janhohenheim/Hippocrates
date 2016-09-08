@@ -1,20 +1,23 @@
 #pragma once
 #include "matrix.h"
+#include "isubsampler.h"
 #include <vector>
 
 namespace Convolutional {
+namespace SubSampler {
 
-class Neuron {
+class Neuron : public ISubSampler {
 public:
-	auto ExtractFeature(Matrix::Position position, const Matrix& matrix) const -> Matrix;
-	auto GetBias() const { return bias; }
-	auto GetWeights() const { return weights; }
+    auto ProcessMatrix(Matrix::Position position, const Matrix& matrix) const->Matrix override;
+    auto GetBias() const { return bias; }
+    auto GetWeights() const { return weights; }
 
 private:
-	static auto sigmoid(Matrix::elementType n) -> double;
-	double bias = 0;
-	std::vector<double> weights;
-	Matrix::Size receptiveField;
+    static auto sigmoid(Matrix::elementType n) -> double;
+    double bias = 0;
+    std::vector<double> weights;
+    Matrix::Size receptiveField;
 };
 
+}
 }

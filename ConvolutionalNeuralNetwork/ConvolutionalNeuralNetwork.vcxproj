@@ -148,6 +148,7 @@
   <ItemGroup>
     <ClInclude Include="image.h" />
     <ClInclude Include="ipooler.h" />
+    <ClInclude Include="isubsampler.h" />
     <ClInclude Include="multi_dimensional_matrix.h" />
     <ClInclude Include="multi_matrix_factory.h" />
     <ClInclude Include="neural_network.h" />
@@ -160,6 +161,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="image.cpp" />
+    <ClCompile Include="isubsampler.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="matrix.cpp" />
     <ClCompile Include="multi_dimensional_matrix.cpp" />

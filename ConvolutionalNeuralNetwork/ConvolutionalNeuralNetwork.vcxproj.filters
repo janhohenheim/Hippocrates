@@ -25,15 +25,15 @@
     <Filter Include="Source Files\Convolutional\InputData">
       <UniqueIdentifier>{97d73516-a6a1-415d-81f5-529977541780}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Convolutional\SubSampler">
+      <UniqueIdentifier>{e0a8486f-c6c8-4612-9a07-ce227db794aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Convolutional\SubSampler">
+      <UniqueIdentifier>{0dd7a0b6-e58f-4c98-84a2-dfdaa2946d63}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="neural_network.h">
-      <Filter>Header Files\Convolutional</Filter>
-    </ClInclude>
-    <ClInclude Include="ipooler.h">
-      <Filter>Header Files\Convolutional</Filter>
-    </ClInclude>
-    <ClInclude Include="neuron.h">
       <Filter>Header Files\Convolutional</Filter>
     </ClInclude>
     <ClInclude Include="multi_dimensional_matrix.h">
@@ -60,6 +60,15 @@
     <ClInclude Include="multi_matrix_factory.h">
       <Filter>Header Files\Convolutional</Filter>
     </ClInclude>
+    <ClInclude Include="ipooler.h">
+      <Filter>Header Files\Convolutional\SubSampler</Filter>
+    </ClInclude>
+    <ClInclude Include="neuron.h">
+      <Filter>Header Files\Convolutional\SubSampler</Filter>
+    </ClInclude>
+    <ClInclude Include="isubsampler.h">
+      <Filter>Header Files\Convolutional\SubSampler</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="neural_network.cpp">
@@ -69,9 +78,6 @@
       <Filter>Source Files\Convolutional</Filter>
     </ClCompile>
     <ClCompile Include="matrix.cpp">
-      <Filter>Source Files\Convolutional</Filter>
-    </ClCompile>
-    <ClCompile Include="neuron.cpp">
       <Filter>Source Files\Convolutional</Filter>
     </ClCompile>
     <ClCompile Include="neural_network_trainer.cpp">
@@ -88,6 +94,12 @@
     </ClCompile>
     <ClCompile Include="multi_matrix_factory.cpp">
       <Filter>Source Files\Convolutional</Filter>
+    </ClCompile>
+    <ClCompile Include="isubsampler.cpp">
+      <Filter>Source Files\Convolutional\SubSampler</Filter>
+    </ClCompile>
+    <ClCompile Include="neuron.cpp">
+      <Filter>Source Files\Convolutional\SubSampler</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

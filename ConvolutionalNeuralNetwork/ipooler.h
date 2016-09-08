@@ -1,11 +1,14 @@
 #pragma once
 #include "matrix.h"
+#include "isubsampler.h"
 
 namespace Convolutional {
+namespace SubSampler {
 
-class IPooler {
+class IPooler : public ISubSampler {
 public:
-	virtual auto Pool(Matrix::Position position, const Matrix& net) const -> Matrix = 0;
+    
 };
 
+}
 }
