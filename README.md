@@ -1,6 +1,6 @@
 # JNF_NEAT
 [![Build Status](https://travis-ci.org/SirRade/JNF_NEAT.svg?branch=development)](https://travis-ci.org/SirRade/JNF_NEAT)
-[![Build status](https://ci.appveyor.com/api/projects/status/sfd864p76kgxc5lj?svg=true)](https://ci.appveyor.com/project/STJEREM/jnf-neat)
+[![Build status](https://ci.appveyor.com/api/projects/status/ioyvgn7a6mu3xgbl?svg=true)](https://ci.appveyor.com/project/SirRade/jnf-neat)
 
 [Visualizing Tool](https://github.com/IDPA-2016-NEAT-CNN/NEAT_Visualizer) by [@Mafii](https://github.com/Mafii)
 
