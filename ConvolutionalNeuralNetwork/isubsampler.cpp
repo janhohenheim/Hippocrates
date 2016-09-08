@@ -2,9 +2,9 @@
 using namespace Convolutional;
 using namespace SubSampler;
 
-auto ISubSampler::ProcessMultiMatrix(const MultiDimensionalMatrix & multiMatrix) const -> MultiDimensionalMatrix
+auto ISubSampler::ProcessMultiMatrix(const MultiMatrix & multiMatrix) const -> MultiMatrix
 {
-    MultiDimensionalMatrix::SubDimensionType dimensions;
+    MultiMatrix::SubDimensionType dimensions;
     dimensions.reserve(multiMatrix.GetDimensionCount());
     for (auto& submatrix : multiMatrix) {
         Matrix::Position pos;

@@ -36,9 +36,6 @@
     <ClInclude Include="neural_network.h">
       <Filter>Header Files\Convolutional</Filter>
     </ClInclude>
-    <ClInclude Include="multi_dimensional_matrix.h">
-      <Filter>Header Files\Convolutional</Filter>
-    </ClInclude>
     <ClInclude Include="matrix.h">
       <Filter>Header Files\Convolutional</Filter>
     </ClInclude>
@@ -69,12 +66,12 @@
     <ClInclude Include="isubsampler.h">
       <Filter>Header Files\Convolutional\SubSampler</Filter>
     </ClInclude>
+    <ClInclude Include="multi_matrix.h">
+      <Filter>Header Files\Convolutional</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="neural_network.cpp">
-      <Filter>Source Files\Convolutional</Filter>
-    </ClCompile>
-    <ClCompile Include="multi_dimensional_matrix.cpp">
       <Filter>Source Files\Convolutional</Filter>
     </ClCompile>
     <ClCompile Include="matrix.cpp">
@@ -100,6 +97,9 @@
     </ClCompile>
     <ClCompile Include="neuron.cpp">
       <Filter>Source Files\Convolutional\SubSampler</Filter>
+    </ClCompile>
+    <ClCompile Include="multi_matrix.cpp">
+      <Filter>Source Files\Convolutional</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

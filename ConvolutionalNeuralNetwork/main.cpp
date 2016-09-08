@@ -2,7 +2,7 @@
 // Created by jnf on 07.09.16.
 //
 #include "neural_network_trainer.h"
-#include "multi_dimensional_matrix.h"
+#include "multi_matrix.h"
 #include "multi_matrix_factory.h"
 #include "sentence.h"
 
@@ -17,7 +17,7 @@ enum class Categories {
     CategoryCount
 };
 
-using trainingDataType = TrainingData<MultiDimensionalMatrix, Categories>::CategorizedData;
+using trainingDataType = TrainingData<MultiMatrix, Categories>::CategorizedData;
 
 auto GetTrainigData() {
     std::vector<trainingDataType> dataVector;

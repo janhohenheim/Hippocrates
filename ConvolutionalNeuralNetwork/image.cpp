@@ -1,6 +1,6 @@
 #include "image.h"
 
-auto Convolutional::InputData::Image::GetMultiDimensionalMatrix() const -> MultiDimensionalMatrix
+auto Convolutional::InputData::Image::GetMultiDimensionalMatrix() const -> MultiMatrix
 {
-    return MultiDimensionalMatrix({});
+    return MultiMatrix({});
 }
