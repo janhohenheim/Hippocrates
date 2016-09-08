@@ -1,10 +1,13 @@
 # JNF_NEAT
 [![Build Status](https://travis-ci.org/SirRade/JNF_NEAT.svg?branch=development)](https://travis-ci.org/SirRade/JNF_NEAT)
 
+## This Readme is outdated. Do not trust the information provided here
+
+[Visualizing Tool](https://github.com/IDPA-2016-NEAT-CNN/NEAT_Visualizer) by [@Mafii](https://github.com/Mafii)
+
 Implementation of Kenneth Stanley and Risto Miikkulainen's NEAT (NeuroEvolution
 of Augmenting Topologies, http://nn.cs.utexas.edu/downloads/papers/stanley.ec02.pdf).
 
-[Usage example](https://github.com/SirRade/JNF_NEAT_Examples)
 
 It focuses (in contrast to other implementations) on
 
