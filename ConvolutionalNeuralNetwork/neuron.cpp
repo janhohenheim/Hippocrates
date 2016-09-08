@@ -1,4 +1,5 @@
 #include "neuron.h"
+#include <cmath>
 
 using namespace Convolutional;
 using namespace SubSampler;
