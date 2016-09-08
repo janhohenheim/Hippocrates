@@ -8,11 +8,11 @@ namespace InputData {
 class Sentence : public IInputData {
 public:
 	using Type = std::string;
-    Sentence(Type sentence) :sentence(sentence){};
-    auto GetMultiDimensionalMatrix() const->MultiDimensionalMatrix override;
+	Sentence(Type sentence) :sentence(sentence) {};
+	auto GetMultiDimensionalMatrix() const -> MultiDimensionalMatrix override;
 
 private:
-    Type sentence;
+	Type sentence;
 };
 
 }
