@@ -1,6 +1,8 @@
 #pragma once
 #include "training_data.h"
 #include "multi_matrix.h"
+#include "multi_matrix_factory.h"
+#include "neuron.h"
 
 namespace Convolutional {
 
@@ -12,7 +14,9 @@ public:
 
 	auto Train() {
 		for (const auto& currTrainigSet : trainingData) {
-			auto currInput = MultiMatrixFactory::GetMultiMatrix(currTrainigSet.data);
+			auto multiMatrix = MultiMatrixFactory::GetMultiMatrix(currTrainigSet.data);
+			auto features = SubSampler::Neuron(1, { 1,1,1,1,1,1,1,1,1 }).ProcessMultiMatrix(multiMatrix);
+			// auto pooledFeatures = SubSampler::MaxPooler(1, { 1,1,1,1,1,1,1,1,1 }).ProcessMultiMatrix(features);
 		}
 		return MultiMatrix({});
 	}

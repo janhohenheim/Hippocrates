@@ -8,9 +8,14 @@ namespace SubSampler {
 
 class Neuron : public ISubSampler {
 public:
-    auto ProcessMatrix(Matrix::Position position, const Matrix& matrix) const->Matrix override;
-    auto GetBias() const { return bias; }
-    auto GetWeights() const { return weights; }
+	Neuron(double bias, std::vector<double>&& weights) : bias(bias), weights(std::move(weights)) {}
+
+    auto ProcessMatrix(Matrix::Position position, const Matrix& matrix) const -> Matrix override;
+	auto GetReceptiveField() const noexcept -> Matrix::Size override;
+	auto GetZeroPadding() const noexcept -> Matrix::Size override;
+
+    auto GetBias() const noexcept { return bias; }
+    auto GetWeights() const noexcept { return weights; }
 
 private:
     static auto sigmoid(Matrix::elementType n) -> double;

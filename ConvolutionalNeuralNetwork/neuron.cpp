@@ -27,6 +27,18 @@ auto Neuron::ProcessMatrix(Matrix::Position position, const Matrix& matrix) cons
 	return featureMap;
 }
 
+auto Neuron::GetReceptiveField() const noexcept -> Matrix::Size {
+	Matrix::Size receptiveField;
+	receptiveField.height = receptiveField.width = 9;
+	return receptiveField;
+}
+
+auto Neuron::GetZeroPadding() const noexcept -> Matrix::Size {
+	Matrix::Size zeroPadding;
+	zeroPadding.height = zeroPadding.width = 0;
+	return zeroPadding;
+}
+
 auto Neuron::sigmoid(Matrix::elementType n) -> double
 {
 	return tanh(n);
