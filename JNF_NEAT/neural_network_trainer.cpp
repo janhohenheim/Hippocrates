@@ -13,13 +13,6 @@ NeuralNetworkTrainer::NeuralNetworkTrainer(vector<shared_ptr<IBody>> population,
 	CreateInitialOrganisms();
 }
 
-auto NeuralNetworkTrainer::ResetPopulationToTeachableState() -> void {
-	for (auto& sp : species) {
-		sp.ResetToTeachableState();
-	}
-}
-
-
 auto NeuralNetworkTrainer::TrainUntilFitnessEquals(double fitnessToReach) -> void {
 	if (loggingEnabled) {
 		logger.CreateLoggingDirs();
@@ -81,11 +74,6 @@ auto NeuralNetworkTrainer::LetGenerationLive() -> void {
 	}
 }
 
-auto NeuralNetworkTrainer::PrepareSpeciesForPopulation() -> void {
-	AnalyzeAndClearSpeciesPopulation();
-	DeleteStagnantSpecies();
-}
-
 auto NeuralNetworkTrainer::FillOrganismIntoSpecies(Organism&& organism) -> void {
 	bool isCompatibleWithExistingSpecies = false;
 	for (auto& currSpecies : species) {
@@ -119,13 +107,6 @@ auto NeuralNetworkTrainer::DeleteStagnantSpecies() -> void {
 	species.erase(removePos, species.end());
 }
 
-auto NeuralNetworkTrainer::DeleteEmptySpecies() -> void {
-	species.erase(
-		remove_if(species.begin(), species.end(), [](const Species& s) {return s.IsEmpty(); }),
-		species.end()
-	);
-}
-
 auto NeuralNetworkTrainer::Repopulate() -> void {
 	PrepareSpeciesForPopulation();
 	auto DidChanceOccure = [](float chance) {
@@ -133,7 +114,7 @@ auto NeuralNetworkTrainer::Repopulate() -> void {
 		return num < int(1000.0f * chance);
 	};
 
-	for (auto& trainer : bodies) {
+	for (auto& body : bodies) {
 		Species* sp = &SelectSpeciesToBreed();
 		auto& father = sp->GetOrganismToBreed();
 		if (DidChanceOccure(parameters.advanced.reproduction.chanceForInterspecialReproduction)) {
@@ -141,12 +122,33 @@ auto NeuralNetworkTrainer::Repopulate() -> void {
 		}
 		auto& mother = sp->GetOrganismToBreed();
 		auto childNeuralNetwork(move(father.BreedWith(mother)));
-		Organism child(trainer, move(childNeuralNetwork));
+		Organism child(body, move(childNeuralNetwork));
 		FillOrganismIntoSpecies(move(child));
 	}
 	DeleteEmptySpecies();
 	ResetPopulationToTeachableState();
 	// TODO jnf Add Concurrency
+}
+
+auto NeuralNetworkTrainer::PrepareSpeciesForPopulation() -> void
+{
+	AnalyzeAndClearSpeciesPopulation();
+	DeleteStagnantSpecies();
+}
+
+auto NeuralNetworkTrainer::DeleteEmptySpecies() -> void
+{
+	species.erase(
+		remove_if(species.begin(), species.end(), [](const Species& s) {return s.IsEmpty(); }),
+		species.end()
+		);
+}
+
+auto NeuralNetworkTrainer::ResetPopulationToTeachableState() -> void
+{
+	for (auto& sp : species) {
+		sp.ResetToTeachableState();
+	}
 }
 
 auto NeuralNetworkTrainer::SelectSpeciesToBreed() -> Species& {
@@ -175,6 +177,7 @@ auto NeuralNetworkTrainer::SelectSpeciesToBreed() -> Species& {
 		}
 	}
 }
+
 
 auto NeuralNetworkTrainer::GetJSON() const -> string {
 	string s("{\"populationSize\":");
