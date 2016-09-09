@@ -89,9 +89,9 @@ auto NeuralNetworkTrainer::FillOrganismIntoSpecies(Organism&& organism) -> void 
 	}
 }
 
-auto NeuralNetworkTrainer::AnalyzeAndClearSpeciesPopulation() -> void {
+auto NeuralNetworkTrainer::AnalyzeSpeciesPopulation() -> void {
 	for (auto& currSpecies : species) {
-		currSpecies.AnalyzeAndClearPopulation();
+		currSpecies.AnalyzePopulation();
 	}
 }
 
@@ -113,7 +113,8 @@ auto NeuralNetworkTrainer::Repopulate() -> void {
 		auto num = rand() % 1000;
 		return num < int(1000.0f * chance);
 	};
-
+	std::vector<Organism> newGeneration;
+	newGeneration.reserve(populationSize);
 	for (auto& body : bodies) {
 		Species* sp = &SelectSpeciesToBreed();
 		auto& father = sp->GetOrganismToBreed();
@@ -122,7 +123,10 @@ auto NeuralNetworkTrainer::Repopulate() -> void {
 		}
 		auto& mother = sp->GetOrganismToBreed();
 		auto childNeuralNetwork(move(father.BreedWith(mother)));
-		Organism child(body, move(childNeuralNetwork));
+		newGeneration.emplace_back(body, move(childNeuralNetwork));
+	}
+	ClearSpeciesPopulation();
+	for (auto&& child : newGeneration) {
 		FillOrganismIntoSpecies(move(child));
 	}
 	DeleteEmptySpecies();
@@ -130,9 +134,15 @@ auto NeuralNetworkTrainer::Repopulate() -> void {
 	// TODO jnf Add Concurrency
 }
 
+auto NeuralNetworkTrainer::ClearSpeciesPopulation() -> void {
+	for (auto& sp : species) {
+		sp.ClearPopulation();
+	}
+}
+
 auto NeuralNetworkTrainer::PrepareSpeciesForPopulation() -> void
 {
-	AnalyzeAndClearSpeciesPopulation();
+	AnalyzeSpeciesPopulation();
 	DeleteStagnantSpecies();
 }
 

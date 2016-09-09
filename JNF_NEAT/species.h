@@ -24,17 +24,23 @@ public:
 	auto operator=(Species&& other) -> Species&;
 
 	auto AddOrganism(Organism&& organism) -> void;
-	auto AnalyzeAndClearPopulation() -> void;
+	auto AnalyzePopulation() -> void;
 
 	auto IsCompatible(const Genome& genome) const -> bool;
 	auto IsEmpty() const -> bool { return population.empty(); }
 	auto IsStagnant() const -> bool;
+
 	auto LetPopulationLive() -> void;
+
 	auto ResetToTeachableState() -> void;
-	auto GetFittestOrganism() -> Organism&;
 	auto SetPopulationsFitnessModifier() -> void;
+	auto ClearPopulation() -> void;
+
+	auto GetFittestOrganism() -> Organism&;
 	auto GetOrganismToBreed() -> Organism&;
 	auto GetJSON() const->std::string;
+
+
 
 private:
 	auto ElectRepresentative() -> void;

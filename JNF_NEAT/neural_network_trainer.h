@@ -21,8 +21,8 @@ private:
 	TrainingParameters parameters;
 	size_t populationSize = 0U;
 	std::vector<std::shared_ptr<IBody>> bodies;
-	size_t generationsPassed = 0;
 	Logger logger;
+	size_t generationsPassed = 0;
 
 public:
 	NeuralNetworkTrainer(std::vector<std::shared_ptr<IBody>> population, TrainingParameters parameters);
@@ -44,10 +44,11 @@ private:
 
 	auto ResetPopulationToTeachableState() -> void;
 	auto Repopulate() -> void;
+	auto ClearSpeciesPopulation() -> void;
 	auto LetGenerationLive() -> void;
 	auto PrepareSpeciesForPopulation() -> void;
 	auto FillOrganismIntoSpecies(Organism&& organism) -> void;
-	auto AnalyzeAndClearSpeciesPopulation() -> void;
+	auto AnalyzeSpeciesPopulation() -> void;
 	auto DeleteStagnantSpecies() -> void;
 	auto DeleteEmptySpecies() -> void;
 

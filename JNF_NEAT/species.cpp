@@ -18,7 +18,7 @@ auto Species::AddOrganism(Organism&& organism) -> void {
 	SetPopulationsFitnessModifier();
 }
 
-auto Species::AnalyzeAndClearPopulation() -> void {
+auto Species::AnalyzePopulation() -> void {
 	const auto currentBestFitness = GetFittestOrganism().GetOrCalculateRawFitness();
 	if (currentBestFitness > fitnessHighscore) {
 		fitnessHighscore = currentBestFitness;
@@ -27,7 +27,6 @@ auto Species::AnalyzeAndClearPopulation() -> void {
 	else {
 		numberOfStagnantGenerations++;
 	}
-	population.clear();
 	isSortedByFitness = false;
 }
 
@@ -42,6 +41,10 @@ auto Species::SetPopulationsFitnessModifier() -> void {
 	for (auto& organism : population) {
 		organism->SetFitnessModifier(fitnessModifier);
 	}
+}
+
+auto JNF_NEAT::Species::ClearPopulation() -> void {
+	population.clear();
 }
 
 auto Species::ElectRepresentative() -> void {
