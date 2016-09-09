@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.2.2)
 project(JNF_NEAT)
 
 if(APPLE)
@@ -6,33 +6,11 @@ if(APPLE)
 	SET(CMAKE_CXX_COMPILER /usr/local/bin/g++)
 endif()
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
-set(SOURCE_FILES
-    JNF_NEAT/body.h
-    JNF_NEAT/gene.cpp
-    JNF_NEAT/gene.h
-    JNF_NEAT/genome.cpp
-    JNF_NEAT/genome.h
-    JNF_NEAT/neural_network.cpp
-    JNF_NEAT/neural_network.h
-    JNF_NEAT/neural_network_trainer.cpp
-    JNF_NEAT/neural_network_trainer.h
-    JNF_NEAT/neuron.cpp
-    JNF_NEAT/neuron.h
-    JNF_NEAT/organism.cpp
-    JNF_NEAT/organism.h
-    JNF_NEAT/species.cpp
-    JNF_NEAT/species.h
-    JNF_NEAT/trained_neural_network.cpp
-    JNF_NEAT/trained_neural_network.h
-    JNF_NEAT/training_parameters.h    
-	JNF_NEAT/logger.cpp
-	JNF_NEAT/logger.h	
-	
-	Examples/Examples/xor_solver.cpp
-    Examples/Examples/xor_solver.h
-    Examples/Examples/main.cpp
-	)
+file(GLOB JNF_NEAT_SOURCES JNF_NEAT/*.cpp JNF_NEAT/*.h)
+file(GLOB EXAMPLE_SOURCES Examples/Examples/*.cpp Examples/Examples/*.h)
 
-add_executable(JNF_NEAT ${SOURCE_FILES})
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
+
+add_executable(JNF_NEAT ${JNF_NEAT_SOURCES} ${EXAMPLE_SOURCES})
 target_link_libraries(JNF_NEAT -lstdc++fs)
