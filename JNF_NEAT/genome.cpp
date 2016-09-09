@@ -5,10 +5,10 @@
 using namespace JNF_NEAT;
 using namespace std;
 
-Genome::Genome(const TrainingParameters& parameters) :
-	parameters(parameters),
-    genes((parameters.numberOfInputs + parameters.advanced.structure.numberOfBiasNeurons) * parameters.numberOfOutputs),
-    neuronCount((parameters.numberOfInputs + parameters.advanced.structure.numberOfBiasNeurons) + parameters.numberOfOutputs)
+Genome::Genome(TrainingParameters parameters) :
+	parameters(move(parameters)),
+	genes((parameters.numberOfInputs + parameters.advanced.structure.numberOfBiasNeurons) * parameters.numberOfOutputs),
+	neuronCount((parameters.numberOfInputs + parameters.advanced.structure.numberOfBiasNeurons) + parameters.numberOfOutputs)
 {
 	auto currentGene = genes.begin();
 	for (auto in = 0U; in < (parameters.numberOfInputs + parameters.advanced.structure.numberOfBiasNeurons); ++in) {
@@ -74,13 +74,17 @@ auto Genome::DoesContainGene(const Gene& gene) const -> bool {
 }
 
 auto Genome::GetJSON() const -> string {
-	string s("[");
+    string s("{");
+    s += "\"parameters\":";
+    s += parameters.GetJSON();
+    s += "\"genes\":[";
 	for (size_t i = 0; i < genes.size() - 1; ++i) {
 		s += genes[i].GetJSON();
 		s += ",";
 	}
 	s += genes.back().GetJSON();
 	s += "]";
+    s += "}";
 	return s;
 }
 

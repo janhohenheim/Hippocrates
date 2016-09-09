@@ -50,6 +50,14 @@ void TestingShitIgnoreThis(TrainingParameters& params, NeuralNetworkTrainer& tra
 	cout << "Average time: " << (totalTime / numberOfShit) << "\n";
 }
 
+auto GetXOROutputs(TrainedNeuralNetwork & net)
+{
+	cout << (net.GetOutputsUsingInputs({0.0, 0.0}).front() >= 0.0) << "\n";
+	cout << (net.GetOutputsUsingInputs({0.0, 1.0}).front() >= 0.0) << "\n";
+	cout << (net.GetOutputsUsingInputs({1.0, 0.0}).front() >= 0.0) << "\n";
+	cout << (net.GetOutputsUsingInputs({1.0, 1.0}).front() >= 0.0) << "\n";
+}
+
 int main() {
 	// Initilize Random Generator
 	srand((unsigned)time(0U));
@@ -74,16 +82,24 @@ int main() {
 	auto champ = trainer.GetTrainedNeuralNetwork();
 	TestingShitIgnoreThis(params, trainer);
 
-	// Saving and Loading
-	string filename = "champ.nn";    
-	champ.SaveToFile(ofstream(filename));
-	cout << (champ.GetOutputsUsingInputs({ 0.0, 0.0 }).front() >= 0.0) << endl;
-	cout << (champ.GetOutputsUsingInputs({ 0.0, 1.0 }).front() >= 0.0) << endl;
-	cout << (champ.GetOutputsUsingInputs({ 1.0, 0.0 }).front() >= 0.0) << endl;
-	cout << (champ.GetOutputsUsingInputs({ 1.0, 1.0 }).front() >= 0.0) << endl;
-	/*
-	champ = TrainedNeuralNetwork::LoadFromFile(file);
-	outputs = champ.GetOutputs({ 0.0, 1.0 });
-	*/
+	cout << "XOR outputs after training\n";
+	GetXOROutputs(champ);
+	string filename = "champ.nn";
+	// Saving
+	ofstream outFile(filename);
+	champ.SaveToFile(outFile);
+	outFile.close();
+
+	//cout << "XOR outputs after saving\n";
+	//GetXOROutputs(champ);
+
+	// Loading
+	ifstream inFile(filename);
+	champ = TrainedNeuralNetwork::LoadFromFile(inFile);
+	inFile.close();
+
+	//cout << "XOR outputs after loading\n";
+	//GetXOROutputs(champ);
+
 	return 0;
 }

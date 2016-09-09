@@ -1,5 +1,6 @@
 #pragma once
 #include <limits>
+#include <string>
 
 namespace JNF_NEAT {
 
@@ -35,6 +36,33 @@ struct TrainingParameters {
 			std::size_t numberOfBiasNeurons = 1;
 		} structure;
 	} advanced;
+
+	auto GetJSON() const -> std::string {
+		std::string s("{");
+		s += "\"numberOfInputs\":";
+		s += std::to_string(numberOfInputs);
+		s += ",\"numberOfOutputs\":";
+		s += std::to_string(numberOfOutputs);
+
+		s += ",\"advanced\":";
+		s += "{";
+
+		s += ",\"ranges\":";
+		s += "{";
+		s += ",\"minWeight\":";
+		s += std::to_string(advanced.ranges.minWeight);
+		s += ",\"maxWeight\":";
+		s += std::to_string(advanced.ranges.maxWeight);
+		s += "}";
+		// etc.
+        // Todo sara: append the rest of the members to the string
+
+		s += "}";
+
+		s += "}";
+
+		return s;
+	}
 };
 
 }

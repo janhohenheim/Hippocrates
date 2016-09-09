@@ -8,13 +8,13 @@ namespace JNF_NEAT {
 
 class Genome {
 private:
-	const TrainingParameters& parameters;
+	TrainingParameters parameters;
 	std::vector<Gene> genes;
 	std::size_t neuronCount = 0U;
 
 public:
 	Genome() = delete;
-	explicit Genome(const TrainingParameters& parameters);
+	explicit Genome(TrainingParameters parameters);
 	Genome(const Genome& other) = default;
 	Genome(Genome&& other) = default;
 	~Genome() = default;
