@@ -75,8 +75,8 @@ int main() {
 	TestingShitIgnoreThis(params, trainer);
 
 	// Saving and Loading
-	string file = "champ.nn";
-	champ.SaveToFile(file);
+	string filename = "champ.nn";    
+	champ.SaveToFile(ofstream(filename));
 	cout << (champ.GetOutputsUsingInputs({ 0.0, 0.0 }).front() >= 0.0) << endl;
 	cout << (champ.GetOutputsUsingInputs({ 0.0, 1.0 }).front() >= 0.0) << endl;
 	cout << (champ.GetOutputsUsingInputs({ 1.0, 0.0 }).front() >= 0.0) << endl;
