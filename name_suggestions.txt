@@ -8,3 +8,4 @@
 - JNFNEAT
 - Hirn
 - Gear Brain
+- SkyNeat
