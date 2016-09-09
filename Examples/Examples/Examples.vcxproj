@@ -169,6 +169,7 @@
     <ClCompile Include="..\..\JNF_NEAT\organism.cpp" />
     <ClCompile Include="..\..\JNF_NEAT\species.cpp" />
     <ClCompile Include="..\..\JNF_NEAT\trained_neural_network.cpp" />
+    <ClCompile Include="..\..\JNF_NEAT\training_parameters.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="xor_solver.cpp" />
   </ItemGroup>

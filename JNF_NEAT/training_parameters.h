@@ -34,6 +34,7 @@ struct TrainingParameters {
 		} reproduction;
 		struct Structure {
 			std::size_t numberOfBiasNeurons = 1;
+			bool areRecursiveConnectionsAllowed = true;
 		} structure;
 	} advanced;
 

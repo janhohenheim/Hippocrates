@@ -89,5 +89,8 @@
     <ClCompile Include="..\..\JNF_NEAT\trained_neural_network.cpp">
       <Filter>Header Files\JNF_NEAT</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\JNF_NEAT\training_parameters.cpp">
+      <Filter>Header Files\JNF_NEAT</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
