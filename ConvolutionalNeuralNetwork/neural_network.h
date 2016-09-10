@@ -20,13 +20,17 @@ public:
 		return ClassifyMultiMatrix(MultiMatrixFactory::GetMultiMatrix(input));
 	}
 	Classification ClassifyMultiMatrix(const MultiMatrix& multiMatrix) {
-		return static_cast<Classification>(multiMatrix.GetDimensionCount());
+		auto processedMultiMatrix{ multiMatrix };
+		for (const auto& neuron : neurons) {
+			processedMultiMatrix = neuron.ProcessMultiMatrix(processedMultiMatrix);
+		}
+		for (const auto& pooler : poolers) {
+			processedMultiMatrix = pooler.ProcessMultiMatrix(processedMultiMatrix);
+		}
+		return static_cast<Classification>(processedMultiMatrix.GetDimensionCount());
 	}
 
 private:
-	auto Subsample(const SubSampler::ISubSampler& subsampler) {
-		matrix = subsampler.ProcessMultiMatrix(matrix);
-	}
 	std::vector<SubSampler::Neuron> neurons;
 	std::vector<Pooler> poolers;
 };
