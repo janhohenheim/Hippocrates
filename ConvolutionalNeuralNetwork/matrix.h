@@ -24,7 +24,7 @@ public:
 	auto operator= (Matrix&& other) -> Matrix& = default;
 	*/
 	auto GetSubmatrix(Position position, Size size) const -> Matrix;
-	auto GetElementAt(Position position) const-> elementType;
+	auto GetElementAt(Position position) const-> const elementType&;
 	auto GetElementAt(Position position) -> elementType&;
 
 	auto GetSize() const noexcept { return size; }

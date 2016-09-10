@@ -137,6 +137,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalOptions>/std:c++latest %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -149,6 +150,7 @@
     <ClInclude Include="image.h" />
     <ClInclude Include="ipooler.h" />
     <ClInclude Include="isubsampler.h" />
+    <ClInclude Include="max_pooler.h" />
     <ClInclude Include="multi_matrix.h" />
     <ClInclude Include="multi_matrix_factory.h" />
     <ClInclude Include="neural_network.h" />
@@ -164,6 +166,7 @@
     <ClCompile Include="isubsampler.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="matrix.cpp" />
+    <ClCompile Include="max_pooler.cpp" />
     <ClCompile Include="multi_matrix.cpp" />
     <ClCompile Include="multi_matrix_factory.cpp" />
     <ClCompile Include="neural_network.cpp" />

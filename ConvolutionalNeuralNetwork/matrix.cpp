@@ -32,7 +32,7 @@ auto Matrix::GetSubmatrix(Matrix::Position position, Matrix::Size size) const ->
 	return subMatrix;
 }
 
-auto Convolutional::Matrix::GetElementAt(Position position) const -> elementType {
+auto Convolutional::Matrix::GetElementAt(Position position) const -> const elementType& {
 	return elements[position.x * GetSize().width + position.y];
 }
 

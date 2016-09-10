@@ -4,11 +4,13 @@
 
 namespace Convolutional {
 namespace SubSampler {
+namespace Pooler {
 
 class IPooler : public ISubSampler {
 public:
-    
+	
 };
 
+}
 }
 }

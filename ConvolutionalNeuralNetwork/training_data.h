@@ -1,15 +1,39 @@
 #pragma once
 #include <vector>
+#include <memory>
+#include "iinput_data.h"
+#include "multi_matrix.h"
+#include "multi_matrix_factory.h"
 
-template <typename Data, typename Classification>
+namespace Convolutional {
+
+template <typename Classification>
 class TrainingData {
 public:
-    struct CategorizedData {
-        Data data;
-        Classification classification;
-    };
-    explicit TrainingData(const std::vector<CategorizedData>& categorizedData) : categorizedData(categorizedData) {};
+	struct CategorizedData {		
+		MultiMatrix multiMatrix;
+		Classification classification;
+	};
+	TrainingData() = default;
+	explicit TrainingData(std::vector<CategorizedData> categorizedData) : categorizedData(std::move(categorizedData)) {};
+	
+	template <typename DataType>
+	auto AddData(const DataType& input, Classification classification) {
+		static_assert(
+			std::is_base_of<InputData::IInputData, DataType>::value,
+			"DataType must be a descendant of IInputData"
+		);
+		MultiMatrix multiMatrix{MultiMatrixFactory::GetMultiMatrix(input)};
+		AddData({ std::move(multiMatrix), classification });
+	}
+
+	auto AddData(CategorizedData data) { categorizedData.push_back(std::move(data)); }
+
+	auto begin() const noexcept { return categorizedData.begin(); }
+	auto end() const noexcept { return categorizedData.end(); }
 
 private:
-    const std::vector<CategorizedData>& categorizedData;
+	std::vector<CategorizedData> categorizedData;
 };
+
+}

@@ -5,6 +5,7 @@
 #include "multi_matrix.h"
 #include "multi_matrix_factory.h"
 #include "sentence.h"
+#include "training_data.h"
 
 #include <string>
 
@@ -17,23 +18,20 @@ enum class Categories {
 	CategoryCount
 };
 
-using trainingDataType = TrainingData<InputData::Sentence, Categories>::CategorizedData;
-
 auto GetTrainigData() {
-	std::vector<trainingDataType> dataVector;
-	for (std::size_t i = 0; i < 100; ++i){
-		InputData::Sentence trainigSentence(std::to_string(i));
-		trainingDataType data{trainigSentence};
-		data.classification = static_cast<Categories>(i % 2);
+	TrainingData<Categories> trainingData;
+	for (std::size_t i = 0; i < 100; ++i) {
+		InputData::Sentence trainigSentence = std::to_string(i);
+		Categories classification = static_cast<Categories>(i % 2);
 
-		dataVector.push_back(std::move(data));
+		trainingData.AddData(std::move(trainigSentence), classification);
 	}
-	return dataVector;
+	return trainingData;
 }
 
 int main() {
 	auto trainingData(GetTrainigData());
-	NeuralNetworktrainer<trainingDataType> networktrainer{trainingData};
+	NeuralNetworktrainer<Categories> networktrainer{std::move(trainingData)};
 
 	auto trainedNetwork = networktrainer.Train();
 	return 0;
