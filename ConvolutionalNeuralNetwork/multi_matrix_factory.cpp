@@ -4,8 +4,7 @@
 using namespace Convolutional;
 
 
-auto Convolutional::MultiMatrixFactory::GetMultiMatrix(const InputData::IInputData& input) -> MultiMatrix
-{
+auto Convolutional::MultiMatrixFactory::GetMultiMatrix(const InputData::IInputData& input) -> MultiMatrix {
 	if (const auto* image = dynamic_cast<const InputData::Image*>(&input)) {
 		return image->GetMultiDimensionalMatrix();
 	}

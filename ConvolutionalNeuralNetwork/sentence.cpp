@@ -1,6 +1,7 @@
 #include "sentence.h"
+using namespace Convolutional;
+using namespace InputData;
 
-auto Convolutional::InputData::Sentence::GetMultiDimensionalMatrix() const -> MultiMatrix
-{
+auto Sentence::GetMultiDimensionalMatrix() const -> MultiMatrix {
     return MultiMatrix({});
 }

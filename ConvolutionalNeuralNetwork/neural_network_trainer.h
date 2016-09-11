@@ -25,8 +25,6 @@ public:
 			else {
 				// Bad
 			}
-			// auto features{ SubSampler::Neuron(1, { 1,1,1,1,1,1,1,1,1 }).ProcessMultiMatrix(multiMatrix) };
-			// auto pooledFeatures = SubSampler::MaxPooler(1, { 1,1,1,1,1,1,1,1,1 }).ProcessMultiMatrix(features);
 		}
 		return NeuralNetwork<SubSampler::Pooler::MaxPooler, Classification>();
 	}

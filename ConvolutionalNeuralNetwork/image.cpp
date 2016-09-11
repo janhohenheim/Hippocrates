@@ -1,6 +1,7 @@
 #include "image.h"
+using namespace Convolutional;
+using namespace InputData;
 
-auto Convolutional::InputData::Image::GetMultiDimensionalMatrix() const -> MultiMatrix
-{
+auto Image::GetMultiDimensionalMatrix() const -> MultiMatrix {
     return MultiMatrix({});
 }
