@@ -50,7 +50,7 @@ private:
 	template <class T>
 	constexpr auto IsAboveCompatibilityThreshold(T t) const -> bool {
 		return t > representative->GetTrainingParameters().
-			advanced.
+			
 			speciation.
 			compatibilityThreshold;
 	};

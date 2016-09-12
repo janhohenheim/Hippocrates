@@ -16,8 +16,6 @@ private:
 	std::map<size_t, std::vector<Neuron*>> layerMap;
 
 public:
-	NeuralNetwork() = delete;
-	explicit NeuralNetwork(TrainingParameters parameters, bool shouldMutate = false);
 	explicit NeuralNetwork(const Genome& genome, bool shouldMutate = false);
 	explicit NeuralNetwork(Genome&& genome, bool shouldMutate = false);
 	NeuralNetwork(const NeuralNetwork& other);

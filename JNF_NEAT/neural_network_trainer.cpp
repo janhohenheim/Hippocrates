@@ -39,9 +39,9 @@ auto NeuralNetworkTrainer::GetTrainedNeuralNetwork() -> TrainedNeuralNetwork {
 }
 
 auto NeuralNetworkTrainer::CreateInitialOrganisms() -> void {
-	Genome standardGenes(parameters);
 	for (auto currTrainer : bodies) {
-		NeuralNetwork network(standardGenes);
+		Genome standardGenes(currTrainer->GetInputCount(), currTrainer->GetOutputCount(), parameters);
+		NeuralNetwork network(std::move(standardGenes));
 		Organism organism(currTrainer, move(network));
 		FillOrganismIntoSpecies(move(organism));
 	}
@@ -118,7 +118,7 @@ auto NeuralNetworkTrainer::Repopulate() -> void {
 	for (auto& body : bodies) {
 		Species* sp = &SelectSpeciesToBreed();
 		auto& father = sp->GetOrganismToBreed();
-		if (DidChanceOccure(parameters.advanced.reproduction.chanceForInterspecialReproduction)) {
+		if (DidChanceOccure(parameters.reproduction.chanceForInterspecialReproduction)) {
 			sp = &SelectSpeciesToBreed();
 		}
 		auto& mother = sp->GetOrganismToBreed();

@@ -10,11 +10,12 @@ class Genome {
 private:
 	TrainingParameters parameters;
 	std::vector<Gene> genes;
+	std::size_t inputCount = 0U;
+	std::size_t outputCount = 0U;
 	std::size_t neuronCount = 0U;
 
 public:
-	Genome() = delete;
-	explicit Genome(TrainingParameters parameters);
+	explicit Genome(std::size_t inputCount, std::size_t outputCount, TrainingParameters parameters);
 	Genome(const Genome& other) = default;
 	Genome(Genome&& other) = default;
 	~Genome() = default;
@@ -33,6 +34,8 @@ public:
 
 	auto GetNeuronCount() const { return neuronCount; }
 	auto GetGeneCount() const { return genes.size(); }
+	auto GetInputCount() const { return inputCount; }
+	auto GetOutputCount() const { return outputCount; }
 
 	auto AppendGene(Gene gene) -> void;
 	auto InsertGeneAt(Gene gene, size_t index) -> void;

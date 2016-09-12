@@ -12,8 +12,8 @@ Gene::Gene() {
 
 auto Gene::SetRandomWeight() -> void {
 	/*
-	const auto& min = parameters.advanced.ranges.minWeight;
-	const auto& max = parameters.advanced.ranges.maxWeight;
+	const auto& min = parameters.ranges.minWeight;
+	const auto& max = parameters.ranges.maxWeight;
 	if (min == max) {
 	weight = min;
 	}

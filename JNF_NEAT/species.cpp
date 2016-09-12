@@ -75,7 +75,7 @@ auto Species::SelectFittestOrganismAsRepresentative() -> void {
 
 auto JNF_NEAT::Species::IsStagnant() const -> bool {
 	return (numberOfStagnantGenerations >= parameters.
-		advanced.
+		
 		speciation.
 		stagnantSpeciesClearThreshold);
 }

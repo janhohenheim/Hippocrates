@@ -13,12 +13,17 @@ auto TrainedNeuralNetwork::SaveToFile(std::ofstream& file) const -> void {
 	file << GetGenome().GetJSON();
 }
 
-auto TrainedNeuralNetwork::LoadGenomeFromFile(const std::ifstream& file) -> Genome
-{
-	auto parameters{LoadTrainigParametersFromFile(file)};
-	Genome genome{move(parameters)};
-	
+auto TrainedNeuralNetwork::LoadGenomeFromFile(const std::ifstream& file) -> Genome {
 	// TODO sara: implementation
+	TrainingParameters parameters;
+	parameters.ranges.minWeight = -1.0f;
+	parameters.ranges.maxWeight = 1.0f;
+	// etc.
+
+	std::size_t inputCount = 0;
+	std::size_t outputCount = 0;
+	Genome genome{ inputCount, outputCount, move(parameters) };
+	
 	bool readAllGenes = false;
 	while (!readAllGenes) {
 		Gene gene;
@@ -32,17 +37,4 @@ auto TrainedNeuralNetwork::LoadGenomeFromFile(const std::ifstream& file) -> Geno
 	}
 
 	return genome;
-}
-
-auto TrainedNeuralNetwork::LoadTrainigParametersFromFile(const std::ifstream& file) -> TrainingParameters
-{
-	// TODO sara: implementation
-	unsigned int inputCount = 2;
-	unsigned int outputCount = 1;
-	TrainingParameters parameters(inputCount, outputCount);
-	parameters.advanced.ranges.minWeight = -1.0f;
-	parameters.advanced.ranges.maxWeight = 1.0f;
-	// etc.
-
-	return parameters;
 }

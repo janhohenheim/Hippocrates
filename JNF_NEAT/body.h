@@ -19,6 +19,9 @@ public:
 	virtual auto GetFitness() const -> double = 0;
 
 	virtual auto ProvideNetworkWithInputs() const->std::vector<float> = 0;
+
+	virtual auto GetInputCount() const -> std::size_t = 0;
+	virtual auto GetOutputCount() const->std::size_t = 0;
 };
 
 }

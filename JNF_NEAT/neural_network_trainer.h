@@ -25,10 +25,9 @@ private:
 	size_t generationsPassed = 0;
 
 public:
-	NeuralNetworkTrainer(std::vector<std::shared_ptr<IBody>> population, TrainingParameters parameters);
+	NeuralNetworkTrainer(std::vector<std::shared_ptr<IBody>> population, TrainingParameters parameters = TrainingParameters());
 	NeuralNetworkTrainer(const NeuralNetworkTrainer& other) = default;
 	NeuralNetworkTrainer(NeuralNetworkTrainer&& other) = default;
-	~NeuralNetworkTrainer() = default;
 
 	auto operator=(const NeuralNetworkTrainer&) -> NeuralNetworkTrainer& = default;
 	auto operator=(NeuralNetworkTrainer&&) -> NeuralNetworkTrainer& = default;

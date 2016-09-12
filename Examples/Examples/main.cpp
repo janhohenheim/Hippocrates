@@ -24,7 +24,7 @@ struct measure {
 	}
 };
 
-void TestingShitIgnoreThis(TrainingParameters& params, NeuralNetworkTrainer& trainer) {
+void TestingShitIgnoreThis(NeuralNetworkTrainer& trainer) {
 	if (!testingShit) {
 		return;
 	}
@@ -33,16 +33,18 @@ void TestingShitIgnoreThis(TrainingParameters& params, NeuralNetworkTrainer& tra
 	long long totalTime = 0;
 	for (size_t i = 0; i < numberOfShit; ++i) {
 		cout << "Loop #" << (i + 1) << "/" << numberOfShit << "\n";
-		vector<shared_ptr<IBody>> b;
+		vector<shared_ptr<IBody>> bodies;
 		for (size_t i = 0; i < 50; ++i) {
-			b.push_back(make_shared<XORSolver>());
+			bodies.push_back(make_shared<XORSolver>());
 		}
-		NeuralNetworkTrainer t(b, params);
+		NeuralNetworkTrainer trainer(bodies);
 
 		// Enable this if you want to fill your SSD with a gigabyte of JSON
-		t.loggingEnabled = false;
+		trainer.loggingEnabled = false;
 
-		auto timePassed = measure<>::execution([&t](double d) {t.TrainUntilFitnessEquals(d); }, 16.0);
+		auto timePassed = measure<>::execution([&trainer](double d) {
+			trainer.TrainUntilFitnessEquals(d); 
+		}, 16.0);
 		totalTime += timePassed;
 		cout << "Finished in " << timePassed << "\n";
 	}
@@ -62,9 +64,6 @@ int main() {
 	// Initilize Random Generator
 	srand((unsigned)time(0U));
 
-	// Prepare Parameters
-	TrainingParameters params(2, 1);
-
 	size_t populationCount = 50;
 
 	// Create Bodies
@@ -74,13 +73,13 @@ int main() {
 	}
 
 	// Training
-	NeuralNetworkTrainer trainer(move(bodies), params);
+	NeuralNetworkTrainer trainer(move(bodies));
 	trainer.loggingEnabled = false;
 	trainer.TrainUntilFitnessEquals(16.0);
 
 	// Get the best Neural Network trained
 	auto champ = trainer.GetTrainedNeuralNetwork();
-	TestingShitIgnoreThis(params, trainer);
+	TestingShitIgnoreThis(trainer);
 
 	cout << "XOR outputs after training\n";
 	GetXOROutputs(champ);
