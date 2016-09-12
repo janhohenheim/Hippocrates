@@ -79,11 +79,11 @@ auto Genome::GetJSON() const -> string {
 	string s("{");
 	s += "\"parameters\":";
 	s += parameters.GetJSON();
-	s += "\"inputCount\":";
+	s += ",\"inputCount\":";
 	s += std::to_string(inputCount);
-	s += "\"outputCount\":";
+	s += ",\"outputCount\":";
 	s += std::to_string(outputCount);
-	s += "\"genes\":[";
+	s += ",\"genes\":[";
 	for (size_t i = 0; i < genes.size() - 1; ++i) {
 		s += genes[i].GetJSON();
 		s += ",";
