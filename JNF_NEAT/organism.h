@@ -11,9 +11,9 @@ class Organism {
 private:
 	std::shared_ptr<IBody> body;
 	NeuralNetwork network;
-	double fitness = 0.0;
+	mutable double fitness = 0.0;
 	double fitnessModifier = 1.0;
-	bool isFitnessUpToDate = false;
+	mutable bool isFitnessUpToDate = false;
 
 public:
 	Organism(std::shared_ptr<IBody> body, NeuralNetwork&& network);
@@ -27,8 +27,8 @@ public:
 	auto Reset() -> void { body->Reset(); }
 	auto Update() -> void;
 	auto SetFitnessModifier(double factor) -> void { fitnessModifier = factor; }
-	auto GetOrCalculateFitness() -> double;
-	auto GetOrCalculateRawFitness() -> double;
+	auto GetOrCalculateFitness() const -> double;
+	auto GetOrCalculateRawFitness() const -> double;
 	auto BreedWith(Organism& partner) -> NeuralNetwork;
 	auto GetGenome() const -> const Genome&{ return network.GetGenome(); }
 	auto HasFinishedTask() const -> bool { return body->HasFinishedTask(); }

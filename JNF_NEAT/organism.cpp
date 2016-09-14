@@ -18,11 +18,11 @@ auto Organism::Update() -> void {
 	isFitnessUpToDate = false;
 }
 
-auto Organism::GetOrCalculateFitness() -> double {
+auto Organism::GetOrCalculateFitness() const -> double {
 	return GetOrCalculateRawFitness() * fitnessModifier;
 }
 
-auto Organism::GetOrCalculateRawFitness() -> double {
+auto Organism::GetOrCalculateRawFitness() const -> double {
 	if (!isFitnessUpToDate) {
 		fitness = body->GetFitness();
 		isFitnessUpToDate = true;
@@ -60,7 +60,7 @@ auto Organism::BreedWith(Organism& partner) -> NeuralNetwork {
 
 auto Organism::GetJSON() const -> string {
 	string s("{\"fitness\":");
-	s += to_string(fitness);
+	s += to_string(GetOrCalculateRawFitness());
 	s += ",";
 	s += "\"fitnessModifier\":";
 	s += to_string(fitnessModifier);
