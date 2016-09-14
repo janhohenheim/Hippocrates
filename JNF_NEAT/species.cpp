@@ -74,8 +74,7 @@ auto Species::SelectFittestOrganismAsRepresentative() -> void {
 }
 
 auto JNF_NEAT::Species::IsStagnant() const -> bool {
-	return (numberOfStagnantGenerations >= parameters.
-		
+	return (numberOfStagnantGenerations >= parameters.		
 		speciation.
 		stagnantSpeciesClearThreshold);
 }
@@ -99,6 +98,11 @@ auto Species::GetFittestOrganism() -> Organism& {
 	if (population.empty()) {
 		return *representative;
 	}
+	SortPopulationIfNeeded();
+	return *population.front();
+}
+
+auto Species::SortPopulationIfNeeded() -> void {
 	if (!isSortedByFitness) {
 		auto CompareOrganisms = [](auto& lhs, auto& rhs) {
 			return lhs->GetOrCalculateFitness() > rhs->GetOrCalculateFitness();
@@ -106,7 +110,6 @@ auto Species::GetFittestOrganism() -> Organism& {
 		sort(population.begin(), population.end(), CompareOrganisms);
 		isSortedByFitness = true;
 	}
-	return *population.front();
 }
 
 auto Species::operator=(Species&& other) -> Species& {
@@ -131,7 +134,7 @@ auto Species::GetOrganismToBreed() -> Organism& {
 		return *population[rand() % population.size()];
 	}
 	double chance = 0.0;
-	auto GetChanceForOrganism = [&chance, &totalPopulationFitness](Organism& organism) {
+	auto GetChanceForOrganism = [&chance, &totalPopulationFitness](const Organism& organism) {
 		return chance + (organism.GetOrCalculateFitness() / totalPopulationFitness);
 	};
 

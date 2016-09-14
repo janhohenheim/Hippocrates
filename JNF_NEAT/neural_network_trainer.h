@@ -36,7 +36,7 @@ public:
 	auto TrainUntilFitnessEquals(double fitnessToReach) -> void;
 	auto TrainUntilGenerationEquals(size_t generationsToTrain) -> void;
 	auto GetTrainedNeuralNetwork() -> TrainedNeuralNetwork;
-	auto GetJSON() const->std::string;
+	auto GetJSON() const -> std::string;
 
 private:
 	auto CreateInitialOrganisms() -> void;
@@ -54,5 +54,7 @@ private:
 
 	auto SelectSpeciesToBreed() -> Species&;
 	auto GetFittestOrganism() -> Organism&;
+
+	auto SortSpeciesIfNeeded() -> void;
 };
 }

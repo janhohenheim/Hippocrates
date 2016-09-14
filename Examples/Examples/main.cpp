@@ -8,9 +8,6 @@
 using namespace std;
 using namespace JNF_NEAT;
 
-bool testingShit = false;
-
-
 template<typename TimeT = std::chrono::milliseconds>
 struct measure {
 	template<typename F, typename ...Args>
@@ -24,10 +21,7 @@ struct measure {
 	}
 };
 
-void TestingShitIgnoreThis(NeuralNetworkTrainer& trainer) {
-	if (!testingShit) {
-		return;
-	}
+void Benchmark() {
 	constexpr size_t numberOfShit = 20;
 
 	long long totalTime = 0;
@@ -76,10 +70,10 @@ int main() {
 	NeuralNetworkTrainer trainer(move(bodies));
 	trainer.loggingEnabled = true;
 	trainer.TrainUntilFitnessEquals(16.0);
+	// Benchmark();
 
 	// Get the best Neural Network trained
 	auto champ = trainer.GetTrainedNeuralNetwork();
-	TestingShitIgnoreThis(trainer);
 
 	cout << "XOR outputs after training\n";
 	GetXOROutputs(champ);

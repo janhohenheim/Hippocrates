@@ -37,6 +37,7 @@ public:
 	auto ClearPopulation() -> void;
 
 	auto GetFittestOrganism() -> Organism&;
+	auto SortPopulationIfNeeded() -> void;
 	auto GetOrganismToBreed() -> Organism&;
 	auto GetJSON() const->std::string;
 

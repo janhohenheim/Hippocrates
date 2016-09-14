@@ -60,6 +60,11 @@ auto NeuralNetworkTrainer::GetFittestOrganism() -> Organism& {
 	if (species.empty()) {
 		throw out_of_range("Your population is empty");
 	}
+	SortSpeciesIfNeeded();
+	return species.front().GetFittestOrganism();
+}
+
+auto JNF_NEAT::NeuralNetworkTrainer::SortSpeciesIfNeeded() -> void {
 	if (!areSpeciesSortedByFitness) {
 		auto CompareSpecies = [&](Species& lhs, Species& rhs) {
 			return lhs.GetFittestOrganism().GetOrCalculateFitness() < rhs.GetFittestOrganism().GetOrCalculateFitness();
@@ -67,14 +72,13 @@ auto NeuralNetworkTrainer::GetFittestOrganism() -> Organism& {
 		sort(species.begin(), species.end(), CompareSpecies);
 		areSpeciesSortedByFitness = true;
 	}
-	return species.front().GetFittestOrganism();
 }
 
 auto NeuralNetworkTrainer::LetGenerationLive() -> void {
 	for (auto& sp : species) {
 		sp.LetPopulationLive();
 	}
-	areSpeciesSortedByFitness = false;
+	SortSpeciesIfNeeded();
 }
 
 auto NeuralNetworkTrainer::FillOrganismIntoSpecies(Organism&& organism) -> void {
