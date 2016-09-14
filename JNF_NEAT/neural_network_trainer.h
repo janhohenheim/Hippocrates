@@ -23,6 +23,7 @@ private:
 	std::vector<std::shared_ptr<IBody>> bodies;
 	Logger logger;
 	size_t generationsPassed = 0;
+	mutable bool areSpeciesSortedByFitness = false;
 
 public:
 	NeuralNetworkTrainer(std::vector<std::shared_ptr<IBody>> population, TrainingParameters parameters = TrainingParameters());

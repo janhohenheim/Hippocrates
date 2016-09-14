@@ -74,7 +74,7 @@ int main() {
 
 	// Training
 	NeuralNetworkTrainer trainer(move(bodies));
-	trainer.loggingEnabled = false;
+	trainer.loggingEnabled = true;
 	trainer.TrainUntilFitnessEquals(16.0);
 
 	// Get the best Neural Network trained

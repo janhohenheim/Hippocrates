@@ -12,8 +12,8 @@ private:
 	std::shared_ptr<IBody> body;
 	NeuralNetwork network;
 	mutable double fitness = 0.0;
-	double fitnessModifier = 1.0;
 	mutable bool isFitnessUpToDate = false;
+	double fitnessModifier = 1.0;
 
 public:
 	Organism(std::shared_ptr<IBody> body, NeuralNetwork&& network);

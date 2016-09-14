@@ -100,7 +100,7 @@ auto Species::GetFittestOrganism() -> Organism& {
 		return *representative;
 	}
 	if (!isSortedByFitness) {
-		auto CompareOrganisms = [&](unique_ptr<Organism>& lhs, unique_ptr<Organism>& rhs) {
+		auto CompareOrganisms = [](auto& lhs, auto& rhs) {
 			return lhs->GetOrCalculateFitness() > rhs->GetOrCalculateFitness();
 		};
 		sort(population.begin(), population.end(), CompareOrganisms);

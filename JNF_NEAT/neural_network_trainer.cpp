@@ -60,11 +60,13 @@ auto NeuralNetworkTrainer::GetFittestOrganism() -> Organism& {
 	if (species.empty()) {
 		throw out_of_range("Your population is empty");
 	}
-	auto CompareSpecies = [&](Species& lhs, Species& rhs) {
-		return lhs.GetFittestOrganism().GetOrCalculateFitness() < rhs.GetFittestOrganism().GetOrCalculateFitness();
-	};
-
-	sort(species.begin(), species.end(), CompareSpecies);
+	if (!areSpeciesSortedByFitness) {
+		auto CompareSpecies = [&](Species& lhs, Species& rhs) {
+			return lhs.GetFittestOrganism().GetOrCalculateFitness() < rhs.GetFittestOrganism().GetOrCalculateFitness();
+		};
+		sort(species.begin(), species.end(), CompareSpecies);
+		areSpeciesSortedByFitness = true;
+	}
 	return species.front().GetFittestOrganism();
 }
 
@@ -72,10 +74,13 @@ auto NeuralNetworkTrainer::LetGenerationLive() -> void {
 	for (auto& sp : species) {
 		sp.LetPopulationLive();
 	}
+	areSpeciesSortedByFitness = false;
 }
 
 auto NeuralNetworkTrainer::FillOrganismIntoSpecies(Organism&& organism) -> void {
 	bool isCompatibleWithExistingSpecies = false;
+	areSpeciesSortedByFitness = false;
+
 	for (auto& currSpecies : species) {
 		if (currSpecies.IsCompatible(organism.GetGenome())) {
 			currSpecies.AddOrganism(move(organism));
