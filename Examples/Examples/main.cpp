@@ -1,6 +1,6 @@
 #include "xor_solver.h"
-#include "../../Library/JNF_NEAT/training_parameters.h"
-#include "../../Library/JNF_NEAT/neural_network_trainer.h"
+#include "JNF_NEAT/training_parameters.h"
+#include "JNF_NEAT/neural_network_trainer.h"
 #include <iostream>
 #include <time.h>
 #include <fstream>
