@@ -1,5 +1,5 @@
 #pragma once
-#include "../../JNF_NEAT/body.h"
+#include "../../Library/JNF_NEAT/body.h"
 class XORSolver : public JNF_NEAT::IBody {
 public:
 	virtual auto Reset() -> void override;
