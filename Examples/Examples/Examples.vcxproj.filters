@@ -14,44 +14,44 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
     <Filter Include="Header Files\JNF_NEAT">
-      <UniqueIdentifier>{23cc21cd-1bfc-4d84-86a8-78048f252efd}</UniqueIdentifier>
+      <UniqueIdentifier>{3b374faa-1a68-4618-a461-ef742b644068}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="xor_solver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\JNF_NEAT\body.h">
+    <ClInclude Include="..\..\Library\JNF_NEAT\body.h">
       <Filter>Header Files\JNF_NEAT</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\JNF_NEAT\gene.h">
+    <ClInclude Include="..\..\Library\JNF_NEAT\gene.h">
       <Filter>Header Files\JNF_NEAT</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\JNF_NEAT\genome.h">
+    <ClInclude Include="..\..\Library\JNF_NEAT\genome.h">
       <Filter>Header Files\JNF_NEAT</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\JNF_NEAT\logger.h">
+    <ClInclude Include="..\..\Library\JNF_NEAT\logger.h">
       <Filter>Header Files\JNF_NEAT</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\JNF_NEAT\neural_network.h">
+    <ClInclude Include="..\..\Library\JNF_NEAT\neural_network.h">
       <Filter>Header Files\JNF_NEAT</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\JNF_NEAT\neural_network_trainer.h">
+    <ClInclude Include="..\..\Library\JNF_NEAT\neural_network_trainer.h">
       <Filter>Header Files\JNF_NEAT</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\JNF_NEAT\neuron.h">
+    <ClInclude Include="..\..\Library\JNF_NEAT\neuron.h">
       <Filter>Header Files\JNF_NEAT</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\JNF_NEAT\organism.h">
+    <ClInclude Include="..\..\Library\JNF_NEAT\organism.h">
       <Filter>Header Files\JNF_NEAT</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\JNF_NEAT\species.h">
+    <ClInclude Include="..\..\Library\JNF_NEAT\species.h">
       <Filter>Header Files\JNF_NEAT</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\JNF_NEAT\trained_neural_network.h">
+    <ClInclude Include="..\..\Library\JNF_NEAT\trained_neural_network.h">
       <Filter>Header Files\JNF_NEAT</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\JNF_NEAT\training_parameters.h">
+    <ClInclude Include="..\..\Library\JNF_NEAT\training_parameters.h">
       <Filter>Header Files\JNF_NEAT</Filter>
     </ClInclude>
   </ItemGroup>
@@ -62,34 +62,34 @@
     <ClCompile Include="xor_solver.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\JNF_NEAT\gene.cpp">
+    <ClCompile Include="..\..\Library\JNF_NEAT\gene.cpp">
       <Filter>Header Files\JNF_NEAT</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\JNF_NEAT\genome.cpp">
+    <ClCompile Include="..\..\Library\JNF_NEAT\genome.cpp">
       <Filter>Header Files\JNF_NEAT</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\JNF_NEAT\logger.cpp">
+    <ClCompile Include="..\..\Library\JNF_NEAT\logger.cpp">
       <Filter>Header Files\JNF_NEAT</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\JNF_NEAT\neural_network.cpp">
+    <ClCompile Include="..\..\Library\JNF_NEAT\neural_network.cpp">
       <Filter>Header Files\JNF_NEAT</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\JNF_NEAT\neural_network_trainer.cpp">
+    <ClCompile Include="..\..\Library\JNF_NEAT\neural_network_trainer.cpp">
       <Filter>Header Files\JNF_NEAT</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\JNF_NEAT\neuron.cpp">
+    <ClCompile Include="..\..\Library\JNF_NEAT\neuron.cpp">
       <Filter>Header Files\JNF_NEAT</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\JNF_NEAT\organism.cpp">
+    <ClCompile Include="..\..\Library\JNF_NEAT\organism.cpp">
       <Filter>Header Files\JNF_NEAT</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\JNF_NEAT\species.cpp">
+    <ClCompile Include="..\..\Library\JNF_NEAT\species.cpp">
       <Filter>Header Files\JNF_NEAT</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\JNF_NEAT\trained_neural_network.cpp">
+    <ClCompile Include="..\..\Library\JNF_NEAT\trained_neural_network.cpp">
       <Filter>Header Files\JNF_NEAT</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\JNF_NEAT\training_parameters.cpp">
+    <ClCompile Include="..\..\Library\JNF_NEAT\training_parameters.cpp">
       <Filter>Header Files\JNF_NEAT</Filter>
     </ClCompile>
   </ItemGroup>
