@@ -408,3 +408,4 @@ CMakeScripts
 Makefile
 cmake_install.cmake
 install_manifest.txt
+Examples/JNF_NEAT_EXAMPLES
