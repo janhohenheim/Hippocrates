@@ -146,30 +146,30 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\JNF_NEAT\body.h" />
-    <ClInclude Include="..\..\JNF_NEAT\gene.h" />
-    <ClInclude Include="..\..\JNF_NEAT\genome.h" />
-    <ClInclude Include="..\..\JNF_NEAT\logger.h" />
-    <ClInclude Include="..\..\JNF_NEAT\neural_network.h" />
-    <ClInclude Include="..\..\JNF_NEAT\neural_network_trainer.h" />
-    <ClInclude Include="..\..\JNF_NEAT\neuron.h" />
-    <ClInclude Include="..\..\JNF_NEAT\organism.h" />
-    <ClInclude Include="..\..\JNF_NEAT\species.h" />
-    <ClInclude Include="..\..\JNF_NEAT\trained_neural_network.h" />
-    <ClInclude Include="..\..\JNF_NEAT\training_parameters.h" />
+    <ClInclude Include="..\..\Library\body.h" />
+    <ClInclude Include="..\..\Library\gene.h" />
+    <ClInclude Include="..\..\Library\genome.h" />
+    <ClInclude Include="..\..\Library\logger.h" />
+    <ClInclude Include="..\..\Library\neural_network.h" />
+    <ClInclude Include="..\..\Library\neural_network_trainer.h" />
+    <ClInclude Include="..\..\Library\neuron.h" />
+    <ClInclude Include="..\..\Library\organism.h" />
+    <ClInclude Include="..\..\Library\species.h" />
+    <ClInclude Include="..\..\Library\trained_neural_network.h" />
+    <ClInclude Include="..\..\Library\training_parameters.h" />
     <ClInclude Include="xor_solver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\JNF_NEAT\gene.cpp" />
-    <ClCompile Include="..\..\JNF_NEAT\genome.cpp" />
-    <ClCompile Include="..\..\JNF_NEAT\logger.cpp" />
-    <ClCompile Include="..\..\JNF_NEAT\neural_network.cpp" />
-    <ClCompile Include="..\..\JNF_NEAT\neural_network_trainer.cpp" />
-    <ClCompile Include="..\..\JNF_NEAT\neuron.cpp" />
-    <ClCompile Include="..\..\JNF_NEAT\organism.cpp" />
-    <ClCompile Include="..\..\JNF_NEAT\species.cpp" />
-    <ClCompile Include="..\..\JNF_NEAT\trained_neural_network.cpp" />
-    <ClCompile Include="..\..\JNF_NEAT\training_parameters.cpp" />
+    <ClCompile Include="..\..\Library\gene.cpp" />
+    <ClCompile Include="..\..\Library\genome.cpp" />
+    <ClCompile Include="..\..\Library\logger.cpp" />
+    <ClCompile Include="..\..\Library\neural_network.cpp" />
+    <ClCompile Include="..\..\Library\neural_network_trainer.cpp" />
+    <ClCompile Include="..\..\Library\neuron.cpp" />
+    <ClCompile Include="..\..\Library\organism.cpp" />
+    <ClCompile Include="..\..\Library\species.cpp" />
+    <ClCompile Include="..\..\Library\trained_neural_network.cpp" />
+    <ClCompile Include="..\..\Library\training_parameters.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="xor_solver.cpp" />
   </ItemGroup>
