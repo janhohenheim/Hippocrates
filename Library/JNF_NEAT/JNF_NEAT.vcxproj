@@ -156,6 +156,7 @@
     <ClCompile Include="neuron.cpp" />
     <ClCompile Include="species.cpp" />
     <ClCompile Include="trained_neural_network.cpp" />
+    <ClCompile Include="training_parameters.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gene.h" />

@@ -4,13 +4,37 @@
 using namespace JNF_NEAT;
 using namespace std;
 
-auto TrainedNeuralNetwork::LoadFromFile(const string& fileName) -> TrainedNeuralNetwork {
-	// TODO jnf Implementation
-	unique_ptr<TrainingParameters> params(new TrainingParameters(2, 1));
-	TrainedNeuralNetwork net(*params.get());
-	return net;
+auto TrainedNeuralNetwork::LoadFromFile(const ifstream& file) -> TrainedNeuralNetwork {
+	auto genome {LoadGenomeFromFile(file)};
+	return TrainedNeuralNetwork {move(genome)};
 }
 
-auto TrainedNeuralNetwork::SaveToFile(const string& fileName) const -> void {
-	// TODO jnf Implementation
+auto TrainedNeuralNetwork::SaveToFile(std::ofstream& file) const -> void {
+	file << GetGenome().GetJSON();
+}
+
+auto TrainedNeuralNetwork::LoadGenomeFromFile(const std::ifstream& file) -> Genome {
+	// TODO sara: implementation
+	TrainingParameters parameters;
+	parameters.ranges.minWeight = -1.0f;
+	parameters.ranges.maxWeight = 1.0f;
+	// etc.
+
+	std::size_t inputCount = 0;
+	std::size_t outputCount = 0;
+	Genome genome{ inputCount, outputCount, move(parameters) };
+	
+	bool readAllGenes = false;
+	while (!readAllGenes) {
+		Gene gene;
+		gene.from = 0;
+		gene.to = 0;
+		gene.weight = 0.0f;
+		// etc.
+
+		//genome.AppendGene(move(gene));
+		readAllGenes = true;
+	}
+
+	return genome;
 }

@@ -21,14 +21,14 @@ private:
 	TrainingParameters parameters;
 	size_t populationSize = 0U;
 	std::vector<std::shared_ptr<IBody>> bodies;
-	size_t generationsPassed = 0;
 	Logger logger;
+	size_t generationsPassed = 0;
+	mutable bool areSpeciesSortedByFitness = false;
 
 public:
-	NeuralNetworkTrainer(std::vector<std::shared_ptr<IBody>> population, TrainingParameters parameters);
+	NeuralNetworkTrainer(std::vector<std::shared_ptr<IBody>> population, TrainingParameters parameters = TrainingParameters());
 	NeuralNetworkTrainer(const NeuralNetworkTrainer& other) = default;
 	NeuralNetworkTrainer(NeuralNetworkTrainer&& other) = default;
-	~NeuralNetworkTrainer() = default;
 
 	auto operator=(const NeuralNetworkTrainer&) -> NeuralNetworkTrainer& = default;
 	auto operator=(NeuralNetworkTrainer&&) -> NeuralNetworkTrainer& = default;
@@ -36,7 +36,7 @@ public:
 	auto TrainUntilFitnessEquals(double fitnessToReach) -> void;
 	auto TrainUntilGenerationEquals(size_t generationsToTrain) -> void;
 	auto GetTrainedNeuralNetwork() -> TrainedNeuralNetwork;
-	auto GetJSON() const->std::string;
+	auto GetJSON() const -> std::string;
 
 private:
 	auto CreateInitialOrganisms() -> void;
@@ -44,14 +44,17 @@ private:
 
 	auto ResetPopulationToTeachableState() -> void;
 	auto Repopulate() -> void;
+	auto ClearSpeciesPopulation() -> void;
 	auto LetGenerationLive() -> void;
 	auto PrepareSpeciesForPopulation() -> void;
 	auto FillOrganismIntoSpecies(Organism&& organism) -> void;
-	auto AnalyzeAndClearSpeciesPopulation() -> void;
+	auto AnalyzeSpeciesPopulation() -> void;
 	auto DeleteStagnantSpecies() -> void;
 	auto DeleteEmptySpecies() -> void;
 
 	auto SelectSpeciesToBreed() -> Species&;
 	auto GetFittestOrganism() -> Organism&;
+
+	auto SortSpeciesIfNeeded() -> void;
 };
 }

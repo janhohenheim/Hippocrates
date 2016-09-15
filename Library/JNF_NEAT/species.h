@@ -10,7 +10,7 @@ class Species {
 private:
 	std::vector<std::unique_ptr<Organism>> population;
 	std::unique_ptr<Organism> representative;
-	bool isSortedByFitness = false;
+	mutable bool isSortedByFitness = false;
 	std::size_t numberOfStagnantGenerations = 0;
 	double fitnessHighscore = 0;
 	const TrainingParameters& parameters;
@@ -24,17 +24,24 @@ public:
 	auto operator=(Species&& other) -> Species&;
 
 	auto AddOrganism(Organism&& organism) -> void;
-	auto AnalyzeAndClearPopulation() -> void;
+	auto AnalyzePopulation() -> void;
 
 	auto IsCompatible(const Genome& genome) const -> bool;
 	auto IsEmpty() const -> bool { return population.empty(); }
 	auto IsStagnant() const -> bool;
+
 	auto LetPopulationLive() -> void;
+
 	auto ResetToTeachableState() -> void;
-	auto GetFittestOrganism() -> Organism&;
 	auto SetPopulationsFitnessModifier() -> void;
+	auto ClearPopulation() -> void;
+
+	auto GetFittestOrganism() -> Organism&;
+	auto SortPopulationIfNeeded() -> void;
 	auto GetOrganismToBreed() -> Organism&;
 	auto GetJSON() const->std::string;
+
+
 
 private:
 	auto ElectRepresentative() -> void;
@@ -44,7 +51,7 @@ private:
 	template <class T>
 	constexpr auto IsAboveCompatibilityThreshold(T t) const -> bool {
 		return t > representative->GetTrainingParameters().
-			advanced.
+			
 			speciation.
 			compatibilityThreshold;
 	};

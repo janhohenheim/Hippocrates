@@ -1,7 +1,6 @@
 # JNF_NEAT
 [![Build Status](https://travis-ci.org/SirRade/JNF_NEAT.svg?branch=development)](https://travis-ci.org/SirRade/JNF_NEAT)
-
-## This Readme is outdated. Do not trust the information provided here
+[![Build status](https://ci.appveyor.com/api/projects/status/ioyvgn7a6mu3xgbl?svg=true)](https://ci.appveyor.com/project/SirRade/jnf-neat)
 
 [Visualizing Tool](https://github.com/IDPA-2016-NEAT-CNN/NEAT_Visualizer) by [@Mafii](https://github.com/Mafii)
 
@@ -43,7 +42,11 @@ at the end of a function.
 
 N/A
 
+#Everything below this line is outdated. Do not trust the information provided here
+----  
+
 ##Usage  
+
 You first have to provide an implementation of the `IBody` interface. You need to provide a copy constructor as well as following methods:   
 - Update()  
 - GetFitness()  

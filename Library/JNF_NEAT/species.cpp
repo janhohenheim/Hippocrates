@@ -18,7 +18,7 @@ auto Species::AddOrganism(Organism&& organism) -> void {
 	SetPopulationsFitnessModifier();
 }
 
-auto Species::AnalyzeAndClearPopulation() -> void {
+auto Species::AnalyzePopulation() -> void {
 	const auto currentBestFitness = GetFittestOrganism().GetOrCalculateRawFitness();
 	if (currentBestFitness > fitnessHighscore) {
 		fitnessHighscore = currentBestFitness;
@@ -27,7 +27,6 @@ auto Species::AnalyzeAndClearPopulation() -> void {
 	else {
 		numberOfStagnantGenerations++;
 	}
-	population.clear();
 	isSortedByFitness = false;
 }
 
@@ -42,6 +41,10 @@ auto Species::SetPopulationsFitnessModifier() -> void {
 	for (auto& organism : population) {
 		organism->SetFitnessModifier(fitnessModifier);
 	}
+}
+
+auto JNF_NEAT::Species::ClearPopulation() -> void {
+	population.clear();
 }
 
 auto Species::ElectRepresentative() -> void {
@@ -71,8 +74,7 @@ auto Species::SelectFittestOrganismAsRepresentative() -> void {
 }
 
 auto JNF_NEAT::Species::IsStagnant() const -> bool {
-	return (numberOfStagnantGenerations >= parameters.
-		advanced.
+	return (numberOfStagnantGenerations >= parameters.		
 		speciation.
 		stagnantSpeciesClearThreshold);
 }
@@ -96,14 +98,18 @@ auto Species::GetFittestOrganism() -> Organism& {
 	if (population.empty()) {
 		return *representative;
 	}
+	SortPopulationIfNeeded();
+	return *population.front();
+}
+
+auto Species::SortPopulationIfNeeded() -> void {
 	if (!isSortedByFitness) {
-		auto CompareOrganisms = [&](unique_ptr<Organism>& lhs, unique_ptr<Organism>& rhs) {
+		auto CompareOrganisms = [](auto& lhs, auto& rhs) {
 			return lhs->GetOrCalculateFitness() > rhs->GetOrCalculateFitness();
 		};
 		sort(population.begin(), population.end(), CompareOrganisms);
 		isSortedByFitness = true;
 	}
-	return *population.front();
 }
 
 auto Species::operator=(Species&& other) -> Species& {
@@ -128,7 +134,7 @@ auto Species::GetOrganismToBreed() -> Organism& {
 		return *population[rand() % population.size()];
 	}
 	double chance = 0.0;
-	auto GetChanceForOrganism = [&chance, &totalPopulationFitness](Organism& organism) {
+	auto GetChanceForOrganism = [&chance, &totalPopulationFitness](const Organism& organism) {
 		return chance + (organism.GetOrCalculateFitness() / totalPopulationFitness);
 	};
 

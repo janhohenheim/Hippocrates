@@ -4,25 +4,10 @@
 using namespace JNF_NEAT;
 using namespace std;
 
-NeuralNetwork::NeuralNetwork(const TrainingParameters & parameters, bool shouldMutate) :
-	parameters(parameters),
-	genome(parameters),
-	inputNeurons(parameters.numberOfInputs),
-	outputNeurons(parameters.numberOfOutputs)
-{
-	if (shouldMutate) {
-		MutateGenesAndBuildNetwork();
-	}
-	else {
-		BuildNetworkFromGenes();
-	}
-}
-
 NeuralNetwork::NeuralNetwork(const Genome& genome, bool shouldMutate) :
-	parameters(genome.GetTrainingParameters()),
 	genome(genome),
-	inputNeurons(genome.GetTrainingParameters().numberOfInputs),
-	outputNeurons(genome.GetTrainingParameters().numberOfOutputs)
+	inputNeurons(genome.GetInputCount()),
+	outputNeurons(genome.GetOutputCount())
 {
 	if (shouldMutate) {
 		MutateGenesAndBuildNetwork();
@@ -33,10 +18,9 @@ NeuralNetwork::NeuralNetwork(const Genome& genome, bool shouldMutate) :
 }
 
 NeuralNetwork::NeuralNetwork(Genome&& genome, bool shouldMutate) :
-	parameters(genome.GetTrainingParameters()),
 	genome(move(genome)),
-	inputNeurons(genome.GetTrainingParameters().numberOfInputs),
-	outputNeurons(genome.GetTrainingParameters().numberOfOutputs)
+	inputNeurons(genome.GetInputCount()),
+	outputNeurons(genome.GetOutputCount())
 {
 	if (shouldMutate) {
 		MutateGenesAndBuildNetwork();
@@ -47,7 +31,6 @@ NeuralNetwork::NeuralNetwork(Genome&& genome, bool shouldMutate) :
 }
 
 NeuralNetwork::NeuralNetwork(const NeuralNetwork& other) :
-	parameters(other.parameters),
 	genome(other.genome),
 	neurons(other.neurons.size()),
 	inputNeurons(other.inputNeurons.size()),
@@ -63,7 +46,6 @@ auto NeuralNetwork::operator=(const NeuralNetwork& other) -> NeuralNetwork& {
 	neurons = other.neurons;
 	inputNeurons.resize(other.inputNeurons.size());
 	outputNeurons.resize(other.outputNeurons.size());
-	const_cast<TrainingParameters&>(this->parameters) = other.parameters;
 
 	InterpretInputsAndOutputs();
 	return *this;
@@ -121,51 +103,51 @@ auto NeuralNetwork::GetOutputsUsingInputs(vector<float> inputs) -> vector<float>
 
 auto NeuralNetwork::InterpretInputsAndOutputs() -> void {
 	// Bias
-	for (auto i = 0U; i < parameters.advanced.structure.numberOfBiasNeurons; i++) {
+	for (auto i = 0U; i < GetTrainingParameters().structure.numberOfBiasNeurons; i++) {
 		neurons[i].SetInput(1.0f);
 	}
 
 	// Inputs
-	for (auto i = 0U; i < parameters.numberOfInputs; i++) {
-		inputNeurons[i] = &neurons[i + parameters.advanced.structure.numberOfBiasNeurons];
+	for (auto i = 0U; i < genome.GetInputCount(); i++) {
+		inputNeurons[i] = &neurons[i + GetTrainingParameters().structure.numberOfBiasNeurons];
 	}
 
 	// Outputs
-	for (auto i = 0U; i < parameters.numberOfOutputs; i++) {
+	for (auto i = 0U; i < genome.GetOutputCount(); i++) {
 		outputNeurons[i] = &neurons[genome[i].to];
 	}
 }
 
 auto NeuralNetwork::ShouldAddNeuron() const -> bool {
 	return DidChanceOccure(
-		parameters.
-		advanced.
+		GetTrainingParameters().
+		
 		mutation.
 		chanceForNeuralMutation
 	);
 }
 
 auto NeuralNetwork::ShouldAddConnection() const -> bool {
-	const bool hasChanceOccured = DidChanceOccure(parameters.advanced.mutation.chanceForConnectionalMutation);
+	const bool hasChanceOccured = DidChanceOccure(GetTrainingParameters().mutation.chanceForConnectionalMutation);
 	if (!hasChanceOccured) {
 		return false;
 	}
-	const size_t inputLayerSize = parameters.numberOfInputs + parameters.advanced.structure.numberOfBiasNeurons;
-	const size_t outputLayerSize = parameters.numberOfOutputs;
+	const size_t inputLayerSize = genome.GetInputCount() + GetTrainingParameters().structure.numberOfBiasNeurons;
+	const size_t outputLayerSize = genome.GetOutputCount();
 	const size_t hiddenLayerSize = genome.GetNeuronCount() - inputLayerSize - outputLayerSize;
 	size_t numberOfPossibleConnections = hiddenLayerSize * (hiddenLayerSize - 1);
 	numberOfPossibleConnections += hiddenLayerSize * inputLayerSize;
 	numberOfPossibleConnections += hiddenLayerSize * outputLayerSize;
 
-	const size_t generatedNeurons = genome.GetNeuronCount() - (inputLayerSize + parameters.numberOfOutputs);
+	const size_t generatedNeurons = genome.GetNeuronCount() - (inputLayerSize + genome.GetOutputCount());
 	const bool hasSpaceForNewConnections = genome.GetGeneCount() < (numberOfPossibleConnections + generatedNeurons);
 	return hasSpaceForNewConnections;
 }
 
 auto NeuralNetwork::ShouldMutateWeight() const -> bool {
 	return DidChanceOccure(
-		parameters.
-		advanced.
+		GetTrainingParameters().
+		
 		mutation.
 		chanceForWeightMutation
 	);
@@ -240,7 +222,7 @@ auto NeuralNetwork::GetTwoUnconnectedNeurons() -> pair<Neuron*, Neuron*> {
 	for (auto& n : neurons) {
 		possibleFromNeurons.push_back(&n);
 	}
-	auto inputRange = parameters.numberOfInputs + parameters.advanced.structure.numberOfBiasNeurons;
+	auto inputRange = genome.GetInputCount() + GetTrainingParameters().structure.numberOfBiasNeurons;
 	vector<Neuron*> possibleToNeurons(possibleFromNeurons.begin() + inputRange, possibleFromNeurons.end());
 
 	random_shuffle(possibleFromNeurons.begin(), possibleFromNeurons.end());
@@ -298,7 +280,7 @@ auto NeuralNetwork::ShuffleWeights() -> void {
 }
 
 auto NeuralNetwork::MutateWeightOfGeneAt(size_t index) -> void {
-	if (DidChanceOccure(parameters.advanced.mutation.chanceOfTotalWeightReset)) {
+	if (DidChanceOccure(GetTrainingParameters().mutation.chanceOfTotalWeightReset)) {
 		genome[index].SetRandomWeight();
 	}
 	else {
@@ -338,7 +320,7 @@ auto NeuralNetwork::MutateGenesAndBuildNetwork() -> void {
 }
 
 auto NeuralNetwork::CategorizeNeuronsIntoLayers() -> void {
-	for (auto i = 0U; i < parameters.advanced.structure.numberOfBiasNeurons; i++) {
+	for (auto i = 0U; i < GetTrainingParameters().structure.numberOfBiasNeurons; i++) {
 		CategorizeNeuronBranchIntoLayers(neurons[i]);
 	}
 	for (auto* in : inputNeurons) {

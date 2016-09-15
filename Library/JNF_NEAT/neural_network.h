@@ -13,12 +13,9 @@ private:
 	std::vector<Neuron> neurons;
 	std::vector<Neuron*> inputNeurons;
 	std::vector<Neuron*> outputNeurons;
-	const TrainingParameters& parameters;
 	std::map<size_t, std::vector<Neuron*>> layerMap;
 
 public:
-	NeuralNetwork() = delete;
-	explicit NeuralNetwork(const TrainingParameters& parameters, bool shouldMutate = false);
 	explicit NeuralNetwork(const Genome& genome, bool shouldMutate = false);
 	explicit NeuralNetwork(Genome&& genome, bool shouldMutate = false);
 	NeuralNetwork(const NeuralNetwork& other);
@@ -30,7 +27,7 @@ public:
 
 	auto GetGenome() const -> const Genome&{ return genome; }
 	auto GetOutputsUsingInputs(std::vector<float> inputs) -> std::vector<float>;
-	auto GetTrainingParameters() const -> const TrainingParameters&{ return parameters; }
+	auto GetTrainingParameters() const -> const TrainingParameters& { return GetGenome().GetTrainingParameters(); }
 
 	auto GetJSON() const->std::string;
 
