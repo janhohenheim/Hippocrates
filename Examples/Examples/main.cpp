@@ -2,9 +2,6 @@
 #include "JNF_NEAT/training_parameters.h"
 #include "JNF_NEAT/neural_network_trainer.h"
 #include <iostream>
-#include <time.h>
-#include <fstream>
-#include <chrono>
 
 using namespace std;
 using namespace JNF_NEAT;
