@@ -1,0 +1,5 @@
+include_directories(../../out/lib)
+
+file(GLOB SOURCES Sources/*.cpp Sources/*.h)
+add_executable(XOR_EXAMPLE ${SOURCES})
+target_link_libraries(XOR_EXAMPLE JNF_NEAT)
