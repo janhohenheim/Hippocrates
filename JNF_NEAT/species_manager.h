@@ -21,7 +21,6 @@ public:
 	auto GetFittestOrganism() -> const Organism&;
 
 	auto LetGenerationLive() -> void;
-	auto ResetPopulationToTeachableState() -> void;
 
 	auto GetSpeciesCount() const { return species.size(); }
 
@@ -29,6 +28,7 @@ public:
 	auto end() const { return species.end(); }
 
 private:
+	auto ResetPopulationToTeachableState() -> void;
 	auto FillOrganismIntoSpecies(Organism&& organism) -> void;
 	auto PrepareSpeciesForPopulation() -> void;
 	auto AnalyzeSpeciesPopulation() -> void;

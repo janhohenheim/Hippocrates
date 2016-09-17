@@ -22,7 +22,7 @@ auto NeuralNetworkTrainer::TrainUnsupervised(const SpeciesManager::Bodies& bodie
 	while (champ.GetOrCalculateRawFitness() < (champ.GetMaxFitness() - 1e-6)) {
 		TrainGenerationAndLogUsingBodies(bodies);
 		champ = species.GetFittestOrganism();
-	}
+	}	
 	return TrainedNeuralNetwork(champ.GetGenome());
 }
 
@@ -30,7 +30,6 @@ auto NeuralNetworkTrainer::TrainUnsupervised(const SpeciesManager::Bodies& bodie
 
 auto NeuralNetworkTrainer::TrainGenerationAndLogUsingBodies(const SpeciesManager::Bodies& bodies) -> void {
 	species.Repopulate(bodies);
-	species.ResetPopulationToTeachableState();
 	species.LetGenerationLive();
 	generationsPassed++;
 	if (loggingEnabled) {

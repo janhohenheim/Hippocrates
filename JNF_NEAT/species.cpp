@@ -37,7 +37,7 @@ auto Species::IsCompatible(const Genome& genome) const -> bool {
 }
 
 auto Species::SetPopulationsFitnessModifier() -> void {
-	double fitnessModifier = 1.0 / (double)population.size();
+	double fitnessModifier = 1.0 / static_cast<double>(population.size());
 	for (auto& organism : population) {
 		organism->SetFitnessModifier(fitnessModifier);
 	}
@@ -74,9 +74,10 @@ auto Species::SelectFittestOrganismAsRepresentative() -> void {
 }
 
 auto JNF_NEAT::Species::IsStagnant() const -> bool {
-	return (numberOfStagnantGenerations >= parameters.		
+	return numberOfStagnantGenerations >= 
+		parameters.		
 		speciation.
-		stagnantSpeciesClearThreshold);
+		stagnantSpeciesClearThreshold;
 }
 
 auto Species::LetPopulationLive() -> void {
@@ -104,7 +105,7 @@ auto Species::GetFittestOrganism() const -> const Organism& {
 
 auto Species::SortPopulationIfNeeded() const -> void {
 	if (!isSortedByFitness) {
-		auto CompareOrganisms = [](auto& lhs, auto& rhs) {
+		auto CompareOrganisms = [](const auto& lhs, const auto& rhs) {
 			return lhs->GetOrCalculateFitness() > rhs->GetOrCalculateFitness();
 		};
 		sort(population.begin(), population.end(), CompareOrganisms);
@@ -140,7 +141,7 @@ auto Species::GetOrganismToBreed() -> Organism& {
 
 	while (true) {
 		for (auto& organism : population) {
-			double randNum = (double)(rand() % 10'000) / 9'999.0;;
+			double randNum = static_cast<double>(rand() % 10'000) / 9'999.0;;
 			chance = GetChanceForOrganism(*organism);
 			if (randNum < chance) {
 				return *organism;

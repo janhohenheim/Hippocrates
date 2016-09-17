@@ -10,10 +10,10 @@ namespace JNF_NEAT {
 class Organism {
 private:
 	std::shared_ptr<IBody> body;
-	NeuralNetwork network;
 	mutable double fitness = 0.0;
 	mutable bool isFitnessUpToDate = false;
 	double fitnessModifier = 1.0;
+	NeuralNetwork network;
 
 public:
 	Organism(std::shared_ptr<IBody> body, NeuralNetwork&& network);

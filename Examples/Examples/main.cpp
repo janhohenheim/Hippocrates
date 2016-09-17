@@ -55,6 +55,7 @@ int main() {
 	cout << "XOR outputs after training\n";
 	GetXOROutputs(champ);
 	string filename = "champ.nn";
+
 	// Saving
 	ofstream outFile(filename);
 	champ.SaveToFile(outFile);

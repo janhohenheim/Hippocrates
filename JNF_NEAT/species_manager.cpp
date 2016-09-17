@@ -12,8 +12,6 @@ auto SpeciesManager::CreateInitialOrganisms(const Bodies& bodies) -> void {
 }
 
 auto SpeciesManager::Repopulate(const Bodies& bodies) -> void {
-	// Todo jnf: Is this necesarry?
-	areSpeciesSortedByFitness = false;
 	PrepareSpeciesForPopulation();
 	auto DidChanceOccure = [](float chance) {
 		auto num = rand() % 1000;
@@ -46,7 +44,6 @@ auto SpeciesManager::DeleteEmptySpecies() -> void {
 }
 
 auto SpeciesManager::FillOrganismIntoSpecies(Organism&& organism) -> void {
-	// Todo jnf: Is this necesarry?
 	areSpeciesSortedByFitness = false;
 	auto isCompatibleWithExistingSpecies = false;
 	
@@ -138,9 +135,11 @@ auto SpeciesManager::SortSpeciesIfNeeded() -> void {
 }
 
 auto SpeciesManager::LetGenerationLive() -> void {
+	ResetPopulationToTeachableState();
 	for (auto& sp : species) {
 		sp.LetPopulationLive();
 	}
+	areSpeciesSortedByFitness = false;
 }
 
 auto SpeciesManager::ResetPopulationToTeachableState() -> void {

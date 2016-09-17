@@ -23,7 +23,6 @@ auto Organism::GetOrCalculateFitness() const -> double {
 }
 
 auto Organism::GetOrCalculateRawFitness() const -> double {
-	isFitnessUpToDate = false;
 	if (!isFitnessUpToDate) {
 		fitness = body->GetFitness();
 		isFitnessUpToDate = true;

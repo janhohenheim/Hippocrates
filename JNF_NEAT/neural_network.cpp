@@ -32,22 +32,20 @@ NeuralNetwork::NeuralNetwork(Genome&& genome, bool shouldMutate) :
 
 NeuralNetwork::NeuralNetwork(const NeuralNetwork& other) :
 	genome(other.genome),
-	neurons(other.neurons.size()),
 	inputNeurons(other.inputNeurons.size()),
-	outputNeurons(other.outputNeurons.size()),
-	layerMap(other.layerMap)
+	outputNeurons(other.outputNeurons.size())
 {
 	BuildNetworkFromGenes();
 }
 
 auto NeuralNetwork::operator=(const NeuralNetwork& other) -> NeuralNetwork& {
-	layerMap = other.layerMap;
 	genome = other.genome;
-	neurons = other.neurons;
 	inputNeurons.resize(other.inputNeurons.size());
 	outputNeurons.resize(other.outputNeurons.size());
-
-	InterpretInputsAndOutputs();
+	neurons.clear();
+	neurons.reserve(other.neurons.size());
+	layerMap.clear();
+	BuildNetworkFromGenes();
 	return *this;
 }
 
