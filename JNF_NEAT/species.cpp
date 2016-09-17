@@ -43,7 +43,7 @@ auto Species::SetPopulationsFitnessModifier() -> void {
 	}
 }
 
-auto JNF_NEAT::Species::ClearPopulation() -> void {
+auto Species::ClearPopulation() -> void {
 	population.clear();
 }
 
@@ -94,7 +94,7 @@ auto Species::ResetToTeachableState() -> void {
 	}
 }
 
-auto Species::GetFittestOrganism() -> Organism& {
+auto Species::GetFittestOrganism() const -> const Organism& {
 	if (population.empty()) {
 		return *representative;
 	}
@@ -102,7 +102,7 @@ auto Species::GetFittestOrganism() -> Organism& {
 	return *population.front();
 }
 
-auto Species::SortPopulationIfNeeded() -> void {
+auto Species::SortPopulationIfNeeded() const -> void {
 	if (!isSortedByFitness) {
 		auto CompareOrganisms = [](auto& lhs, auto& rhs) {
 			return lhs->GetOrCalculateFitness() > rhs->GetOrCalculateFitness();
@@ -112,7 +112,7 @@ auto Species::SortPopulationIfNeeded() -> void {
 	}
 }
 
-auto Species::operator=(Species&& other) -> Species& {
+auto Species::operator=(Species&& other) noexcept -> Species& {
 	population = move(other.population);
 	representative = move(other.representative);
 	isSortedByFitness = move(other.isSortedByFitness);
@@ -157,11 +157,11 @@ auto Species::GetJSON() const -> string {
 	s += ",\"representative\":";
 	s += representative->GetJSON();
 	s += ",\"population\": [";
-	for (size_t i = 0; i < population.size() - 1; ++i) {
-		s += population[i]->GetJSON();
+	for (const auto& sp : population) {
+		s += sp -> GetJSON();
 		s += ",";
 	}
-	s += population.back() -> GetJSON();
+	s.pop_back();
 	s += "]}";
 	return s;
 }

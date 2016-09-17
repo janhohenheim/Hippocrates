@@ -155,9 +155,11 @@
     <ClInclude Include="..\..\JNF_NEAT\neuron.h" />
     <ClInclude Include="..\..\JNF_NEAT\organism.h" />
     <ClInclude Include="..\..\JNF_NEAT\species.h" />
+    <ClInclude Include="..\..\JNF_NEAT\species_manager.h" />
+    <ClInclude Include="..\..\JNF_NEAT\supervised_training_body.h" />
     <ClInclude Include="..\..\JNF_NEAT\trained_neural_network.h" />
+    <ClInclude Include="..\..\JNF_NEAT\training_data.h" />
     <ClInclude Include="..\..\JNF_NEAT\training_parameters.h" />
-    <ClInclude Include="xor_solver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\JNF_NEAT\gene.cpp" />
@@ -168,10 +170,10 @@
     <ClCompile Include="..\..\JNF_NEAT\neuron.cpp" />
     <ClCompile Include="..\..\JNF_NEAT\organism.cpp" />
     <ClCompile Include="..\..\JNF_NEAT\species.cpp" />
+    <ClCompile Include="..\..\JNF_NEAT\species_manager.cpp" />
     <ClCompile Include="..\..\JNF_NEAT\trained_neural_network.cpp" />
     <ClCompile Include="..\..\JNF_NEAT\training_parameters.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="xor_solver.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -262,7 +262,7 @@ auto NeuralNetwork::AreBothNeuronsOutputs(const Neuron &lhs, const Neuron &rhs) 
 	return false;
 }
 
-auto NeuralNetwork::AreNeuronsConnected(const Neuron& lhs, const Neuron & rhs) const -> bool {
+auto NeuralNetwork::AreNeuronsConnected(const Neuron& lhs, const Neuron & rhs) -> bool {
 	for (auto& connection : rhs.GetConnections()) {
 		if (!connection.outGoing && &lhs == connection.neuron) {
 			return true;
@@ -290,7 +290,7 @@ auto NeuralNetwork::MutateWeightOfGeneAt(size_t index) -> void {
 
 auto NeuralNetwork::PerturbWeightAt(size_t index) -> void {
 	constexpr float perturbanceBoundaries = 0.5f;
-	auto perturbance = (float)(rand() % 10'000) / 9'999.0f * perturbanceBoundaries;
+	auto perturbance = static_cast<float>(rand() % 10'000) / 9'999.0f * perturbanceBoundaries;
 	if (rand() % 2) {
 		perturbance = -perturbance;
 	}
@@ -340,9 +340,9 @@ auto NeuralNetwork::CategorizeNeuronsIntoLayers() -> void {
 	}
 }
 
-auto NeuralNetwork::CategorizeNeuronBranchIntoLayers(Neuron& currNode, size_t currentDepth) -> void {
+auto NeuralNetwork::CategorizeNeuronBranchIntoLayers(Neuron& currNode, size_t currentDepth) const -> void {
 	currNode.layer = currentDepth;
-	const size_t nextLayer = currNode.layer + 1;
+	const auto nextLayer = currNode.layer + 1;
 
 
 	auto HasYetToBeLayered = [&nextLayer](const auto& connection) {

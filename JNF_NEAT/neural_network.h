@@ -53,14 +53,14 @@ private:
 
 	auto CanNeuronsBeConnected(const Neuron& lhs, const Neuron& rhs) const -> bool;
 	auto AreBothNeuronsOutputs(const Neuron& lhs, const Neuron& rhs) const -> bool;
-	auto AreNeuronsConnected(const Neuron& lhs, const Neuron& rhs) const -> bool;
+	static auto AreNeuronsConnected(const Neuron& lhs, const Neuron& rhs) -> bool;
 
 	auto ShuffleWeights() -> void;
 	auto MutateWeightOfGeneAt(std::size_t index) -> void;
 	auto PerturbWeightAt(std::size_t index) -> void;
 
 	auto CategorizeNeuronsIntoLayers() -> void;
-	auto CategorizeNeuronBranchIntoLayers(Neuron& currNode, size_t currentDepth = 0) -> void;
+	auto CategorizeNeuronBranchIntoLayers(Neuron& currNode, size_t currentDepth = 0) const -> void;
 
 };
 
