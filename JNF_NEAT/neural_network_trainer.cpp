@@ -1,4 +1,3 @@
-#include <stdexcept>
 #include "neural_network_trainer.h"
 
 using namespace JNF_NEAT;
@@ -22,7 +21,7 @@ auto NeuralNetworkTrainer::TrainUnsupervised(const SpeciesManager::Bodies& bodie
 	while (champ.GetOrCalculateRawFitness() < (champ.GetMaxFitness() - 1e-6)) {
 		TrainGenerationAndLogUsingBodies(bodies);
 		champ = species.GetFittestOrganism();
-	}	
+	}
 	return TrainedNeuralNetwork(champ.GetGenome());
 }
 

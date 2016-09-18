@@ -29,7 +29,7 @@ public:
 	auto GetOutputsUsingInputs(std::vector<float> inputs) -> std::vector<float>;
 	auto GetTrainingParameters() const -> const TrainingParameters& { return GetGenome().GetTrainingParameters(); }
 
-	auto GetJSON() const->std::string;
+	auto GetJSON() const -> std::string;
 
 private:
 	static auto DidChanceOccure(float chance) -> bool;

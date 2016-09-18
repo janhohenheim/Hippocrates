@@ -22,15 +22,15 @@ struct measure {
 };
 
 
-auto GetXOROutputs(TrainedNeuralNetwork & net) {
-	auto XOR = [&net](std::vector<float> in)	{
-		auto results = net.GetOutputsUsingInputs(in);
-		cout << (results.back() >= results.front()) << "\n";
+auto GetXOROutputs(TrainedNeuralNetwork& net) {
+	auto XOR = [&net](const std::initializer_list<float> & in)	{
+		auto result = net.GetOutputsUsingInputs(in);
+		return (result.back() > result.front());
 	};
-	XOR({ 0.0f, 0.0f });
-	XOR({ 1.0f, 0.0f });
-	XOR({ 0.0f, 1.0f });
-	XOR({ 1.0f, 1.0f });
+	cout << XOR({ 0.0f, 0.0f }) << '\n';
+	cout << XOR({ 0.0f, 1.0f }) << '\n';
+	cout << XOR({ 1.0f, 0.0f }) << '\n';
+	cout << XOR({ 1.0f, 1.0f }) << '\n';
 }
 
 int main() {
@@ -62,7 +62,7 @@ int main() {
 	outFile.close();
 
 	//cout << "XOR outputs after saving\n";
-	// GetXOROutputs(champ);
+	//GetXOROutputs(champ);
 
 	// Loading
 	ifstream inFile(filename);
