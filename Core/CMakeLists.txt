@@ -1,2 +1,2 @@
 file(GLOB SOURCES Sources/*.cpp Sources/*.h)
-add_library(Core OBJECT ${SOURCES})
+add_library(Core SHARED OBJECT ${SOURCES})
