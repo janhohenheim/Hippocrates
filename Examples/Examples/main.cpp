@@ -21,7 +21,6 @@ struct measure {
 	}
 };
 
-
 auto GetXOROutputs(TrainedNeuralNetwork& net) {
 	auto XOR = [&net](const std::initializer_list<float> & in)	{
 		auto result = net.GetOutputsUsingInputs(in);
@@ -31,6 +30,32 @@ auto GetXOROutputs(TrainedNeuralNetwork& net) {
 	cout << XOR({ 0.0f, 1.0f }) << '\n';
 	cout << XOR({ 1.0f, 0.0f }) << '\n';
 	cout << XOR({ 1.0f, 1.0f }) << '\n';
+}
+
+int testNetowrk(TrainedNeuralNetwork & net) {
+	int errorCount = 0;
+
+	if (net.GetOutputsUsingInputs({0.0, 0.0}).front() >= 0.0) {
+		cout << "Failed with inputs 0 / 0" << std::endl;
+		errorCount++;
+	};
+
+	if (net.GetOutputsUsingInputs({0.0, 1.0}).front() < 0.0) {
+		cout << "Failed with inputs 0 / 1" << std::endl;
+		errorCount++;
+	};
+
+	if (net.GetOutputsUsingInputs({1.0, 0.0}).front() < 0.0) {
+		cout << "Failed with inputs 1 / 0" << std::endl;
+		errorCount++;
+	};
+
+	if (net.GetOutputsUsingInputs({1.0, 1.0}).front() >= 0.0) {
+		cout << "Failed with inputs 1 / 1" << std::endl;
+		errorCount++;
+	};
+
+	return errorCount;
 }
 
 int main() {
@@ -50,10 +75,20 @@ int main() {
 
 	// Training
 	NeuralNetworkTrainer trainer;
+
+	// Enable this if you want to fill your SSD with a gigabyte of JSON
 	trainer.loggingEnabled = false;
+
+	#ifdef CI
+		trainer.loggingEnabled = false;
+	#endif
+
 	auto champ = trainer.TrainSupervised(data, 50);
 	cout << "XOR outputs after training\n";
 	GetXOROutputs(champ);
+	
+	int errorCount = testNetowrk(champ);
+
 	string filename = "champ.nn";
 
 	// Saving
@@ -72,5 +107,5 @@ int main() {
 	//cout << "XOR outputs after loading\n";
 	//GetXOROutputs(champ);
 
-	return 0;
+	return errorCount;
 }
