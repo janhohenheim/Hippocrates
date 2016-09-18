@@ -49,22 +49,22 @@ void Benchmark() {
 int testNetowrk(TrainedNeuralNetwork & net) {
 	int errorCount = 0;
 
-	if ((net.GetOutputsUsingInputs({0.0, 0.0}).front() >= 0.0) != false) {
+	if (net.GetOutputsUsingInputs({0.0, 0.0}).front() >= 0.0) {
 		cout << "Failed with inputs 0 / 0" << std::endl;
 		errorCount++;
 	};
 
-	if ((net.GetOutputsUsingInputs({0.0, 1.0}).front() >= 0.0) != true) {
+	if (net.GetOutputsUsingInputs({0.0, 1.0}).front() < 0.0) {
 		cout << "Failed with inputs 0 / 1" << std::endl;
 		errorCount++;
 	};
 
-	if ((net.GetOutputsUsingInputs({1.0, 0.0}).front() >= 0.0) != true) {
+	if (net.GetOutputsUsingInputs({1.0, 0.0}).front() < 0.0) {
 		cout << "Failed with inputs 1 / 0" << std::endl;
 		errorCount++;
 	};
 
-	if ((net.GetOutputsUsingInputs({1.0, 1.0}).front() >= 0.0) != false) {
+	if (net.GetOutputsUsingInputs({1.0, 1.0}).front() >= 0.0) {
 		cout << "Failed with inputs 1 / 1" << std::endl;
 		errorCount++;
 	};
