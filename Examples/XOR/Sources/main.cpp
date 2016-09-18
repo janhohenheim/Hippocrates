@@ -95,7 +95,7 @@ int main() {
 
 	// Training
 	NeuralNetworkTrainer trainer(move(bodies));
-	trainer.loggingEnabled = true;
+	trainer.loggingEnabled = false;
 	trainer.TrainUntilFitnessEquals(16.0);
 	// Benchmark();
 
