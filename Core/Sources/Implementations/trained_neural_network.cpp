@@ -1,5 +1,5 @@
 #include <memory>
-#include "trained_neural_network.h"
+#include "../Headers/trained_neural_network.h"
 
 using namespace JNF_NEAT;
 using namespace std;

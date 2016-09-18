@@ -16,10 +16,10 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Sources\main.cpp">
+    <ClCompile Include="Sources\Implementations\xor_solver.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Sources\Implementations\xor_solver.cpp">
+    <ClCompile Include="Sources\Implementations\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

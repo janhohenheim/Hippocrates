@@ -1,6 +1,6 @@
 #include <cmath>
 #include <algorithm>
-#include "genome.h"
+#include "../Headers/genome.h"
 
 using namespace JNF_NEAT;
 using namespace std;

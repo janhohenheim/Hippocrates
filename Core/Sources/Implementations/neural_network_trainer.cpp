@@ -1,6 +1,6 @@
 #include <algorithm>
 #include <stdexcept>
-#include "neural_network_trainer.h"
+#include "../Headers/neural_network_trainer.h"
 
 using namespace JNF_NEAT;
 using namespace std;

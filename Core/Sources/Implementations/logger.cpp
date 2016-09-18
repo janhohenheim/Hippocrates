@@ -1,5 +1,5 @@
 #include <fstream>
-#include "logger.h"
+#include "../Headers/logger.h"
 using namespace std;
 using namespace JNF_NEAT;
 
