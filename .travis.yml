@@ -10,4 +10,5 @@ addons:
 script:
   - cmake -DCMAKE_CXX_COMPILER=g++-6 CMakeLists.txt
   - make 
+  - make test
 
