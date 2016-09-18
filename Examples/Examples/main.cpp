@@ -36,6 +36,10 @@ void Benchmark() {
 		// Enable this if you want to fill your SSD with a gigabyte of JSON
 		trainer.loggingEnabled = false;
 
+        #ifdef CI
+			trainer.loggingEnabled = false;
+		#endif
+
 		auto timePassed = measure<>::execution([&trainer](double d) {
 			trainer.TrainUntilFitnessEquals(d); 
 		}, 16.0);
@@ -94,7 +98,14 @@ int main() {
 
 	// Training
 	NeuralNetworkTrainer trainer(move(bodies));
-	trainer.loggingEnabled = true;
+
+	// Enable this if you want to fill your SSD with a gigabyte of JSON
+	trainer.loggingEnabled = false;
+
+	#ifdef CI
+		trainer.loggingEnabled = false;
+	#endif
+
 	trainer.TrainUntilFitnessEquals(16.0);
 	// Benchmark();
 
