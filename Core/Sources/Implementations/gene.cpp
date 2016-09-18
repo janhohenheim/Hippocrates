@@ -1,5 +1,5 @@
-#include "gene.h"
 #include <stdlib.h>
+#include "gene.h"
 
 using namespace JNF_NEAT;
 using namespace std;

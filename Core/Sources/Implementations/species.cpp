@@ -1,5 +1,5 @@
-#include "species.h"
 #include <algorithm>
+#include "species.h"
 
 using namespace JNF_NEAT;
 using namespace std;

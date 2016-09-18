@@ -1,5 +1,5 @@
-#include "neural_network.h"
 #include <algorithm>
+#include "neural_network.h"
 
 using namespace JNF_NEAT;
 using namespace std;
