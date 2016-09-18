@@ -1,5 +1,9 @@
-include_directories(../../out/lib)
-
 file(GLOB SOURCES Sources/*.cpp Sources/*.h)
-add_executable(XOR_EXAMPLE ${SOURCES})
-target_link_libraries(XOR_EXAMPLE JNF_NEAT)
+
+# TODO: Remove this and link the library
+file(GLOB CORE_SOURCES ../../Core/Sources/*.cpp ../../Core/Sources/*.h)
+
+add_executable(XOR_EXAMPLE ${SOURCES} ${CORE_SOURCES})
+
+# TODO: Remove this when the library link is working
+target_link_libraries(XOR_EXAMPLE -lstdc++fs)
