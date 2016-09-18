@@ -9,6 +9,8 @@ endif()
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/out/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/out/examples)
 
+set(CMAKE_CXX_FLAGS -fPIC)
+
 add_subdirectory(Core)
 
 add_library(JNF_NEAT SHARED $<TARGET_OBJECTS:Core>)
