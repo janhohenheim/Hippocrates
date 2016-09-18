@@ -16,4 +16,5 @@ add_subdirectory(Core)
 add_library(JNF_NEAT SHARED $<TARGET_OBJECTS:Core>)
 target_link_libraries(JNF_NEAT -lstdc++fs)
 
+enable_testing()
 add_subdirectory(Examples)
