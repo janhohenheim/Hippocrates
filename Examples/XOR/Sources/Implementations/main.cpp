@@ -1,8 +1,9 @@
-#include "xor_solver.h"
-#include "neural_network_trainer.h"
-
 #include <iostream>
-#include <chrono>
+#include "../Headers/xor_solver.h"
+
+// TODO: Replace with library imports
+#include "../../../../Core/Sources/Headers/training_parameters.h"
+#include "../../../../Core/Sources/Headers/neural_network_trainer.h"
 
 using namespace std;
 using namespace JNF_NEAT;

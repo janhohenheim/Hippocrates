@@ -1,7 +1,7 @@
 #pragma once
 
 // TODO: Replace with library import
-#include "body.h"
+#include "../../../../Core/Sources/Headers/body.h"
 
 class XORSolver : public JNF_NEAT::IBody {
 public:
