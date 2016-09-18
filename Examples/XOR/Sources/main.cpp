@@ -1,5 +1,4 @@
 #include "xor_solver.h"
-
 #include "neural_network_trainer.h"
 
 #include <iostream>

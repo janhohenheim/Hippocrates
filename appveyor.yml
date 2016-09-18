@@ -1,2 +1,2 @@
-build:
-  project: JNF_NEAT.sln
+build_script:
+  - msbuild %solution_name%
