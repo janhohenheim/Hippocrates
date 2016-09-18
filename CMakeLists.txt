@@ -14,3 +14,6 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
 
 add_executable(JNF_NEAT ${JNF_NEAT_SOURCES} ${EXAMPLE_SOURCES})
 target_link_libraries(JNF_NEAT -lstdc++fs)
+
+enable_testing()
+add_test(XOR bin/JNF_NEAT)

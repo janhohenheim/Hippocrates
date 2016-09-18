@@ -46,6 +46,32 @@ void Benchmark() {
 	cout << "Average time: " << (totalTime / numberOfShit) << "\n";
 }
 
+int testNetowrk(TrainedNeuralNetwork & net) {
+	int errorCount = 0;
+
+	if ((net.GetOutputsUsingInputs({0.0, 0.0}).front() >= 0.0) != false) {
+		cout << "Failed with inputs 0 / 0" << std::endl;
+		errorCount++;
+	};
+
+	if ((net.GetOutputsUsingInputs({0.0, 1.0}).front() >= 0.0) != true) {
+		cout << "Failed with inputs 0 / 1" << std::endl;
+		errorCount++;
+	};
+
+	if ((net.GetOutputsUsingInputs({1.0, 0.0}).front() >= 0.0) != true) {
+		cout << "Failed with inputs 1 / 0" << std::endl;
+		errorCount++;
+	};
+
+	if ((net.GetOutputsUsingInputs({1.0, 1.0}).front() >= 0.0) != false) {
+		cout << "Failed with inputs 1 / 1" << std::endl;
+		errorCount++;
+	};
+
+	return errorCount;
+}
+
 auto GetXOROutputs(TrainedNeuralNetwork & net)
 {
 	cout << (net.GetOutputsUsingInputs({0.0, 0.0}).front() >= 0.0) << "\n";
@@ -75,8 +101,11 @@ int main() {
 	// Get the best Neural Network trained
 	auto champ = trainer.GetTrainedNeuralNetwork();
 
-	cout << "XOR outputs after training\n";
-	GetXOROutputs(champ);
+//	cout << "XOR outputs after training\n";
+//	GetXOROutputs(champ);
+
+	int errorCount = testNetowrk(champ);
+
 	string filename = "champ.nn";
 	// Saving
 	ofstream outFile(filename);
@@ -94,5 +123,5 @@ int main() {
 	//cout << "XOR outputs after loading\n";
 	//GetXOROutputs(champ);
 
-	return 0;
+	return errorCount;
 }
