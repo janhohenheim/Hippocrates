@@ -36,7 +36,7 @@ void Benchmark() {
 		// Enable this if you want to fill your SSD with a gigabyte of JSON
 		trainer.loggingEnabled = false;
 
-        #ifdef CI
+		#ifdef CI
 			trainer.loggingEnabled = false;
 		#endif
 
