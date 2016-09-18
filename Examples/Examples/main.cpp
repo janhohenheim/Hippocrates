@@ -21,39 +21,36 @@ struct measure {
 	}
 };
 
-auto GetXOROutputs(TrainedNeuralNetwork& net) {
-	auto XOR = [&net](const std::initializer_list<float> & in)	{
+
+auto TestXOR(TrainedNeuralNetwork& net) {
+	auto errorCount = 0;
+	auto XOR = [&](const std::initializer_list<float>& in) {
 		auto result = net.GetOutputsUsingInputs(in);
-		return (result.back() > result.front());
+		return result.back() > result.front();
 	};
-	cout << XOR({ 0.0f, 0.0f }) << '\n';
-	cout << XOR({ 0.0f, 1.0f }) << '\n';
-	cout << XOR({ 1.0f, 0.0f }) << '\n';
-	cout << XOR({ 1.0f, 1.0f }) << '\n';
-}
-
-int testNetowrk(TrainedNeuralNetwork & net) {
-	int errorCount = 0;
-
-	if (net.GetOutputsUsingInputs({0.0, 0.0}).front() >= 0.0) {
-		cout << "Failed with inputs 0 / 0" << std::endl;
-		errorCount++;
-	};
-
-	if (net.GetOutputsUsingInputs({0.0, 1.0}).front() < 0.0) {
-		cout << "Failed with inputs 0 / 1" << std::endl;
-		errorCount++;
+	auto TestXOR = [&](const std::initializer_list<float>& in, auto expectedResult) {
+		cout << "Testing with inputs ";
+		for (const auto& i: in) {
+			cout << i << ' ';
+		}
+		cout << "\nExpected " << expectedResult << ", got ";
+		auto result = XOR(in);
+		cout << result << " (";
+		if (result == expectedResult) {
+			cout << "success";
+		} else {
+			cout << "fail"; 
+			errorCount++;
+		}
+		cout << ")\n\n";
 	};
 
-	if (net.GetOutputsUsingInputs({1.0, 0.0}).front() < 0.0) {
-		cout << "Failed with inputs 1 / 0" << std::endl;
-		errorCount++;
-	};
+	TestXOR({ 0.0f, 0.0f }, 0);
+	TestXOR({ 0.0f, 1.0f }, 1);
+	TestXOR({ 1.0f, 0.0f }, 1);
+	TestXOR({ 1.0f, 1.0f }, 0);
 
-	if (net.GetOutputsUsingInputs({1.0, 1.0}).front() >= 0.0) {
-		cout << "Failed with inputs 1 / 1" << std::endl;
-		errorCount++;
-	};
+	cout << "Tests finished with " << errorCount << " errors\n\n";
 
 	return errorCount;
 }
@@ -85,9 +82,8 @@ int main() {
 
 	auto champ = trainer.TrainSupervised(data, 50);
 	cout << "XOR outputs after training\n";
-	GetXOROutputs(champ);
 	
-	int errorCount = testNetowrk(champ);
+	int errorCount = TestXOR(champ);
 
 	string filename = "champ.nn";
 
