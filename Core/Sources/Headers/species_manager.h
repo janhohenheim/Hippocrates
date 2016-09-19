@@ -17,7 +17,7 @@ public:
 	auto operator[](std::size_t index) const -> const Species& { return species[index]; }
 
 	auto CreateInitialOrganisms(Bodies& bodies) -> void;
-	auto Repopulate(const Bodies& bodies) -> void;
+	auto Repopulate(Bodies& bodies) -> void;
 	auto GetFittestOrganism() -> const Organism&;
 
 	auto LetGenerationLive() -> void;

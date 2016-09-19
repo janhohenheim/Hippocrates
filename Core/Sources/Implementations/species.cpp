@@ -4,9 +4,10 @@
 using namespace JNF_NEAT;
 using namespace std;
 
-Species::Species(Organism representative) :
-	parameters(representative.GetTrainingParameters()) {
-	population.push_back(make_unique<Organism>(move(representative)));
+Species::Species(Organism representative):
+parameters(representative.GetTrainingParameters())
+{
+	population.emplace_back(make_unique<Organism>(move(representative)));
 	ElectRepresentative();
 }
 
@@ -49,30 +50,17 @@ auto Species::ClearPopulation() -> void {
 auto Species::ElectRepresentative() -> void {
 	if (!population.empty()) {
 		SelectRandomRepresentative();
-		//SelectFittestOrganismAsRepresentative();
+		SelectFittestOrganismAsRepresentative();
 	}
 }
 
 auto Species::SelectRandomRepresentative() -> void {
 	auto randomMember = rand() % population.size();
-	if (representative == nullptr) {
-		representative = make_unique<Organism>(*population[randomMember]);
-	}
-	else {
-		representative.release();
-		representative = make_unique<Organism>(population[randomMember]);
-	}
+	representative.reset(new Organism(*population[randomMember]));
 }
 
 auto Species::SelectFittestOrganismAsRepresentative() -> void {
-	// TODO: This code is WET
-	if (representative == nullptr) {
-		representative = make_unique<Organism>(GetFittestOrganism());
-	}
-	else {
-		representative.release();
-		representative = make_unique<Organism>(GetFittestOrganism());
-	}
+	representative.reset(new Organism(GetFittestOrganism()));
 }
 
 auto JNF_NEAT::Species::IsStagnant() const -> bool {

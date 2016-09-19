@@ -25,7 +25,7 @@ auto NeuralNetworkTrainer::TrainUnsupervised(SpeciesManager::Bodies& bodies) -> 
 	return TrainedNeuralNetwork(champ->GetGenome());
 }
 
-auto NeuralNetworkTrainer::TrainGenerationAndLogUsingBodies(const SpeciesManager::Bodies& bodies) -> void {
+auto NeuralNetworkTrainer::TrainGenerationAndLogUsingBodies(SpeciesManager::Bodies& bodies) -> void {
 	species.Repopulate(bodies);
 	species.LetGenerationLive();
 	generationsPassed++;

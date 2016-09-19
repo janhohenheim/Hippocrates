@@ -11,7 +11,7 @@ auto SpeciesManager::CreateInitialOrganisms(Bodies& bodies) -> void {
 	}
 }
 
-auto SpeciesManager::Repopulate(const Bodies& bodies) -> void {
+auto SpeciesManager::Repopulate(Bodies& bodies) -> void {
 	PrepareSpeciesForPopulation();
 	auto DidChanceOccure = [](float chance) {
 		auto num = rand() % 1000;

@@ -35,7 +35,7 @@ public:
 	auto GetJSON() const -> std::string;
 
 private:
-	auto TrainGenerationAndLogUsingBodies(const SpeciesManager::Bodies& bodies) -> void;
+	auto TrainGenerationAndLogUsingBodies(SpeciesManager::Bodies& bodies) -> void;
 };
 
 template <typename InputType, typename Classification, std::size_t ClassificationCount>
