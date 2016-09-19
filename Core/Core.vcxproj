@@ -123,7 +123,10 @@
     <ClInclude Include="Sources\Headers\neuron.h" />
     <ClInclude Include="Sources\Headers\organism.h" />
     <ClInclude Include="Sources\Headers\species.h" />
+    <ClInclude Include="Sources\Headers\species_manager.h" />
+    <ClInclude Include="Sources\Headers\supervised_training_body.h" />
     <ClInclude Include="Sources\Headers\trained_neural_network.h" />
+    <ClInclude Include="Sources\Headers\training_data.h" />
     <ClInclude Include="Sources\Headers\training_parameters.h" />
   </ItemGroup>
   <ItemGroup>
@@ -135,6 +138,7 @@
     <ClCompile Include="Sources\Implementations\neuron.cpp" />
     <ClCompile Include="Sources\Implementations\organism.cpp" />
     <ClCompile Include="Sources\Implementations\species.cpp" />
+    <ClCompile Include="Sources\Implementations\species_manager.cpp" />
     <ClCompile Include="Sources\Implementations\trained_neural_network.cpp" />
     <ClCompile Include="Sources\Implementations\training_parameters.cpp" />
   </ItemGroup>

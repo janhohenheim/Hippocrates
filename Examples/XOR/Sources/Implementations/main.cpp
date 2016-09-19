@@ -4,7 +4,6 @@
 #include <chrono>
 
 // TODO: Replace with library imports
-#include "../../../../Core/Sources/Headers/training_parameters.h"
 #include "../../../../Core/Sources/Headers/neural_network_trainer.h"
 #include "../../../../Core/Sources/Headers/training_data.h"
 
