@@ -4,7 +4,7 @@ using namespace JNF_NEAT;
 
 auto SpeciesManager::CreateInitialOrganisms(Bodies& bodies) -> void {
 	for (auto& currTrainer : bodies) {
-		Genome standardGenes(currTrainer->GetInputCount(), currTrainer->GetOutputCount(), parameters);
+		Genome standardGenes(currTrainer.get().GetInputCount(), currTrainer.get().GetOutputCount(), parameters);
 		NeuralNetwork network(std::move(standardGenes));
 		Organism organism(currTrainer, std::move(network));
 		FillOrganismIntoSpecies(std::move(organism));

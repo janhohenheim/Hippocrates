@@ -11,7 +11,7 @@ private:
 	std::vector<Species> species;
 
 public:
-	using Bodies = std::vector<std::unique_ptr<IBody>>;
+	using Bodies = std::vector<std::reference_wrapper<IBody>>;
 
 	explicit SpeciesManager(const TrainingParameters& parameters) : parameters{ parameters } {}
 	auto operator[](std::size_t index) const -> const Species& { return species[index]; }

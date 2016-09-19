@@ -40,14 +40,15 @@ private:
 
 template <typename InputType, typename Classification, std::size_t ClassificationCount>
 auto NeuralNetworkTrainer::TrainSupervised(const TrainingData<InputType, Classification, ClassificationCount>& data, std::size_t trainingInstances) -> TrainedNeuralNetwork {
-	SpeciesManager::Bodies bodies;
+	using Body = SupervisedTrainigBody<InputType, Classification, ClassificationCount>;
+	std::vector<Body> bodies;
 	bodies.reserve(trainingInstances);
 	for (std::size_t i = 0; i < trainingInstances; ++i) {
-		using Body = SupervisedTrainigBody<InputType, Classification, ClassificationCount>;
 		Body body(data);
-		bodies.push_back(std::make_unique<Body>(std::move(body)));
+		bodies.push_back(std::move(body));
 	}
-	return TrainUnsupervised(bodies);
+	SpeciesManager::Bodies bodyRefs(bodies.begin(), bodies.end());
+	return TrainUnsupervised(bodyRefs);
 }
 
 }
