@@ -2,7 +2,6 @@
 #include <time.h>
 #include <fstream>
 #include <chrono>
-#include "../Headers/xor_solver.h"
 
 // TODO: Replace with library imports
 #include "../../../../Core/Sources/Headers/training_parameters.h"
