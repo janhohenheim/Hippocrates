@@ -1,3 +1,2 @@
-build:
-  project: Examples/Examples.sln
-
+build_script:
+  - msbuild %solution_name%

@@ -1,4 +1,4 @@
-#include "xor_solver.h"
+#include "../Headers/xor_solver.h"
 
 auto XORSolver::Reset() -> void {
 	currTraining = trainingData.begin();

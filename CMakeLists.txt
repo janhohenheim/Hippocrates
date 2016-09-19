@@ -2,18 +2,19 @@ cmake_minimum_required(VERSION 3.2.2)
 project(JNF_NEAT)
 
 if(APPLE)
-	SET(CMAKE_C_COMPILER /usr/local/bin/gcc)
-	SET(CMAKE_CXX_COMPILER /usr/local/bin/g++)
+	set(CMAKE_C_COMPILER /usr/local/bin/gcc)
+	set(CMAKE_CXX_COMPILER /usr/local/bin/g++)
 endif()
 
-file(GLOB JNF_NEAT_SOURCES JNF_NEAT/*.cpp JNF_NEAT/*.h)
-file(GLOB EXAMPLE_SOURCES Examples/Examples/*.cpp Examples/Examples/*.h)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/out/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/out/examples)
 
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
+set(CMAKE_CXX_FLAGS -fPIC)
 
-add_executable(JNF_NEAT ${JNF_NEAT_SOURCES} ${EXAMPLE_SOURCES})
+add_subdirectory(Core)
+
+add_library(JNF_NEAT SHARED $<TARGET_OBJECTS:Core>)
 target_link_libraries(JNF_NEAT -lstdc++fs)
 
 enable_testing()
-add_test(XOR bin/JNF_NEAT)
+add_subdirectory(Examples)

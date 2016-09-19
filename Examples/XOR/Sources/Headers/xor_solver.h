@@ -1,5 +1,8 @@
 #pragma once
-#include "../../JNF_NEAT/body.h"
+
+// TODO: Replace with library import
+#include "../../../../Core/Sources/Headers/body.h"
+
 class XORSolver : public JNF_NEAT::IBody {
 public:
 	auto Reset() -> void override;
