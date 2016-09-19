@@ -1,4 +1,4 @@
-﻿#include "species_manager.h"
+﻿#include "../Headers/species_manager.h"
 #include <algorithm>
 using namespace JNF_NEAT;
 

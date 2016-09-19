@@ -1,6 +1,6 @@
 #include <cstdlib>
 #include <algorithm>
-#include "organism.h"
+#include "../Headers/organism.h"
 
 using namespace JNF_NEAT;
 using namespace std;

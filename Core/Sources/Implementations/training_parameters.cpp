@@ -1,4 +1,4 @@
-#include "training_parameters.h"
+#include "../Headers/training_parameters.h"
 using namespace JNF_NEAT;
 using namespace std;
 

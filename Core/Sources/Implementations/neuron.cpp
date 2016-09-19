@@ -1,7 +1,6 @@
-#include "neuron.h"
 #include <cmath>
 #include <stdexcept>
-#include <string>
+#include "../Headers/neuron.h"
 
 using namespace JNF_NEAT;
 using namespace std;

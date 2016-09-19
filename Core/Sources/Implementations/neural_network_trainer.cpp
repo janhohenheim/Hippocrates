@@ -1,4 +1,4 @@
-#include "neural_network_trainer.h"
+#include "../Headers/neural_network_trainer.h"
 
 using namespace JNF_NEAT;
 using namespace std;
@@ -24,8 +24,6 @@ auto NeuralNetworkTrainer::TrainUnsupervised(const SpeciesManager::Bodies& bodie
 	}
 	return TrainedNeuralNetwork(champ.GetGenome());
 }
-
-
 
 auto NeuralNetworkTrainer::TrainGenerationAndLogUsingBodies(const SpeciesManager::Bodies& bodies) -> void {
 	species.Repopulate(bodies);
