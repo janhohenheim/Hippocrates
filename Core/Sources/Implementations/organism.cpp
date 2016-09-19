@@ -5,7 +5,7 @@
 using namespace JNF_NEAT;
 using namespace std;
 
-Organism::Organism(std::shared_ptr<IBody> body, NeuralNetwork&& network) :
+Organism::Organism(std::unique_ptr<IBody>& body, NeuralNetwork&& network) :
 	body(body),
 	network(move(network))
 {
@@ -67,3 +67,4 @@ auto Organism::GetJSON() const -> string {
 	s += "}";
 	return s;
 }
+

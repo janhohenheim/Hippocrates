@@ -9,7 +9,7 @@ NeuralNetworkTrainer::NeuralNetworkTrainer(TrainingParameters parameters) :
 {
 }
 
-auto NeuralNetworkTrainer::TrainUnsupervised(const SpeciesManager::Bodies& bodies) -> TrainedNeuralNetwork {
+auto NeuralNetworkTrainer::TrainUnsupervised(SpeciesManager::Bodies& bodies) -> TrainedNeuralNetwork {
 	if (loggingEnabled) {
 		logger.CreateLoggingDirs();
 	}
@@ -17,12 +17,12 @@ auto NeuralNetworkTrainer::TrainUnsupervised(const SpeciesManager::Bodies& bodie
 	species.LetGenerationLive();
 
 	generationsPassed = 0;
-	auto champ = species.GetFittestOrganism();
-	while (champ.GetOrCalculateRawFitness() < (champ.GetMaxFitness() - 1e-6)) {
+	auto* champ = &species.GetFittestOrganism();
+	while (champ->GetOrCalculateRawFitness() < (champ->GetMaxFitness() - 1e-6)) {
 		TrainGenerationAndLogUsingBodies(bodies);
-		champ = species.GetFittestOrganism();
+		champ = &species.GetFittestOrganism();
 	}
-	return TrainedNeuralNetwork(champ.GetGenome());
+	return TrainedNeuralNetwork(champ->GetGenome());
 }
 
 auto NeuralNetworkTrainer::TrainGenerationAndLogUsingBodies(const SpeciesManager::Bodies& bodies) -> void {

@@ -59,16 +59,19 @@ auto Species::SelectRandomRepresentative() -> void {
 		representative = make_unique<Organism>(*population[randomMember]);
 	}
 	else {
-		*representative = *population[randomMember];
+		representative.release();
+		representative = make_unique<Organism>(population[randomMember]);
 	}
 }
 
 auto Species::SelectFittestOrganismAsRepresentative() -> void {
+	// TODO: This code is WET
 	if (representative == nullptr) {
 		representative = make_unique<Organism>(GetFittestOrganism());
 	}
 	else {
-		*representative = GetFittestOrganism();
+		representative.release();
+		representative = make_unique<Organism>(GetFittestOrganism());
 	}
 }
 

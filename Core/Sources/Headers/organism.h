@@ -9,19 +9,18 @@ namespace JNF_NEAT {
 
 class Organism {
 private:
-	std::shared_ptr<IBody> body;
+	std::unique_ptr<IBody>& body;
 	mutable double fitness = 0.0;
 	mutable bool isFitnessUpToDate = false;
 	double fitnessModifier = 1.0;
 	NeuralNetwork network;
 
 public:
-	Organism(std::shared_ptr<IBody> body, NeuralNetwork&& network);
+	Organism(std::unique_ptr<IBody>& body, NeuralNetwork&& network);
 	Organism(const Organism& other) = default;
 	Organism(Organism&& other) = default;
 	~Organism() = default;
 
-	auto operator=(const Organism& other) -> Organism& = default;
 	auto operator=(Organism&& other) -> Organism& = default;
 
 	auto Reset() -> void { body->Reset(); }

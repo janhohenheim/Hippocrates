@@ -2,8 +2,8 @@
 #include <algorithm>
 using namespace JNF_NEAT;
 
-auto SpeciesManager::CreateInitialOrganisms(const Bodies& bodies) -> void {
-	for (auto currTrainer : bodies) {
+auto SpeciesManager::CreateInitialOrganisms(Bodies& bodies) -> void {
+	for (auto& currTrainer : bodies) {
 		Genome standardGenes(currTrainer->GetInputCount(), currTrainer->GetOutputCount(), parameters);
 		NeuralNetwork network(std::move(standardGenes));
 		Organism organism(currTrainer, std::move(network));

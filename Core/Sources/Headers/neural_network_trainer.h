@@ -29,7 +29,7 @@ public:
 	auto operator=(const NeuralNetworkTrainer&) -> NeuralNetworkTrainer& = default;
 	auto operator=(NeuralNetworkTrainer&&) -> NeuralNetworkTrainer& = default;
 
-	auto TrainUnsupervised(const SpeciesManager::Bodies& bodies) -> TrainedNeuralNetwork;
+	auto TrainUnsupervised(SpeciesManager::Bodies& bodies) -> TrainedNeuralNetwork;
 	template <typename InputType, typename Classification, std::size_t ClassificationCount>
 	auto TrainSupervised(const TrainingData<InputType, Classification, ClassificationCount>& data, std::size_t trainingInstances) -> TrainedNeuralNetwork;
 	auto GetJSON() const -> std::string;
@@ -45,7 +45,7 @@ auto NeuralNetworkTrainer::TrainSupervised(const TrainingData<InputType, Classif
 	for (std::size_t i = 0; i < trainingInstances; ++i) {
 		using Body = SupervisedTrainigBody<InputType, Classification, ClassificationCount>;
 		Body body(data);
-		bodies.push_back(std::make_shared<Body>(std::move(body)));
+		bodies.push_back(std::make_unique<Body>(std::move(body)));
 	}
 	return TrainUnsupervised(bodies);
 }
