@@ -5,14 +5,14 @@ using namespace JNF_NEAT;
 using namespace std;
 
 Species::Species(Organism representative):
-parameters(representative.GetTrainingParameters())
+parameters(representative.GetTrainingParameters()),
+representative(representative)
 {
-	population.emplace_back(make_unique<Organism>(move(representative)));
-	ElectRepresentative();
+	population.push_back(move(representative));
 }
 
 auto Species::AddOrganism(Organism&& organism) -> void {
-	population.push_back(make_unique<Organism>(move(organism)));
+	population.push_back(move(organism));
 	ElectRepresentative();
 	isSortedByFitness = false;
 	SetPopulationsFitnessModifier();
@@ -32,14 +32,14 @@ auto Species::AnalyzePopulation() -> void {
 
 
 auto Species::IsCompatible(const Genome& genome) const -> bool {
-	auto distanceToSpecies = representative->GetGenome().GetGeneticalDistanceFrom(genome);
+	auto distanceToSpecies = representative.GetGenome().GetGeneticalDistanceFrom(genome);
 	return !IsAboveCompatibilityThreshold(distanceToSpecies);
 }
 
 auto Species::SetPopulationsFitnessModifier() -> void {
 	double fitnessModifier = 1.0 / static_cast<double>(population.size());
 	for (auto& organism : population) {
-		organism->SetFitnessModifier(fitnessModifier);
+		organism.SetFitnessModifier(fitnessModifier);
 	}
 }
 
@@ -50,17 +50,17 @@ auto Species::ClearPopulation() -> void {
 auto Species::ElectRepresentative() -> void {
 	if (!population.empty()) {
 		SelectRandomRepresentative();
-		SelectFittestOrganismAsRepresentative();
+		//SelectFittestOrganismAsRepresentative();
 	}
 }
 
 auto Species::SelectRandomRepresentative() -> void {
 	auto randomMember = rand() % population.size();
-	representative.reset(new Organism(*population[randomMember]));
+	representative = population[randomMember];
 }
 
 auto Species::SelectFittestOrganismAsRepresentative() -> void {
-	representative.reset(new Organism(GetFittestOrganism()));
+	representative = GetFittestOrganism();
 }
 
 auto JNF_NEAT::Species::IsStagnant() const -> bool {
@@ -72,8 +72,8 @@ auto JNF_NEAT::Species::IsStagnant() const -> bool {
 
 auto Species::LetPopulationLive() -> void {
 	for (auto& organism : population) {
-		while (!organism->HasFinishedTask()) {
-			organism->Update();
+		while (!organism.HasFinishedTask()) {
+			organism.Update();
 		}
 	}
 	isSortedByFitness = false;
@@ -81,22 +81,22 @@ auto Species::LetPopulationLive() -> void {
 
 auto Species::ResetToTeachableState() -> void {
 	for (auto& organism : population) {
-		organism->Reset();
+		organism.Reset();
 	}
 }
 
 auto Species::GetFittestOrganism() const -> const Organism& {
 	if (population.empty()) {
-		return *representative;
+		return representative;
 	}
 	SortPopulationIfNeeded();
-	return *population.front();
+	return population.front();
 }
 
 auto Species::SortPopulationIfNeeded() const -> void {
 	if (!isSortedByFitness) {
 		auto CompareOrganisms = [](const auto& lhs, const auto& rhs) {
-			return lhs->GetOrCalculateFitness() > rhs->GetOrCalculateFitness();
+			return lhs.GetOrCalculateFitness() > rhs.GetOrCalculateFitness();
 		};
 		sort(population.begin(), population.end(), CompareOrganisms);
 		isSortedByFitness = true;
@@ -115,14 +115,14 @@ auto Species::operator=(Species&& other) noexcept -> Species& {
 auto Species::GetOrganismToBreed() -> Organism& {
 	// TODO jnf: Switch to stochastic universal sampling
 	if (population.empty()) {
-		return *representative;
+		return representative;
 	}
 	double totalPopulationFitness = 0.0;
 	for (auto& organism : population) {
-		totalPopulationFitness += organism->GetOrCalculateFitness();
+		totalPopulationFitness += organism.GetOrCalculateFitness();
 	}
 	if (totalPopulationFitness == 0) {
-		return *population[rand() % population.size()];
+		return population[rand() % population.size()];
 	}
 	double chance = 0.0;
 	auto GetChanceForOrganism = [&chance, &totalPopulationFitness](const Organism& organism) {
@@ -132,9 +132,9 @@ auto Species::GetOrganismToBreed() -> Organism& {
 	while (true) {
 		for (auto& organism : population) {
 			double randNum = static_cast<double>(rand() % 10'000) / 9'999.0;;
-			chance = GetChanceForOrganism(*organism);
+			chance = GetChanceForOrganism(organism);
 			if (randNum < chance) {
-				return *organism;
+				return organism;
 			}
 		}
 	}
@@ -146,10 +146,10 @@ auto Species::GetJSON() const -> string {
 	s += ",\"numberOfStagnantGenerations\":";
 	s += to_string(numberOfStagnantGenerations);
 	s += ",\"representative\":";
-	s += representative->GetJSON();
+	s += representative.GetJSON();
 	s += ",\"population\": [";
 	for (const auto& sp : population) {
-		s += sp -> GetJSON();
+		s += sp.GetJSON();
 		s += ",";
 	}
 	s.pop_back();

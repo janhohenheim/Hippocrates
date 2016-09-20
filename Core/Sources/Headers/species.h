@@ -8,8 +8,8 @@ namespace JNF_NEAT {
 
 class Species {
 private:
-	mutable std::vector<std::unique_ptr<Organism>> population;
-	std::unique_ptr<Organism> representative;
+	mutable std::vector<Organism> population;
+	Organism representative;
 	mutable bool isSortedByFitness = false;
 	std::size_t numberOfStagnantGenerations = 0;
 	double fitnessHighscore = 0;
@@ -50,7 +50,7 @@ private:
 
 	template <class T>
 	constexpr auto IsAboveCompatibilityThreshold(T t) const -> bool {
-		return t > representative->GetTrainingParameters().			
+		return t > representative.GetTrainingParameters().
 			speciation.
 			compatibilityThreshold;
 	};

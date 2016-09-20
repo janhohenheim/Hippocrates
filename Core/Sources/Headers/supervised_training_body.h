@@ -10,24 +10,36 @@ class SupervisedTrainigBody : public IBody {
 public:
 	using Data = TrainingData<InputType, Classification, ClassificationCount>;
 
-	explicit SupervisedTrainigBody(const Data& data) : trainingData{ data } {};
+	explicit SupervisedTrainigBody(const Data& data) :
+			trainingData{ data },
+			inputCount{data.begin()->input.size()},
+			outputCount{ClassificationCount},
+			maxFitness{static_cast<double>(data.GetSize())}
+	{};
 
 	auto Reset() -> void override { currSet = trainingData.begin(); fitness = 0.0; };
 	auto Update(const std::vector<float>& networkOutputs) -> void override;
 	auto GetFitness() const -> double override { return fitness; }
 
 	auto HasFinishedTask() const -> bool override { return currSet == trainingData.end(); };
-	auto ProvideNetworkWithInputs() const->std::vector<float> override { return currSet->input; };
+	auto ProvideNetworkWithInputs() const->std::vector<float> override {
+		if (HasFinishedTask())
+			throw std::runtime_error("Tried to get inputs out of trainingdata that was already completly processed");
+		return currSet->input;
+	};
 
-	auto GetInputCount() const -> std::size_t override { return currSet->input.size(); };
-	auto GetOutputCount() const -> std::size_t override { return ClassificationCount; };
+	auto GetInputCount() const -> std::size_t override { return inputCount; };
+	auto GetOutputCount() const -> std::size_t override { return outputCount; };
 
-	auto GetMaximumFitness() const -> double override { return static_cast<double>(trainingData.GetSize()); };
+	auto GetMaximumFitness() const -> double override { return maxFitness; };
 
 private:
 	const Data& trainingData;
 	typename Data::const_iterator currSet = trainingData.begin();
 	double fitness = 0.0;
+	const size_t inputCount;
+	const size_t outputCount;
+	const double maxFitness;
 };
 
 template <typename InputType, typename Classification, std::size_t ClassificationCount>

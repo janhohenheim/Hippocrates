@@ -6,15 +6,15 @@ using namespace JNF_NEAT;
 using namespace std;
 
 Organism::Organism(IBody& body, NeuralNetwork&& network) :
-	body(body),
+	body(&body),
 	network(move(network))
 {
 }
 
 auto Organism::Update() -> void {
-	const auto inputs(move(body.ProvideNetworkWithInputs()));
+	const auto inputs(move(body->ProvideNetworkWithInputs()));
 	const auto outputs(move(network.GetOutputsUsingInputs(inputs)));
-	body.Update(outputs);
+	body->Update(outputs);
 	isFitnessUpToDate = false;
 }
 
@@ -24,7 +24,7 @@ auto Organism::GetOrCalculateFitness() const -> double {
 
 auto Organism::GetOrCalculateRawFitness() const -> double {
 	if (!isFitnessUpToDate) {
-		fitness = body.GetFitness();
+		fitness = body->GetFitness();
 		isFitnessUpToDate = true;
 	}
 	return fitness;
