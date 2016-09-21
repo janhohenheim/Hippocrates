@@ -5,7 +5,7 @@ using namespace std;
 
 NeuralNetworkTrainer::NeuralNetworkTrainer(TrainingParameters parameters) :
 	parameters(move(parameters)),
-	species{ parameters }
+	species{ this->parameters }
 {
 }
 
