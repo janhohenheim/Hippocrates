@@ -1,5 +1,5 @@
 file(GLOB SOURCES Sources/Headers/*.h Sources/Implementations/*.cpp Sources/*.cpp ../TestingUtilities/Sources/Headers/*.h ../TestingUtilities/Sources/Implementations/*.cpp)
 
-add_executable(EvenNumbers ${SOURCES})
+add_executable(Evenness ${SOURCES})
 
-add_test(Evenness ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/EvenNumbers)
+add_test(EvenNumbers ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Evenness)

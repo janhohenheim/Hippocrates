@@ -1,2 +1,2 @@
 add_subdirectory(XOR)
-add_subdirectory(Evenness)
+add_subdirectory(EvenNumbers)
