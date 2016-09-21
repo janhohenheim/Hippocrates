@@ -1,6 +1,13 @@
+<div align="center">
+  <img src="http://imgur.com/IoDz5iw"><br><br>
+</div>
 # Hippocrates
-[![Build Status](https://travis-ci.org/SirRade/Hippocrates.svg?branch=development)](https://travis-ci.org/SirRade/JNF_NEAT)
-[![Build status](https://ci.appveyor.com/api/projects/status/ioyvgn7a6mu3xgbl/branch/development?svg=true)](https://ci.appveyor.com/project/SirRade/jnf-neat/branch/development)
+
+						|Linux	|Windows
+:---: 			|:---: 	|:---:
+Master 			| [![Build Status](https://travis-ci.org/SirRade/JNF_NEAT.svg?branch=master)](https://travis-ci.org/IDPA-2016-NEAT-CNN/CNN-Code)| [![Build status](https://ci.appveyor.com/api/projects/status/ioyvgn7a6mu3xgbl/branch/master?svg=true)](https://ci.appveyor.com/project/STJEREM/cnn-code/branch/master)
+Development|[![Build Status](https://travis-ci.org/SirRade/JNF_NEAT.svg?branch=development)](https://travis-ci.org/IDPA-2016-NEAT-CNN/CNN-Code) |[![Build status](https://ci.appveyor.com/api/projects/status/ioyvgn7a6mu3xgbl/branch/development?svg=true)](https://ci.appveyor.com/project/STJEREM/cnn-code/branch/development)
+
 
 [Visualizing Tool](https://github.com/IDPA-2016-NEAT-CNN/NEAT_Visualizer) by [@Mafii](https://github.com/Mafii)
 
