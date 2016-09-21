@@ -5,7 +5,7 @@
 
 	|Linux	|Windows
 :---:|:---:|:---:
-Master | [![Build Status](https://travis-ci.org/SirRade/JNF_NEAT.svg?branch=master)](https://travis-ci.org/SirRade/JNF_NEAT)|[![Build status](https://ci.appveyor.com/api/projects/status/ioyvgn7a6mu3xgbl/branch/master?svg=true)](https://ci.appveyor.com/project/SirRade/jnf-neat/branch/master)  
+Master | [![Build Status](https://travis-ci.org/SirRade/JNF_NEAT.svg?branch=master)](https://travis-ci.org/SirRade/JNF_NEAT)|[![Build status](https://ci.appveyor.com/api/projects/status/lkudake11w7uw0do/branch/master?svg=true)](https://ci.appveyor.com/project/SirRade/hippocrates/branch/master)
 Development | [![Build Status](https://travis-ci.org/SirRade/JNF_NEAT.svg?branch=development)](https://travis-ci.org/SirRade/JNF_NEAT)|[![Build status](https://ci.appveyor.com/api/projects/status/ioyvgn7a6mu3xgbl/branch/development?svg=true)](https://ci.appveyor.com/project/SirRade/jnf-neat/branch/development)
 -----------------
 
