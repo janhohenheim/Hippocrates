@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XORSolver", "Examples\XOR\XORSolver.vcxproj", "{3AD3F4B0-1414-4355-AC9F-A6118C6C52EF}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XORSolver", "Tests\XOR\XORSolver.vcxproj", "{3AD3F4B0-1414-4355-AC9F-A6118C6C52EF}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Core", "Core\Core.vcxproj", "{2E0E7930-3B86-4440-9F8C-AD90D19A2A94}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{7F7468AA-325D-40AC-8DCE-4141107AF2C9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,5 +36,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3AD3F4B0-1414-4355-AC9F-A6118C6C52EF} = {7F7468AA-325D-40AC-8DCE-4141107AF2C9}
 	EndGlobalSection
 EndGlobal
