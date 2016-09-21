@@ -14,16 +14,28 @@ enum class XORResult {
 	ClassificationCount
 };
 
-auto TestNetwork(NeuralNetwork &network, TrainingData<std::vector<float>, XORResult> &data) {
+template <typename InputType, typename Classification>
+auto TestNetwork(NeuralNetwork &network, TrainingData<InputType, Classification> &data) {
 	int errorCount = 0;
 
 	for (const auto& dataSet: data) {
 		auto networkOutputs = network.GetOutputsUsingInputs(dataSet.input);
 
-		if (networkOutputs[0] < networkOutputs[1] != static_cast<size_t>(dataSet.classification)) {
-			std::cout << "Network returned " << networkOutputs[0] << "/" << networkOutputs[1] << " "
-					  << "for inputs "       << dataSet.input[0]  << "/" << dataSet.input[1]  << ".";
-			errorCount++;
+		auto maxOutput = std::max_element(networkOutputs.begin(), networkOutputs.end());
+		auto outputIndex = std::distance(networkOutputs.begin(), maxOutput);
+
+		if (outputIndex != static_cast<size_t>(dataSet.classification)) {
+			std::cout << "Incorrect classification for inputs:";
+			for (auto& input: dataSet.input) {
+				std::cout << " - " << input << std::endl;
+			}
+
+			std::cout << "Got outputs:";
+			for (auto& output: networkOutputs) {
+				std::cout << " - " << output << std::endl;
+			}
+
+			std::cout << std::endl;
 		}
 	}
 
