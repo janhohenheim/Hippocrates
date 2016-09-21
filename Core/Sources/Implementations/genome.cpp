@@ -22,13 +22,6 @@ Genome::Genome(std::size_t inputCount, std::size_t outputCount, TrainingParamete
 	}
 }
 
-
-auto Genome::operator=(const Genome& other) -> Genome& {
-	this->genes = other.genes;
-	this->neuronCount = other.neuronCount;
-	return *this;
-}
-
 auto Genome::AppendGene(Gene gene) -> void {
 	AdjustNeuronCount(gene);
 	genes.push_back(std::move(gene));

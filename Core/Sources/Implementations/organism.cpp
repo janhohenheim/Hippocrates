@@ -5,8 +5,8 @@
 using namespace JNF_NEAT;
 using namespace std;
 
-Organism::Organism(std::shared_ptr<IBody> body, NeuralNetwork&& network) :
-	body(body),
+Organism::Organism(IBody& body, NeuralNetwork&& network) :
+	body(&body),
 	network(move(network))
 {
 }
@@ -31,7 +31,7 @@ auto Organism::GetOrCalculateRawFitness() const -> double {
 }
 
 auto Organism::BreedWith(Organism& partner) -> NeuralNetwork {
-	bool parentsHaveSameFitness = this->GetOrCalculateFitness() == partner.GetOrCalculateFitness();
+	auto parentsHaveSameFitness = this->GetOrCalculateFitness() == partner.GetOrCalculateFitness();
 	Organism* dominantParent = nullptr;
 	if (parentsHaveSameFitness) {
 		dominantParent = rand() % 2 == 0 ? this : &partner;
@@ -39,10 +39,10 @@ auto Organism::BreedWith(Organism& partner) -> NeuralNetwork {
 	else {
 		dominantParent = this->GetOrCalculateFitness() > partner.GetOrCalculateFitness() ? this : &partner;
 	}
-	Genome childGenome(dominantParent->GetGenome());
+	auto childGenome(dominantParent->GetGenome());
 
-	size_t sizeOfSmallerParent = min(this->GetGenome().GetGeneCount(), partner.GetGenome().GetGeneCount());
-	auto & partnerGenome = partner.GetGenome();
+	const auto sizeOfSmallerParent = min(this->GetGenome().GetGeneCount(), partner.GetGenome().GetGeneCount());
+	auto& partnerGenome = partner.GetGenome();
 	auto AreMarkingsSameAt = [&](size_t i) {
 		return childGenome[i].historicalMarking == partnerGenome[i].historicalMarking;
 	};
@@ -52,9 +52,6 @@ auto Organism::BreedWith(Organism& partner) -> NeuralNetwork {
 		}
 	}
 	NeuralNetwork child(move(childGenome), true);
-	// It may look ineffective to return this by value, accessing the copy constructor
-	// But don't worry, RVO will take care of this.
-	// If your compiler doesn't optimize this, I'd recommend using what you'd call an "out parameter" in C#
 	return child;
 }
 
@@ -70,3 +67,4 @@ auto Organism::GetJSON() const -> string {
 	s += "}";
 	return s;
 }
+

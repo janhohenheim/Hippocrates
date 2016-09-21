@@ -118,11 +118,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Sources\Headers\xor_solver.h" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="Sources\Implementations\main.cpp" />
-    <ClCompile Include="Sources\Implementations\xor_solver.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,80 +1,92 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
+    <Filter Include="Implementations">
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Header Files">
+    <Filter Include="Headers">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sources\Headers\body.h">
-      <Filter>Header Files</Filter>
+      <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="Sources\Headers\gene.h">
-      <Filter>Header Files</Filter>
+      <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="Sources\Headers\genome.h">
-      <Filter>Header Files</Filter>
+      <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="Sources\Headers\logger.h">
-      <Filter>Header Files</Filter>
+      <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="Sources\Headers\neural_network.h">
-      <Filter>Header Files</Filter>
+      <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="Sources\Headers\neural_network_trainer.h">
-      <Filter>Header Files</Filter>
+      <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="Sources\Headers\neuron.h">
-      <Filter>Header Files</Filter>
+      <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="Sources\Headers\organism.h">
-      <Filter>Header Files</Filter>
+      <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="Sources\Headers\species.h">
-      <Filter>Header Files</Filter>
+      <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="Sources\Headers\trained_neural_network.h">
-      <Filter>Header Files</Filter>
+      <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="Sources\Headers\training_parameters.h">
-      <Filter>Header Files</Filter>
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Headers\species_manager.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Headers\supervised_training_body.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Headers\training_data.h">
+      <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Sources\Implementations\gene.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Implementations</Filter>
     </ClCompile>
     <ClCompile Include="Sources\Implementations\genome.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Implementations</Filter>
     </ClCompile>
     <ClCompile Include="Sources\Implementations\logger.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Implementations</Filter>
     </ClCompile>
     <ClCompile Include="Sources\Implementations\neural_network.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Implementations</Filter>
     </ClCompile>
     <ClCompile Include="Sources\Implementations\neural_network_trainer.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Implementations</Filter>
     </ClCompile>
     <ClCompile Include="Sources\Implementations\neuron.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Implementations</Filter>
     </ClCompile>
     <ClCompile Include="Sources\Implementations\organism.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Implementations</Filter>
     </ClCompile>
     <ClCompile Include="Sources\Implementations\species.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Implementations</Filter>
     </ClCompile>
     <ClCompile Include="Sources\Implementations\trained_neural_network.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Implementations</Filter>
     </ClCompile>
     <ClCompile Include="Sources\Implementations\training_parameters.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Implementations\species_manager.cpp">
+      <Filter>Implementations</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
