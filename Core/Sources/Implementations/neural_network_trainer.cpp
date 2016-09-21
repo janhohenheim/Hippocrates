@@ -1,6 +1,6 @@
 #include "../Headers/neural_network_trainer.h"
 
-using namespace JNF_NEAT;
+using namespace Hippocrates;
 using namespace std;
 
 NeuralNetworkTrainer::NeuralNetworkTrainer(TrainingParameters parameters) :

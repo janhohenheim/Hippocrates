@@ -2,7 +2,7 @@
 #include <string>
 #include <experimental/filesystem>
 #include <chrono>
-namespace JNF_NEAT {
+namespace Hippocrates {
 
 class Logger {
 public:

@@ -4,7 +4,7 @@
 #include <memory>
 #include <functional>
 
-namespace JNF_NEAT {
+namespace Hippocrates {
 
 class Species {
 private:

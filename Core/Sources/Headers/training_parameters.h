@@ -2,7 +2,7 @@
 #include <limits>
 #include <string>
 
-namespace JNF_NEAT {
+namespace Hippocrates {
 
 struct TrainingParameters {
 	struct Ranges {

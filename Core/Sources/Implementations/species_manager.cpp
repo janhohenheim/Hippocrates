@@ -1,6 +1,6 @@
 ﻿#include "../Headers/species_manager.h"
 #include <algorithm>
-using namespace JNF_NEAT;
+using namespace Hippocrates;
 
 auto SpeciesManager::CreateInitialOrganisms(Bodies& bodies) -> void {
 	for (auto& currTrainer : bodies) {

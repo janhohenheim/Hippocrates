@@ -9,7 +9,7 @@
 #include <vector>
 #include <memory>
 
-namespace JNF_NEAT {
+namespace Hippocrates {
 
 class NeuralNetworkTrainer {
 public:

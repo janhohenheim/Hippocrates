@@ -5,7 +5,7 @@
 #include <vector>
 #include <map>
 
-namespace JNF_NEAT {
+namespace Hippocrates {
 
 class NeuralNetwork {
 private:

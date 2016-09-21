@@ -4,7 +4,7 @@
 #include "../../../TestingUtilities/Sources/Headers/testing_utilities.h"
 
 using namespace std;
-using namespace JNF_NEAT;
+using namespace Hippocrates;
 
 enum class XORResult {
 	Zero,

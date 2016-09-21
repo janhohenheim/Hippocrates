@@ -3,7 +3,7 @@
 #include "training_data.h"
 #include <algorithm>
 
-namespace JNF_NEAT {
+namespace Hippocrates {
 
 template <typename InputType, typename Classification, std::size_t ClassificationCount>
 class SupervisedTrainigBody : public IBody {

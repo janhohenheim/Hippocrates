@@ -1,7 +1,7 @@
 #include <fstream>
 #include "../Headers/logger.h"
 using namespace std;
-using namespace JNF_NEAT;
+using namespace Hippocrates;
 
 auto Logger::CreateLoggingDirs() -> void {
 	timestamp = chrono::system_clock::now();
@@ -63,11 +63,11 @@ auto Logger::GetLogFileName(const wstring& sessionDir, size_t generationsPassed)
 	return wstring(sessionDir + L"generation_" + to_wstring(generationsPassed) + GetLogFileExtension(sessionDir));
 }
 
-auto JNF_NEAT::Logger::SetFullLoggingPath(const std::string& path) -> void {
+auto Hippocrates::Logger::SetFullLoggingPath(const std::string& path) -> void {
 	fullLoggingPathOnUnix = path;
 }
 
-auto JNF_NEAT::Logger::SetFullLoggingPath(const std::wstring& path) -> void {
+auto Hippocrates::Logger::SetFullLoggingPath(const std::wstring& path) -> void {
 	fullLoggingPathOnWindows = path;
 }
 

@@ -2,7 +2,7 @@
 #include <stdexcept>
 #include "../Headers/neuron.h"
 
-using namespace JNF_NEAT;
+using namespace Hippocrates;
 using namespace std;
 
 Neuron::Neuron(vector<Connection> connections) :

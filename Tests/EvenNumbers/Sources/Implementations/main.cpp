@@ -3,7 +3,7 @@
 
 
 using namespace std;
-using namespace JNF_NEAT;
+using namespace Hippocrates;
 
 enum class Evenness {
 	Even,

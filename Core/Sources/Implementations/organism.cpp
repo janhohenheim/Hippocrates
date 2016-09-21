@@ -2,7 +2,7 @@
 #include <algorithm>
 #include "../Headers/organism.h"
 
-using namespace JNF_NEAT;
+using namespace Hippocrates;
 using namespace std;
 
 Organism::Organism(IBody& body, NeuralNetwork&& network) :

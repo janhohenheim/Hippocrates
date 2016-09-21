@@ -3,7 +3,7 @@
 #include <vector>
 #include <string>
 
-namespace JNF_NEAT {
+namespace Hippocrates {
 class NeuralNetwork;
 class Neuron {
 	friend NeuralNetwork;

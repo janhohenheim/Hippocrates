@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include <vector>
-namespace JNF_NEAT {
+namespace Hippocrates {
 
 template <typename InputType, typename Classification, std::size_t ClassificationCount = static_cast<std::size_t>(Classification::ClassificationCount)>
 class TrainingData {

@@ -2,7 +2,7 @@
 #include "neural_network.h"
 #include <fstream>
 
-namespace JNF_NEAT {
+namespace Hippocrates {
 
 class TrainedNeuralNetwork : public NeuralNetwork {
 public:

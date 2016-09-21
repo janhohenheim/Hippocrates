@@ -5,7 +5,7 @@
 #include "genome.h"
 #include <memory>
 
-namespace JNF_NEAT {
+namespace Hippocrates {
 
 class Organism {
 private:

@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "species.h"
 
-namespace JNF_NEAT {
+namespace Hippocrates {
 class Organism;
 
 class SpeciesManager {

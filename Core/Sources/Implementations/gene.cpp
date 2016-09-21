@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include "../Headers/gene.h"
 
-using namespace JNF_NEAT;
+using namespace Hippocrates;
 using namespace std;
 
 size_t Gene::numberOfExistingGenes = 0U;

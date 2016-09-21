@@ -1,7 +1,7 @@
 #include <algorithm>
 #include "../Headers/neural_network.h"
 
-using namespace JNF_NEAT;
+using namespace Hippocrates;
 using namespace std;
 
 NeuralNetwork::NeuralNetwork(const Genome& genome, bool shouldMutate) :
@@ -238,7 +238,7 @@ auto NeuralNetwork::GetTwoUnconnectedNeurons() -> pair<Neuron*, Neuron*> {
 	throw runtime_error("Tried to get two unconnected Neurons while every neuron is already connected");
 }
 
-auto JNF_NEAT::NeuralNetwork::CanNeuronsBeConnected(const Neuron & lhs, const Neuron & rhs) const -> bool {
+auto Hippocrates::NeuralNetwork::CanNeuronsBeConnected(const Neuron & lhs, const Neuron & rhs) const -> bool {
 	bool AreNeuronsTheSame = &lhs == &rhs;
 	return (!AreNeuronsTheSame && !AreBothNeuronsOutputs(lhs, rhs) && !AreNeuronsConnected(lhs, rhs));
 }

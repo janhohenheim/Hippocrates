@@ -1,7 +1,7 @@
 #pragma once
 #include <cstddef>
 #include <string>
-namespace JNF_NEAT {
+namespace Hippocrates {
 
 struct Gene {
 public:

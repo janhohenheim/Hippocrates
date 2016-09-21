@@ -1,7 +1,7 @@
 #include <memory>
 #include "../Headers/trained_neural_network.h"
 
-using namespace JNF_NEAT;
+using namespace Hippocrates;
 using namespace std;
 
 auto TrainedNeuralNetwork::LoadFromFile(const ifstream& file) -> TrainedNeuralNetwork {

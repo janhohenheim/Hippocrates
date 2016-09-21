@@ -4,7 +4,7 @@
 #include "training_parameters.h"
 #include <vector>
 
-namespace JNF_NEAT {
+namespace Hippocrates {
 
 class Genome {
 private:

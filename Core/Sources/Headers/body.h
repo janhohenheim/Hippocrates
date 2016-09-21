@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 
-namespace JNF_NEAT {
+namespace Hippocrates {
 
 class IBody {
 public:

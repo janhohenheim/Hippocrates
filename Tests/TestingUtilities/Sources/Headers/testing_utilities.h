@@ -4,7 +4,7 @@
 #include "../../../../Core/Sources/Headers/neural_network_trainer.h"
 #include <iostream>
 
-namespace JNF_NEAT {
+namespace Hippocrates {
 namespace Tests {
 namespace TestingUtilities {
 

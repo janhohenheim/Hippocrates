@@ -1,5 +1,5 @@
 #include "../Headers/training_parameters.h"
-using namespace JNF_NEAT;
+using namespace Hippocrates;
 using namespace std;
 
 auto TrainingParameters::GetJSON() const -> std::string {

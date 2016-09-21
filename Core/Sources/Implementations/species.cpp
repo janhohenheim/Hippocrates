@@ -1,7 +1,7 @@
 #include <algorithm>
 #include "../Headers/species.h"
 
-using namespace JNF_NEAT;
+using namespace Hippocrates;
 using namespace std;
 
 Species::Species(Organism representative):
@@ -63,7 +63,7 @@ auto Species::SelectFittestOrganismAsRepresentative() -> void {
 	representative = GetFittestOrganism();
 }
 
-auto JNF_NEAT::Species::IsStagnant() const -> bool {
+auto Hippocrates::Species::IsStagnant() const -> bool {
 	return numberOfStagnantGenerations >= 
 		parameters.		
 		speciation.

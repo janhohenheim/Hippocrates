@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.2.2)
-project(JNF_NEAT)
+project(Hippocrates)
 
 if(APPLE)
 	set(CMAKE_C_COMPILER /usr/local/bin/gcc)
@@ -13,8 +13,8 @@ set(CMAKE_CXX_FLAGS -fPIC)
 
 add_subdirectory(Core)
 
-add_library(JNF_NEAT SHARED $<TARGET_OBJECTS:Core>)
-target_link_libraries(JNF_NEAT -lstdc++fs)
+add_library(Hippocrates SHARED $<TARGET_OBJECTS:Core>)
+target_link_libraries(Hippocrates -lstdc++fs)
 
 enable_testing()
 add_subdirectory(Tests)

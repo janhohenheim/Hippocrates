@@ -2,7 +2,7 @@
 #include <algorithm>
 #include "../Headers/genome.h"
 
-using namespace JNF_NEAT;
+using namespace Hippocrates;
 using namespace std;
 
 Genome::Genome(std::size_t inputCount, std::size_t outputCount, TrainingParameters parameters) :
