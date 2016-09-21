@@ -2,4 +2,4 @@ file(GLOB SOURCES Sources/Headers/*.h Sources/Implementations/*.cpp Sources/*.cp
 
 add_executable(EvenNumbers ${SOURCES})
 
-add_test(EvenNumbers ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/EvenNumbers)
+add_test(Evenness ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/EvenNumbers)
