@@ -4,7 +4,6 @@
 // TODO: Replace with library import
 #include "network_tester.h"
 
-
 using namespace std;
 using namespace JNF_NEAT;
 
@@ -13,8 +12,6 @@ enum class XORResult {
 	One,
 	ClassificationCount
 };
-
-
 
 auto SaveNetwork(TrainedNeuralNetwork &champ, string filename) {
 	ofstream outFile(filename);
