@@ -11,7 +11,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Sources\Headers\network_tester.h">
+    <ClInclude Include="Sources\Headers\testing_utilities.h">
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>
