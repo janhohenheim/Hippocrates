@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <functional>
 #include "../Headers/neural_network.h"
 
 using namespace Hippocrates;
