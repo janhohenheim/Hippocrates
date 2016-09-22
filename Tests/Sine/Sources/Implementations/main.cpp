@@ -1,8 +1,9 @@
+#define _USE_MATH_DEFINES
 #include <stdlib.h>
 #include <math.h>
 #include "testing_utilities.h"
 #include "../Headers/sine_body.h"
-
+#include <cmath>
 using namespace std;
 using namespace Hippocrates;
 using namespace Tests;
@@ -12,15 +13,15 @@ int TestNetwork(TrainedNeuralNetwork champ) {
 	int errorCount = 0;
 
 	for (size_t i = 0; i < 100; ++i) {
-		auto LO = -M_PI;
-		auto HI = M_PI;
-		auto dataSet = LO + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX/(HI-LO)));
+		auto LO = static_cast<float>(-M_PI);
+		auto HI = static_cast<float>(M_PI);
+		auto dataSet = static_cast<float>(rand());
 
-		auto networkResult = champ.GetOutputsUsingInputs({ dataSet })[0];
+		auto networkResult = champ.GetOutputsUsingInputs({LO + dataSet / (static_cast<float>(RAND_MAX) / (HI - LO))})[0];
 		auto distanceToCorrectResult = abs(sin(dataSet) - networkResult);
 
 		if (100 - (distanceToCorrectResult * 50) < 90) {
-			std::cout << "Incorrect result: " << dataSet << " -> " << networkResult << std::endl;
+			std::cout << "Incorrect result: " << sin(dataSet) << " -> " << networkResult << std::endl;
 			errorCount++;
 		}
 	}
@@ -39,7 +40,7 @@ int main() {
 
 	#ifdef CI
 		trainer.loggingEnabled = false;
-    #endif
+	#endif
 
 	std::vector<SineBody> bodies(100);
 	SpeciesManager::Bodies trainingBodies(bodies.begin(), bodies.end());
