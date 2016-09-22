@@ -48,7 +48,7 @@ private:
 	auto AddRandomNeuron() -> void;
 	auto AddRandomConnection() -> void;
 
-	auto GetTwoUnconnectedNeurons() -> std::pair<Neuron*, Neuron*>;
+	auto GetTwoUnconnectedNeurons() -> std::pair<Neuron&, Neuron&>;
 	auto GetRandomEnabledGene() -> Gene&;
 
 	auto CanNeuronsBeConnected(const Neuron& lhs, const Neuron& rhs) const -> bool;

@@ -137,12 +137,12 @@ auto NeuralNetwork::ShouldAddConnection() const -> bool {
 	
 	const auto startingConnections = inputLayerSize * outputLayerSize;
 	auto hiddenConnections = hiddenLayerSize * (hiddenLayerSize - 1);
-	if (!GetTrainingParameters().structure.allowRecursiveConnections) {
+	if (!GetTrainingParameters().structure.allowRecurrentConnections) {
 		hiddenConnections /= 2;
 	}
 	const auto connectionsFromInputs = inputLayerSize * hiddenLayerSize;
 	auto connectionsToOutputs = outputLayerSize * hiddenLayerSize;
-	if (GetTrainingParameters().structure.allowRecursiveConnections) {
+	if (GetTrainingParameters().structure.allowRecurrentConnections) {
 		connectionsToOutputs *= 2;
 	}
 
@@ -192,8 +192,8 @@ auto NeuralNetwork::AddRandomNeuron() -> void {
 auto NeuralNetwork::AddRandomConnection() -> void {
 	// Data
 	auto NeuronPair(GetTwoUnconnectedNeurons());
-	auto& fromNeuron = *NeuronPair.first;
-	auto& toNeuron = *NeuronPair.second;
+	auto& fromNeuron = NeuronPair.first;
+	auto& toNeuron = NeuronPair.second;
 
 	// Gene
 	Gene newConnectionGene;
@@ -204,6 +204,9 @@ auto NeuralNetwork::AddRandomConnection() -> void {
 		newConnectionGene.to++;
 	}
 	if (fromNeuron.GetLayer() > toNeuron.GetLayer()) {
+		if (!GetTrainingParameters().structure.allowRecurrentConnections) {
+			throw std::runtime_error("Created illegal recurrent connection");
+		}
 		newConnectionGene.isRecursive = true;
 	}
 
@@ -225,22 +228,20 @@ auto NeuralNetwork::AddRandomConnection() -> void {
 	CategorizeNeuronsIntoLayers();
 }
 
-auto NeuralNetwork::GetTwoUnconnectedNeurons() -> pair<Neuron*, Neuron*> {
-	vector<Neuron*> possibleFromNeurons;
-	possibleFromNeurons.reserve(neurons.size());
-	for (auto& n : neurons) {
-		possibleFromNeurons.push_back(&n);
-	}
+auto NeuralNetwork::GetTwoUnconnectedNeurons() -> pair<Neuron&, Neuron&> {
+	using NeuronRefs = vector<std::reference_wrapper<Neuron>>;
+	NeuronRefs possibleFromNeurons(neurons.begin(), neurons.end());
+
 	auto inputRange = genome.GetInputCount() + GetTrainingParameters().structure.numberOfBiasNeurons;
-	vector<Neuron*> possibleToNeurons(possibleFromNeurons.begin() + inputRange, possibleFromNeurons.end());
+	NeuronRefs possibleToNeurons(possibleFromNeurons.begin() + inputRange, possibleFromNeurons.end());
 
 	random_shuffle(possibleFromNeurons.begin(), possibleFromNeurons.end());
 	random_shuffle(possibleToNeurons.begin(), possibleToNeurons.end());
 
 
-	for (auto* from : possibleFromNeurons) {
-		for (auto* to : possibleToNeurons) {
-			if (CanNeuronsBeConnected(*from, *to)) {
+	for (auto from : possibleFromNeurons) {
+		for (auto to : possibleToNeurons) {
+			if (CanNeuronsBeConnected(from, to)) {
 				return{ from, to };
 			}
 		}
@@ -249,12 +250,22 @@ auto NeuralNetwork::GetTwoUnconnectedNeurons() -> pair<Neuron*, Neuron*> {
 	throw runtime_error("Tried to get two unconnected Neurons while every neuron is already connected");
 }
 
-auto Hippocrates::NeuralNetwork::CanNeuronsBeConnected(const Neuron & lhs, const Neuron & rhs) const -> bool {
-	bool AreNeuronsTheSame = &lhs == &rhs;
-	return (!AreNeuronsTheSame && !AreBothNeuronsOutputs(lhs, rhs) && !AreNeuronsConnected(lhs, rhs));
+auto Hippocrates::NeuralNetwork::CanNeuronsBeConnected(const Neuron& lhs, const Neuron& rhs) const -> bool {
+	auto areNeuronsTheSame = &lhs == &rhs;
+	auto canBeConnected =
+	   !areNeuronsTheSame
+	&& !AreBothNeuronsOutputs(lhs, rhs)
+	&& !AreNeuronsConnected(lhs, rhs);
+
+	if (!GetTrainingParameters().structure.allowRecurrentConnections) {
+		auto isRecurrent = lhs.GetLayer() > rhs.GetLayer();
+		canBeConnected = canBeConnected && !isRecurrent;
+	}
+
+	return canBeConnected;
 }
 
-auto NeuralNetwork::AreBothNeuronsOutputs(const Neuron &lhs, const Neuron &rhs) const -> bool {
+auto NeuralNetwork::AreBothNeuronsOutputs(const Neuron& lhs, const Neuron& rhs) const -> bool {
 	bool isLhsOutput = false;
 	bool isRhsOutput = false;
 	for (const auto& output : outputNeurons) {

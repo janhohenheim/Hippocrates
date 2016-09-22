@@ -1,15 +1,14 @@
 #define _USE_MATH_DEFINES
 #include <stdlib.h>
-#include <math.h>
+#include <cmath>
 #include "testing_utilities.h"
 #include "../Headers/sine_body.h"
-#include <cmath>
 using namespace std;
 using namespace Hippocrates;
 using namespace Tests;
 using namespace Sine;
 
-int TestNetwork(TrainedNeuralNetwork champ) {
+int TestNetwork(TrainedNeuralNetwork& champ) {
 	auto errorCount = 0;
 
 	for (size_t i = 0; i < 100; ++i) {
@@ -37,15 +36,7 @@ int TestNetwork(TrainedNeuralNetwork champ) {
 int main() {
 	srand(static_cast<unsigned>(time(nullptr)));
 
-	TrainingParameters parameters;
-	parameters.structure.allowRecursiveConnections = false;
-
-	NeuralNetworkTrainer trainer(parameters);
-	trainer.loggingEnabled = false;
-
-	#ifdef CI
-		trainer.loggingEnabled = false;
-	#endif
+	NeuralNetworkTrainer trainer;
 
 	std::vector<SineBody> bodies(100);
 	SpeciesManager::Bodies trainingBodies(bodies.begin(), bodies.end());

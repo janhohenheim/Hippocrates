@@ -56,7 +56,7 @@ auto TrainingParameters::GetJSON() const -> std::string {
 	s += "\"numberOfBiasNeurons\":";
 	s += to_string(structure.numberOfBiasNeurons);
 	s += ",\"minSpeciesSizeForChampConservation\":";
-	s += BoolToString(structure.allowRecursiveConnections);
+	s += BoolToString(structure.allowRecurrentConnections);
 	s += "}";
 
 	s += "}";
