@@ -136,7 +136,7 @@ auto NeuralNetwork::ShouldAddConnection() const -> bool {
 
 	
 	const auto startingConnections = inputLayerSize * outputLayerSize;
-	auto hiddenConnections = (hiddenLayerSize * (hiddenLayerSize - 1)) / 2;
+	auto hiddenConnections = (hiddenLayerSize * (hiddenLayerSize - 1));
 	if (!GetTrainingParameters().structure.allowRecursiveConnections) {
 		hiddenConnections /= 2;
 	}
