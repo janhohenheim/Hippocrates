@@ -1,7 +1,5 @@
 #include <fstream>
-
-// TODO: Replace with library import
-#include "../../../TestingUtilities/Sources/Headers/testing_utilities.h"
+#include "testing_utilities.h"
 
 using namespace std;
 using namespace Hippocrates;
