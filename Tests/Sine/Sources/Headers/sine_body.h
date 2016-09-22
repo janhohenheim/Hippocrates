@@ -21,7 +21,7 @@ public:
 
 private:
 	std::size_t datasetsTested = 0;
-	mutable float currentDataSet;
+	mutable float currentDataSet = 0.0f;
 	double fitness = 0;
 };
 

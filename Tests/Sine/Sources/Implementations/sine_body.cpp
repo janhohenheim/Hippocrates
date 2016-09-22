@@ -17,10 +17,14 @@ auto Hippocrates::Tests::Sine::SineBody::Update(const std::vector<float>& networ
 };
 
 auto Hippocrates::Tests::Sine::SineBody::ProvideNetworkWithInputs() const -> std::vector<float> {
-	auto LO = static_cast<float>(-M_PI);
-	auto HI = static_cast<float>(M_PI);
+	static auto RandomFloat = [](float a, float b)    {
+		auto random = static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
+		auto diff = b - a;
+		auto r = random * diff;
+		return a + r;
+	};
 
-	currentDataSet = static_cast<float>(rand());
+	currentDataSet = RandomFloat(-M_PI, M_PI);
 
-	return {LO + currentDataSet / (static_cast<float>(RAND_MAX) / (HI - LO))};
+	return {currentDataSet / static_cast<float>(M_PI)};
 };
