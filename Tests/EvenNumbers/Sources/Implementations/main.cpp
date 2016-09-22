@@ -60,7 +60,7 @@ int main() {
 	expectedData.AddSet({ { 37.0f }, Evenness::Uneven });
 	expectedData.AddSet({ { 38.0f }, Evenness::Even });
 	expectedData.AddSet({ { 39.0f }, Evenness::Uneven });
-	expectedData.AddSet({ { 30.0f }, Evenness::Even });
+	expectedData.AddSet({ { 40.0f }, Evenness::Even });
 
 	return Tests::TestingUtilities::TestNetwork(champ, expectedData);
 }
