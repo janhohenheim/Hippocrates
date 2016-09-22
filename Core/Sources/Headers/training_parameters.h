@@ -28,7 +28,7 @@ struct TrainingParameters {
 	} reproduction;
 	struct Structure {
 		std::size_t numberOfBiasNeurons = 1;
-		bool areRecursiveConnectionsAllowed = true;
+		bool allowRecursiveConnections = true;
 	} structure;
 
 	auto GetJSON() const -> std::string;

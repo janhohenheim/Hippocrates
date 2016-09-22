@@ -133,19 +133,30 @@ auto NeuralNetwork::ShouldAddConnection() const -> bool {
 	const size_t inputLayerSize = genome.GetInputCount() + GetTrainingParameters().structure.numberOfBiasNeurons;
 	const size_t outputLayerSize = genome.GetOutputCount();
 	const size_t hiddenLayerSize = genome.GetNeuronCount() - inputLayerSize - outputLayerSize;
-	size_t numberOfPossibleConnections = hiddenLayerSize * (hiddenLayerSize - 1);
-	numberOfPossibleConnections += hiddenLayerSize * inputLayerSize;
-	numberOfPossibleConnections += hiddenLayerSize * outputLayerSize;
 
-	const size_t generatedNeurons = genome.GetNeuronCount() - (inputLayerSize + genome.GetOutputCount());
-	const bool hasSpaceForNewConnections = genome.GetGeneCount() < (numberOfPossibleConnections + generatedNeurons);
-	return hasSpaceForNewConnections;
+	
+	const auto startingConnections = inputLayerSize * outputLayerSize;
+	auto hiddenConnections = (hiddenLayerSize * (hiddenLayerSize - 1)) / 2;
+	if (!GetTrainingParameters().structure.allowRecursiveConnections) {
+		hiddenConnections /= 2;
+	}
+	const auto connectionsFromInputs = inputLayerSize * hiddenLayerSize;
+	auto connectionsToOutputs = outputLayerSize * hiddenLayerSize;
+	if (GetTrainingParameters().structure.allowRecursiveConnections) {
+		connectionsToOutputs *= 2;
+	}
+
+	const auto possibleConnections = 
+		startingConnections + 
+	    hiddenConnections +
+		connectionsFromInputs + 
+		connectionsToOutputs;
+	return genome.GetGeneCount() < possibleConnections;
 }
 
 auto NeuralNetwork::ShouldMutateWeight() const -> bool {
 	return DidChanceOccure(
-		GetTrainingParameters().
-		
+		GetTrainingParameters().		
 		mutation.
 		chanceForWeightMutation
 	);

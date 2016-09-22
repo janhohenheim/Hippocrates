@@ -38,7 +38,7 @@ int main() {
 	srand(static_cast<unsigned>(time(nullptr)));
 
 	TrainingParameters parameters;
-	parameters.structure.areRecursiveConnectionsAllowed = false;
+	parameters.structure.allowRecursiveConnections = false;
 
 	NeuralNetworkTrainer trainer(parameters);
 	trainer.loggingEnabled = false;
