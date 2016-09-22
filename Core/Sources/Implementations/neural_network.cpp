@@ -130,13 +130,13 @@ auto NeuralNetwork::ShouldAddConnection() const -> bool {
 	if (!hasChanceOccured) {
 		return false;
 	}
-	const size_t inputLayerSize = genome.GetInputCount() + GetTrainingParameters().structure.numberOfBiasNeurons;
-	const size_t outputLayerSize = genome.GetOutputCount();
-	const size_t hiddenLayerSize = genome.GetNeuronCount() - inputLayerSize - outputLayerSize;
+	const auto inputLayerSize = genome.GetInputCount() + GetTrainingParameters().structure.numberOfBiasNeurons;
+	const auto outputLayerSize = genome.GetOutputCount();
+	const auto hiddenLayerSize = genome.GetNeuronCount() - inputLayerSize - outputLayerSize;
 
 	
 	const auto startingConnections = inputLayerSize * outputLayerSize;
-	auto hiddenConnections = (hiddenLayerSize * (hiddenLayerSize - 1));
+	auto hiddenConnections = hiddenLayerSize * (hiddenLayerSize - 1);
 	if (!GetTrainingParameters().structure.allowRecursiveConnections) {
 		hiddenConnections /= 2;
 	}
