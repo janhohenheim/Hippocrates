@@ -1,27 +1,20 @@
-cmake_minimum_required(VERSION 3.5)
-project(JNF_NEAT)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
-set(SOURCE_FILES
-    JNF_NEAT/body.h
-    JNF_NEAT/gene.cpp
-    JNF_NEAT/gene.h
-    JNF_NEAT/genome.cpp
-    JNF_NEAT/genome.h
-    JNF_NEAT/main.cpp
-    JNF_NEAT/neural_network.cpp
-    JNF_NEAT/neural_network.h
-    JNF_NEAT/neural_network_trainer.cpp
-    JNF_NEAT/neural_network_trainer.h
-    JNF_NEAT/neuron.cpp
-    JNF_NEAT/neuron.h
-    JNF_NEAT/organism.cpp
-    JNF_NEAT/organism.h
-    JNF_NEAT/species.cpp
-    JNF_NEAT/species.h
-    JNF_NEAT/trained_neural_network.cpp
-    JNF_NEAT/trained_neural_network.h
-    JNF_NEAT/training_parameters.h
-    )
+cmake_minimum_required(VERSION 3.2.2)
+project(Hippocrates)
 
-add_executable(JNF_NEAT ${SOURCE_FILES})
-target_link_libraries(JNF_NEAT -lstdc++fs)
+if(APPLE)
+	set(CMAKE_C_COMPILER /usr/local/bin/gcc)
+	set(CMAKE_CXX_COMPILER /usr/local/bin/g++)
+endif()
+
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/out/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/out/tests)
+
+set(CMAKE_CXX_FLAGS -fPIC)
+
+add_subdirectory(Core)
+
+add_library(Hippocrates SHARED $<TARGET_OBJECTS:Core>)
+target_link_libraries(Hippocrates -lstdc++fs)
+
+enable_testing()
+add_subdirectory(Tests)
