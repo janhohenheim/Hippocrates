@@ -10,7 +10,7 @@ using namespace Tests;
 using namespace Sine;
 
 int TestNetwork(TrainedNeuralNetwork champ) {
-	int errorCount = 0;
+	auto errorCount = 0;
 
 	for (size_t i = 0; i < 100; ++i) {
 		auto LO = static_cast<float>(-M_PI);
