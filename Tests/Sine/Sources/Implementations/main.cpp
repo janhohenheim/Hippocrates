@@ -11,7 +11,7 @@ using namespace Sine;
 int TestNetwork(TrainedNeuralNetwork champ) {
 	int errorCount = 0;
 
-	for (size_t i = 0; i < 10; ++i) {
+	for (size_t i = 0; i < 100; ++i) {
 		auto LO = -M_PI;
 		auto HI = M_PI;
 		auto dataSet = LO + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX/(HI-LO)));
