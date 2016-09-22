@@ -20,7 +20,18 @@ int main() {
 
 	NeuralNetworkTrainer trainer;
 
-	auto champ = trainer.TrainSupervised(data, 50);
+	TrainingData<std::vector<float>, XORResult> expectedData;
+	expectedData.AddSet({ { 1.0f, 0.0f }, XORResult::One });
+	expectedData.AddSet({ { 1.0f, 1.0f }, XORResult::Zero });
+	expectedData.AddSet({ { 1.0f, 1.0f }, XORResult::Zero });
+	expectedData.AddSet({ { 1.0f, 1.0f }, XORResult::Zero });
+	expectedData.AddSet({ { 0.0f, 1.0f }, XORResult::One });
+	expectedData.AddSet({ { 0.0f, 0.0f }, XORResult::Zero });
+	expectedData.AddSet({ { 0.0f, 0.0f }, XORResult::Zero });
+	expectedData.AddSet({ { 0.0f, 1.0f }, XORResult::One });
+	expectedData.AddSet({ { 0.0f, 0.0f }, XORResult::Zero });
+	expectedData.AddSet({ { 1.0f, 1.0f }, XORResult::Zero });
+	auto champ = trainer.TrainSupervised(data, 150);
 
-	return Tests::TestingUtilities::TestNetwork(champ, data);
+	return Tests::TestingUtilities::TestNetwork(champ, expectedData);
 }
