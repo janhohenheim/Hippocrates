@@ -34,7 +34,7 @@ int main() {
 	data.AddSet({ {1.0f, 1.0f}, XORResult::Zero });
 
 	NeuralNetworkTrainer trainer;
-	trainer.loggingEnabled = false;
+	trainer.loggingEnabled = true;
 
 	#ifdef CI
 		trainer.loggingEnabled = false;

@@ -31,6 +31,7 @@ auto NeuralNetworkTrainer::TrainGenerationAndLogUsingBodies(SpeciesManager::Bodi
 	generationsPassed++;
 	if (loggingEnabled) {
 		logger.LogGeneration(generationsPassed, GetJSON());
+		logger.LogMetadata(species.GetFittestOrganism().GetOrCalculateRawFitness());
 	}
 }
 
