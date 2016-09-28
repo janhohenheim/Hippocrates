@@ -378,13 +378,19 @@ auto NeuralNetwork::GetRandomEnabledGene() -> Gene& {
 
 auto NeuralNetwork::GetJSON() const -> string {
 	string s("{\"neurons\":[");
-	for (size_t i = 0; i < neurons.size() - 1; ++i) {
-		s += neurons[i].GetJSON();
+	for (const auto& neuron : neurons) {
+		s += neuron.GetJSON();
 		s += ",";
 	}
-	s += neurons.back().GetJSON();
+	s.pop_back();
 	s += "],\"genome\":";
 	s += genome.GetJSON();
 	s += "}";
 	return s;
+}
+
+auto NeuralNetwork::Reset() -> void {
+	for (auto& neuron : neurons) {
+		neuron.Reset();
+	}
 }

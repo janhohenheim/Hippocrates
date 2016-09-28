@@ -72,12 +72,35 @@ auto Hippocrates::Species::IsStagnant() const -> bool {
 
 auto Species::LetPopulationLive() -> void {
 	for (auto& organism : population) {
-		while (!organism.HasFinishedTask()) {
-			organism.Update();
-		}
+		UpdateOrganism(organism);
 	}
+
 	isSortedByFitness = false;
 }
+
+auto Species::UpdateOrganism(Organism& organism) -> void {
+	if (parameters.structure.areRecursiveConnectionsAllowed) {
+		UpdateOrganismWithMemoryResets(organism);
+	} else {
+		LetOrganismFinishTask(organism);
+	}
+}
+
+auto Species::UpdateOrganismWithMemoryResets(Organism& organism) -> void {
+	auto numberOfTimesToReset = parameters.structure.memoryResetsBeforeTotalReset;
+
+	while (--numberOfTimesToReset > 0) {
+		LetOrganismFinishTask(organism);
+	}
+}
+
+auto Species::LetOrganismFinishTask(Organism& organism) -> void {
+	while (!organism.HasFinishedTask()) {
+		organism.Update();
+	}
+};
+
+
 
 auto Species::ResetToTeachableState() -> void {
 	for (auto& organism : population) {

@@ -31,6 +31,8 @@ public:
 
 	auto GetJSON() const -> std::string;
 
+	auto Reset() -> void;
+
 private:
 	static auto DidChanceOccure(float chance) -> bool;
 

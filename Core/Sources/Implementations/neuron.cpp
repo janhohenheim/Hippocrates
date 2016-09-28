@@ -46,3 +46,6 @@ string Neuron::GetJSON() const {
 	return s;
 }
 
+void Neuron::Reset() {
+	lastActionPotential = 0.0f;
+}

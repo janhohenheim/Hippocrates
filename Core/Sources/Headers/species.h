@@ -54,6 +54,11 @@ private:
 			speciation.
 			compatibilityThreshold;
 	};
+
+	auto UpdateOrganism(Organism &organism) -> void;
+	auto UpdateOrganismWithMemoryResets(Organism &organism) -> void;
+
+	auto LetOrganismFinishTask(Organism& organism) -> void;
 };
 
 }
