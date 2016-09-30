@@ -13,8 +13,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestingUtilities", "Tests\T
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EvenNumbers", "Tests\EvenNumbers\EvenNumbers.vcxproj", "{7595137A-0CD6-46FB-8B5C-DB7BB555CC3D}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sine", "Tests\Sine\Sine.vcxproj", "{7B94B6F4-622A-412E-B688-BEC5B232DC7D}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
