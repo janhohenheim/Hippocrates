@@ -36,8 +36,11 @@ int main() {
 	data.AddSet({ { 19.0f / maxValue }, Evenness::Uneven });
 	data.AddSet({ { 20.0f / maxValue }, Evenness::Even });
 
-	NeuralNetworkTrainer trainer;
+	TrainingParameters parameters;
+	parameters.structure.allowRecurrentConnections = true;
 
+	NeuralNetworkTrainer trainer(parameters);
+	
 	auto champ = trainer.TrainSupervised(data, 50);
 
 	TrainingData<std::vector<float>, Evenness> expectedData;
