@@ -5,7 +5,6 @@ using namespace Hippocrates;
 using namespace std;
 
 Species::Species(Organism representative):
-parameters(representative.GetTrainingParameters()),
 representative(representative)
 {
 	population.push_back(move(representative));
@@ -64,8 +63,8 @@ auto Species::SelectFittestOrganismAsRepresentative() -> void {
 }
 
 auto Hippocrates::Species::IsStagnant() const -> bool {
-	return numberOfStagnantGenerations >= 
-		parameters.		
+	return numberOfStagnantGenerations >=
+		GetTrainingParameters().
 		speciation.
 		stagnantSpeciesClearThreshold;
 }

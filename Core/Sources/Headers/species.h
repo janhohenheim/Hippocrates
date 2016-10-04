@@ -13,7 +13,7 @@ private:
 	mutable bool isSortedByFitness = false;
 	std::size_t numberOfStagnantGenerations = 0;
 	double fitnessHighscore = 0;
-	const TrainingParameters& parameters;
+	auto GetTrainingParameters() const -> const TrainingParameters& { return representative.GetTrainingParameters(); };
 
 public:
 	explicit Species(Organism representative);
@@ -40,8 +40,6 @@ public:
 	auto SortPopulationIfNeeded() const -> void;
 	auto GetOrganismToBreed() -> Organism&;
 	auto GetJSON() const->std::string;
-
-
 
 private:
 	auto ElectRepresentative() -> void;
