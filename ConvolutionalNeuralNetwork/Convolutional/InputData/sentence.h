@@ -1,5 +1,5 @@
 #pragma once
-k#include "iinput_data.h"
+#include "iinput_data.h"
 #include <string>
 
 namespace Convolutional {
