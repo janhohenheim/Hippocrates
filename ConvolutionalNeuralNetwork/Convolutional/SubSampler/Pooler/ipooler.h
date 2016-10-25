@@ -1,6 +1,6 @@
 #pragma once
-#include "matrix.h"
-#include "isubsampler.h"
+#include "../../matrix.h"
+#include "../isubsampler.h"
 
 namespace Convolutional {
 namespace SubSampler {

@@ -2,10 +2,10 @@
 #include <memory>
 #include <functional>
 #include "multi_matrix.h"
-#include "isubsampler.h"
+#include "SubSampler/isubsampler.h"
 #include "multi_matrix_factory.h"
-#include "ipooler.h"
-#include "neuron.h"
+#include "SubSampler/Pooler/ipooler.h"
+#include "SubSampler/neuron.h"
 
 namespace Convolutional {
 

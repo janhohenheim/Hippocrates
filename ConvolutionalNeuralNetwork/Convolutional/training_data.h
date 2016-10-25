@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include <memory>
-#include "iinput_data.h"
+#include "InputData/iinput_data.h"
 #include "multi_matrix.h"
 #include "multi_matrix_factory.h"
 
