@@ -1,4 +1,4 @@
-#include "testing_utilities.h"
+#include "testing_utilities.hpp"
 
 using namespace std;
 using namespace Hippocrates;

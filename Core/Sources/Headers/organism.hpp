@@ -1,8 +1,8 @@
 #pragma once
-#include "neural_network.h"
-#include "body.h"
-#include "training_parameters.h"
-#include "genome.h"
+#include "neural_network.hpp"
+#include "body.hpp"
+#include "training_parameters.hpp"
+#include "genome.hpp"
 #include <memory>
 
 namespace Hippocrates {

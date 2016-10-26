@@ -1,4 +1,4 @@
-#include "../Headers/training_parameters.h"
+#include "../Headers/training_parameters.hpp"
 using namespace Hippocrates;
 using namespace std;
 

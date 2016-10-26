@@ -1,6 +1,6 @@
 #include <algorithm>
 #include <functional>
-#include "../Headers/neural_network.h"
+#include "../Headers/neural_network.hpp"
 
 using namespace Hippocrates;
 using namespace std;

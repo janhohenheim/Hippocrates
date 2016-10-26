@@ -1,6 +1,6 @@
 #include <cstdlib>
 #include <algorithm>
-#include "../Headers/organism.h"
+#include "../Headers/organism.hpp"
 
 using namespace Hippocrates;
 using namespace std;

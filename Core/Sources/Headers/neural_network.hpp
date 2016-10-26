@@ -1,7 +1,7 @@
 #pragma once
-#include "gene.h"
-#include "neuron.h"
-#include "genome.h"
+#include "gene.hpp"
+#include "neuron.hpp"
+#include "genome.hpp"
 #include <vector>
 #include <map>
 

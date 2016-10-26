@@ -1,5 +1,5 @@
 #include <algorithm>
-#include "../Headers/species.h"
+#include "../Headers/species.hpp"
 
 using namespace Hippocrates;
 using namespace std;

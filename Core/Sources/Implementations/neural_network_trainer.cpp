@@ -1,4 +1,4 @@
-#include "../Headers/neural_network_trainer.h"
+#include "../Headers/neural_network_trainer.hpp"
 
 using namespace Hippocrates;
 using namespace std;

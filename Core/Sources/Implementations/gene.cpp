@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include "../Headers/gene.h"
+#include "../Headers/gene.hpp"
 
 using namespace Hippocrates;
 using namespace std;

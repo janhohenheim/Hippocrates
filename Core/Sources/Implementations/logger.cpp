@@ -1,5 +1,5 @@
 #include <fstream>
-#include "../Headers/logger.h"
+#include "../Headers/logger.hpp"
 using namespace std;
 using namespace Hippocrates;
 

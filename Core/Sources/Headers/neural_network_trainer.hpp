@@ -1,11 +1,11 @@
 #pragma once
-#include "training_parameters.h"
-#include "species.h"
-#include "trained_neural_network.h"
-#include "logger.h"
-#include "species_manager.h"
-#include "training_data.h"
-#include "supervised_training_body.h"
+#include "training_parameters.hpp"
+#include "species.hpp"
+#include "trained_neural_network.hpp"
+#include "logger.hpp"
+#include "species_manager.hpp"
+#include "training_data.hpp"
+#include "supervised_training_body.hpp"
 #include <vector>
 #include <memory>
 

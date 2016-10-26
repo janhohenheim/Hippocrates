@@ -1,7 +1,7 @@
 #pragma once
 
-#include "gene.h"
-#include "training_parameters.h"
+#include "gene.hpp"
+#include "training_parameters.hpp"
 #include <vector>
 
 namespace Hippocrates {

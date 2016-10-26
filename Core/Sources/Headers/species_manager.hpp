@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "species.h"
+#include "species.hpp"
 
 namespace Hippocrates {
 class Organism;

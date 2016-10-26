@@ -1,5 +1,5 @@
 #pragma once
-#include "neural_network.h"
+#include "neural_network.hpp"
 #include <fstream>
 
 namespace Hippocrates {
