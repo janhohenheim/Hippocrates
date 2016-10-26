@@ -1,4 +1,4 @@
-#include "isubsampler.h"
+#include "isubsampler.hpp"
 using namespace Convolutional;
 using namespace SubSampler;
 

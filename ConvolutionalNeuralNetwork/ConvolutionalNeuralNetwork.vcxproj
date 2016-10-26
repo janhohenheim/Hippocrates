@@ -160,19 +160,19 @@
     <ClCompile Include="Convolutional\SubSampler\Pooler\max_pooler.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Convolutional\InputData\iinput_data.h" />
-    <ClInclude Include="Convolutional\InputData\image.h" />
-    <ClInclude Include="Convolutional\InputData\sentence.h" />
-    <ClInclude Include="Convolutional\matrix.h" />
-    <ClInclude Include="Convolutional\multi_matrix.h" />
-    <ClInclude Include="Convolutional\multi_matrix_factory.h" />
-    <ClInclude Include="Convolutional\neural_network.h" />
-    <ClInclude Include="Convolutional\neural_network_trainer.h" />
-    <ClInclude Include="Convolutional\SubSampler\isubsampler.h" />
-    <ClInclude Include="Convolutional\SubSampler\neuron.h" />
-    <ClInclude Include="Convolutional\SubSampler\Pooler\ipooler.h" />
-    <ClInclude Include="Convolutional\SubSampler\Pooler\max_pooler.h" />
-    <ClInclude Include="Convolutional\training_data.h" />
+    <ClInclude Include="Convolutional\InputData\iinput_data.hpp" />
+    <ClInclude Include="Convolutional\InputData\image.hpp" />
+    <ClInclude Include="Convolutional\InputData\sentence.hpp" />
+    <ClInclude Include="Convolutional\matrix.hpp" />
+    <ClInclude Include="Convolutional\multi_matrix.hpp" />
+    <ClInclude Include="Convolutional\multi_matrix_factory.hpp" />
+    <ClInclude Include="Convolutional\neural_network.hpp" />
+    <ClInclude Include="Convolutional\neural_network_trainer.hpp" />
+    <ClInclude Include="Convolutional\SubSampler\isubsampler.hpp" />
+    <ClInclude Include="Convolutional\SubSampler\neuron.hpp" />
+    <ClInclude Include="Convolutional\SubSampler\Pooler\ipooler.hpp" />
+    <ClInclude Include="Convolutional\SubSampler\Pooler\max_pooler.hpp" />
+    <ClInclude Include="Convolutional\training_data.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

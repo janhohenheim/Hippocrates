@@ -1,4 +1,4 @@
-#include "multi_matrix.h"
+#include "multi_matrix.hpp"
 
 using namespace Convolutional;
 

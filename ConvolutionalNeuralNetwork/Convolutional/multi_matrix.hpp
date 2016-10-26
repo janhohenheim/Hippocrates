@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include <memory>
-#include "matrix.h"
+#include "matrix.hpp"
 
 namespace Convolutional {
 

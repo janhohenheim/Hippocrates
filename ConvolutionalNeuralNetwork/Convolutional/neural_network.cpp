@@ -1,4 +1,4 @@
-#include "neural_network.h"
+#include "neural_network.hpp"
 
 using namespace Convolutional;
 

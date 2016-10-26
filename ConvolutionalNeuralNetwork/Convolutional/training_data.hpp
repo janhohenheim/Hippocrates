@@ -1,9 +1,9 @@
 #pragma once
 #include <vector>
 #include <memory>
-#include "InputData/iinput_data.h"
-#include "multi_matrix.h"
-#include "multi_matrix_factory.h"
+#include "InputData/iinput_data.hpp"
+#include "multi_matrix.hpp"
+#include "multi_matrix_factory.hpp"
 
 namespace Convolutional {
 

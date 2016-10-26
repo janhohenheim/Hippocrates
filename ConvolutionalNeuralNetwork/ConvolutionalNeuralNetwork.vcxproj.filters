@@ -74,43 +74,43 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Convolutional\InputData\iinput_data.h">
+    <ClInclude Include="Convolutional\InputData\iinput_data.hpp">
       <Filter>Header Files\Convolutional\InputData</Filter>
     </ClInclude>
-    <ClInclude Include="Convolutional\InputData\image.h">
+    <ClInclude Include="Convolutional\InputData\image.hpp">
       <Filter>Header Files\Convolutional\InputData</Filter>
     </ClInclude>
-    <ClInclude Include="Convolutional\InputData\sentence.h">
+    <ClInclude Include="Convolutional\InputData\sentence.hpp">
       <Filter>Header Files\Convolutional\InputData</Filter>
     </ClInclude>
-    <ClInclude Include="Convolutional\SubSampler\Pooler\ipooler.h">
+    <ClInclude Include="Convolutional\SubSampler\Pooler\max_pooler.hpp">
       <Filter>Header Files\Convolutional\SubSampler\Pooler</Filter>
     </ClInclude>
-    <ClInclude Include="Convolutional\SubSampler\Pooler\max_pooler.h">
+    <ClInclude Include="Convolutional\SubSampler\Pooler\ipooler.hpp">
       <Filter>Header Files\Convolutional\SubSampler\Pooler</Filter>
     </ClInclude>
-    <ClInclude Include="Convolutional\SubSampler\isubsampler.h">
+    <ClInclude Include="Convolutional\SubSampler\isubsampler.hpp">
       <Filter>Header Files\Convolutional\SubSampler</Filter>
     </ClInclude>
-    <ClInclude Include="Convolutional\SubSampler\neuron.h">
+    <ClInclude Include="Convolutional\SubSampler\neuron.hpp">
       <Filter>Header Files\Convolutional\SubSampler</Filter>
     </ClInclude>
-    <ClInclude Include="Convolutional\matrix.h">
+    <ClInclude Include="Convolutional\matrix.hpp">
       <Filter>Header Files\Convolutional</Filter>
     </ClInclude>
-    <ClInclude Include="Convolutional\multi_matrix.h">
+    <ClInclude Include="Convolutional\multi_matrix.hpp">
       <Filter>Header Files\Convolutional</Filter>
     </ClInclude>
-    <ClInclude Include="Convolutional\multi_matrix_factory.h">
+    <ClInclude Include="Convolutional\multi_matrix_factory.hpp">
       <Filter>Header Files\Convolutional</Filter>
     </ClInclude>
-    <ClInclude Include="Convolutional\neural_network.h">
+    <ClInclude Include="Convolutional\neural_network.hpp">
       <Filter>Header Files\Convolutional</Filter>
     </ClInclude>
-    <ClInclude Include="Convolutional\neural_network_trainer.h">
+    <ClInclude Include="Convolutional\neural_network_trainer.hpp">
       <Filter>Header Files\Convolutional</Filter>
     </ClInclude>
-    <ClInclude Include="Convolutional\training_data.h">
+    <ClInclude Include="Convolutional\training_data.hpp">
       <Filter>Header Files\Convolutional</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,4 +1,4 @@
-#include "matrix.h"
+#include "matrix.hpp"
 using namespace Convolutional;
 
 
@@ -12,7 +12,7 @@ Matrix::Matrix(Size size):
 Matrix& Convolutional::Matrix::operator=(const Matrix & other)
 {
 	const_cast<size_t&>(width) = other.width;
-	const_cast<size_t&>(height) = other.height;
+	const_cast<size_t&>(height) = other.hppeight;
 	elements = other.elements;
 	return *this;
 }

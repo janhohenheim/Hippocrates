@@ -1,4 +1,4 @@
-#include "neuron.h"
+#include "neuron.hpp"
 #include <cmath>
 
 using namespace Convolutional;

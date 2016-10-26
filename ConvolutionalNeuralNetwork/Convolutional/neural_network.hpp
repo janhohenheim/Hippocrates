@@ -1,11 +1,11 @@
 #pragma once
 #include <memory>
 #include <functional>
-#include "multi_matrix.h"
-#include "isubsampler.h"
-#include "multi_matrix_factory.h"
-#include "ipooler.h"
-#include "neuron.h"
+#include "multi_matrix.hpp"
+#include "SubSampler/isubsampler.hpp"
+#include "multi_matrix_factory.hpp"
+#include "SubSampler/Pooler/ipooler.hpp"
+#include "SubSampler/neuron.hpp"
 
 namespace Convolutional {
 
