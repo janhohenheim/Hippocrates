@@ -39,79 +39,79 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="neural_network.h">
-      <Filter>Header Files\Convolutional</Filter>
-    </ClInclude>
-    <ClInclude Include="matrix.h">
-      <Filter>Header Files\Convolutional</Filter>
-    </ClInclude>
-    <ClInclude Include="training_data.h">
-      <Filter>Header Files\Convolutional</Filter>
-    </ClInclude>
-    <ClInclude Include="neural_network_trainer.h">
-      <Filter>Header Files\Convolutional</Filter>
-    </ClInclude>
-    <ClInclude Include="image.h">
-      <Filter>Header Files\Convolutional\InputData</Filter>
-    </ClInclude>
-    <ClInclude Include="sentence.h">
-      <Filter>Header Files\Convolutional\InputData</Filter>
-    </ClInclude>
-    <ClInclude Include="iinput_data.h">
-      <Filter>Header Files\Convolutional\InputData</Filter>
-    </ClInclude>
-    <ClInclude Include="multi_matrix_factory.h">
-      <Filter>Header Files\Convolutional</Filter>
-    </ClInclude>
-    <ClInclude Include="neuron.h">
-      <Filter>Header Files\Convolutional\SubSampler</Filter>
-    </ClInclude>
-    <ClInclude Include="isubsampler.h">
-      <Filter>Header Files\Convolutional\SubSampler</Filter>
-    </ClInclude>
-    <ClInclude Include="multi_matrix.h">
-      <Filter>Header Files\Convolutional</Filter>
-    </ClInclude>
-    <ClInclude Include="ipooler.h">
-      <Filter>Header Files\Convolutional\SubSampler\Pooler</Filter>
-    </ClInclude>
-    <ClInclude Include="max_pooler.h">
-      <Filter>Header Files\Convolutional\SubSampler\Pooler</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="neural_network.cpp">
-      <Filter>Source Files\Convolutional</Filter>
-    </ClCompile>
-    <ClCompile Include="matrix.cpp">
-      <Filter>Source Files\Convolutional</Filter>
-    </ClCompile>
-    <ClCompile Include="neural_network_trainer.cpp">
-      <Filter>Source Files\Convolutional</Filter>
-    </ClCompile>
-    <ClCompile Include="image.cpp">
+    <ClCompile Include="Convolutional\InputData\image.cpp">
       <Filter>Source Files\Convolutional\InputData</Filter>
     </ClCompile>
-    <ClCompile Include="sentence.cpp">
+    <ClCompile Include="Convolutional\InputData\sentence.cpp">
       <Filter>Source Files\Convolutional\InputData</Filter>
     </ClCompile>
-    <ClCompile Include="multi_matrix_factory.cpp">
-      <Filter>Source Files\Convolutional</Filter>
-    </ClCompile>
-    <ClCompile Include="isubsampler.cpp">
-      <Filter>Source Files\Convolutional\SubSampler</Filter>
-    </ClCompile>
-    <ClCompile Include="neuron.cpp">
-      <Filter>Source Files\Convolutional\SubSampler</Filter>
-    </ClCompile>
-    <ClCompile Include="multi_matrix.cpp">
-      <Filter>Source Files\Convolutional</Filter>
-    </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="max_pooler.cpp">
+    <ClCompile Include="Convolutional\SubSampler\Pooler\max_pooler.cpp">
       <Filter>Source Files\Convolutional\SubSampler\Pooler</Filter>
     </ClCompile>
+    <ClCompile Include="Convolutional\SubSampler\isubsampler.cpp">
+      <Filter>Source Files\Convolutional\SubSampler</Filter>
+    </ClCompile>
+    <ClCompile Include="Convolutional\SubSampler\neuron.cpp">
+      <Filter>Source Files\Convolutional\SubSampler</Filter>
+    </ClCompile>
+    <ClCompile Include="Convolutional\matrix.cpp">
+      <Filter>Source Files\Convolutional</Filter>
+    </ClCompile>
+    <ClCompile Include="Convolutional\multi_matrix.cpp">
+      <Filter>Source Files\Convolutional</Filter>
+    </ClCompile>
+    <ClCompile Include="Convolutional\multi_matrix_factory.cpp">
+      <Filter>Source Files\Convolutional</Filter>
+    </ClCompile>
+    <ClCompile Include="Convolutional\neural_network.cpp">
+      <Filter>Source Files\Convolutional</Filter>
+    </ClCompile>
+    <ClCompile Include="Convolutional\neural_network_trainer.cpp">
+      <Filter>Source Files\Convolutional</Filter>
+    </ClCompile>
+    <ClCompile Include="Convolutional\main.cpp">
+      <Filter>Source Files\Convolutional</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Convolutional\InputData\iinput_data.h">
+      <Filter>Header Files\Convolutional\InputData</Filter>
+    </ClInclude>
+    <ClInclude Include="Convolutional\InputData\image.h">
+      <Filter>Header Files\Convolutional\InputData</Filter>
+    </ClInclude>
+    <ClInclude Include="Convolutional\InputData\sentence.h">
+      <Filter>Header Files\Convolutional\InputData</Filter>
+    </ClInclude>
+    <ClInclude Include="Convolutional\SubSampler\Pooler\ipooler.h">
+      <Filter>Header Files\Convolutional\SubSampler\Pooler</Filter>
+    </ClInclude>
+    <ClInclude Include="Convolutional\SubSampler\Pooler\max_pooler.h">
+      <Filter>Header Files\Convolutional\SubSampler\Pooler</Filter>
+    </ClInclude>
+    <ClInclude Include="Convolutional\SubSampler\isubsampler.h">
+      <Filter>Header Files\Convolutional\SubSampler</Filter>
+    </ClInclude>
+    <ClInclude Include="Convolutional\SubSampler\neuron.h">
+      <Filter>Header Files\Convolutional\SubSampler</Filter>
+    </ClInclude>
+    <ClInclude Include="Convolutional\matrix.h">
+      <Filter>Header Files\Convolutional</Filter>
+    </ClInclude>
+    <ClInclude Include="Convolutional\multi_matrix.h">
+      <Filter>Header Files\Convolutional</Filter>
+    </ClInclude>
+    <ClInclude Include="Convolutional\multi_matrix_factory.h">
+      <Filter>Header Files\Convolutional</Filter>
+    </ClInclude>
+    <ClInclude Include="Convolutional\neural_network.h">
+      <Filter>Header Files\Convolutional</Filter>
+    </ClInclude>
+    <ClInclude Include="Convolutional\neural_network_trainer.h">
+      <Filter>Header Files\Convolutional</Filter>
+    </ClInclude>
+    <ClInclude Include="Convolutional\training_data.h">
+      <Filter>Header Files\Convolutional</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
