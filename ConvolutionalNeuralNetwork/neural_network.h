@@ -9,30 +9,32 @@
 
 namespace Convolutional {
 
-template <typename Pooler, typename Classification>
+template <typename Classification>
 class NeuralNetwork {
-	static_assert(
-		std::is_base_of<SubSampler::Pooler::IPooler, Pooler>::value,
-		"Pooler must be a descendant of IPooler"
-		);
 public:	
+	template <typename ... Ts>
+	explicit NeuralNetwork(Ts&&... params) {
+		// std::move should be replaced with std::forward here, but MSVC is buggy in this case
+		int dummy[] =
+		{0, (layers.emplace_back(std::make_unique<Ts>(std::move(params))), 0)...};
+		static_cast<void>(dummy); // avoid unused variable warning
+
+	}
 	Classification ClassifyMultiMatrix(const InputData::IInputData& input) {
 		return ClassifyMultiMatrix(MultiMatrixFactory::GetMultiMatrix(input));
 	}
 	Classification ClassifyMultiMatrix(const MultiMatrix& multiMatrix) {
 		auto processedMultiMatrix{ multiMatrix };
-		for (const auto& neuron : neurons) {
-			processedMultiMatrix = neuron.ProcessMultiMatrix(processedMultiMatrix);
-		}
-		for (const auto& pooler : poolers) {
-			processedMultiMatrix = pooler.ProcessMultiMatrix(processedMultiMatrix);
+		for (const auto& layer : layers) {
+			processedMultiMatrix = layer->ProcessMultiMatrix(processedMultiMatrix);
 		}
 		return static_cast<Classification>(processedMultiMatrix.GetDimensionCount());
 	}
 
 private:
 	std::vector<SubSampler::Neuron> neurons;
-	std::vector<Pooler> poolers;
+	using SubSampler_t = std::unique_ptr<SubSampler::ISubSampler>;
+	std::vector<SubSampler_t> layers;
 };
 
 }

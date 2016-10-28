@@ -17,7 +17,7 @@ public:
 
 	auto Train() {
 		for (const auto& set : trainingData) {
-			NeuralNetwork<SubSampler::Pooler::MaxPooler, Classification> net;
+			NeuralNetwork<Classification> net(SubSampler::Neuron(1.0, {1.0}), SubSampler::Pooler::MaxPooler());
 			auto result = net.ClassifyMultiMatrix(set.multiMatrix);
 			if (result == set.classification) {
 				// Good
@@ -26,7 +26,7 @@ public:
 				// Bad
 			}
 		}
-		return NeuralNetwork<SubSampler::Pooler::MaxPooler, Classification>();
+		return NeuralNetwork<Classification> (SubSampler::Neuron(1.0, {1.0}), SubSampler::Pooler::MaxPooler());
 	}
 
 private:
