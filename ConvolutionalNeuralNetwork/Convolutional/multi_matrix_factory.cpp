@@ -1,6 +1,6 @@
-#include "multi_matrix_factory.h"
-#include "image.h"
-#include "sentence.h"
+#include "multi_matrix_factory.hpp"
+#include "InputData/image.hpp"
+#include "InputData/sentence.hpp"
 using namespace Convolutional;
 
 

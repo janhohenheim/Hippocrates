@@ -1,5 +1,5 @@
 #pragma once
-#include "ipooler.h"
+#include "ipooler.hpp"
 
 namespace Convolutional {
 namespace SubSampler {

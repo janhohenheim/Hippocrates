@@ -1,7 +1,7 @@
 #pragma once
-#include "neural_network.h"
-#include "max_pooler.h"
-#include "training_data.h"
+#include "neural_network.hpp"
+#include "SubSampler/Pooler/max_pooler.hpp"
+#include "training_data.hpp"
 
 namespace Convolutional {
 

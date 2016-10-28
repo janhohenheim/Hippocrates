@@ -1,4 +1,4 @@
-#include "max_pooler.h"
+#include "max_pooler.hpp"
 #include <algorithm>
 
 using namespace Convolutional; 

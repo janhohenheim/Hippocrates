@@ -1,13 +1,5 @@
-//
-// Created by jnf on 07.09.16.
-//
-#include "neural_network_trainer.h"
-#include "multi_matrix.h"
-#include "multi_matrix_factory.h"
-#include "sentence.h"
-#include "training_data.h"
-
-#include <string>
+#include "neural_network_trainer.hpp"
+#include "InputData/sentence.hpp"
 
 using namespace Convolutional;
 

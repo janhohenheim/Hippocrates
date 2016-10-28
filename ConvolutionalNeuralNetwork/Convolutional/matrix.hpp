@@ -30,10 +30,10 @@ public:
 	auto GetSize() const noexcept { return size; }
 	auto GetElementCount() const noexcept { return GetSize().height * GetSize().width; }
 	
-	auto begin() noexcept { return elements.begin(); }
-	const auto begin() const noexcept { return elements.begin(); }
-	auto end() noexcept { return elements.end(); }
-	const auto end() const noexcept { return elements.end(); }
+	auto & begin() noexcept { return elements.begin(); }
+	const auto & begin() const noexcept { return elements.begin(); }
+	auto & end() noexcept { return elements.end(); }
+	const auto & end() const noexcept { return elements.end(); }
 
 private:
 	const Size size;
