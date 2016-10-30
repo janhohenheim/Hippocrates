@@ -1,5 +1,4 @@
-#include <fstream>
-#include "testing_utilities.h"
+#include "testing_utilities.hpp"
 
 using namespace std;
 using namespace Hippocrates;
@@ -9,20 +8,6 @@ enum class XORResult {
 	One,
 	ClassificationCount
 };
-
-auto SaveNetwork(TrainedNeuralNetwork &champ, string filename) {
-	ofstream outFile(filename);
-	champ.SaveToFile(outFile);
-	outFile.close();
-}
-
-auto LoadNetwork(string filename) {
-	ifstream inFile(filename);
-	auto champ = TrainedNeuralNetwork::LoadFromFile(inFile);
-	inFile.close();
-
-	return champ;
-}
 
 int main() {
 	srand(static_cast<unsigned>(time(nullptr)));
@@ -34,16 +19,19 @@ int main() {
 	data.AddSet({ {1.0f, 1.0f}, XORResult::Zero });
 
 	NeuralNetworkTrainer trainer;
-	trainer.loggingEnabled = true;
 
-	#ifdef CI
-		trainer.loggingEnabled = false;
-	#endif
+	TrainingData<std::vector<float>, XORResult> expectedData;
+	expectedData.AddSet({ { 1.0f, 0.0f }, XORResult::One });
+	expectedData.AddSet({ { 1.0f, 1.0f }, XORResult::Zero });
+	expectedData.AddSet({ { 1.0f, 1.0f }, XORResult::Zero });
+	expectedData.AddSet({ { 1.0f, 1.0f }, XORResult::Zero });
+	expectedData.AddSet({ { 0.0f, 1.0f }, XORResult::One });
+	expectedData.AddSet({ { 0.0f, 0.0f }, XORResult::Zero });
+	expectedData.AddSet({ { 0.0f, 0.0f }, XORResult::Zero });
+	expectedData.AddSet({ { 0.0f, 1.0f }, XORResult::One });
+	expectedData.AddSet({ { 0.0f, 0.0f }, XORResult::Zero });
+	expectedData.AddSet({ { 1.0f, 1.0f }, XORResult::Zero });
+	auto champ = trainer.TrainSupervised(data, 150);
 
-	auto champ = trainer.TrainSupervised(data, 50);
-
-	SaveNetwork(champ, "champ.nn");
-	LoadNetwork("champ.nn");
-
-	return Tests::TestingUtilities::TestNetwork(champ, data);
+	return Tests::TestingUtilities::TestNetwork(champ, expectedData);
 }

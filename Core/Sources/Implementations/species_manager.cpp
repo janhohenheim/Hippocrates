@@ -1,4 +1,4 @@
-﻿#include "../Headers/species_manager.h"
+﻿#include "../Headers/species_manager.hpp"
 #include <algorithm>
 using namespace Hippocrates;
 

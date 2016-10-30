@@ -9,5 +9,7 @@ addons:
       - ubuntu-toolchain-r-test
 script:
   - cmake -DCMAKE_CXX_COMPILER=g++-6 CMakeLists.txt
-  - make 
-  - travis_wait make test
+  - make
+  - travis_wait ctest -R XOR
+  - travis_wait ctest -R EvenNumbers
+

@@ -1,4 +1,4 @@
-#include "../Headers/training_parameters.h"
+#include "../Headers/training_parameters.hpp"
 using namespace Hippocrates;
 using namespace std;
 
@@ -56,7 +56,7 @@ auto TrainingParameters::GetJSON() const -> std::string {
 	s += "\"numberOfBiasNeurons\":";
 	s += to_string(structure.numberOfBiasNeurons);
 	s += ",\"minSpeciesSizeForChampConservation\":";
-	s += BoolToString(structure.areRecursiveConnectionsAllowed);
+	s += BoolToString(structure.allowRecurrentConnections);
 	s += "}";
 
 	s += "}";

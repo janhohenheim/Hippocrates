@@ -1,7 +1,7 @@
 #pragma once
-#include "gene.h"
-#include "neuron.h"
-#include "genome.h"
+#include "gene.hpp"
+#include "neuron.hpp"
+#include "genome.hpp"
 #include <vector>
 #include <map>
 
@@ -50,7 +50,7 @@ private:
 	auto AddRandomNeuron() -> void;
 	auto AddRandomConnection() -> void;
 
-	auto GetTwoUnconnectedNeurons() -> std::pair<Neuron*, Neuron*>;
+	auto GetTwoUnconnectedNeurons() -> std::pair<Neuron&, Neuron&>;
 	auto GetRandomEnabledGene() -> Gene&;
 
 	auto CanNeuronsBeConnected(const Neuron& lhs, const Neuron& rhs) const -> bool;

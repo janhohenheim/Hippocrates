@@ -1,7 +1,7 @@
 #pragma once
 
 // TODO: Replace with library import
-#include "../../../../Core/Sources/Headers/neural_network_trainer.h"
+#include "../../../../Core/Sources/Headers/neural_network_trainer.hpp"
 #include <iostream>
 
 namespace Hippocrates {

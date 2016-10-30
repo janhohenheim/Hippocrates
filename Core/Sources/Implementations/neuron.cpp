@@ -1,6 +1,6 @@
 #include <cmath>
 #include <stdexcept>
-#include "../Headers/neuron.h"
+#include "../Headers/neuron.hpp"
 
 using namespace Hippocrates;
 using namespace std;

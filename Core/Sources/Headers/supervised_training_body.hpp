@@ -1,6 +1,6 @@
 #pragma once
-#include "body.h"
-#include "training_data.h"
+#include "body.hpp"
+#include "training_data.hpp"
 #include <algorithm>
 
 namespace Hippocrates {

@@ -1,6 +1,6 @@
 #include <cmath>
 #include <algorithm>
-#include "../Headers/genome.h"
+#include "../Headers/genome.hpp"
 
 using namespace Hippocrates;
 using namespace std;
