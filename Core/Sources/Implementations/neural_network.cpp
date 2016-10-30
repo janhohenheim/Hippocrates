@@ -1,6 +1,9 @@
 #include <algorithm>
 #include <functional>
+#include <iostream>
+#include <cstring>
 #include "../Headers/neural_network.hpp"
+#include "../Headers/jsmn.h"
 
 using namespace Hippocrates;
 using namespace std;
@@ -28,6 +31,23 @@ NeuralNetwork::NeuralNetwork(Genome&& genome, bool shouldMutate) :
 	}
 	else {
 		BuildNetworkFromGenes();
+	}
+}
+
+NeuralNetwork::NeuralNetwork(std::string& json) {
+	jsmn_parser parser;
+	jsmn_init(&parser);
+	jsmntok_t tokens[256];
+
+	auto token_count = jsmn_parse(&parser, json.c_str(), json.length(), tokens, 256);
+
+	for (size_t i = 0; i < token_count - 1; i++) {
+		auto key = json.substr(tokens[i].start, tokens[i].end - tokens[i].start);
+		auto value = json.substr(tokens[i + 1].start, tokens[i + 1].end - tokens[i + 1].start);
+
+		if (key == "genome") {
+			genome = Genome(value);
+		}
 	}
 }
 

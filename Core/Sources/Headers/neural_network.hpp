@@ -18,6 +18,7 @@ private:
 public:
 	explicit NeuralNetwork(const Genome& genome, bool shouldMutate = false);
 	explicit NeuralNetwork(Genome&& genome, bool shouldMutate = false);
+	explicit NeuralNetwork(std::string& json);
 	NeuralNetwork(const NeuralNetwork& other);
 	NeuralNetwork(NeuralNetwork&& other) = default;
 	~NeuralNetwork() = default;

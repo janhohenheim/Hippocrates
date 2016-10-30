@@ -8,6 +8,7 @@ public:
 	Gene();
 	Gene(const Gene& other) = default;
 	Gene(Gene&& other) = default;
+	Gene(std::string json);
 	~Gene() = default;
 
 	auto operator=(const Gene& other) -> Gene& = default;

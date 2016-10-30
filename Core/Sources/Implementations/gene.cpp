@@ -1,5 +1,7 @@
 #include <stdlib.h>
+#include <cstring>
 #include "../Headers/gene.hpp"
+#include "../Headers/jsmn.h"
 
 using namespace Hippocrates;
 using namespace std;
@@ -8,6 +10,39 @@ size_t Gene::numberOfExistingGenes = 0U;
 
 Gene::Gene() {
 	SetRandomWeight();
+}
+
+Gene::Gene(std::string json) {
+	jsmn_parser parser;
+	jsmn_init(&parser);
+	jsmntok_t tokens[256];
+
+	auto token_count = jsmn_parse(&parser, json.c_str(), json.length(), tokens, 256);
+
+	for (size_t i = 0; i < token_count - 1; i++) {
+		auto key = json.substr(tokens[i].start, tokens[i].end - tokens[i].start);
+		auto value = json.substr(tokens[i + 1].start, tokens[i + 1].end - tokens[i + 1].start);
+
+		if (key == "historicalMarking") {
+			historicalMarking = stoul(value);
+		}
+
+		if (key == "to") {
+			to = stoul(value);
+		}
+
+		if (key == "weight") {
+			weight = stof(value);
+		}
+
+		if (key == "isEnabled") {
+			isEnabled = value == "true";
+		}
+
+		if (key == "isRecursive") {
+			isRecursive = value == "true";
+		}
+	}
 }
 
 auto Gene::SetRandomWeight() -> void {

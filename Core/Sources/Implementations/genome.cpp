@@ -1,6 +1,8 @@
 #include <cmath>
 #include <algorithm>
+#include <iostream>
 #include "../Headers/genome.hpp"
+#include "../Headers/jsmn.h"
 
 using namespace Hippocrates;
 using namespace std;
@@ -18,6 +20,39 @@ Genome::Genome(std::size_t inputCount, std::size_t outputCount, TrainingParamete
 			currentGene->from = in;
 			currentGene->to = out + (inputCount + parameters.structure.numberOfBiasNeurons);
 			++currentGene;
+		}
+	}
+}
+
+Genome::Genome(std::string json) {
+	jsmn_parser parser;
+	jsmn_init(&parser);
+	jsmntok_t tokens[256];
+
+	auto token_count = jsmn_parse(&parser, json.c_str(), json.length(), tokens, 256);
+
+	for (size_t i = 0; i < token_count - 1; i++) {
+		auto key = json.substr(tokens[i].start, tokens[i].end - tokens[i].start);
+		auto value = json.substr(tokens[i+1].start, tokens[i+1].end - tokens[i+1].start);
+
+		if (key == "parameters") {
+			parameters = TrainingParameters(value);
+		}
+
+		if (key == "inputCount") {
+			inputCount = stoul(value);
+		}
+
+		if (key == "outputCount") {
+			outputCount = stoul(value);
+		}
+
+		if (key == "neuronCount") {
+			neuronCount = stoul(value);
+		}
+
+		if (key == "genes") {
+			genes = ParseGenesJson(value);
 		}
 	}
 }
@@ -76,6 +111,8 @@ auto Genome::GetJSON() const -> string {
 	s += std::to_string(inputCount);
 	s += ",\"outputCount\":";
 	s += std::to_string(outputCount);
+	s += ",\"neuronCount\":";
+	s += std::to_string(neuronCount);
 	s += ",\"genes\":[";
 	for (size_t i = 0; i < genes.size() - 1; ++i) {
 		s += genes[i].GetJSON();
@@ -85,6 +122,24 @@ auto Genome::GetJSON() const -> string {
 	s += "]";
 	s += "}";
 	return s;
+}
+
+auto Genome::ParseGenesJson(std::string json) -> std::vector<Gene> {
+	jsmn_parser parser;
+	jsmn_init(&parser);
+	jsmntok_t tokens[256];
+
+	auto token_count = jsmn_parse(&parser, json.c_str(), json.length(), tokens, 256);
+
+	vector<Gene> genes;
+
+	for (size_t i = 0; i < token_count - 1; i++) {
+		if (tokens[i].type == JSMN_OBJECT) {
+			genes.push_back(Gene(json.substr(tokens[i].start, tokens[i].end - tokens[i].start)));
+		}
+	}
+
+	return genes;
 }
 
 auto Genome::AdjustNeuronCount(const Gene & gene) -> void {
