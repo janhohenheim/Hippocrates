@@ -1,12 +1,34 @@
 #include <cmath>
 #include <stdexcept>
 #include "../Headers/neuron.hpp"
+#include "../Headers/jsmn.h"
 
 using namespace Hippocrates;
 using namespace std;
 
 Neuron::Neuron(vector<Connection> connections) :
 	connections(std::move(connections)) {
+}
+
+Neuron::Neuron(std::string json) {
+	jsmn_parser parser;
+	jsmn_init(&parser);
+	jsmntok_t tokens[256];
+
+	auto token_count = jsmn_parse(&parser, json.c_str(), json.length(), tokens, 256);
+
+	for (size_t i = 0; i < token_count - 1; i++) {
+		auto key = json.substr(tokens[i].start, tokens[i].end - tokens[i].start);
+		auto value = json.substr(tokens[i + 1].start, tokens[i + 1].end - tokens[i + 1].start);
+
+		if (key == "lastActionPotential") {
+			lastActionPotential = stof(value);
+		}
+
+		if (key == "layer") {
+			layer = stoul(value);
+		}
+	}
 }
 
 auto Neuron::AddConnection(Connection connection) -> void {
@@ -34,7 +56,6 @@ auto Neuron::sigmoid(float d) -> float {
 auto Neuron::SetInput(float input) -> void {
 	lastActionPotential = input;
 }
-
 
 string Neuron::GetJSON() const {
 	string s("{\"layer\":");

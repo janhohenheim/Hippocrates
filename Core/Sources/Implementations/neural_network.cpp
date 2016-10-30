@@ -48,7 +48,16 @@ NeuralNetwork::NeuralNetwork(std::string& json) {
 		if (key == "genome") {
 			genome = Genome(value);
 		}
+
+		if (key == "neurons") {
+			neurons = ParseNeuronsJson(value);
+		}
 	}
+
+	inputNeurons = vector<Neuron*>(genome.GetInputCount());
+	outputNeurons = vector<Neuron*>(genome.GetOutputCount());
+
+	BuildNetworkFromGenes();
 }
 
 NeuralNetwork::NeuralNetwork(const NeuralNetwork& other) :
@@ -430,4 +439,22 @@ auto NeuralNetwork::GetJSON() const -> string {
 	s += genome.GetJSON();
 	s += "}";
 	return s;
+}
+
+auto NeuralNetwork::ParseNeuronsJson(std::string json) -> std::vector<Neuron> {
+	jsmn_parser parser;
+	jsmn_init(&parser);
+	jsmntok_t tokens[256];
+
+	auto token_count = jsmn_parse(&parser, json.c_str(), json.length(), tokens, 256);
+
+	vector<Neuron> neurons;
+
+	for (size_t i = 0; i < token_count - 1; i++) {
+		if (tokens[i].type == JSMN_OBJECT) {
+			neurons.push_back(Neuron(json.substr(tokens[i].start, tokens[i].end - tokens[i].start)));
+		}
+	}
+
+	return neurons;
 }

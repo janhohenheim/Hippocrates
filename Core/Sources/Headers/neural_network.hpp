@@ -63,6 +63,7 @@ private:
 	auto CategorizeNeuronsIntoLayers() -> void;
 	auto CategorizeNeuronBranchIntoLayers(Neuron& currNode, size_t currentDepth = 0) const -> void;
 
+	auto ParseNeuronsJson(std::string json) -> std::vector<Neuron>;
 };
 
 }
