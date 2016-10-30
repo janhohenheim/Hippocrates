@@ -28,6 +28,7 @@ struct TrainingParameters {
 	} reproduction;
 	struct Structure {
 		std::size_t numberOfBiasNeurons = 1;
+		std::size_t memoryResetsBeforeTotalReset = 0;
 		bool allowRecurrentConnections = false;
 	} structure;
 

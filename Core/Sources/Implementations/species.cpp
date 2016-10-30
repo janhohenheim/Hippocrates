@@ -78,7 +78,7 @@ auto Species::LetPopulationLive() -> void {
 }
 
 auto Species::UpdateOrganism(Organism& organism) -> void {
-	if (parameters.structure.areRecursiveConnectionsAllowed) {
+	if (GetTrainingParameters().structure.allowRecurrentConnections) {
 		UpdateOrganismWithMemoryResets(organism);
 	} else {
 		LetOrganismFinishTask(organism);
@@ -86,7 +86,7 @@ auto Species::UpdateOrganism(Organism& organism) -> void {
 }
 
 auto Species::UpdateOrganismWithMemoryResets(Organism& organism) -> void {
-	auto numberOfTimesToReset = parameters.structure.memoryResetsBeforeTotalReset;
+	auto numberOfTimesToReset = GetTrainingParameters().structure.memoryResetsBeforeTotalReset;
 
 	while (--numberOfTimesToReset > 0) {
 		LetOrganismFinishTask(organism);
