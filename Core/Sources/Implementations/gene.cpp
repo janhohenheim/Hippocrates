@@ -25,20 +25,16 @@ Gene::Gene(std::string json) {
 
 		if (key == "historicalMarking") {
 			historicalMarking = stoul(value);
-		}
-
+		} else
 		if (key == "to") {
 			to = stoul(value);
-		}
-
+		} else
 		if (key == "weight") {
 			weight = stof(value);
-		}
-
+		} else
 		if (key == "isEnabled") {
 			isEnabled = value == "true";
-		}
-
+		} else
 		if (key == "isRecursive") {
 			isRecursive = value == "true";
 		}

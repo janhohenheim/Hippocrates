@@ -18,60 +18,46 @@ TrainingParameters::TrainingParameters(std::string json) {
 
 		if (key == "minWeight") {
 			ranges.minWeight = stof(value);
-		}
-
+		} else
 		if (key == "maxWeight") {
 			ranges.maxWeight = stof(value);
-		}
-
+		} else
 		if (key == "chanceForWeightMutation") {
 			mutation.chanceForWeightMutation = stof(value);
-		}
-
+		} else
 		if (key == "chanceForConnectionalMutation") {
 			mutation.chanceForConnectionalMutation = stof(value);
-		}
-
+		} else
 		if (key == "chanceForNeuralMutation") {
 			mutation.chanceForNeuralMutation = stof(value);
-		}
-
+		} else
 		if (key == "chanceOfTotalWeightReset") {
 			mutation.chanceOfTotalWeightReset = stof(value);
-		}
-
+		} else
 		if (key == "importanceOfDisjointGenes") {
 			speciation.importanceOfDisjointGenes = stof(value);
-		}
-
+		} else
 		if (key == "importanceOfAverageWeightDifference") {
 			speciation.importanceOfAverageWeightDifference = stof(value);
-		}
-
+		} else
 		if (key == "compatibilityThreshold") {
 			speciation.compatibilityThreshold = stof(value);
-		}
-
+		} else
 		if (key == "stagnantSpeciesClearThreshold") {
 			speciation.stagnantSpeciesClearThreshold = stoul(value);
-		}
-
+		} else
 		if (key == "normalizeForLargerGenome") {
 			speciation.normalizeForLargerGenome = value == "true";
-		}
-
+		} else
 		if (key == "chanceForInterspecialReproduction") {
 			reproduction.chanceForInterspecialReproduction = stof(value);
-		}
-
+		} else
 		if (key == "minSpeciesSizeForChampConservation") {
 			reproduction.minSpeciesSizeForChampConservation = stoul(value);
-		}
-
+		} else
 		if (key == "numberOfBiasNeurons") {
 			structure.numberOfBiasNeurons = stoul(value);
-		}
-
+		} else
 		if (key == "allowRecurrentConnections") {
 			structure.allowRecurrentConnections = value == "true";
 		}

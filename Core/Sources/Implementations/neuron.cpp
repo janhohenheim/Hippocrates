@@ -23,8 +23,7 @@ Neuron::Neuron(std::string json) {
 
 		if (key == "lastActionPotential") {
 			lastActionPotential = stof(value);
-		}
-
+		} else
 		if (key == "layer") {
 			layer = stoul(value);
 		}

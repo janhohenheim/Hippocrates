@@ -47,8 +47,7 @@ NeuralNetwork::NeuralNetwork(std::string& json) {
 
 		if (key == "genome") {
 			genome = Genome(value);
-		}
-
+		} else
 		if (key == "neurons") {
 			neurons = ParseNeuronsJson(value);
 		}

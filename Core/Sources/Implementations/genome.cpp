@@ -37,20 +37,16 @@ Genome::Genome(std::string json) {
 
 		if (key == "parameters") {
 			parameters = TrainingParameters(value);
-		}
-
+		} else
 		if (key == "inputCount") {
 			inputCount = stoul(value);
-		}
-
+		} else
 		if (key == "outputCount") {
 			outputCount = stoul(value);
-		}
-
+		} else
 		if (key == "neuronCount") {
 			neuronCount = stoul(value);
-		}
-
+		} else
 		if (key == "genes") {
 			genes = ParseGenesJson(value);
 		}
