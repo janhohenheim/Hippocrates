@@ -1,11 +1,9 @@
 #pragma once
 #include <memory>
-#include <functional>
 #include "multi_matrix.hpp"
-#include "SubSampler/isubsampler.hpp"
+#include "Layer/ilayer.hpp"
 #include "multi_matrix_factory.hpp"
-#include "SubSampler/Pooler/ipooler.hpp"
-#include "SubSampler/neuron.hpp"
+#include "Layer/filter.hpp"
 
 namespace Convolutional {
 
@@ -31,9 +29,9 @@ public:
 	}
 
 private:
-	std::vector<SubSampler::Neuron> neurons;
-	using SubSampler_t = std::unique_ptr<SubSampler::ISubSampler>;
-	std::vector<SubSampler_t> layers;
+	std::vector<Layer::Filter> filters;
+	using Layer_t = std::unique_ptr<Layer::ILayer>;
+	std::vector<Layer_t> layers;
 };
 
 }

@@ -2,7 +2,7 @@
 #include <algorithm>
 
 using namespace Convolutional; 
-using namespace SubSampler; 
+using namespace Layer; 
 using namespace Pooler;
 
 auto MaxPooler::ProcessMatrix(Matrix::Position position, const Matrix & matrix) const -> Matrix {

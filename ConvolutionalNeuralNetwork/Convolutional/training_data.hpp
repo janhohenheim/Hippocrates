@@ -10,10 +10,17 @@ namespace Convolutional {
 template <typename Classification>
 class TrainingData {
 public:
-	struct CategorizedData {		
+	struct CategorizedData {
+	    CategorizedData(const MultiMatrix& multiMatrix, Classification classification)
+	        : multiMatrix{multiMatrix},
+	          classification{classification} {
+	    }
+
 		MultiMatrix multiMatrix;
 		Classification classification;
 	};
+
+
 	TrainingData() = default;
 	explicit TrainingData(std::vector<CategorizedData> categorizedData) : categorizedData(std::move(categorizedData)) {};
 	

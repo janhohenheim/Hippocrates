@@ -9,10 +9,6 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
     <Filter Include="Header Files\Convolutional">
       <UniqueIdentifier>{d818345f-75a0-411b-88a4-a34d2a204565}</UniqueIdentifier>
     </Filter>
@@ -25,16 +21,16 @@
     <Filter Include="Source Files\Convolutional\InputData">
       <UniqueIdentifier>{97d73516-a6a1-415d-81f5-529977541780}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Convolutional\SubSampler">
-      <UniqueIdentifier>{e0a8486f-c6c8-4612-9a07-ce227db794aa}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Convolutional\SubSampler">
+    <Filter Include="Header Files\Convolutional\Layer">
       <UniqueIdentifier>{0dd7a0b6-e58f-4c98-84a2-dfdaa2946d63}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Convolutional\SubSampler\Pooler">
+    <Filter Include="Header Files\Convolutional\Layer\Pooler">
       <UniqueIdentifier>{1e2a4b0b-24aa-408a-8f4c-b7868b583cf5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Convolutional\SubSampler\Pooler">
+    <Filter Include="Source Files\Convolutional\Layer">
+      <UniqueIdentifier>{e0a8486f-c6c8-4612-9a07-ce227db794aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Convolutional\Layer\Pooler">
       <UniqueIdentifier>{f24abaf7-13bc-4419-ba84-0b102a78f776}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -44,15 +40,6 @@
     </ClCompile>
     <ClCompile Include="Convolutional\InputData\sentence.cpp">
       <Filter>Source Files\Convolutional\InputData</Filter>
-    </ClCompile>
-    <ClCompile Include="Convolutional\SubSampler\Pooler\max_pooler.cpp">
-      <Filter>Source Files\Convolutional\SubSampler\Pooler</Filter>
-    </ClCompile>
-    <ClCompile Include="Convolutional\SubSampler\isubsampler.cpp">
-      <Filter>Source Files\Convolutional\SubSampler</Filter>
-    </ClCompile>
-    <ClCompile Include="Convolutional\SubSampler\neuron.cpp">
-      <Filter>Source Files\Convolutional\SubSampler</Filter>
     </ClCompile>
     <ClCompile Include="Convolutional\matrix.cpp">
       <Filter>Source Files\Convolutional</Filter>
@@ -69,7 +56,16 @@
     <ClCompile Include="Convolutional\neural_network_trainer.cpp">
       <Filter>Source Files\Convolutional</Filter>
     </ClCompile>
-    <ClCompile Include="Convolutional\main.cpp">
+    <ClCompile Include="Convolutional\Layer\filter.cpp">
+      <Filter>Source Files\Convolutional\Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="Convolutional\Layer\ilayer.cpp">
+      <Filter>Source Files\Convolutional\Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="Convolutional\Layer\Pooler\max_pooler.cpp">
+      <Filter>Source Files\Convolutional\Layer\Pooler</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -82,18 +78,6 @@
     </ClInclude>
     <ClInclude Include="Convolutional\InputData\sentence.hpp">
       <Filter>Header Files\Convolutional\InputData</Filter>
-    </ClInclude>
-    <ClInclude Include="Convolutional\SubSampler\Pooler\max_pooler.hpp">
-      <Filter>Header Files\Convolutional\SubSampler\Pooler</Filter>
-    </ClInclude>
-    <ClInclude Include="Convolutional\SubSampler\Pooler\ipooler.hpp">
-      <Filter>Header Files\Convolutional\SubSampler\Pooler</Filter>
-    </ClInclude>
-    <ClInclude Include="Convolutional\SubSampler\isubsampler.hpp">
-      <Filter>Header Files\Convolutional\SubSampler</Filter>
-    </ClInclude>
-    <ClInclude Include="Convolutional\SubSampler\neuron.hpp">
-      <Filter>Header Files\Convolutional\SubSampler</Filter>
     </ClInclude>
     <ClInclude Include="Convolutional\matrix.hpp">
       <Filter>Header Files\Convolutional</Filter>
@@ -112,6 +96,18 @@
     </ClInclude>
     <ClInclude Include="Convolutional\training_data.hpp">
       <Filter>Header Files\Convolutional</Filter>
+    </ClInclude>
+    <ClInclude Include="Convolutional\Layer\filter.hpp">
+      <Filter>Header Files\Convolutional\Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="Convolutional\Layer\ilayer.hpp">
+      <Filter>Header Files\Convolutional\Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="Convolutional\Layer\Pooler\ipooler.hpp">
+      <Filter>Header Files\Convolutional\Layer\Pooler</Filter>
+    </ClInclude>
+    <ClInclude Include="Convolutional\Layer\Pooler\max_pooler.hpp">
+      <Filter>Header Files\Convolutional\Layer\Pooler</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

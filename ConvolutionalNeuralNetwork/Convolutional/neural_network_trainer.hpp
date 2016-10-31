@@ -1,6 +1,6 @@
 #pragma once
 #include "neural_network.hpp"
-#include "SubSampler/Pooler/max_pooler.hpp"
+#include "Layer/Pooler/max_pooler.hpp"
 #include "training_data.hpp"
 
 namespace Convolutional {
@@ -17,7 +17,7 @@ public:
 
 	auto Train() {
 		for (const auto& set : trainingData) {
-			NeuralNetwork<Classification> net(SubSampler::Neuron(1.0, {1.0}), SubSampler::Pooler::MaxPooler());
+			NeuralNetwork<Classification> net(Layer::Filter(1.0, {1.0}), Layer::Pooler::MaxPooler());
 			auto result = net.ClassifyMultiMatrix(set.multiMatrix);
 			if (result == set.classification) {
 				// Good
@@ -26,7 +26,7 @@ public:
 				// Bad
 			}
 		}
-		return NeuralNetwork<Classification> (SubSampler::Neuron(1.0, {1.0}), SubSampler::Pooler::MaxPooler());
+		return NeuralNetwork<Classification> (Layer::Filter(1.0, {1.0}), Layer::Pooler::MaxPooler());
 	}
 
 private:

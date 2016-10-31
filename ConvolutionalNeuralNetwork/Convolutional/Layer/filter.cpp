@@ -1,12 +1,12 @@
-#include "neuron.hpp"
+#include "filter.hpp"
 #include <cmath>
 
 using namespace Convolutional;
-using namespace SubSampler;
+using namespace Layer;
 
-auto Neuron::ProcessMatrix(Matrix::Position position, const Matrix& matrix) const -> Matrix {
+auto Filter::ProcessMatrix(Matrix::Position position, const Matrix& matrix) const -> Matrix {
 	if (matrix.GetElementCount() != weights.size()) {
-		throw std::invalid_argument("Number of weights in neuron does not match number of elements in matrix");
+		throw std::invalid_argument("Number of weights in filter does not match number of elements in matrix");
 	}
 
 	Matrix featureMap{matrix.GetSubmatrix(position, receptiveField)};
@@ -26,6 +26,6 @@ auto Neuron::ProcessMatrix(Matrix::Position position, const Matrix& matrix) cons
 	return featureMap;
 }
 
-auto Neuron::sigmoid(Matrix::elementType n) -> double {
+auto Filter::sigmoid(Matrix::elementType n) -> double {
 	return tanh(n);
 }

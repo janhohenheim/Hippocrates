@@ -1,12 +1,12 @@
 #pragma once
 #include "../../matrix.hpp"
-#include "../isubsampler.hpp"
+#include "../ilayer.hpp"
 
 namespace Convolutional {
-namespace SubSampler {
+namespace Layer {
 namespace Pooler {
 
-class IPooler : public ISubSampler {
+class IPooler : public ILayer {
 public:
 	
 };

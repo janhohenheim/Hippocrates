@@ -2,9 +2,9 @@
 #include "../multi_matrix.hpp"
 
 namespace Convolutional {
-namespace SubSampler {
+namespace Layer {
 
-class ISubSampler {
+class ILayer {
 public:
 	virtual auto ProcessMultiMatrix(const MultiMatrix& multiMatrix) const -> MultiMatrix final;
 

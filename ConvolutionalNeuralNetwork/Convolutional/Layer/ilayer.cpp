@@ -1,8 +1,8 @@
-#include "isubsampler.hpp"
+#include "ilayer.hpp"
 using namespace Convolutional;
-using namespace SubSampler;
+using namespace Layer;
 
-auto ISubSampler::ProcessMultiMatrix(const MultiMatrix & multiMatrix) const -> MultiMatrix {
+auto ILayer::ProcessMultiMatrix(const MultiMatrix & multiMatrix) const -> MultiMatrix {
     MultiMatrix::SubDimensionType dimensions;
     dimensions.reserve(multiMatrix.GetDimensionCount());
     for (auto& submatrix : multiMatrix) {
@@ -14,5 +14,5 @@ auto ISubSampler::ProcessMultiMatrix(const MultiMatrix & multiMatrix) const -> M
             }
         }
     }
-    return dimensions;
+    return MultiMatrix(dimensions);
 }

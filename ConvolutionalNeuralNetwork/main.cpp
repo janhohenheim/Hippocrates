@@ -1,5 +1,5 @@
-#include "neural_network_trainer.hpp"
-#include "InputData/sentence.hpp"
+#include "Convolutional/neural_network_trainer.hpp"
+#include "Convolutional/InputData/sentence.hpp"
 
 using namespace Convolutional;
 
