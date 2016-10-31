@@ -34,7 +34,7 @@ auto Organism::BreedWith(Organism& partner) -> NeuralNetwork {
 	auto parentsHaveSameFitness = this->GetOrCalculateFitness() == partner.GetOrCalculateFitness();
 	Organism* dominantParent = nullptr;
 	if (parentsHaveSameFitness) {
-		dominantParent = rand() % 2 == 0 ? this : &partner;
+		dominantParent = Utility::FlipACoin() ? this : &partner;
 	}
 	else {
 		dominantParent = this->GetOrCalculateFitness() > partner.GetOrCalculateFitness() ? this : &partner;
@@ -47,7 +47,7 @@ auto Organism::BreedWith(Organism& partner) -> NeuralNetwork {
 		return childGenome[i].historicalMarking == partnerGenome[i].historicalMarking;
 	};
 	for (size_t i = 0U; i < sizeOfSmallerParent && AreMarkingsSameAt(i); ++i) {
-		if (rand() % 2 == 0) {
+		if (Utility::FlipACoin()) {
 			childGenome[i].weight = partnerGenome[i].weight;
 		}
 	}
