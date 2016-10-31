@@ -19,7 +19,7 @@ auto Organism::Update() -> void {
 	}
 
 	for (size_t i = 0; i < numberOfTimesToFinishTask; i++) {
-		while (!body->HasFinishedTask) {
+		while (!body->HasFinishedTask()) {
 			const auto inputs(move(body->ProvideNetworkWithInputs()));
 			const auto outputs(move(network.GetOutputsUsingInputs(inputs)));
 			body->Update(outputs);
