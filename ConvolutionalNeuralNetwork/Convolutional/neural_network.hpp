@@ -14,10 +14,9 @@ class NeuralNetwork {
 public:	
 	template <typename ... Ts>
 	explicit NeuralNetwork(Ts&&... params) {
-		// std::move should be replaced with std::forward here, but MSVC is buggy in this case
-		int dummy[] =
-		{0, (layers.emplace_back(std::make_unique<Ts>(std::move(params))), 0)...};
-		static_cast<void>(dummy); // avoid unused variable warning
+		[[maybe_unused]]
+		volatile int dummy[] =
+		{0, (layers.emplace_back(std::make_unique<Ts>(std::forward<Ts>(params))), 0)...};
 
 	}
 	Classification ClassifyMultiMatrix(const InputData::IInputData& input) {

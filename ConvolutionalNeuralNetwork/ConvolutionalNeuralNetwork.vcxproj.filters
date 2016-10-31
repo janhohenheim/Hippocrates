@@ -70,7 +70,7 @@
       <Filter>Source Files\Convolutional</Filter>
     </ClCompile>
     <ClCompile Include="Convolutional\main.cpp">
-      <Filter>Source Files\Convolutional</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
