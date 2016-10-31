@@ -53,8 +53,8 @@ private:
 			compatibilityThreshold;
 	};
 
-	auto UpdateOrganism(Organism &organism) -> void;
-	auto UpdateOrganismWithMemoryResets(Organism &organism) -> void;
+	auto EvaluateOrganism(Organism &organism) -> void;
+	auto EvaluateOrganismWithMemoryResets(Organism &organism) -> void;
 
 	auto LetOrganismFinishTask(Organism& organism) -> void;
 };

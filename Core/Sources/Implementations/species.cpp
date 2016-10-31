@@ -71,25 +71,26 @@ auto Hippocrates::Species::IsStagnant() const -> bool {
 
 auto Species::LetPopulationLive() -> void {
 	for (auto& organism : population) {
-		UpdateOrganism(organism);
+		EvaluateOrganism(organism);
 	}
 
 	isSortedByFitness = false;
 }
 
-auto Species::UpdateOrganism(Organism& organism) -> void {
+auto Species::EvaluateOrganism(Organism &organism) -> void {
 	if (GetTrainingParameters().structure.allowRecurrentConnections) {
-		UpdateOrganismWithMemoryResets(organism);
+		EvaluateOrganismWithMemoryResets(organism);
 	} else {
 		LetOrganismFinishTask(organism);
 	}
 }
 
-auto Species::UpdateOrganismWithMemoryResets(Organism& organism) -> void {
+auto Species::EvaluateOrganismWithMemoryResets(Organism &organism) -> void {
 	auto numberOfTimesToReset = GetTrainingParameters().structure.memoryResetsBeforeTotalReset;
 
-	while (--numberOfTimesToReset > 0) {
+	while (numberOfTimesToReset > 0) {
 		LetOrganismFinishTask(organism);
+		numberOfTimesToReset--;
 	}
 }
 
