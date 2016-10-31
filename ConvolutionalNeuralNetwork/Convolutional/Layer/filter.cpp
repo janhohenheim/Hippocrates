@@ -1,5 +1,6 @@
 #include "filter.hpp"
 #include <cmath>
+#include <stdexcept>
 
 using namespace Convolutional;
 using namespace Layer;
