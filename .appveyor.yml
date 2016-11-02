@@ -1,2 +1,6 @@
 build_script:
   - msbuild %solution_name%
+  
+test_script:
+  - x64\Release\XORSolver.exe
+  - x64\Release\EvenNumbers.exe
