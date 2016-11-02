@@ -33,8 +33,5 @@ int main() {
 	expectedData.AddSet({ { 1.0f, 1.0f }, XORResult::Zero });
 	auto champ = trainer.TrainSupervised(data, 150);
 
-	auto json = champ.GetJSON();
-	auto loaded = NeuralNetwork(json);
-
 	return Tests::TestingUtilities::TestNetwork(champ, expectedData);
 }
