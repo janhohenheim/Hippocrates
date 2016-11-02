@@ -1,9 +1,21 @@
 #include "filter.hpp"
+#include "../utility.hpp"
 #include <cmath>
 #include <stdexcept>
 
 using namespace Convolutional;
 using namespace Layer;
+
+
+Filter::Filter(std::size_t size) :
+bias{Utility::GetRandomNumberBetween(-1.0, 1.0)} {
+	// TODO jnf: constexpr check if size is perfect square
+	weights.reserve(size);
+	for (size_t i = 0; i < size; ++i) {
+		weights.push_back(Utility::GetRandomNumberBetween(-1.0, 1.0));
+	}
+}
+
 
 auto Filter::ProcessMatrix(Matrix::Position position, const Matrix& matrix) const -> Matrix {
 	if (matrix.GetElementCount() != weights.size()) {
@@ -30,3 +42,4 @@ auto Filter::ProcessMatrix(Matrix::Position position, const Matrix& matrix) cons
 auto Filter::sigmoid(Matrix::elementType n) -> double {
 	return tanh(n);
 }
+
