@@ -118,19 +118,22 @@ auto NeuralNetwork::InterpretInputsAndOutputs() -> void {
 }
 
 auto NeuralNetwork::ShouldAddNeuron() const -> bool {
-	return DidChanceOccure(
-		GetTrainingParameters().
-		
+	return Utility::DidChanceOccure(
+		GetTrainingParameters().		
 		mutation.
 		chanceForNeuralMutation
 	);
 }
 
 auto NeuralNetwork::ShouldAddConnection() const -> bool {
-	const bool hasChanceOccured = DidChanceOccure(GetTrainingParameters().mutation.chanceForConnectionalMutation);
-	if (!hasChanceOccured) {
+	const auto chance = 
+		GetTrainingParameters().
+		mutation.
+		chanceForConnectionalMutation;
+	if (!Utility::DidChanceOccure(chance)) {
 		return false;
 	}
+
 	const auto inputLayerSize = genome.GetInputCount() + GetTrainingParameters().structure.numberOfBiasNeurons;
 	const auto outputLayerSize = genome.GetOutputCount();
 	const auto hiddenLayerSize = genome.GetNeuronCount() - inputLayerSize - outputLayerSize;
@@ -149,23 +152,18 @@ auto NeuralNetwork::ShouldAddConnection() const -> bool {
 
 	const auto possibleConnections = 
 		startingConnections + 
-	    hiddenConnections +
+		hiddenConnections +
 		connectionsFromInputs + 
 		connectionsToOutputs;
 	return genome.GetGeneCount() < possibleConnections;
 }
 
 auto NeuralNetwork::ShouldMutateWeight() const -> bool {
-	return DidChanceOccure(
+	return Utility::DidChanceOccure(
 		GetTrainingParameters().		
 		mutation.
 		chanceForWeightMutation
 	);
-}
-
-auto NeuralNetwork::DidChanceOccure(float chance) -> bool {
-	auto num = rand() % 100;
-	return num < int(100.0f * chance);
 }
 
 auto NeuralNetwork::AddRandomNeuron() -> void {
@@ -301,7 +299,7 @@ auto NeuralNetwork::ShuffleWeights() -> void {
 }
 
 auto NeuralNetwork::MutateWeightOfGeneAt(size_t index) -> void {
-	if (DidChanceOccure(GetTrainingParameters().mutation.chanceOfTotalWeightReset)) {
+	if (Utility::DidChanceOccure(GetTrainingParameters().mutation.chanceOfTotalWeightReset)) {
 		genome[index].SetRandomWeight();
 	}
 	else {
@@ -310,18 +308,18 @@ auto NeuralNetwork::MutateWeightOfGeneAt(size_t index) -> void {
 }
 
 auto NeuralNetwork::PerturbWeightAt(size_t index) -> void {
-	constexpr float perturbanceBoundaries = 0.5f;
-	auto perturbance = static_cast<float>(rand() % 10'000) / 9'999.0f * perturbanceBoundaries;
-	if (rand() % 2) {
-		perturbance = -perturbance;
-	}
+	constexpr auto perturbRange = 0.5f;
+	auto perturbance = Utility::GetRandomNumberBetween(-perturbRange, perturbRange);
 	genome[index].weight += perturbance;
+	// In C++17
+	// std::clamp(genome[index].weight, -1.0f, 1.0f));
 	if (genome[index].weight < -1.0f) {
 		genome[index].weight = -1.0f;
 	}
 	else if (genome[index].weight > 1.0f) {
 		genome[index].weight = 1.0f;
 	}
+	
 }
 
 auto NeuralNetwork::MutateGenesAndBuildNetwork() -> void {
@@ -381,7 +379,7 @@ auto NeuralNetwork::CategorizeNeuronBranchIntoLayers(Neuron& currNode, size_t cu
 }
 
 auto NeuralNetwork::GetRandomEnabledGene() -> Gene& {
-	size_t num = rand() % genome.GetGeneCount();
+	size_t num = Utility::GetRandomNumberBetween(0ULL, genome.GetGeneCount() - 1ULL);
 	auto randGene = genome.begin();
 	randGene += num;
 	while (randGene != genome.end() && !randGene->isEnabled) {

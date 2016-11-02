@@ -54,8 +54,7 @@ auto Species::ElectRepresentative() -> void {
 }
 
 auto Species::SelectRandomRepresentative() -> void {
-	auto randomMember = rand() % population.size();
-	representative = population[randomMember];
+	representative = *Utility::GetRandomElement(population);
 }
 
 auto Species::SelectFittestOrganismAsRepresentative() -> void {
@@ -121,7 +120,7 @@ auto Species::GetOrganismToBreed() -> Organism& {
 		totalPopulationFitness += organism.GetOrCalculateFitness();
 	}
 	if (totalPopulationFitness == 0) {
-		return population[rand() % population.size()];
+		return *Utility::GetRandomElement(population);
 	}
 	double chance = 0.0;
 	auto GetChanceForOrganism = [&chance, &totalPopulationFitness](const Organism& organism) {
@@ -130,11 +129,9 @@ auto Species::GetOrganismToBreed() -> Organism& {
 
 	while (true) {
 		for (auto& organism : population) {
-			double randNum = static_cast<double>(rand() % 10'000) / 9'999.0;;
 			chance = GetChanceForOrganism(organism);
-			if (randNum < chance) {
+			if (Utility::DidChanceOccure(chance))
 				return organism;
-			}
 		}
 	}
 }
