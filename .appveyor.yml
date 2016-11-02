@@ -2,5 +2,5 @@ build_script:
   - msbuild %solution_name%
   
 test_script:
-  - x64\Release\XORSolver.exe
-  - x64\Release\EvenNumbers.exe
+  - C:\projects\jnf-neat\x64\Release\XORSolver.exe
+  - C:\projects\jnf-neat\x64\Release\EvenNumbers.exe
