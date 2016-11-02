@@ -13,16 +13,12 @@ auto SpeciesManager::CreateInitialOrganisms(Bodies& bodies) -> void {
 
 auto SpeciesManager::Repopulate(Bodies& bodies) -> void {
 	PrepareSpeciesForPopulation();
-	auto DidChanceOccure = [](float chance) {
-		auto num = rand() % 1000;
-		return num < int(1000.0f * chance);
-	};
 	std::vector<Organism> newGeneration;
 	newGeneration.reserve(bodies.size());
 	for (auto& body : bodies) {
 		auto sp = &GetSpeciesToBreed();
 		auto& father = sp->GetOrganismToBreed();
-		if (DidChanceOccure(parameters.reproduction.chanceForInterspecialReproduction)) {
+		if (Utility::DidChanceOccure(parameters.reproduction.chanceForInterspecialReproduction)) {
 			sp = &GetSpeciesToBreed();
 		}
 		auto& mother = sp->GetOrganismToBreed();
@@ -99,7 +95,7 @@ auto SpeciesManager::GetSpeciesToBreed() -> Species& {
 		totalSpeciesFitness += s.GetFittestOrganism().GetOrCalculateFitness();
 	}
 	if (totalSpeciesFitness == 0) {
-		return species[rand() % species.size()];
+		return *Utility::GetRandomElement(species);
 	}
 	auto chance = 0.0;
 	auto GetChanceForSpecies = [&chance, &totalSpeciesFitness](const Species& species) {
@@ -107,11 +103,9 @@ auto SpeciesManager::GetSpeciesToBreed() -> Species& {
 	};
 	while (true) {
 		for (auto& s : species) {
-			auto randNum = static_cast<double>(rand() % 10'000) / 9'999.0;
 			chance = GetChanceForSpecies(s);
-			if (randNum < chance) {
+			if (Utility::DidChanceOccure(chance))
 				return s;
-			}
 		}
 	}
 }

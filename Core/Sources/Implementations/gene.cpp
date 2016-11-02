@@ -3,6 +3,7 @@
 #include "../Headers/gene.hpp"
 #include "../Headers/jsmn.h"
 
+
 using namespace Hippocrates;
 using namespace std;
 
@@ -42,20 +43,7 @@ Gene::Gene(std::string json) {
 }
 
 auto Gene::SetRandomWeight() -> void {
-	/*
-	const auto& min = parameters.ranges.minWeight;
-	const auto& max = parameters.ranges.maxWeight;
-	if (min == max) {
-	weight = min;
-	}
-	else {
-	weight = min + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (max - min)));
-	}
-	*/
-	weight = (float)(rand() % 10'000) / 9'999.0f;
-	if (rand() % 2) {
-		weight = -weight;
-	}
+	weight = Utility::GetRandomNumberBetween(-1.0f, 1.0f);
 }
 
 auto Gene::GetJSON() const -> string {

@@ -33,8 +33,6 @@ public:
 	auto GetJSON() const -> std::string;
 
 private:
-	static auto DidChanceOccure(float chance) -> bool;
-
 	auto SetInputs(std::vector<float> inputs) -> void;
 	auto GetOutputs() -> std::vector<float>;
 
