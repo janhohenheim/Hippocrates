@@ -56,6 +56,9 @@
     <ClInclude Include="Sources\Headers\training_parameters.hpp">
       <Filter>Headers</Filter>
     </ClInclude>
+    <ClInclude Include="Sources\Headers\jsmn.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Sources\Implementations\gene.cpp">
@@ -89,6 +92,9 @@
       <Filter>Implementations</Filter>
     </ClCompile>
     <ClCompile Include="Sources\Implementations\species_manager.cpp">
+      <Filter>Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Implementations\jsmn.c">
       <Filter>Implementations</Filter>
     </ClCompile>
   </ItemGroup>
