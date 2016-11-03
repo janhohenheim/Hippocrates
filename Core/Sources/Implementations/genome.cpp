@@ -79,7 +79,9 @@ auto Genome::GetGeneticalDistanceFrom(const Genome& other) const -> double {
 
 	auto numberOfDisjointGenes = this->GetGeneCount() + other.GetGeneCount() - (size_t)2 * numberOfOverlapingGenes;
 	auto sizeOfBiggerGenome = max(this->GetGeneCount(), other.GetGeneCount());
-	// TODO jnf: Think how we'll handle the next line
+	// half of the next line has been commented out because stanley's original implementation does it this way, 
+	// despite it not being strictly conform to his paper.
+	// It makes more sense this way though (see http://sharpneat.sourceforge.net/research/speciation-canonical-neat.html)
 	auto disjointGenesInfluence = (double)numberOfDisjointGenes /* / (double)sizeOfBiggerGenome*/;
 
 	auto averageWeightDifference = totalWeightDifference / (double)numberOfOverlapingGenes;
