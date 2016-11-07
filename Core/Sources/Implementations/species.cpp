@@ -12,7 +12,6 @@ representative(representative)
 
 auto Species::AddOrganism(Organism&& organism) -> void {
 	population.push_back(move(organism));
-	ElectRepresentative();
 	isSortedByFitness = false;
 	SetPopulationsFitnessModifier();
 }
@@ -43,7 +42,13 @@ auto Species::SetPopulationsFitnessModifier() -> void {
 }
 
 auto Species::ClearPopulation() -> void {
+	ElectRepresentative();
 	population.clear();
+}
+
+auto Hippocrates::Species::RemoveWorst() -> void {
+	if (GetSize() > 1)
+		population.pop_back();
 }
 
 auto Species::ElectRepresentative() -> void {
@@ -97,9 +102,6 @@ auto Species::ResetToTeachableState() -> void {
 }
 
 auto Species::GetFittestOrganism() const -> const Organism& {
-	if (population.empty()) {
-		return representative;
-	}
 	SortPopulationIfNeeded();
 	return population.front();
 }
@@ -117,9 +119,6 @@ auto Species::SortPopulationIfNeeded() const -> void {
 
 auto Species::GetOrganismToBreed() const -> const Organism& {
 	// TODO jnf: Switch to stochastic universal sampling
-	if (population.empty()) {
-		return representative;
-	}
 	double totalPopulationFitness = 0.0;
 	for (auto& organism : population) {
 		totalPopulationFitness += organism.GetOrCalculateFitness();

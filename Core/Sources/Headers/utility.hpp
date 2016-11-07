@@ -40,8 +40,10 @@ static inline auto DidChanceOccure(T chance) {
 template <typename It>
 static auto GetRandomElement(It begin, It end) {
 	auto dist = std::distance(begin, end);
-	auto rnd = GetRandomNumberBetween(0, static_cast<int>(dist) - 1);
-	std::advance(begin, rnd);
+	if (dist != 0) {
+		auto rnd = GetRandomNumberBetween(0, static_cast<int>(dist) - 1);
+		std::advance(begin, rnd);
+	}
 	return begin;
 }
 

@@ -40,7 +40,7 @@ public:
 	auto ResetToTeachableState() -> void;
 	auto SetPopulationsFitnessModifier() -> void;
 	auto ClearPopulation() -> void;
-	auto RemoveWorst() { population.pop_back(); }
+	auto RemoveWorst() -> void;
 
 	auto GetFittestOrganism() const -> const Organism&;
 	auto SortPopulationIfNeeded() const -> void;
