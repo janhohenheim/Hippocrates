@@ -144,6 +144,7 @@
     <ClCompile Include="Sources\Implementations\species_manager.cpp" />
     <ClCompile Include="Sources\Implementations\trained_neural_network.cpp" />
     <ClCompile Include="Sources\Implementations\training_parameters.cpp" />
+    <ClCompile Include="Sources\Implementations\utility.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -97,5 +97,8 @@
     <ClCompile Include="Sources\Implementations\jsmn.c">
       <Filter>Implementations</Filter>
     </ClCompile>
+    <ClCompile Include="Sources\Implementations\utility.cpp">
+      <Filter>Implementations</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

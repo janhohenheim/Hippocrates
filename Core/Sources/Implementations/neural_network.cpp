@@ -262,8 +262,8 @@ auto NeuralNetwork::GetTwoUnconnectedNeurons() -> pair<Neuron&, Neuron&> {
 	auto inputRange = genome.GetInputCount() + GetTrainingParameters().structure.numberOfBiasNeurons;
 	NeuronRefs possibleToNeurons(possibleFromNeurons.begin() + inputRange, possibleFromNeurons.end());
 
-	random_shuffle(possibleFromNeurons.begin(), possibleFromNeurons.end());
-	random_shuffle(possibleToNeurons.begin(), possibleToNeurons.end());
+	Utility::Shuffle(possibleFromNeurons);
+	Utility::Shuffle(possibleToNeurons);
 
 
 	for (auto from : possibleFromNeurons) {
