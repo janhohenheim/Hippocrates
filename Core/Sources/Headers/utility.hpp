@@ -1,5 +1,6 @@
 #pragma once
 #include <random>
+#include <algorithm>
 
 namespace Hippocrates {
 
@@ -53,14 +54,14 @@ private:
 
 
 template <>
-static inline auto Utility::GetRandomNumberBetween(float min, float max)
+inline auto Utility::GetRandomNumberBetween(float min, float max)
 {
 	std::uniform_real_distribution<float> distribution(min, max);
 	return distribution(engine);
 }
 
 template <>
-static inline auto Utility::GetRandomNumberBetween(double min, double max)
+inline auto Utility::GetRandomNumberBetween(double min, double max)
 {
 	std::uniform_real_distribution<double> distribution(min, max);
 	return distribution(engine);
