@@ -36,7 +36,7 @@ int main() {
 	data.AddSet({ { 19.0f / maxValue }, Evenness::Uneven });
 	data.AddSet({ { 20.0f / maxValue }, Evenness::Even });
 
-	NeuralNetworkTrainer trainer;	
+	NeuralNetworkTrainer trainer;
 	auto champ = trainer.TrainSupervised(data, 150);
 	std::cout << "Finished training in " << trainer.GetGenerationsPassed() << " generations\n";
 
