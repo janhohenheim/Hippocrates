@@ -12,11 +12,12 @@ auto SpeciesManager::CreateInitialOrganisms(Bodies& bodies) -> void {
 }
 
 auto SpeciesManager::Repopulate(Bodies& bodies) -> void {
-	PrepareSpeciesForPopulation();
+	auto populationCount = GetPopulationCount();
+	auto averageFitness = GetAverageFitness();
+	
 	std::vector<Organism> newGeneration;
 	newGeneration.reserve(bodies.size());
 
-	auto averageFitness = GetAverageFitness();
 	auto currBody = bodies.begin();
 	auto Breed = [this, &newGeneration, &currBody](const auto & species) {
 		auto child = BreedInSpecies(species);
@@ -25,6 +26,7 @@ auto SpeciesManager::Repopulate(Bodies& bodies) -> void {
 	};
 
 	
+	PrepareSpeciesForPopulation();
 	// In the original implementation the offspring were tossed directly into their new species and, as a result, in the mating pool.
 	// We instead separate the generations
 	for (auto& s : species) {
@@ -37,7 +39,7 @@ auto SpeciesManager::Repopulate(Bodies& bodies) -> void {
 	}
 
 	// Account for rounding Errors
-	while (newGeneration.size() < GetPopulationCount()) {
+	while (newGeneration.size() < populationCount) {
 		Breed(GetFittestSpecies());
 	}
 
