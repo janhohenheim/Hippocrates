@@ -13,19 +13,6 @@ static auto GetRandomNumberBetween(T min, T max)
 	return distribution(engine);
 }
 
-template <>
-static inline auto GetRandomNumberBetween(float min, float max) {
-	std::uniform_real_distribution<float> distribution(min, max);
-	return distribution(engine);
-}
-
-template <>
-static inline auto GetRandomNumberBetween(double min, double max) {
-	std::uniform_real_distribution<double> distribution(min, max);
-	return distribution(engine);
-}
-
-
 static inline auto FlipACoin() {
 	// The currency of the coin is determined by the OS
 	return GetRandomNumberBetween(0, 1) == 0;
@@ -63,5 +50,20 @@ private:
 	static std::random_device randomDevice;
 	static std::mt19937 engine;
 };
+
+
+template <>
+static inline auto Utility::GetRandomNumberBetween(float min, float max)
+{
+	std::uniform_real_distribution<float> distribution(min, max);
+	return distribution(engine);
+}
+
+template <>
+static inline auto Utility::GetRandomNumberBetween(double min, double max)
+{
+	std::uniform_real_distribution<double> distribution(min, max);
+	return distribution(engine);
+}
 
 }
