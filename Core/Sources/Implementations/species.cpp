@@ -114,14 +114,6 @@ auto Species::SortPopulationIfNeeded() const -> void {
 	}
 }
 
-auto Species::operator=(Species&& other) noexcept -> Species& {
-	population = move(other.population);
-	representative = move(other.representative);
-	isSortedByFitness = move(other.isSortedByFitness);
-	numberOfStagnantGenerations = move(other.numberOfStagnantGenerations);
-	fitnessHighscore = move(other.fitnessHighscore);
-	return *this;
-}
 
 auto Species::GetOrganismToBreed() const -> const Organism& {
 	// TODO jnf: Switch to stochastic universal sampling

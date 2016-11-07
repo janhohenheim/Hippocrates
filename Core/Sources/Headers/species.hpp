@@ -21,7 +21,8 @@ public:
 	Species(Species&& other) = default;
 	~Species() = default;
 
-	auto operator=(Species&& other) noexcept -> Species&;
+	auto operator=(Species& other) & ->Species& = default;
+	auto operator=(Species&& other) & -> Species& = default;
 
 	auto AddOrganism(Organism&& organism) -> void;
 	auto AnalyzePopulation() -> void;
