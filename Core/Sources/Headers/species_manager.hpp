@@ -35,9 +35,6 @@ public:
 private:
 	auto ResetPopulationToTeachableState() -> void;
 	auto FillOrganismIntoSpecies(Organism&& organism) -> void;
-	auto PrepareSpeciesForPopulation() -> void;
-	auto AnalyzeSpeciesPopulation() -> void;
-	auto DeleteStagnantSpecies() -> void;
 	auto DeleteEmptySpecies() -> void;
 	auto SortSpeciesIfNeeded() -> void;
 	auto ClearSpeciesPopulation() -> void;

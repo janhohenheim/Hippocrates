@@ -16,19 +16,6 @@ auto Species::AddOrganism(Organism&& organism) -> void {
 	SetPopulationsFitnessModifier();
 }
 
-auto Species::AnalyzePopulation() -> void {
-	const auto currentBestFitness = GetFittestOrganism().GetOrCalculateRawFitness();
-	if (currentBestFitness > fitnessHighscore) {
-		fitnessHighscore = currentBestFitness;
-		numberOfStagnantGenerations = 0;
-	}
-	else {
-		numberOfStagnantGenerations++;
-	}
-	isSortedByFitness = false;
-}
-
-
 auto Species::IsCompatible(const Genome& genome) const -> bool {
 	auto distanceToSpecies = representative.GetGenome().GetGeneticalDistanceFrom(genome);
 	return !IsAboveCompatibilityThreshold(distanceToSpecies);
@@ -42,6 +29,14 @@ auto Species::SetPopulationsFitnessModifier() -> void {
 }
 
 auto Species::ClearPopulation() -> void {
+	const auto currentBestFitness = GetFittestOrganism().GetOrCalculateRawFitness();
+	if (currentBestFitness > fitnessHighscore) {
+		fitnessHighscore = currentBestFitness;
+		numberOfStagnantGenerations = 0;
+	} else {
+		numberOfStagnantGenerations++;
+	}
+
 	ElectRepresentative();
 	population.clear();
 }
@@ -74,6 +69,9 @@ auto Hippocrates::Species::IsStagnant() const -> bool {
 }
 
 auto Species::GetOffspringCount(double averageFitness) const -> std::size_t {
+	if (IsStagnant())
+		return 0;
+
 	if (averageFitness == 0.0) 
 		return GetSize();
 	

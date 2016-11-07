@@ -3,6 +3,7 @@
 using namespace Hippocrates;
 
 auto SpeciesManager::CreateInitialOrganisms(Bodies& bodies) -> void {
+	species.clear();
 	for (auto& currTrainer : bodies) {
 		Genome standardGenes(currTrainer.get().GetInputCount(), currTrainer.get().GetOutputCount(), parameters);
 		NeuralNetwork network(std::move(standardGenes));
@@ -33,8 +34,6 @@ auto SpeciesManager::Repopulate(Bodies& bodies) -> void {
 		EmplaceChild(std::move(champNetwork));
 	};
 
-	
-	PrepareSpeciesForPopulation();
 	// In the original implementation the offspring were tossed directly into their new species and, as a result, in the mating pool.
 	// We instead separate the generations
 	for (auto& s : species) {
@@ -111,28 +110,6 @@ auto SpeciesManager::FillOrganismIntoSpecies(Organism&& organism) -> void {
 	}
 }
 
-auto SpeciesManager::PrepareSpeciesForPopulation() -> void {
-	AnalyzeSpeciesPopulation();
-	DeleteStagnantSpecies();
-}
-
-auto SpeciesManager::AnalyzeSpeciesPopulation() -> void {
-	for (auto& currSpecies : species) {
-		currSpecies.AnalyzePopulation();
-	}
-}
-
-auto SpeciesManager::DeleteStagnantSpecies() -> void {
-	auto IsStagnant = [](const Species& species) {
-		return species.IsStagnant();
-	};
-	auto removePos = remove_if(species.begin(), species.end(), IsStagnant);
-	// Let at least one species survive
-	if (!species.empty() && removePos == species.begin()) {
-		++removePos;
-	}
-	species.erase(removePos, species.end());
-}
 
 auto SpeciesManager::ClearSpeciesPopulation() -> void {
 	for (auto& sp : species)
