@@ -64,6 +64,29 @@ private:
 	auto CategorizeNeuronBranchIntoLayers(Neuron& currNode, size_t currentDepth = 0) const -> void;
 
 	auto ParseNeuronsJson(std::string json) -> std::vector<Neuron>;
+
+
+	template<typename Lambda>
+	auto GetNeuronsByRangeAndIndex(std::size_t range, Lambda&& index) {
+		std::vector<Neuron*> neuronsInRange;
+		neuronsInRange.reserve(range);
+
+		for (auto i = 0U; i < range; i++) {
+			neuronsInRange.push_back(&neurons[index(i)]);
+		}
+		return neuronsInRange;
+	}
+
+	template<typename Lambda>
+	auto GetNeuronsByRangeAndIndex(std::size_t range, Lambda&& index) const	{
+		std::vector<const Neuron*> neuronsInRange;
+		neuronsInRange.reserve(range);
+
+		for (auto i = 0U; i < range; i++) {
+			neuronsInRange.push_back(&neurons[index(i)]);
+		}
+		return neuronsInRange;
+	}
 };
 
 }

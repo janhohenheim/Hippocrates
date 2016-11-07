@@ -119,49 +119,31 @@ auto NeuralNetwork::GetOutputs() -> vector<float> {
 }
 
 auto Hippocrates::NeuralNetwork::GetOutputNeurons() -> std::vector<Neuron*> {
-	std::vector<Neuron*> outputNeurons;
-	const auto outputCount = genome.GetOutputCount();
-	outputNeurons.reserve(outputCount);
-
-	for (auto i = 0U; i < outputCount; i++) {
-		outputNeurons.push_back(&neurons[genome[i].to]);
+	return GetNeuronsByRangeAndIndex(genome.GetOutputCount(), [&](std::size_t i) {
+		return genome[i].to;
 	}
-	return outputNeurons;
+	);
 }
 
-auto Hippocrates::NeuralNetwork::GetOutputNeurons() const -> std::vector<const Neuron *>
-{
-	std::vector<const Neuron*> outputNeurons;
-	const auto outputCount = genome.GetOutputCount();
-	outputNeurons.reserve(outputCount);
-
-	for (auto i = 0U; i < outputCount; i++) {
-		outputNeurons.push_back(&neurons[genome[i].to]);
+auto Hippocrates::NeuralNetwork::GetOutputNeurons() const -> std::vector<const Neuron *> {
+	return GetNeuronsByRangeAndIndex(genome.GetOutputCount(), [&](std::size_t i) {
+		return genome[i].to;
 	}
-	return outputNeurons;
+	);
 }
 
 auto Hippocrates::NeuralNetwork::GetInputNeurons() -> std::vector<Neuron*> {
-	std::vector<Neuron*> inputNeurons;
-	const auto inputCount = genome.GetInputCount();
-	inputNeurons.reserve(inputCount);
-
-	for (auto i = 0U; i < inputCount; i++) {
-		inputNeurons.push_back(&neurons[i + GetTrainingParameters().structure.numberOfBiasNeurons]);
+	return GetNeuronsByRangeAndIndex(genome.GetInputCount(), [&](std::size_t i) {
+		return i + GetTrainingParameters().structure.numberOfBiasNeurons;
 	}
-	return inputNeurons;
+	);
 }
 
-auto Hippocrates::NeuralNetwork::GetInputNeurons() const -> std::vector<const Neuron *>
-{
-	std::vector<const Neuron*> inputNeurons;
-	const auto inputCount = genome.GetInputCount();
-	inputNeurons.reserve(inputCount);
-
-	for (auto i = 0U; i < inputCount; i++) {
-		inputNeurons.push_back(&neurons[i + GetTrainingParameters().structure.numberOfBiasNeurons]);
+auto Hippocrates::NeuralNetwork::GetInputNeurons() const -> std::vector<const Neuron *> {
+	return GetNeuronsByRangeAndIndex(genome.GetInputCount(), [&](std::size_t i) {
+		return i + GetTrainingParameters().structure.numberOfBiasNeurons;
 	}
-	return inputNeurons;
+	);
 }
 
 auto NeuralNetwork::GetOutputsUsingInputs(vector<float> inputs) -> vector<float> {
