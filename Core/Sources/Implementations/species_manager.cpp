@@ -25,6 +25,13 @@ auto SpeciesManager::Repopulate(Bodies& bodies) -> void {
 		++currBody;
 	};
 
+	auto CloneChamp = [this, &newGeneration, &currBody](const auto & species) {
+		auto& champ = species.GetFittestOrganism();
+		auto champNetwork = champ.GetNeuralNetwork();
+		newGeneration.emplace_back(*currBody, std::move(champNetwork));
+		++currBody;
+	};
+
 	
 	PrepareSpeciesForPopulation();
 	// In the original implementation the offspring were tossed directly into their new species and, as a result, in the mating pool.
@@ -33,6 +40,13 @@ auto SpeciesManager::Repopulate(Bodies& bodies) -> void {
 		auto offspringCount = s.GetOffspringCount(averageFitness);
 		offspringCount = std::min(offspringCount, s.GetSize());
 		s.RemoveWorst();
+
+		if (offspringCount >= 1 
+		&&	s.GetSize() > parameters.reproduction.minSpeciesSizeForChampConservation) {
+			CloneChamp(s);
+			offspringCount--;
+		}
+
 		for (std::size_t i = 0; i < offspringCount; ++i) {
 			Breed(s);
 		}
