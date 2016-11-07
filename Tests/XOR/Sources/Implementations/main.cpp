@@ -33,5 +33,7 @@ int main() {
 	expectedData.AddSet({ { 1.0f, 1.0f }, XORResult::Zero });
 	auto champ = trainer.TrainSupervised(data, 150);
 
+	std::cout << trainer.GetGenerationsPassed() << '\n';
+
 	return Tests::TestingUtilities::TestNetwork(champ, expectedData);
 }

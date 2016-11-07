@@ -30,9 +30,9 @@ auto Organism::GetOrCalculateRawFitness() const -> double {
 	return fitness;
 }
 
-auto Organism::BreedWith(Organism& partner) -> NeuralNetwork {
+auto Organism::BreedWith(const Organism& partner) const -> NeuralNetwork {
 	auto parentsHaveSameFitness = this->GetOrCalculateFitness() == partner.GetOrCalculateFitness();
-	Organism* dominantParent = nullptr;
+	const Organism* dominantParent = nullptr;
 	if (parentsHaveSameFitness) {
 		dominantParent = Utility::FlipACoin() ? this : &partner;
 	}

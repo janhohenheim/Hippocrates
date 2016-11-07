@@ -37,8 +37,9 @@ inline auto FlipACoin() {
     return GetRandomNumberBetween(0, 1) == 0;
 }
 
-inline auto DidChanceOccure(float chance) {
-    auto randnum = GetRandomNumberBetween(0.0f, 1.0f);
+template <typename T>
+inline auto DidChanceOccure(T chance) {
+    auto randnum = GetRandomNumberBetween(static_cast<T>(0.0), static_cast<T>(1.0));
     return randnum < chance;
 }
 

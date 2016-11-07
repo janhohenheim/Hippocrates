@@ -68,6 +68,19 @@ auto Hippocrates::Species::IsStagnant() const -> bool {
 		stagnantSpeciesClearThreshold;
 }
 
+auto Species::GetOffspringCount(double averageFitness) const -> std::size_t {
+	if (averageFitness == 0.0) 
+		return GetSize();
+	
+
+	std::size_t offspringCount = 0;
+	for (auto & organism : population) {
+		// TODO jnf: Should we round this?
+		offspringCount += static_cast<std::size_t>(std::round(organism.GetOrCalculateFitness() / averageFitness));
+	}
+	return offspringCount;
+}
+
 auto Species::LetPopulationLive() -> void {
 	for (auto& organism : population) {
 		while (!organism.HasFinishedTask()) {
@@ -110,7 +123,7 @@ auto Species::operator=(Species&& other) noexcept -> Species& {
 	return *this;
 }
 
-auto Species::GetOrganismToBreed() -> Organism& {
+auto Species::GetOrganismToBreed() const -> const Organism& {
 	// TODO jnf: Switch to stochastic universal sampling
 	if (population.empty()) {
 		return representative;
@@ -153,3 +166,14 @@ auto Species::GetJSON() const -> string {
 	return s;
 }
 
+auto Species::GetAverageFitness() const -> double {
+	return GetTotalFitness() / GetSize();
+}
+
+auto Species::GetTotalFitness() const -> double {
+	auto totalFitness = 0.0;
+	for (auto & organism : population) {
+		totalFitness += organism.GetOrCalculateFitness();
+	}
+	return totalFitness;
+}
