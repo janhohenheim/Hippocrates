@@ -28,6 +28,7 @@ struct TrainingParameters {
 	struct Reproduction {
 		float chanceForInterspecialReproduction = 0.001f;
 		std::size_t minSpeciesSizeForChampConservation = 5;
+		float reproductionThreshold = 0.2f;
 	} reproduction;
 	struct Structure {
 		std::size_t numberOfBiasNeurons = 1;

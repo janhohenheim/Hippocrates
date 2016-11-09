@@ -42,8 +42,11 @@ auto Species::ClearPopulation() -> void {
 }
 
 auto Hippocrates::Species::RemoveWorst() -> void {
-	if (GetSize() > 1)
-		population.pop_back();
+	const auto threshold = GetTrainingParameters().reproduction.reproductionThreshold;
+	const auto size = static_cast<double>(GetSize());
+	const auto numberOfPotentionalParents = static_cast<std::size_t>(size * threshold);
+
+	std::swap(std::move(population.begin() + numberOfPotentionalParents), std::move(population.end()));
 }
 
 auto Species::ElectRepresentative() -> void {
