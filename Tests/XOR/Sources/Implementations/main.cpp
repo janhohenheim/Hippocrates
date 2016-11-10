@@ -21,7 +21,7 @@ int main() {
 	NeuralNetworkTrainer trainer;
 	auto champ = trainer.TrainSupervised(data, 150);
 	std::cout << "Finished training in " << trainer.GetGenerationsPassed() << " generations\n";
-	
+
 	TrainingData<std::vector<float>, XORResult> expectedData;
 	expectedData.AddSet({ { 1.0f, 0.0f }, XORResult::One });
 	expectedData.AddSet({ { 1.0f, 1.0f }, XORResult::Zero });

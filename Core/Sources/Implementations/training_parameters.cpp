@@ -55,6 +55,12 @@ TrainingParameters::TrainingParameters(std::string json) {
 		if (key == "minSpeciesSizeForChampConservation") {
 			reproduction.minSpeciesSizeForChampConservation = stoul(value);
 		} else
+		if (key == "reproductionThreshold") {
+			reproduction.reproductionThreshold = stof(value);
+		} else
+		if (key == "minParents") {
+			reproduction.minParents = stoul(value);
+		} else
 		if (key == "numberOfBiasNeurons") {
 			structure.numberOfBiasNeurons = stoul(value);
 		} else
@@ -111,6 +117,10 @@ auto TrainingParameters::GetJSON() const -> std::string {
 	s += to_string(reproduction.chanceForInterspecialReproduction);
 	s += ",\"minSpeciesSizeForChampConservation\":";
 	s += to_string(reproduction.minSpeciesSizeForChampConservation);
+	s += ",\"reproductionThreshold\":";
+	s += to_string(reproduction.reproductionThreshold);
+	s += ",\"minParents\":";
+	s += to_string(reproduction.minParents);
 	s += "}";
 
 	s += ",\"structure\":";
