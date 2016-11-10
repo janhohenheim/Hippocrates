@@ -25,10 +25,10 @@ Gene::Gene(std::string json) {
 		auto value = json.substr(tokens[i + 1].start, tokens[i + 1].end - tokens[i + 1].start);
 
 		if (key == "historicalMarking") {
-			historicalMarking = stoul(value);
+			sscanf(value.c_str(), "%zu", &historicalMarking);
 		} else
 		if (key == "to") {
-			to = stoul(value);
+			sscanf(value.c_str(), "%zu", &to);
 		} else
 		if (key == "weight") {
 			weight = stof(value);
