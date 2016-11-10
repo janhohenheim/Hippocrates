@@ -20,17 +20,17 @@ auto SpeciesManager::Repopulate(Bodies& bodies) -> void {
 	newGeneration.reserve(bodies.size());
 
 	auto currBody = bodies.begin();
-	auto EmplaceChild = [&](auto && network) {
+	auto EmplaceChild = [&](NeuralNetwork && network) {
 		newGeneration.emplace_back(*currBody, std::forward<decltype(network)>(network));
 		++currBody;
 	};
 
-	auto Breed = [&](const auto & species) {
+	auto Breed = [&](const Species & species) {
 		auto child = BreedInSpecies(species);
 		EmplaceChild(std::move(child));
 	};
 
-	auto CloneChamp = [&](const auto & species) {
+	auto CloneChamp = [&](const Species & species) {
 		auto champNetwork = species.GetFittestOrganism().GetNeuralNetwork();
 		EmplaceChild(std::move(champNetwork));
 	};
