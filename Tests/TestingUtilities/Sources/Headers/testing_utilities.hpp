@@ -8,6 +8,11 @@
 #include <memory>
 #include <sstream>
 #include <thread>
+#ifdef __has_include
+#  if __has_include(<pthread.h>)
+#    include <pthread.h>
+#  endif
+#endif
 
 namespace Hippocrates {
 namespace Tests {
