@@ -10,8 +10,6 @@ enum class XORResult {
 };
 
 int main() {
-	srand(static_cast<unsigned>(time(nullptr)));
-
 	TrainingData<std::vector<float>, XORResult> data;
 	data.AddSet({ {0.0f, 0.0f}, XORResult::Zero });
 	data.AddSet({ {0.0f, 1.0f}, XORResult::One });
@@ -19,7 +17,8 @@ int main() {
 	data.AddSet({ {1.0f, 1.0f}, XORResult::Zero });
 
 	NeuralNetworkTrainer trainer;
-	auto champ = trainer.TrainSupervised(data, 150);
+	std::chrono::seconds timeout(1);
+	auto champ = Tests::TestingUtilities::TrainWithTimeout(trainer, data, timeout);
 	std::cout << "Finished training in " << trainer.GetGenerationsPassed() << " generations\n";
 
 	TrainingData<std::vector<float>, XORResult> expectedData;
