@@ -5,6 +5,9 @@
 namespace Hippocrates {
 
 struct TrainingParameters {
+	TrainingParameters() = default;
+	TrainingParameters(std::string json);
+
 	struct Ranges {
 		float minWeight = -1.0f;
 		float maxWeight = 1.0f;
@@ -25,6 +28,8 @@ struct TrainingParameters {
 	struct Reproduction {
 		float chanceForInterspecialReproduction = 0.001f;
 		std::size_t minSpeciesSizeForChampConservation = 5;
+		float reproductionThreshold = 0.2f;
+		std::size_t minParents = 1;
 	} reproduction;
 	struct Structure {
 		std::size_t numberOfBiasNeurons = 1;

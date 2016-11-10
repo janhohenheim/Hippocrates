@@ -1,6 +1,8 @@
 #include <cmath>
 #include <algorithm>
+#include <iostream>
 #include "../Headers/genome.hpp"
+#include "../Headers/jsmn.h"
 
 using namespace Hippocrates;
 using namespace std;
@@ -18,6 +20,35 @@ Genome::Genome(std::size_t inputCount, std::size_t outputCount, TrainingParamete
 			currentGene->from = in;
 			currentGene->to = out + (inputCount + parameters.structure.numberOfBiasNeurons);
 			++currentGene;
+		}
+	}
+}
+
+Genome::Genome(std::string json) {
+	jsmn_parser parser;
+	jsmn_init(&parser);
+	jsmntok_t tokens[256];
+
+	auto token_count = jsmn_parse(&parser, json.c_str(), json.length(), tokens, 256);
+
+	for (size_t i = 0; i < token_count - 1; i++) {
+		auto key = json.substr(tokens[i].start, tokens[i].end - tokens[i].start);
+		auto value = json.substr(tokens[i+1].start, tokens[i+1].end - tokens[i+1].start);
+
+		if (key == "parameters") {
+			parameters = TrainingParameters(value);
+		} else
+		if (key == "inputCount") {
+			inputCount = stoul(value);
+		} else
+		if (key == "outputCount") {
+			outputCount = stoul(value);
+		} else
+		if (key == "neuronCount") {
+			neuronCount = stoul(value);
+		} else
+		if (key == "genes") {
+			genes = ParseGenesJson(value);
 		}
 	}
 }
@@ -48,7 +79,9 @@ auto Genome::GetGeneticalDistanceFrom(const Genome& other) const -> double {
 
 	auto numberOfDisjointGenes = this->GetGeneCount() + other.GetGeneCount() - (size_t)2 * numberOfOverlapingGenes;
 	auto sizeOfBiggerGenome = max(this->GetGeneCount(), other.GetGeneCount());
-	// TODO jnf: Think how we'll handle the next line
+	// half of the next line has been commented out because stanley's original implementation does it this way, 
+	// despite it not being strictly conform to his paper.
+	// It makes more sense this way though (see http://sharpneat.sourceforge.net/research/speciation-canonical-neat.html)
 	auto disjointGenesInfluence = (double)numberOfDisjointGenes /* / (double)sizeOfBiggerGenome*/;
 
 	auto averageWeightDifference = totalWeightDifference / (double)numberOfOverlapingGenes;
@@ -76,6 +109,8 @@ auto Genome::GetJSON() const -> string {
 	s += std::to_string(inputCount);
 	s += ",\"outputCount\":";
 	s += std::to_string(outputCount);
+	s += ",\"neuronCount\":";
+	s += std::to_string(neuronCount);
 	s += ",\"genes\":[";
 	for (size_t i = 0; i < genes.size() - 1; ++i) {
 		s += genes[i].GetJSON();
@@ -85,6 +120,24 @@ auto Genome::GetJSON() const -> string {
 	s += "]";
 	s += "}";
 	return s;
+}
+
+auto Genome::ParseGenesJson(std::string json) -> std::vector<Gene> {
+	jsmn_parser parser;
+	jsmn_init(&parser);
+	jsmntok_t tokens[256];
+
+	auto token_count = jsmn_parse(&parser, json.c_str(), json.length(), tokens, 256);
+
+	vector<Gene> genes;
+
+	for (size_t i = 0; i < token_count - 1; i++) {
+		if (tokens[i].type == JSMN_OBJECT) {
+			genes.push_back(Gene(json.substr(tokens[i].start, tokens[i].end - tokens[i].start)));
+		}
+	}
+
+	return genes;
 }
 
 auto Genome::AdjustNeuronCount(const Gene & gene) -> void {

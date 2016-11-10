@@ -1,13 +1,19 @@
 #pragma once
 #include <cstddef>
 #include <string>
+#include "../Headers/utility.hpp"
+
 namespace Hippocrates {
 
 struct Gene {
+private:
+	static std::size_t numberOfExistingGenes;
+
 public:
 	Gene();
 	Gene(const Gene& other) = default;
 	Gene(Gene&& other) = default;
+	Gene(std::string json);
 	~Gene() = default;
 
 	auto operator=(const Gene& other) -> Gene& = default;
@@ -18,13 +24,10 @@ public:
 
 	std::size_t from = 0;
 	std::size_t to = 0;
-	float weight = 0.0f;
+	float weight = Utility::GetRandomNumberBetween(-1.0f, 1.0f);
 	std::size_t historicalMarking = numberOfExistingGenes++;
 	bool isEnabled = true;
 	bool isRecursive = false;
-
-private:
-	static std::size_t numberOfExistingGenes;
 };
 
 }

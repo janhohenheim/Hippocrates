@@ -1,5 +1,8 @@
 #include <stdlib.h>
+#include <cstring>
 #include "../Headers/gene.hpp"
+#include "../Headers/jsmn.h"
+
 
 using namespace Hippocrates;
 using namespace std;
@@ -10,21 +13,37 @@ Gene::Gene() {
 	SetRandomWeight();
 }
 
+Gene::Gene(std::string json) {
+	jsmn_parser parser;
+	jsmn_init(&parser);
+	jsmntok_t tokens[256];
+
+	auto token_count = jsmn_parse(&parser, json.c_str(), json.length(), tokens, 256);
+
+	for (size_t i = 0; i < token_count - 1; i++) {
+		auto key = json.substr(tokens[i].start, tokens[i].end - tokens[i].start);
+		auto value = json.substr(tokens[i + 1].start, tokens[i + 1].end - tokens[i + 1].start);
+
+		if (key == "historicalMarking") {
+			historicalMarking = stoul(value);
+		} else
+		if (key == "to") {
+			to = stoul(value);
+		} else
+		if (key == "weight") {
+			weight = stof(value);
+		} else
+		if (key == "isEnabled") {
+			isEnabled = value == "true";
+		} else
+		if (key == "isRecursive") {
+			isRecursive = value == "true";
+		}
+	}
+}
+
 auto Gene::SetRandomWeight() -> void {
-	/*
-	const auto& min = parameters.ranges.minWeight;
-	const auto& max = parameters.ranges.maxWeight;
-	if (min == max) {
-	weight = min;
-	}
-	else {
-	weight = min + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (max - min)));
-	}
-	*/
-	weight = (float)(rand() % 10'000) / 9'999.0f;
-	if (rand() % 2) {
-		weight = -weight;
-	}
+	weight = Utility::GetRandomNumberBetween(-1.0f, 1.0f);
 }
 
 auto Gene::GetJSON() const -> string {

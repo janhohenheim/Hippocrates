@@ -1,14 +1,15 @@
 #include <algorithm>
 #include <functional>
+#include <iostream>
+#include <cstring>
 #include "../Headers/neural_network.hpp"
+#include "../Headers/jsmn.h"
 
 using namespace Hippocrates;
 using namespace std;
 
 NeuralNetwork::NeuralNetwork(const Genome& genome, bool shouldMutate) :
-	genome(genome),
-	inputNeurons(genome.GetInputCount()),
-	outputNeurons(genome.GetOutputCount())
+	genome(genome)
 {
 	if (shouldMutate) {
 		MutateGenesAndBuildNetwork();
@@ -19,9 +20,7 @@ NeuralNetwork::NeuralNetwork(const Genome& genome, bool shouldMutate) :
 }
 
 NeuralNetwork::NeuralNetwork(Genome&& genome, bool shouldMutate) :
-	genome(move(genome)),
-	inputNeurons(genome.GetInputCount()),
-	outputNeurons(genome.GetOutputCount())
+	genome(move(genome))
 {
 	if (shouldMutate) {
 		MutateGenesAndBuildNetwork();
@@ -31,18 +30,36 @@ NeuralNetwork::NeuralNetwork(Genome&& genome, bool shouldMutate) :
 	}
 }
 
+NeuralNetwork::NeuralNetwork(const std::string& json) {
+	jsmn_parser parser;
+	jsmn_init(&parser);
+	jsmntok_t tokens[256];
+
+	auto token_count = jsmn_parse(&parser, json.c_str(), json.length(), tokens, 256);
+
+	for (size_t i = 0; i < token_count - 1; i++) {
+		auto key = json.substr(tokens[i].start, tokens[i].end - tokens[i].start);
+		auto value = json.substr(tokens[i + 1].start, tokens[i + 1].end - tokens[i + 1].start);
+
+		if (key == "genome") {
+			genome = Genome(value);
+		} else
+		if (key == "neurons") {
+			neurons = ParseNeuronsJson(value);
+		}
+	}
+
+	BuildNetworkFromGenes();
+}
+
 NeuralNetwork::NeuralNetwork(const NeuralNetwork& other) :
-	genome(other.genome),
-	inputNeurons(other.inputNeurons.size()),
-	outputNeurons(other.outputNeurons.size())
+	genome(other.genome)
 {
 	BuildNetworkFromGenes();
 }
 
 auto NeuralNetwork::operator=(const NeuralNetwork& other) -> NeuralNetwork& {
 	genome = other.genome;
-	inputNeurons.resize(other.inputNeurons.size());
-	outputNeurons.resize(other.outputNeurons.size());
 	neurons.clear();
 	neurons.reserve(other.neurons.size());
 	layerMap.clear();
@@ -68,11 +85,16 @@ auto NeuralNetwork::BuildNetworkFromGenes() -> void {
 			neurons[gene.from].AddConnection(move(out));
 		}
 	}
-	InterpretInputsAndOutputs();
+
+	for (auto i = 0U; i < GetTrainingParameters().structure.numberOfBiasNeurons; i++) {
+		neurons[i].SetInput(1.0f);
+	}
+
 	CategorizeNeuronsIntoLayers();
 }
 
 auto NeuralNetwork::SetInputs(vector<float> inputs) -> void {
+	auto inputNeurons = GetInputNeurons();
 	if (inputNeurons.size() != inputs.size()) {
 		throw out_of_range("Number of inputs provided doesn't match genetic information");
 	}
@@ -88,6 +110,7 @@ auto NeuralNetwork::GetOutputs() -> vector<float> {
 		}
 	}
 	vector<float> outputs;
+	const auto outputNeurons = GetOutputNeurons();
 	outputs.reserve(outputNeurons.size());
 	for (auto& outputNeuron : outputNeurons) {
 		outputs.push_back(outputNeuron->RequestDataAndGetActionPotential());
@@ -95,42 +118,56 @@ auto NeuralNetwork::GetOutputs() -> vector<float> {
 	return outputs;
 }
 
+auto Hippocrates::NeuralNetwork::GetOutputNeurons() -> std::vector<Neuron*> {
+	return GetNeuronsByRangeAndIndex(genome.GetOutputCount(), [&](std::size_t i) {
+		return genome[i].to;
+	}
+	);
+}
+
+auto Hippocrates::NeuralNetwork::GetOutputNeurons() const -> std::vector<const Neuron *> {
+	return GetNeuronsByRangeAndIndex(genome.GetOutputCount(), [&](std::size_t i) {
+		return genome[i].to;
+	}
+	);
+}
+
+auto Hippocrates::NeuralNetwork::GetInputNeurons() -> std::vector<Neuron*> {
+	return GetNeuronsByRangeAndIndex(genome.GetInputCount(), [&](std::size_t i) {
+		return i + GetTrainingParameters().structure.numberOfBiasNeurons;
+	}
+	);
+}
+
+auto Hippocrates::NeuralNetwork::GetInputNeurons() const -> std::vector<const Neuron *> {
+	return GetNeuronsByRangeAndIndex(genome.GetInputCount(), [&](std::size_t i) {
+		return i + GetTrainingParameters().structure.numberOfBiasNeurons;
+	}
+	);
+}
+
 auto NeuralNetwork::GetOutputsUsingInputs(vector<float> inputs) -> vector<float> {
 	SetInputs(move(inputs));
 	return GetOutputs();
 }
 
-auto NeuralNetwork::InterpretInputsAndOutputs() -> void {
-	// Bias
-	for (auto i = 0U; i < GetTrainingParameters().structure.numberOfBiasNeurons; i++) {
-		neurons[i].SetInput(1.0f);
-	}
-
-	// Inputs
-	for (auto i = 0U; i < genome.GetInputCount(); i++) {
-		inputNeurons[i] = &neurons[i + GetTrainingParameters().structure.numberOfBiasNeurons];
-	}
-
-	// Outputs
-	for (auto i = 0U; i < genome.GetOutputCount(); i++) {
-		outputNeurons[i] = &neurons[genome[i].to];
-	}
-}
-
 auto NeuralNetwork::ShouldAddNeuron() const -> bool {
-	return DidChanceOccure(
-		GetTrainingParameters().
-		
+	return Utility::DidChanceOccure(
+		GetTrainingParameters().		
 		mutation.
 		chanceForNeuralMutation
 	);
 }
 
 auto NeuralNetwork::ShouldAddConnection() const -> bool {
-	const bool hasChanceOccured = DidChanceOccure(GetTrainingParameters().mutation.chanceForConnectionalMutation);
-	if (!hasChanceOccured) {
+	const auto chance = 
+		GetTrainingParameters().
+		mutation.
+		chanceForConnectionalMutation;
+	if (!Utility::DidChanceOccure(chance)) {
 		return false;
 	}
+
 	const auto inputLayerSize = genome.GetInputCount() + GetTrainingParameters().structure.numberOfBiasNeurons;
 	const auto outputLayerSize = genome.GetOutputCount();
 	const auto hiddenLayerSize = genome.GetNeuronCount() - inputLayerSize - outputLayerSize;
@@ -149,23 +186,18 @@ auto NeuralNetwork::ShouldAddConnection() const -> bool {
 
 	const auto possibleConnections = 
 		startingConnections + 
-	    hiddenConnections +
+		hiddenConnections +
 		connectionsFromInputs + 
 		connectionsToOutputs;
 	return genome.GetGeneCount() < possibleConnections;
 }
 
 auto NeuralNetwork::ShouldMutateWeight() const -> bool {
-	return DidChanceOccure(
+	return Utility::DidChanceOccure(
 		GetTrainingParameters().		
 		mutation.
 		chanceForWeightMutation
 	);
-}
-
-auto NeuralNetwork::DidChanceOccure(float chance) -> bool {
-	auto num = rand() % 100;
-	return num < int(100.0f * chance);
 }
 
 auto NeuralNetwork::AddRandomNeuron() -> void {
@@ -236,8 +268,8 @@ auto NeuralNetwork::GetTwoUnconnectedNeurons() -> pair<Neuron&, Neuron&> {
 	auto inputRange = genome.GetInputCount() + GetTrainingParameters().structure.numberOfBiasNeurons;
 	NeuronRefs possibleToNeurons(possibleFromNeurons.begin() + inputRange, possibleFromNeurons.end());
 
-	random_shuffle(possibleFromNeurons.begin(), possibleFromNeurons.end());
-	random_shuffle(possibleToNeurons.begin(), possibleToNeurons.end());
+	Utility::Shuffle(possibleFromNeurons);
+	Utility::Shuffle(possibleToNeurons);
 
 
 	for (auto from : possibleFromNeurons) {
@@ -269,7 +301,7 @@ auto Hippocrates::NeuralNetwork::CanNeuronsBeConnected(const Neuron& lhs, const 
 auto NeuralNetwork::AreBothNeuronsOutputs(const Neuron& lhs, const Neuron& rhs) const -> bool {
 	bool isLhsOutput = false;
 	bool isRhsOutput = false;
-	for (const auto& output : outputNeurons) {
+	for (const auto& output : GetOutputNeurons()) {
 		if (output == &lhs) {
 			isLhsOutput = true;
 		}
@@ -301,7 +333,7 @@ auto NeuralNetwork::ShuffleWeights() -> void {
 }
 
 auto NeuralNetwork::MutateWeightOfGeneAt(size_t index) -> void {
-	if (DidChanceOccure(GetTrainingParameters().mutation.chanceOfTotalWeightReset)) {
+	if (Utility::DidChanceOccure(GetTrainingParameters().mutation.chanceOfTotalWeightReset)) {
 		genome[index].SetRandomWeight();
 	}
 	else {
@@ -310,18 +342,18 @@ auto NeuralNetwork::MutateWeightOfGeneAt(size_t index) -> void {
 }
 
 auto NeuralNetwork::PerturbWeightAt(size_t index) -> void {
-	constexpr float perturbanceBoundaries = 0.5f;
-	auto perturbance = static_cast<float>(rand() % 10'000) / 9'999.0f * perturbanceBoundaries;
-	if (rand() % 2) {
-		perturbance = -perturbance;
-	}
+	constexpr auto perturbRange = 0.5f;
+	auto perturbance = Utility::GetRandomNumberBetween(-perturbRange, perturbRange);
 	genome[index].weight += perturbance;
+	// In C++17
+	// std::clamp(genome[index].weight, -1.0f, 1.0f));
 	if (genome[index].weight < -1.0f) {
 		genome[index].weight = -1.0f;
 	}
 	else if (genome[index].weight > 1.0f) {
 		genome[index].weight = 1.0f;
 	}
+	
 }
 
 auto NeuralNetwork::MutateGenesAndBuildNetwork() -> void {
@@ -344,11 +376,12 @@ auto NeuralNetwork::CategorizeNeuronsIntoLayers() -> void {
 	for (auto i = 0U; i < GetTrainingParameters().structure.numberOfBiasNeurons; i++) {
 		CategorizeNeuronBranchIntoLayers(neurons[i]);
 	}
-	for (auto* in : inputNeurons) {
+	for (auto* in : GetInputNeurons()) {
 		CategorizeNeuronBranchIntoLayers(*in);
 	}
 
 	size_t highestLayer = 0U;
+	auto outputNeurons = GetOutputNeurons();
 	for (auto* out : outputNeurons) {
 		highestLayer = max(out->GetLayer(), highestLayer);
 	}
@@ -381,7 +414,7 @@ auto NeuralNetwork::CategorizeNeuronBranchIntoLayers(Neuron& currNode, size_t cu
 }
 
 auto NeuralNetwork::GetRandomEnabledGene() -> Gene& {
-	size_t num = rand() % genome.GetGeneCount();
+	size_t num = Utility::GetRandomNumberBetween(0ULL, genome.GetGeneCount() - 1ULL);
 	auto randGene = genome.begin();
 	randGene += num;
 	while (randGene != genome.end() && !randGene->isEnabled) {
@@ -416,4 +449,22 @@ auto NeuralNetwork::Reset() -> void {
 	for (auto& neuron : neurons) {
 		neuron.Reset();
 	}
+}
+
+auto NeuralNetwork::ParseNeuronsJson(std::string json) -> std::vector<Neuron> {
+	jsmn_parser parser;
+	jsmn_init(&parser);
+	jsmntok_t tokens[256];
+
+	auto token_count = jsmn_parse(&parser, json.c_str(), json.length(), tokens, 256);
+
+	vector<Neuron> neurons;
+
+	for (size_t i = 0; i < token_count - 1; i++) {
+		if (tokens[i].type == JSMN_OBJECT) {
+			neurons.push_back(Neuron(json.substr(tokens[i].start, tokens[i].end - tokens[i].start)));
+		}
+	}
+
+	return neurons;
 }

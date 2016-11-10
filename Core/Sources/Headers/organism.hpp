@@ -30,8 +30,9 @@ public:
 	auto GetOrCalculateFitness() const -> double;
 	auto GetOrCalculateRawFitness() const -> double;
 	auto GetMaxFitness() const { return body->GetMaximumFitness(); }
-	auto BreedWith(Organism& partner) -> NeuralNetwork;
+	auto BreedWith(const Organism& partner) const -> NeuralNetwork;
 	auto GetGenome() const -> const Genome&{ return network.GetGenome(); }
+	auto GetNeuralNetwork() const -> const NeuralNetwork& {return network; }
 	auto HasFinishedTask() const -> bool { return body->HasFinishedTask(); }
 	auto GetTrainingParameters() const -> const TrainingParameters&{ return network.GetTrainingParameters(); }
 	auto GetJSON() const->std::string;

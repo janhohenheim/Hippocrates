@@ -19,6 +19,7 @@ auto TestNetwork(NeuralNetwork &network, TrainingData<InputType, Classification>
 		auto outputIndex = std::distance(networkOutputs.begin(), maxOutput);
 
 		if (outputIndex != static_cast<size_t>(dataSet.classification)) {
+			errorCount++;
 			std::cout << "Incorrect classification for inputs:";
 			for (const auto& input : dataSet.input) {
 				std::cout << " - " << input << '\n';

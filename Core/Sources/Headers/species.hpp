@@ -21,24 +21,30 @@ public:
 	Species(Species&& other) = default;
 	~Species() = default;
 
-	auto operator=(Species&& other) noexcept -> Species&;
+	auto operator=(Species& other) & ->Species& = default;
+	auto operator=(Species&& other) & -> Species& = default;
 
 	auto AddOrganism(Organism&& organism) -> void;
 	auto AnalyzePopulation() -> void;
 
 	auto IsCompatible(const Genome& genome) const -> bool;
-	auto IsEmpty() const -> bool { return population.empty(); }
+	auto GetSize() const { return population.size(); }
+	auto IsEmpty() const { return population.empty(); }
+	auto GetAverageFitness() const -> double;
+	auto GetTotalFitness() const -> double;
 	auto IsStagnant() const -> bool;
+	auto GetOffspringCount(double averageFitness) const -> std::size_t;
 
 	auto LetPopulationLive() -> void;
 
 	auto ResetToTeachableState() -> void;
 	auto SetPopulationsFitnessModifier() -> void;
 	auto ClearPopulation() -> void;
+	auto RemoveWorst() -> void;
 
 	auto GetFittestOrganism() const -> const Organism&;
 	auto SortPopulationIfNeeded() const -> void;
-	auto GetOrganismToBreed() -> Organism&;
+	auto GetOrganismToBreed() const -> const Organism&;
 	auto GetJSON() const->std::string;
 
 private:
