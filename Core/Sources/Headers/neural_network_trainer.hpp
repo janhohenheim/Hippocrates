@@ -32,7 +32,11 @@ public:
 	auto TrainUnsupervised(SpeciesManager::Bodies& bodies) -> TrainedNeuralNetwork;
 	template <typename InputType, typename Classification, std::size_t ClassificationCount>
 	auto TrainSupervised(const TrainingData<InputType, Classification, ClassificationCount>& data, std::size_t trainingInstances) -> TrainedNeuralNetwork;
+	
+	auto GetGenerationsPassed() const { return generationsPassed; }
+
 	auto GetJSON() const -> std::string;
+
 
 private:
 	auto TrainGenerationAndLogUsingBodies(SpeciesManager::Bodies& bodies) -> void;

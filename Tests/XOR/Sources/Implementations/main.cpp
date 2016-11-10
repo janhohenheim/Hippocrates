@@ -19,6 +19,8 @@ int main() {
 	data.AddSet({ {1.0f, 1.0f}, XORResult::Zero });
 
 	NeuralNetworkTrainer trainer;
+	auto champ = trainer.TrainSupervised(data, 150);
+	std::cout << "Finished training in " << trainer.GetGenerationsPassed() << " generations\n";
 
 	TrainingData<std::vector<float>, XORResult> expectedData;
 	expectedData.AddSet({ { 1.0f, 0.0f }, XORResult::One });
@@ -31,10 +33,7 @@ int main() {
 	expectedData.AddSet({ { 0.0f, 1.0f }, XORResult::One });
 	expectedData.AddSet({ { 0.0f, 0.0f }, XORResult::Zero });
 	expectedData.AddSet({ { 1.0f, 1.0f }, XORResult::Zero });
-	auto champ = trainer.TrainSupervised(data, 150);
 
-	auto json = champ.GetJSON();
-	auto loaded = NeuralNetwork(json);
 
 	return Tests::TestingUtilities::TestNetwork(champ, expectedData);
 }

@@ -12,4 +12,3 @@ script:
   - make
   - travis_wait ctest -R XOR
   - travis_wait ctest -R EvenNumbers
-

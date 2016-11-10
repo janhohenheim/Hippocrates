@@ -11,7 +11,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Sources\Headers\testing_utilities.h">
+    <ClInclude Include="Sources\Headers\testing_utilities.hpp">
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>
