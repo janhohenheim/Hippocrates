@@ -41,12 +41,15 @@ auto Species::ClearPopulation() -> void {
 	population.clear();
 }
 
-auto Hippocrates::Species::RemoveWorst() -> void {
+auto Species::RemoveWorst() -> void {
 	const auto threshold = GetTrainingParameters().reproduction.reproductionThreshold;
 	const auto size = static_cast<double>(GetSize());
 	const auto numberOfPotentionalParents = static_cast<std::size_t>(size * threshold);
 
-	std::swap(std::move(population.begin() + numberOfPotentionalParents), std::move(population.end()));
+	const auto minParents = GetTrainingParameters().reproduction.minParents;
+	const auto lastParent = population.begin() + std::max(numberOfPotentionalParents, minParents);
+
+	population.erase(lastParent, population.end());
 }
 
 auto Species::ElectRepresentative() -> void {
