@@ -17,7 +17,7 @@ int main() {
 	data.AddSet({ {1.0f, 1.0f}, XORResult::Zero });
 
 	NeuralNetworkTrainer trainer;
-	std::chrono::seconds timeout(1);
+	std::chrono::seconds timeout(10);
 	auto champ = Tests::TestingUtilities::TrainWithTimeout(trainer, data, timeout);
 	std::cout << "Finished training in " << trainer.GetGenerationsPassed() << " generations\n";
 

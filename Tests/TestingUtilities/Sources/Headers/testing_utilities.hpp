@@ -12,8 +12,8 @@ namespace Hippocrates {
 namespace Tests {
 namespace TestingUtilities {
 
-template <typename InputType, typename Classification>
-auto TrainWithTimeout(NeuralNetworkTrainer& trainer, const TrainingData<InputType, Classification> &data, std::chrono::seconds span) {
+template <typename InputType, typename Classification, typename Rep, typename Period>
+auto TrainWithTimeout(NeuralNetworkTrainer& trainer, const TrainingData<InputType, Classification> &data, std::chrono::duration<Rep, Period> span) {
 	auto func = [&]() {
 		auto champ = trainer.TrainSupervised(data, static_cast<std::size_t>(150));
 		return std::make_unique<TrainedNeuralNetwork>(std::move(champ));
