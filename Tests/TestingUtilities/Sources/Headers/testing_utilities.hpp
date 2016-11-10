@@ -7,6 +7,7 @@
 #include <future>
 #include <memory>
 #include <sstream>
+#include <thread>
 
 namespace Hippocrates {
 namespace Tests {
