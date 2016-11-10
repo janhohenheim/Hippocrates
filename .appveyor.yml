@@ -6,5 +6,5 @@ build_script:
 
 test_script:
 # syntax: run_process_with_timeout.bat _PATH_ _EXENAME_ _TIMEOUTINSECONDS_
-  - C:\projects\jnf-neat\run_process_with_timeout.bat C:\projects\jnf-neat\x64\Release\ XORSolver.exe
-  - C:\projects\jnf-neat\run_process_with_timeout.bat C:\projects\jnf-neat\x64\Release\ EvenNumbers.exe
+  - C:\projects\jnf-neat\x64\Release\XORSolver.exe
+  - C:\projects\jnf-neat\x64\Release\EvenNumbers.exe
