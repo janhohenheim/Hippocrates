@@ -3,7 +3,8 @@ configuration:
 
 build_script:
   - msbuild %solution_name%
-  
+
 test_script:
-  - C:\projects\jnf-neat\x64\Release\XORSolver.exe
-  - C:\projects\jnf-neat\x64\Release\EvenNumbers.exe
+# syntax: run_process_with_timeout.bat _PATH_ _EXENAME_ _TIMEOUTINSECONDS_
+  - run_process_with_timeout.bat C:\projects\jnf-neat\x64\Release\ XORSolver.exe 600
+  - run_process_with_timeout.bat C:\projects\jnf-neat\x64\Release\ EvenNumbers.exe 600
