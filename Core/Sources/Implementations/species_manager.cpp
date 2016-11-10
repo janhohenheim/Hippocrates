@@ -26,7 +26,8 @@ auto SpeciesManager::Repopulate(Bodies& bodies) -> void {
 	};
 
 	auto Breed = [&](const auto & species) {
-		EmplaceChild(BreedInSpecies(species));
+		auto child = BreedInSpecies(species);
+		EmplaceChild(std::move(child));
 	};
 
 	auto CloneChamp = [&](const auto & species) {
