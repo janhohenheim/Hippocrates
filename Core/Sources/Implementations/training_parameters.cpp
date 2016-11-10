@@ -44,7 +44,7 @@ TrainingParameters::TrainingParameters(std::string json) {
 			speciation.compatibilityThreshold = stof(value);
 		} else
 		if (key == "stagnantSpeciesClearThreshold") {
-			speciation.stagnantSpeciesClearThreshold = stoul(value);
+			sscanf(value.c_str(), "%zu", &speciation.stagnantSpeciesClearThreshold);
 		} else
 		if (key == "normalizeForLargerGenome") {
 			speciation.normalizeForLargerGenome = value == "true";
@@ -53,16 +53,16 @@ TrainingParameters::TrainingParameters(std::string json) {
 			reproduction.chanceForInterspecialReproduction = stof(value);
 		} else
 		if (key == "minSpeciesSizeForChampConservation") {
-			reproduction.minSpeciesSizeForChampConservation = stoul(value);
+			sscanf(value.c_str(), "%zu", &reproduction.minSpeciesSizeForChampConservation);
 		} else
 		if (key == "reproductionThreshold") {
 			reproduction.reproductionThreshold = stof(value);
 		} else
 		if (key == "minParents") {
-			reproduction.minParents = stoul(value);
+			sscanf(value.c_str(), "%zu", &reproduction.minParents);
 		} else
 		if (key == "numberOfBiasNeurons") {
-			structure.numberOfBiasNeurons = stoul(value);
+			sscanf(value.c_str(), "%zu", &structure.numberOfBiasNeurons);
 		} else
 		if (key == "allowRecurrentConnections") {
 			structure.allowRecurrentConnections = value == "true";
