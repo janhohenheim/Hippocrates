@@ -15,7 +15,11 @@ set(CMAKE_CXX_FLAGS -fPIC)
 add_subdirectory(Core)
 
 add_library(Hippocrates SHARED $<TARGET_OBJECTS:Core>)
+set(THREADS_PREFER_PTHREAD_FLAG ON)
+find_package(Threads REQUIRED)
+
 target_link_libraries(Hippocrates -lstdc++fs)
+target_link_libraries(Hippocrates Threads::Threads)
 
 enable_testing()
 add_subdirectory(Tests)

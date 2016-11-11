@@ -3,10 +3,30 @@
 // TODO: Replace with library import
 #include "../../../../Core/Sources/Headers/neural_network_trainer.hpp"
 #include <iostream>
+#include <chrono>
+#include <future>
+#include <memory>
+#include <sstream>
 
 namespace Hippocrates {
 namespace Tests {
 namespace TestingUtilities {
+
+template <typename InputType, typename Classification, typename Rep, typename Period>
+auto TrainWithTimeout(NeuralNetworkTrainer& trainer, const TrainingData<InputType, Classification> &data, std::chrono::duration<Rep, Period> span) {
+	auto func = [&]() {
+		auto champ = trainer.TrainSupervised(data, static_cast<std::size_t>(150));
+		return std::make_unique<TrainedNeuralNetwork>(std::move(champ));
+	};
+	std::future<std::unique_ptr<TrainedNeuralNetwork>> fut = std::async(std::launch::async, func);
+
+	if (fut.wait_for(span) == std::future_status::timeout) {
+		std::terminate();
+	}
+
+	return *(fut.get().get());
+}
+
 
 template <typename InputType, typename Classification>
 auto TestNetwork(NeuralNetwork &network, TrainingData<InputType, Classification> &data) {

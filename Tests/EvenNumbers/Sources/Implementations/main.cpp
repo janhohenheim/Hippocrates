@@ -37,7 +37,8 @@ int main() {
 	data.AddSet({ { 20.0f / maxValue }, Evenness::Even });
 
 	NeuralNetworkTrainer trainer;
-	auto champ = trainer.TrainSupervised(data, 150);
+	std::chrono::seconds timeout(10);
+	auto champ = Tests::TestingUtilities::TrainWithTimeout(trainer, data, timeout);
 	std::cout << "Finished training in " << trainer.GetGenerationsPassed() << " generations\n";
 
 	TrainingData<std::vector<float>, Evenness> expectedData;
