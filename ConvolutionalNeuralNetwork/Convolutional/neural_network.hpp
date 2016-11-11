@@ -12,6 +12,7 @@ class NeuralNetwork {
 public:	
 	template <typename ... Ts>
 	explicit NeuralNetwork(Ts&&... params) {
+		// See http://stackoverflow.com/questions/40300977/pass-a-list-of-deriveds-for-storage-as-member
 		[[maybe_unused]]
 		volatile int dummy[] =
 		{0, (layers.emplace_back(std::make_unique<Ts>(std::forward<Ts>(params))), 0)...};
