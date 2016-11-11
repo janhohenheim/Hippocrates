@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "species.hpp"
+#include "innovation_cacher.hpp"
 
 namespace Hippocrates {
 class Organism;
@@ -9,6 +10,7 @@ private:
 	const TrainingParameters& parameters;
 	mutable bool areSpeciesSortedByFitness = false;
 	std::vector<Species> species;
+	InnovationCacher currGenerationInnovations;
 
 public:
 	using Bodies = std::vector<std::reference_wrapper<IBody>>;
@@ -18,7 +20,7 @@ public:
 
 	auto CreateInitialOrganisms(Bodies& bodies) -> void;
 	auto Repopulate(Bodies& bodies) -> void;
-	auto BreedInSpecies(const Species & species) const -> NeuralNetwork;
+	auto BreedInSpecies(const Species & species) -> NeuralNetwork;
 	auto GetFittestSpecies() -> const Species &;
 	auto GetFittestOrganism() -> const Organism&;
 

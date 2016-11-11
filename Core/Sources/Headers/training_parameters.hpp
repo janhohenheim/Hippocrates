@@ -9,8 +9,8 @@ struct TrainingParameters {
 	TrainingParameters(std::string json);
 
 	struct Ranges {
-		float minWeight = -1.0f;
-		float maxWeight = 1.0f;
+		float minWeight = -8.0f;
+		float maxWeight = 8.0f;
 	} ranges;
 	struct Mutation {
 		float chanceForWeightMutation = 0.8f;

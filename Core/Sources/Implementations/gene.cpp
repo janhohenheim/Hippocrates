@@ -1,13 +1,13 @@
 #include <stdlib.h>
 #include <cstring>
+#include <stdexcept>
+
 #include "../Headers/gene.hpp"
 #include "../Headers/jsmn.h"
 
 
 using namespace Hippocrates;
 using namespace std;
-
-size_t Gene::numberOfExistingGenes = 0U;
 
 Gene::Gene() {
 	SetRandomWeight();
@@ -25,10 +25,10 @@ Gene::Gene(std::string json) {
 		auto value = json.substr(tokens[i + 1].start, tokens[i + 1].end - tokens[i + 1].start);
 
 		if (key == "historicalMarking") {
-			historicalMarking = stoul(value);
+			sscanf(value.c_str(), "%zu", &historicalMarking);
 		} else
 		if (key == "to") {
-			to = stoul(value);
+			sscanf(value.c_str(), "%zu", &to);
 		} else
 		if (key == "weight") {
 			weight = stof(value);
@@ -42,8 +42,20 @@ Gene::Gene(std::string json) {
 	}
 }
 
+auto Gene::operator==(const Gene & other) const -> bool
+{
+	if (historicalMarking == other.historicalMarking
+	 || (from == other.from
+	    && to == other.to)) {
+		if (isRecursive != other.isRecursive)
+			throw std::logic_error("Two identical genes have different recursive flags");
+		return true;
+	}
+	return false;
+}
+
 auto Gene::SetRandomWeight() -> void {
-	weight = Utility::GetRandomNumberBetween(-1.0f, 1.0f);
+	weight = Utility::GetRandomNumberBetween(-8.0f, 8.0f);
 }
 
 auto Gene::GetJSON() const -> string {

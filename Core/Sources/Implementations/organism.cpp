@@ -40,7 +40,7 @@ auto Organism::GetOrCalculateRawFitness() const -> double {
 	return fitness;
 }
 
-auto Organism::BreedWith(const Organism& partner) const -> NeuralNetwork {
+auto Organism::BreedWith(const Organism& partner, InnovationCacher& currGenerationInnovations) const -> NeuralNetwork {
 	auto parentsHaveSameFitness = this->GetOrCalculateFitness() == partner.GetOrCalculateFitness();
 	const Organism* dominantParent = nullptr;
 	if (parentsHaveSameFitness) {
@@ -49,19 +49,20 @@ auto Organism::BreedWith(const Organism& partner) const -> NeuralNetwork {
 	else {
 		dominantParent = this->GetOrCalculateFitness() > partner.GetOrCalculateFitness() ? this : &partner;
 	}
+	// TODO jnf: conform to the paper
 	auto childGenome(dominantParent->GetGenome());
 
 	const auto sizeOfSmallerParent = min(this->GetGenome().GetGeneCount(), partner.GetGenome().GetGeneCount());
 	auto& partnerGenome = partner.GetGenome();
-	auto AreMarkingsSameAt = [&](size_t i) {
-		return childGenome[i].historicalMarking == partnerGenome[i].historicalMarking;
+	auto AreSameAt = [&](size_t i) {
+		return childGenome[i] == partnerGenome[i];
 	};
-	for (size_t i = 0U; i < sizeOfSmallerParent && AreMarkingsSameAt(i); ++i) {
+	for (size_t i = 0U; i < sizeOfSmallerParent && AreSameAt(i); ++i) {
 		if (Utility::FlipACoin()) {
 			childGenome[i].weight = partnerGenome[i].weight;
 		}
 	}
-	NeuralNetwork child(move(childGenome), true);
+	NeuralNetwork child(move(childGenome), currGenerationInnovations);
 	return child;
 }
 

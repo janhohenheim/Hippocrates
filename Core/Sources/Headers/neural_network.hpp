@@ -2,6 +2,7 @@
 #include "gene.hpp"
 #include "neuron.hpp"
 #include "genome.hpp"
+#include "innovation_cacher.hpp"
 #include <vector>
 #include <map>
 
@@ -14,8 +15,10 @@ private:
 	std::map<size_t, std::vector<Neuron*>> layerMap;
 
 public:
-	explicit NeuralNetwork(const Genome& genome, bool shouldMutate = false);
-	explicit NeuralNetwork(Genome&& genome, bool shouldMutate = false);
+	NeuralNetwork(const Genome& genome);
+	NeuralNetwork(Genome&& genome);
+	explicit NeuralNetwork(const Genome& genome, InnovationCacher& currGenerationInnovations);
+	explicit NeuralNetwork(Genome&& genome, InnovationCacher& currGenerationInnovations);
 	explicit NeuralNetwork(const std::string& json);
 	NeuralNetwork(const NeuralNetwork& other);
 	NeuralNetwork(NeuralNetwork&& other) = default;
@@ -41,15 +44,15 @@ private:
 	auto GetInputNeurons()->std::vector<Neuron*>;
 	auto GetInputNeurons() const ->std::vector<const Neuron*>;
 
-	auto MutateGenesAndBuildNetwork() -> void;
+	auto MutateGenesAndBuildNetwork(InnovationCacher& currGenerationInnovations) -> void;
 	auto BuildNetworkFromGenes() -> void;
 
 	auto ShouldAddNeuron() const -> bool;
 	auto ShouldAddConnection() const -> bool;
 	auto ShouldMutateWeight() const -> bool;
 
-	auto AddRandomNeuron() -> void;
-	auto AddRandomConnection() -> void;
+	auto AddRandomNeuron(InnovationCacher& currGenerationInnovations) -> void;
+	auto AddRandomConnection(InnovationCacher& currGenerationInnovations) -> void;
 
 	auto GetTwoUnconnectedNeurons() -> std::pair<Neuron&, Neuron&>;
 	auto GetRandomEnabledGene() -> Gene&;
