@@ -20,8 +20,8 @@ int main() {
 	data.AddSet({ { 3.0f / maxValue },  Evenness::Uneven });
 	data.AddSet({ { 4.0f / maxValue },  Evenness::Even });
 	// runs until here
-	data.AddSet({ { 5.0f / maxValue },  Evenness::Uneven });
 	/*
+	data.AddSet({ { 5.0f / maxValue },  Evenness::Uneven });
 	data.AddSet({ { 6.0f / maxValue },  Evenness::Even });
 	data.AddSet({ { 7.0f / maxValue },  Evenness::Uneven });
 	data.AddSet({ { 8.0f / maxValue },  Evenness::Even });
