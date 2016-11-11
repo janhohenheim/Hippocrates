@@ -1,5 +1,7 @@
 #include <stdlib.h>
 #include <cstring>
+#include <stdexcept>
+
 #include "../Headers/gene.hpp"
 #include "../Headers/jsmn.h"
 
