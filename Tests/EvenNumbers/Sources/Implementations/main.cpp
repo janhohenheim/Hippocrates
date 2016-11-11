@@ -39,7 +39,7 @@ int main() {
 	data.AddSet({ { 20.0f / maxValue }, Evenness::Even });
 	*/
 	NeuralNetworkTrainer trainer;
-	std::chrono::seconds timeout(60);
+	std::chrono::seconds timeout(120);
 	auto champ = Tests::TestingUtilities::TrainWithTimeout(trainer, data, timeout);
 	std::cout << "Finished training in " << trainer.GetGenerationsPassed() << " generations\n";
 
