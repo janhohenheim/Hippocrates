@@ -6,6 +6,7 @@ auto SpeciesManager::CreateInitialOrganisms(Bodies& bodies) -> void {
 	species.clear();
 	for (auto& currTrainer : bodies) {
 		Genome standardGenes(currTrainer.get().GetInputCount(), currTrainer.get().GetOutputCount(), parameters);
+		currGenerationInnovations.AssignAndCacheHistoricalMarkings(standardGenes);
 		NeuralNetwork network(std::move(standardGenes));
 		Organism organism(currTrainer, std::move(network));
 		FillOrganismIntoSpecies(std::move(organism));
@@ -35,6 +36,7 @@ auto SpeciesManager::Repopulate(Bodies& bodies) -> void {
 		EmplaceChild(std::move(champNetwork));
 	};
 
+	currGenerationInnovations.Clear();
 	// In the original implementation the offspring were tossed directly into their new species and, as a result, in the mating pool.
 	// We instead separate the generations
 	for (auto& s : species) {
@@ -66,7 +68,7 @@ auto SpeciesManager::Repopulate(Bodies& bodies) -> void {
 	DeleteEmptySpecies();
 }
 
-auto SpeciesManager::BreedInSpecies(const Species& species) const -> NeuralNetwork {
+auto SpeciesManager::BreedInSpecies(const Species& species) -> NeuralNetwork {
 	const auto& mother = species.GetOrganismToBreed();
 
 	// Note that the father can be the same as the mother
@@ -76,7 +78,7 @@ auto SpeciesManager::BreedInSpecies(const Species& species) const -> NeuralNetwo
 	else
 		father = &species.GetOrganismToBreed();
 
-	return father->BreedWith(mother);
+	return father->BreedWith(mother, currGenerationInnovations);
 }
 
 auto SpeciesManager::GetFittestSpecies() -> const Species & {

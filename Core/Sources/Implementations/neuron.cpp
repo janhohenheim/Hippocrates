@@ -25,7 +25,7 @@ Neuron::Neuron(std::string json) {
 			lastActionPotential = stof(value);
 		} else
 		if (key == "layer") {
-			layer = stoul(value);
+			sscanf(value.c_str(), "%zu", &layer);
 		}
 	}
 }

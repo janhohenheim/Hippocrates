@@ -39,13 +39,13 @@ Genome::Genome(std::string json) {
 			parameters = TrainingParameters(value);
 		} else
 		if (key == "inputCount") {
-			inputCount = stoul(value);
+			sscanf(value.c_str(), "%zu", &inputCount);
 		} else
 		if (key == "outputCount") {
-			outputCount = stoul(value);
+			sscanf(value.c_str(), "%zu", &outputCount);
 		} else
 		if (key == "neuronCount") {
-			neuronCount = stoul(value);
+			sscanf(value.c_str(), "%zu", &neuronCount);
 		} else
 		if (key == "genes") {
 			genes = ParseGenesJson(value);
@@ -93,12 +93,7 @@ auto Genome::GetGeneticalDistanceFrom(const Genome& other) const -> double {
 }
 
 auto Genome::DoesContainGene(const Gene& gene) const -> bool {
-	for (auto & g : genes) {
-		if (g.from == gene.from && g.to == gene.to && g.isRecursive == gene.isRecursive) {
-			return true;
-		}
-	}
-	return false;
+	return std::find(begin(), end(), gene) != end();
 }
 
 auto Genome::GetJSON() const -> string {
