@@ -230,9 +230,18 @@ auto NeuralNetwork::AddRandomConnection() -> void {
 
 	// Gene
 	Gene newConnectionGene;
+	auto me = find_if(neurons.begin(), neurons.end(), 
+		[&fromNeuron](const Neuron& n) {return &n == &fromNeuron;}) 
+		- neurons.begin();
+	me;
+	auto ay = std::distance(&*neurons.begin(), &fromNeuron);
+	ay;
 	while (&neurons[newConnectionGene.from] != &fromNeuron) {
 		newConnectionGene.from++;
 	}
+	if (newConnectionGene.from != me || me != ay)
+		throw 4;
+
 	while (&neurons[newConnectionGene.to] != &toNeuron) {
 		newConnectionGene.to++;
 	}
