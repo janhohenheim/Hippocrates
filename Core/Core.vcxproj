@@ -121,6 +121,7 @@
     <ClInclude Include="Sources\Headers\body.hpp" />
     <ClInclude Include="Sources\Headers\gene.hpp" />
     <ClInclude Include="Sources\Headers\genome.hpp" />
+    <ClInclude Include="Sources\Headers\innovation_cacher.hpp" />
     <ClInclude Include="Sources\Headers\jsmn.h" />
     <ClInclude Include="Sources\Headers\logger.hpp" />
     <ClInclude Include="Sources\Headers\neural_network.hpp" />
@@ -138,6 +139,7 @@
   <ItemGroup>
     <ClCompile Include="Sources\Implementations\gene.cpp" />
     <ClCompile Include="Sources\Implementations\genome.cpp" />
+    <ClCompile Include="Sources\Implementations\innovation_cacher.cpp" />
     <ClCompile Include="Sources\Implementations\jsmn.c" />
     <ClCompile Include="Sources\Implementations\logger.cpp" />
     <ClCompile Include="Sources\Implementations\neural_network.cpp" />

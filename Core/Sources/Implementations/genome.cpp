@@ -93,12 +93,7 @@ auto Genome::GetGeneticalDistanceFrom(const Genome& other) const -> double {
 }
 
 auto Genome::DoesContainGene(const Gene& gene) const -> bool {
-	for (auto & g : genes) {
-		if (g.from == gene.from && g.to == gene.to && g.isRecursive == gene.isRecursive) {
-			return true;
-		}
-	}
-	return false;
+	return std::find(begin(), end(), gene) != end();
 }
 
 auto Genome::GetJSON() const -> string {

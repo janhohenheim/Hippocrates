@@ -7,27 +7,26 @@
 
 using namespace Hippocrates;
 using namespace std;
-
-NeuralNetwork::NeuralNetwork(const Genome& genome, bool shouldMutate) :
+NeuralNetwork::NeuralNetwork(const Genome& genome) :
+	genome{genome}
+{
+	BuildNetworkFromGenes();
+}
+NeuralNetwork::NeuralNetwork(Genome&& genome) :
+	genome {std::move(genome)}
+{
+	BuildNetworkFromGenes();
+}
+NeuralNetwork::NeuralNetwork(const Genome& genome, InnovationCacher& currGenerationInnovations) :
 	genome(genome)
 {
-	if (shouldMutate) {
-		MutateGenesAndBuildNetwork();
-	}
-	else {
-		BuildNetworkFromGenes();
-	}
+	MutateGenesAndBuildNetwork(currGenerationInnovations);
 }
 
-NeuralNetwork::NeuralNetwork(Genome&& genome, bool shouldMutate) :
+NeuralNetwork::NeuralNetwork(Genome&& genome, InnovationCacher& currGenerationInnovations) :
 	genome(move(genome))
 {
-	if (shouldMutate) {
-		MutateGenesAndBuildNetwork();
-	}
-	else {
-		BuildNetworkFromGenes();
-	}
+	MutateGenesAndBuildNetwork(currGenerationInnovations);
 }
 
 NeuralNetwork::NeuralNetwork(const std::string& json) {
@@ -200,7 +199,7 @@ auto NeuralNetwork::ShouldMutateWeight() const -> bool {
 	);
 }
 
-auto NeuralNetwork::AddRandomNeuron() -> void {
+auto NeuralNetwork::AddRandomNeuron(InnovationCacher& currGenerationInnovations) -> void {
 	auto& randGene = GetRandomEnabledGene();
 	auto indexOfNewNeuron = genome.GetNeuronCount();
 
@@ -209,12 +208,14 @@ auto NeuralNetwork::AddRandomNeuron() -> void {
 	g1.to = indexOfNewNeuron;
 	g1.weight = 1.0f;
 	g1.isRecursive = randGene.isRecursive;
+	currGenerationInnovations.AssignAndCacheHistoricalMarking(g1);
 
 	Gene g2;
 	g2.from = indexOfNewNeuron;
 	g2.to = randGene.to;
 	g2.weight = randGene.weight;
 	g2.isRecursive = randGene.isRecursive;
+	currGenerationInnovations.AssignAndCacheHistoricalMarking(g2);
 
 	randGene.isEnabled = false;
 
@@ -222,7 +223,7 @@ auto NeuralNetwork::AddRandomNeuron() -> void {
 	genome.AppendGene(move(g2));
 }
 
-auto NeuralNetwork::AddRandomConnection() -> void {
+auto NeuralNetwork::AddRandomConnection(InnovationCacher& currGenerationInnovations) -> void {
 	// Data
 	auto NeuronPair(GetTwoUnconnectedNeurons());
 	auto& fromNeuron = NeuronPair.first;
@@ -230,27 +231,17 @@ auto NeuralNetwork::AddRandomConnection() -> void {
 
 	// Gene
 	Gene newConnectionGene;
-	auto me = find_if(neurons.begin(), neurons.end(), 
-		[&fromNeuron](const Neuron& n) {return &n == &fromNeuron;}) 
-		- neurons.begin();
-	me;
-	auto ay = std::distance(&*neurons.begin(), &fromNeuron);
-	ay;
-	while (&neurons[newConnectionGene.from] != &fromNeuron) {
-		newConnectionGene.from++;
-	}
-	if (newConnectionGene.from != me || me != ay)
-		throw 4;
+	newConnectionGene.from = std::distance(&*neurons.begin(), &fromNeuron);
+	newConnectionGene.to = std::distance(&*neurons.begin(), &toNeuron);
 
-	while (&neurons[newConnectionGene.to] != &toNeuron) {
-		newConnectionGene.to++;
-	}
 	if (fromNeuron.GetLayer() > toNeuron.GetLayer()) {
 		if (!GetTrainingParameters().structure.allowRecurrentConnections) {
 			throw std::runtime_error("Created illegal recurrent connection");
 		}
 		newConnectionGene.isRecursive = true;
 	}
+
+	currGenerationInnovations.AssignAndCacheHistoricalMarking(newConnectionGene);
 
 	// Connection
 	Neuron::Connection in;
@@ -275,7 +266,7 @@ auto NeuralNetwork::GetTwoUnconnectedNeurons() -> pair<Neuron&, Neuron&> {
 	NeuronRefs possibleFromNeurons(neurons.begin(), neurons.end());
 
 	auto inputRange = genome.GetInputCount() + GetTrainingParameters().structure.numberOfBiasNeurons;
-	NeuronRefs possibleToNeurons(possibleFromNeurons.begin() + inputRange, possibleFromNeurons.end());
+	NeuronRefs possibleToNeurons(neurons.begin() + inputRange, neurons.end());
 
 	Utility::Shuffle(possibleFromNeurons);
 	Utility::Shuffle(possibleToNeurons);
@@ -351,28 +342,28 @@ auto NeuralNetwork::MutateWeightOfGeneAt(size_t index) -> void {
 }
 
 auto NeuralNetwork::PerturbWeightAt(size_t index) -> void {
-	constexpr auto perturbRange = 0.5f;
+	constexpr auto perturbRange = 2.5f;
 	auto perturbance = Utility::GetRandomNumberBetween(-perturbRange, perturbRange);
 	genome[index].weight += perturbance;
 	// In C++17
 	// std::clamp(genome[index].weight, -1.0f, 1.0f));
-	if (genome[index].weight < -1.0f) {
-		genome[index].weight = -1.0f;
+	if (genome[index].weight < -8.0f) {
+		genome[index].weight = -8.0f;
 	}
-	else if (genome[index].weight > 1.0f) {
-		genome[index].weight = 1.0f;
+	else if (genome[index].weight > 8.0f) {
+		genome[index].weight = 8.0f;
 	}
 	
 }
 
-auto NeuralNetwork::MutateGenesAndBuildNetwork() -> void {
+auto NeuralNetwork::MutateGenesAndBuildNetwork(InnovationCacher& currGenerationInnovations) -> void {
 	if (ShouldAddConnection()) {
 		BuildNetworkFromGenes();
-		AddRandomConnection();
+		AddRandomConnection(currGenerationInnovations);
 	}
 	else {
 		if (ShouldAddNeuron()) {
-			AddRandomNeuron();
+			AddRandomNeuron(currGenerationInnovations);
 		} else {
 			ShuffleWeights();
 		}

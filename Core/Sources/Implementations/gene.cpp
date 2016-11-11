@@ -7,8 +7,6 @@
 using namespace Hippocrates;
 using namespace std;
 
-size_t Gene::numberOfExistingGenes = 0U;
-
 Gene::Gene() {
 	SetRandomWeight();
 }
@@ -42,8 +40,20 @@ Gene::Gene(std::string json) {
 	}
 }
 
+auto Gene::operator==(const Gene & other) const -> bool
+{
+	if (historicalMarking == other.historicalMarking
+	 || (from == other.from
+	    && to == other.to)) {
+		if (isRecursive != other.isRecursive)
+			throw std::logic_error("Two identical genes have different recursive flags");
+		return true;
+	}
+	return false;
+}
+
 auto Gene::SetRandomWeight() -> void {
-	weight = Utility::GetRandomNumberBetween(-1.0f, 1.0f);
+	weight = Utility::GetRandomNumberBetween(-8.0f, 8.0f);
 }
 
 auto Gene::GetJSON() const -> string {

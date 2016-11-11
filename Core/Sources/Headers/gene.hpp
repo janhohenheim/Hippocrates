@@ -6,10 +6,6 @@
 namespace Hippocrates {
 
 struct Gene {
-private:
-	static std::size_t numberOfExistingGenes;
-
-public:
 	Gene();
 	Gene(const Gene& other) = default;
 	Gene(Gene&& other) = default;
@@ -18,14 +14,16 @@ public:
 
 	auto operator=(const Gene& other) -> Gene& = default;
 	auto operator=(Gene&& other) -> Gene& = default;
+	auto operator==(const Gene& other) const -> bool;
 
 	auto SetRandomWeight() -> void;
 	auto GetJSON() const->std::string;
 
 	std::size_t from = 0;
 	std::size_t to = 0;
-	float weight = Utility::GetRandomNumberBetween(-1.0f, 1.0f);
-	std::size_t historicalMarking = numberOfExistingGenes++;
+	float weight = 0.0f;
+	static constexpr auto invalidHistoricalMarking = std::numeric_limits<std::size_t>::max();
+	std::size_t historicalMarking = invalidHistoricalMarking;
 	bool isEnabled = true;
 	bool isRecursive = false;
 };
