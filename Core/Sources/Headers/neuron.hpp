@@ -36,6 +36,8 @@ public:
 	auto GetLayer() const -> std::size_t { return layer; }
 	auto GetJSON() const->std::string;
 
+	auto Reset() -> void;
+
 private:
 	auto AddConnection(Connection connection) -> void;
 	static auto sigmoid(float d) -> float;

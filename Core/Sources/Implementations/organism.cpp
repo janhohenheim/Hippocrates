@@ -12,10 +12,20 @@ Organism::Organism(IBody& body, NeuralNetwork&& network) :
 }
 
 auto Organism::Update() -> void {
-	const auto inputs(move(body->ProvideNetworkWithInputs()));
-	const auto outputs(move(network.GetOutputsUsingInputs(inputs)));
-	body->Update(outputs);
-	isFitnessUpToDate = false;
+	size_t numberOfTimesToFinishTask = 1;
+
+	if (GetTrainingParameters().structure.allowRecurrentConnections) {
+		numberOfTimesToFinishTask = GetTrainingParameters().structure.memoryResetsBeforeTotalReset;
+	}
+
+	for (size_t i = 0; i < numberOfTimesToFinishTask; i++) {
+		while (!body->HasFinishedTask()) {
+			const auto inputs(move(body->ProvideNetworkWithInputs()));
+			const auto outputs(move(network.GetOutputsUsingInputs(inputs)));
+			body->Update(outputs);
+			isFitnessUpToDate = false;
+		}
+	}
 }
 
 auto Organism::GetOrCalculateFitness() const -> double {

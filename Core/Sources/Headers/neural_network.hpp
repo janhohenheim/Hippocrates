@@ -33,6 +33,8 @@ public:
 
 	auto GetJSON() const -> std::string;
 
+	auto Reset() -> void;
+
 private:
 	auto SetInputs(std::vector<float> inputs) -> void;
 	auto GetOutputs() -> std::vector<float>;

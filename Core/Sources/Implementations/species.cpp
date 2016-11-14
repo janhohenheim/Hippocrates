@@ -92,10 +92,9 @@ auto Species::GetOffspringCount(double averageFitness) const -> std::size_t {
 
 auto Species::LetPopulationLive() -> void {
 	for (auto& organism : population) {
-		while (!organism.HasFinishedTask()) {
-			organism.Update();
-		}
+		organism.Update();
 	}
+
 	isSortedByFitness = false;
 }
 
