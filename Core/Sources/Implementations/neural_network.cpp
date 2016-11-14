@@ -1,3 +1,7 @@
+#ifdef _WIN32
+	#define sscanf sscanf_s
+#endif
+
 #include <algorithm>
 #include <functional>
 #include <iostream>
