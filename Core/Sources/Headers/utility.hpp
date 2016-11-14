@@ -1,5 +1,5 @@
 #ifdef _WIN32
-	#define SSCANF sscanf_s
+	#define HIPPOCRATES_SSCANF sscanf_s
 #else
 	#define HIPPOCRATES_SSCANF sscanf
 #endif
