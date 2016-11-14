@@ -1,12 +1,7 @@
-#ifdef _WIN32
-	#define SSCANF sscanf_s
-#else
-	#define SSCANF sscanf
-#endif
-
 #include <iostream>
 #include "../Headers/training_parameters.hpp"
 #include "../Headers/jsmn.h"
+#include "../Headers/utility.hpp"
 
 using namespace Hippocrates;
 using namespace std;
@@ -50,7 +45,7 @@ TrainingParameters::TrainingParameters(std::string json) {
 			speciation.compatibilityThreshold = stof(value);
 		} else
 		if (key == "stagnantSpeciesClearThreshold") {
-			SSCANF(value.c_str(), "%zu", &speciation.stagnantSpeciesClearThreshold);
+			HIPPOCRATES_SSCANF(value.c_str(), "%zu", &speciation.stagnantSpeciesClearThreshold);
 		} else
 		if (key == "normalizeForLargerGenome") {
 			speciation.normalizeForLargerGenome = value == "true";
@@ -59,16 +54,16 @@ TrainingParameters::TrainingParameters(std::string json) {
 			reproduction.chanceForInterspecialReproduction = stof(value);
 		} else
 		if (key == "minSpeciesSizeForChampConservation") {
-			SSCANF(value.c_str(), "%zu", &reproduction.minSpeciesSizeForChampConservation);
+			HIPPOCRATES_SSCANF(value.c_str(), "%zu", &reproduction.minSpeciesSizeForChampConservation);
 		} else
 		if (key == "reproductionThreshold") {
 			reproduction.reproductionThreshold = stof(value);
 		} else
 		if (key == "minParents") {
-			SSCANF(value.c_str(), "%zu", &reproduction.minParents);
+			HIPPOCRATES_SSCANF(value.c_str(), "%zu", &reproduction.minParents);
 		} else
 		if (key == "numberOfBiasNeurons") {
-			SSCANF(value.c_str(), "%zu", &structure.numberOfBiasNeurons);
+			HIPPOCRATES_SSCANF(value.c_str(), "%zu", &structure.numberOfBiasNeurons);
 		} else
 		if (key == "allowRecurrentConnections") {
 			structure.allowRecurrentConnections = value == "true";

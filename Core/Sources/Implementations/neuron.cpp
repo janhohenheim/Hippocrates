@@ -1,13 +1,8 @@
-#ifdef _WIN32
-	#define SSCANF sscanf_s
-#else
-	#define SSCANF sscanf
-#endif
-
 #include <cmath>
 #include <stdexcept>
 #include "../Headers/neuron.hpp"
 #include "../Headers/jsmn.h"
+#include "../Headers/utility.hpp"
 
 using namespace Hippocrates;
 using namespace std;
@@ -31,7 +26,7 @@ Neuron::Neuron(std::string json) {
 			lastActionPotential = stof(value);
 		} else
 		if (key == "layer") {
-			SSCANF(value.c_str(), "%zu", &layer);
+			HIPPOCRATES_SSCANF(value.c_str(), "%zu", &layer);
 		}
 	}
 }

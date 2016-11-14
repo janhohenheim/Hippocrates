@@ -1,9 +1,3 @@
-#ifdef _WIN32
-	#define SSCANF sscanf_s
-#else
-	#define SSCANF sscanf
-#endif
-
 #include <cmath>
 #include <algorithm>
 #include <iostream>
@@ -45,13 +39,13 @@ Genome::Genome(std::string json) {
 			parameters = TrainingParameters(value);
 		} else
 		if (key == "inputCount") {
-			SSCANF(value.c_str(), "%zu", &inputCount);
+			HIPPOCRATES_SSCANF(value.c_str(), "%zu", &inputCount);
 		} else
 		if (key == "outputCount") {
-			SSCANF(value.c_str(), "%zu", &outputCount);
+			HIPPOCRATES_SSCANF(value.c_str(), "%zu", &outputCount);
 		} else
 		if (key == "neuronCount") {
-			SSCANF(value.c_str(), "%zu", &neuronCount);
+			HIPPOCRATES_SSCANF(value.c_str(), "%zu", &neuronCount);
 		} else
 		if (key == "genes") {
 			genes = ParseGenesJson(value);

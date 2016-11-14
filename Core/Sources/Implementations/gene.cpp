@@ -1,9 +1,3 @@
-#ifdef _WIN32
-	#define SSCANF sscanf_s
-#else
-	#define SSCANF sscanf
-#endif
-
 #include <stdlib.h>
 #include <cstring>
 #include <stdexcept>
@@ -31,10 +25,10 @@ Gene::Gene(std::string json) {
 		auto value = json.substr(tokens[i + 1].start, tokens[i + 1].end - tokens[i + 1].start);
 
 		if (key == "historicalMarking") {
-			SSCANF(value.c_str(), "%zu", &historicalMarking);
+			HIPPOCRATES_SSCANF(value.c_str(), "%zu", &historicalMarking);
 		} else
 		if (key == "to") {
-			SSCANF(value.c_str(), "%zu", &to);
+			HIPPOCRATES_SSCANF(value.c_str(), "%zu", &to);
 		} else
 		if (key == "weight") {
 			weight = stof(value);
