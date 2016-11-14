@@ -1,3 +1,9 @@
+#ifdef _WIN32
+	#define SSCANF sscanf_s
+#else
+	#define SSCANF sscanf
+#endif
+
 #include <cmath>
 #include <stdexcept>
 #include "../Headers/neuron.hpp"
@@ -25,7 +31,7 @@ Neuron::Neuron(std::string json) {
 			lastActionPotential = stof(value);
 		} else
 		if (key == "layer") {
-			sscanf(value.c_str(), "%zu", &layer);
+			SSCANF(value.c_str(), "%zu", &layer);
 		}
 	}
 }
