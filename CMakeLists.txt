@@ -24,3 +24,4 @@ target_link_libraries(Hippocrates Threads::Threads)
 
 enable_testing()
 add_subdirectory(Tests)
+
