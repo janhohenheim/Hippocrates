@@ -2,6 +2,7 @@
 #include <stdexcept>
 #include "../Headers/neuron.hpp"
 #include "../Headers/jsmn.h"
+#include "../Headers/utility.hpp"
 
 using namespace Hippocrates;
 using namespace std;
@@ -25,7 +26,7 @@ Neuron::Neuron(std::string json) {
 			lastActionPotential = stof(value);
 		} else
 		if (key == "layer") {
-			sscanf(value.c_str(), "%zu", &layer);
+			HIPPOCRATES_SSCANF(value.c_str(), "%zu", &layer);
 		}
 	}
 }
