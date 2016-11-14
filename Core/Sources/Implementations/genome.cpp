@@ -39,13 +39,13 @@ Genome::Genome(std::string json) {
 			parameters = TrainingParameters(value);
 		} else
 		if (key == "inputCount") {
-			sscanf(value.c_str(), "%zu", &inputCount);
+			HIPPOCRATES_SSCANF(value.c_str(), "%zu", &inputCount);
 		} else
 		if (key == "outputCount") {
-			sscanf(value.c_str(), "%zu", &outputCount);
+			HIPPOCRATES_SSCANF(value.c_str(), "%zu", &outputCount);
 		} else
 		if (key == "neuronCount") {
-			sscanf(value.c_str(), "%zu", &neuronCount);
+			HIPPOCRATES_SSCANF(value.c_str(), "%zu", &neuronCount);
 		} else
 		if (key == "genes") {
 			genes = ParseGenesJson(value);

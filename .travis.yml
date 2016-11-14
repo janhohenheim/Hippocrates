@@ -10,6 +10,5 @@ addons:
 script:
   - cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER=g++-6 .
   - make
-  - ctest -R XOR
-  - ctest -R EvenNumbers
+  - ctest --verbose
 

@@ -1,4 +1,4 @@
-file(GLOB SOURCES Sources/Implementations/*.cpp)
+file(GLOB_RECURSE SOURCES [RELATIVE Sources] *.cpp *.hpp)
 
 add_executable(XOR_EXAMPLE ${SOURCES})
 target_link_libraries(XOR_EXAMPLE Hippocrates)

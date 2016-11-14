@@ -1,3 +1,9 @@
+#ifdef _WIN32
+	#define HIPPOCRATES_SSCANF sscanf_s
+#else
+	#define HIPPOCRATES_SSCANF sscanf
+#endif
+
 #pragma once
 #include <random>
 #include <algorithm>
