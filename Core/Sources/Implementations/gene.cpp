@@ -1,30 +1,62 @@
 #include <stdlib.h>
-#include "../Headers/gene.h"
+#include <cstring>
+#include <stdexcept>
+
+#include "../Headers/gene.hpp"
+#include "../Headers/jsmn.h"
+#include "../Headers/type.hpp"
+
 
 using namespace Hippocrates;
 using namespace std;
-
-size_t Gene::numberOfExistingGenes = 0U;
 
 Gene::Gene() {
 	SetRandomWeight();
 }
 
+Gene::Gene(std::string json) {
+	jsmn_parser parser;
+	jsmn_init(&parser);
+	jsmntok_t tokens[256];
+
+	auto token_count = jsmn_parse(&parser, json.c_str(), json.length(), tokens, 256);
+
+	for (size_t i = 0; i < token_count - 1; i++) {
+		auto key = json.substr(tokens[i].start, tokens[i].end - tokens[i].start);
+		auto value = json.substr(tokens[i + 1].start, tokens[i + 1].end - tokens[i + 1].start);
+
+		if (key == "historicalMarking") {
+			HIPPOCRATES_SSCANF(value.c_str(), "%zu", &historicalMarking);
+		} else
+		if (key == "to") {
+			HIPPOCRATES_SSCANF(value.c_str(), "%zu", &to);
+		} else
+		if (key == "weight") {
+			weight = stof(value);
+		} else
+		if (key == "isEnabled") {
+			isEnabled = value == "true";
+		} else
+		if (key == "isRecursive") {
+			isRecursive = value == "true";
+		}
+	}
+}
+
+auto Gene::operator==(const Gene & other) const -> bool
+{
+	if (historicalMarking == other.historicalMarking
+	 || (from == other.from
+	    && to == other.to)) {
+		if (isRecursive != other.isRecursive)
+			throw std::logic_error("Two identical genes have different recursive flags");
+		return true;
+	}
+	return false;
+}
+
 auto Gene::SetRandomWeight() -> void {
-	/*
-	const auto& min = parameters.ranges.minWeight;
-	const auto& max = parameters.ranges.maxWeight;
-	if (min == max) {
-	weight = min;
-	}
-	else {
-	weight = min + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (max - min)));
-	}
-	*/
-	weight = (float)(rand() % 10'000) / 9'999.0f;
-	if (rand() % 2) {
-		weight = -weight;
-	}
+	weight = Utility::GetRandomNumberBetween(-8.0f, 8.0f);
 }
 
 auto Gene::GetJSON() const -> string {

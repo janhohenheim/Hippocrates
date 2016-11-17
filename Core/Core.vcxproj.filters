@@ -9,48 +9,66 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
+    <Filter Include="Headers\trained">
+      <UniqueIdentifier>{1b3a181c-c7b8-45a2-a69a-d9d44c2916a2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Sources\Headers\body.h">
+    <ClInclude Include="Sources\Headers\utility.hpp">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Sources\Headers\gene.h">
+    <ClInclude Include="Sources\Headers\body.hpp">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Sources\Headers\genome.h">
+    <ClInclude Include="Sources\Headers\gene.hpp">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Sources\Headers\logger.h">
+    <ClInclude Include="Sources\Headers\genome.hpp">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Sources\Headers\neural_network.h">
+    <ClInclude Include="Sources\Headers\logger.hpp">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Sources\Headers\neural_network_trainer.h">
+    <ClInclude Include="Sources\Headers\neural_network.hpp">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Sources\Headers\neuron.h">
+    <ClInclude Include="Sources\Headers\neural_network_trainer.hpp">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Sources\Headers\organism.h">
+    <ClInclude Include="Sources\Headers\neuron.hpp">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Sources\Headers\species.h">
+    <ClInclude Include="Sources\Headers\organism.hpp">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Sources\Headers\trained_neural_network.h">
+    <ClInclude Include="Sources\Headers\species.hpp">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Sources\Headers\training_parameters.h">
+    <ClInclude Include="Sources\Headers\species_manager.hpp">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Sources\Headers\species_manager.h">
+    <ClInclude Include="Sources\Headers\supervised_training_body.hpp">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Sources\Headers\supervised_training_body.h">
+    <ClInclude Include="Sources\Headers\training_data.hpp">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Sources\Headers\training_data.h">
+    <ClInclude Include="Sources\Headers\training_parameters.hpp">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Headers\jsmn.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Headers\innovation_cacher.hpp">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Headers\trained\classifier.hpp">
+      <Filter>Headers\trained</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Headers\trained\trained_neural_network.hpp">
+      <Filter>Headers\trained</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Headers\type.hpp">
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>
@@ -79,13 +97,19 @@
     <ClCompile Include="Sources\Implementations\species.cpp">
       <Filter>Implementations</Filter>
     </ClCompile>
-    <ClCompile Include="Sources\Implementations\trained_neural_network.cpp">
-      <Filter>Implementations</Filter>
-    </ClCompile>
     <ClCompile Include="Sources\Implementations\training_parameters.cpp">
       <Filter>Implementations</Filter>
     </ClCompile>
     <ClCompile Include="Sources\Implementations\species_manager.cpp">
+      <Filter>Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Implementations\jsmn.c">
+      <Filter>Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Implementations\utility.cpp">
+      <Filter>Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Implementations\innovation_cacher.cpp">
       <Filter>Implementations</Filter>
     </ClCompile>
   </ItemGroup>

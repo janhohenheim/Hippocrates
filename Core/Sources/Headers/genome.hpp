@@ -1,7 +1,7 @@
 #pragma once
 
-#include "gene.h"
-#include "training_parameters.h"
+#include "gene.hpp"
+#include "training_parameters.hpp"
 #include <vector>
 
 namespace Hippocrates {
@@ -13,11 +13,15 @@ private:
 	std::size_t inputCount = 0U;
 	std::size_t outputCount = 0U;
 	std::size_t neuronCount = 0U;
+	auto ParseGenesJson(std::string json) -> std::vector<Gene>;
 
 public:
 	explicit Genome(std::size_t inputCount, std::size_t outputCount, TrainingParameters parameters);
+	explicit Genome(std::string json);
+	explicit Genome() = default;
 	Genome(const Genome& other) = default;
 	Genome(Genome&& other) = default;
+
 	~Genome() = default;
 
 	auto operator=(const Genome& other) -> Genome& = default;
@@ -41,7 +45,7 @@ public:
 	auto InsertGeneAt(Gene gene, size_t index) -> void;
 
 	auto GetTrainingParameters() const -> const TrainingParameters& { return parameters; }
-	auto GetGeneticalDistanceFrom(const Genome& other) const -> double;
+	auto GetGeneticalDistanceFrom(const Genome& other) const -> Type::connection_weight_t;
 	auto DoesContainGene(const Gene& gene) const -> bool;
 	auto GetJSON() const->std::string;
 

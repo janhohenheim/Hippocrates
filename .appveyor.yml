@@ -1,2 +1,10 @@
+configuration:
+  - Release
+
 build_script:
   - msbuild %solution_name%
+
+test_script:
+  - C:\projects\jnf-neat\x64\Release\xor_two_bits.exe
+  - C:\projects\jnf-neat\x64\Release\xor_three_bits.exe
+  - C:\projects\jnf-neat\x64\Release\EvenNumbers.exe

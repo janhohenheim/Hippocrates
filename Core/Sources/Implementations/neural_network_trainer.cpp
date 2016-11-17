@@ -1,4 +1,4 @@
-#include "../Headers/neural_network_trainer.h"
+#include "../Headers/neural_network_trainer.hpp"
 
 using namespace Hippocrates;
 using namespace std;
@@ -9,7 +9,7 @@ NeuralNetworkTrainer::NeuralNetworkTrainer(TrainingParameters parameters) :
 {
 }
 
-auto NeuralNetworkTrainer::TrainUnsupervised(SpeciesManager::Bodies& bodies) -> TrainedNeuralNetwork {
+auto NeuralNetworkTrainer::TrainUnsupervised(SpeciesManager::Bodies& bodies) -> Trained::TrainedNeuralNetwork {
 	if (loggingEnabled) {
 		logger.CreateLoggingDirs();
 	}
@@ -22,7 +22,7 @@ auto NeuralNetworkTrainer::TrainUnsupervised(SpeciesManager::Bodies& bodies) -> 
 		TrainGenerationAndLogUsingBodies(bodies);
 		champ = &species.GetFittestOrganism();
 	}
-	return TrainedNeuralNetwork(champ->GetGenome());
+	return Trained::TrainedNeuralNetwork(champ->GetGenome());
 }
 
 auto NeuralNetworkTrainer::TrainGenerationAndLogUsingBodies(SpeciesManager::Bodies& bodies) -> void {
@@ -31,6 +31,7 @@ auto NeuralNetworkTrainer::TrainGenerationAndLogUsingBodies(SpeciesManager::Bodi
 	generationsPassed++;
 	if (loggingEnabled) {
 		logger.LogGeneration(generationsPassed, GetJSON());
+		logger.LogMetadata(species.GetFittestOrganism().GetOrCalculateRawFitness());
 	}
 }
 

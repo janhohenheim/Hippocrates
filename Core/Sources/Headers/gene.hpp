@@ -1,30 +1,32 @@
 #pragma once
 #include <cstddef>
 #include <string>
+#include "../Headers/utility.hpp"
+#include "../Headers/type.hpp"
+
 namespace Hippocrates {
 
 struct Gene {
-public:
 	Gene();
 	Gene(const Gene& other) = default;
 	Gene(Gene&& other) = default;
+	Gene(std::string json);
 	~Gene() = default;
 
 	auto operator=(const Gene& other) -> Gene& = default;
 	auto operator=(Gene&& other) -> Gene& = default;
+	auto operator==(const Gene& other) const -> bool;
 
 	auto SetRandomWeight() -> void;
 	auto GetJSON() const->std::string;
 
 	std::size_t from = 0;
 	std::size_t to = 0;
-	float weight = 0.0f;
-	std::size_t historicalMarking = numberOfExistingGenes++;
+	Type::connection_weight_t weight = 0.0f;
+	static constexpr auto invalidHistoricalMarking = std::numeric_limits<std::size_t>::max();
+	std::size_t historicalMarking = invalidHistoricalMarking;
 	bool isEnabled = true;
 	bool isRecursive = false;
-
-private:
-	static std::size_t numberOfExistingGenes;
 };
 
 }

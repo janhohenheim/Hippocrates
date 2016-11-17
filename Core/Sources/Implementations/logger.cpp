@@ -1,5 +1,6 @@
 #include <fstream>
-#include "../Headers/logger.h"
+#include "../Headers/logger.hpp"
+
 using namespace std;
 using namespace Hippocrates;
 
@@ -37,12 +38,15 @@ auto Logger::GetCurrentDir(const wchar_t*) -> wstring {
 auto Logger::GetLogFolder(const string&) -> string {
 	return string("/json_dumps/");
 }
+
 auto Logger::GetLogFolder(const wstring&) -> wstring {
 	return wstring(L"/json_dumps/");
 }
+
 auto Logger::GetLogFileExtension(const string&) -> string {
 	return string(".json");
 }
+
 auto Logger::GetLogFileExtension(const wstring&) -> wstring {
 	return wstring(L".json");
 }
@@ -53,6 +57,14 @@ auto Logger::GetSessionDir(const string& dumpDir) -> string {
 
 auto  Logger::GetSessionDir(const wstring& dumpDir) -> wstring {
 	return wstring(dumpDir + to_wstring(timestamp.time_since_epoch().count()) + L"/");
+}
+
+auto Logger::GetMetadataFileName(const std::string &sessionDir) -> std::string {
+	return sessionDir + "meta" + GetLogFileExtension(sessionDir);
+}
+
+auto Logger::GetMetadataFileName(const std::wstring &sessionDir) -> std::wstring {
+	return sessionDir + L"meta" + GetLogFileExtension(sessionDir);
 }
 
 auto Logger::GetLogFileName(const string& sessionDir, size_t generationsPassed) -> string {
@@ -86,6 +98,32 @@ auto Logger::LogGeneration(size_t generation, const std::string& log) -> void {
 		auto logFileName = GetLogFileName(fullLoggingPathOnUnix, generation);
 		ofstream logFile(logFileName);
 		logFile << log;
+		logFile.close();
+
+		return;
+	}
+#endif
+	throw runtime_error("No logging directory found. Did you forget to call Logger::CreateLoggingDirs()?");
+}
+
+auto Logger::LogMetadata(Type::fitness_t maxFitness) -> void {
+	metaData += "{\"max_fitness\":" + to_string(maxFitness) + "},";
+	auto logToPrint = "{\"generations\":[" + metaData.substr(0, metaData.length() - 1) + "]}";
+
+#if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
+	if (!fullLoggingPathOnWindows.empty()) {
+		auto logFileName = GetMetadataFileName(fullLoggingPathOnWindows);
+		ofstream logFile(logFileName);
+		logFile << logToPrint;
+		logFile.close();
+
+		return;
+	}
+#else
+	if (!fullLoggingPathOnUnix.empty()) {
+		auto logFileName = GetMetadataFileName(fullLoggingPathOnUnix);
+		ofstream logFile(logFileName);
+		logFile << logToPrint;
 		logFile.close();
 
 		return;

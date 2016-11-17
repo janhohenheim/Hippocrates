@@ -1,10 +1,12 @@
-﻿#include "../Headers/species_manager.h"
+﻿#include "../Headers/species_manager.hpp"
 #include <algorithm>
 using namespace Hippocrates;
 
 auto SpeciesManager::CreateInitialOrganisms(Bodies& bodies) -> void {
+	species.clear();
 	for (auto& currTrainer : bodies) {
 		Genome standardGenes(currTrainer.get().GetInputCount(), currTrainer.get().GetOutputCount(), parameters);
+		currGenerationInnovations.AssignAndCacheHistoricalMarkings(standardGenes);
 		NeuralNetwork network(std::move(standardGenes));
 		Organism organism(currTrainer, std::move(network));
 		FillOrganismIntoSpecies(std::move(organism));
@@ -12,28 +14,79 @@ auto SpeciesManager::CreateInitialOrganisms(Bodies& bodies) -> void {
 }
 
 auto SpeciesManager::Repopulate(Bodies& bodies) -> void {
-	PrepareSpeciesForPopulation();
-	auto DidChanceOccure = [](float chance) {
-		auto num = rand() % 1000;
-		return num < int(1000.0f * chance);
-	};
+	auto populationCount = GetPopulationCount();
+	auto averageFitness = GetAverageFitness();
+	
 	std::vector<Organism> newGeneration;
 	newGeneration.reserve(bodies.size());
-	for (auto& body : bodies) {
-		auto sp = &GetSpeciesToBreed();
-		auto& father = sp->GetOrganismToBreed();
-		if (DidChanceOccure(parameters.reproduction.chanceForInterspecialReproduction)) {
-			sp = &GetSpeciesToBreed();
+
+	auto currBody = bodies.begin();
+	auto EmplaceChild = [&](NeuralNetwork && network) {
+		newGeneration.emplace_back(*currBody, std::forward<decltype(network)>(network));
+		++currBody;
+	};
+
+	auto Breed = [&](const Species & species) {
+		auto child = BreedInSpecies(species);
+		EmplaceChild(std::move(child));
+	};
+
+	auto CloneChamp = [&](const Species & species) {
+		auto champNetwork = species.GetFittestOrganism().GetNeuralNetwork();
+		EmplaceChild(std::move(champNetwork));
+	};
+
+	currGenerationInnovations.Clear();
+	// In the original implementation the offspring were tossed directly into their new species and, as a result, in the mating pool.
+	// We instead separate the generations
+	for (auto& s : species) {
+		auto offspringCount = s.GetOffspringCount(averageFitness);
+		offspringCount = std::min(offspringCount, s.GetSize());
+		s.RemoveWorst();
+
+		if (offspringCount >= 1 
+		&&	s.GetSize() > parameters.reproduction.minSpeciesSizeForChampConservation) {
+			CloneChamp(s);
+			offspringCount--;
 		}
-		auto& mother = sp->GetOrganismToBreed();
-		auto childNeuralNetwork(std::move(father.BreedWith(mother)));
-		newGeneration.emplace_back(body, std::move(childNeuralNetwork));
+
+		for (std::size_t i = 0; i < offspringCount; ++i) {
+			Breed(s);
+		}
 	}
+
+	// Account for rounding Errors
+	while (newGeneration.size() < populationCount) {
+		Breed(GetFittestSpecies());
+	}
+
+
 	ClearSpeciesPopulation();
 	for (auto&& child : newGeneration) {
 		FillOrganismIntoSpecies(std::move(child));
 	}
 	DeleteEmptySpecies();
+}
+
+auto SpeciesManager::BreedInSpecies(const Species& species) -> NeuralNetwork {
+	const auto& mother = species.GetOrganismToBreed();
+
+	// Note that the father can be the same as the mother
+	const Organism* father = nullptr;
+	if (Utility::DidChanceOccure(parameters.reproduction.chanceForInterspecialReproduction))
+		father = &Utility::GetRandomElement(this->species)->GetFittestOrganism();
+	else
+		father = &species.GetOrganismToBreed();
+
+	return father->BreedWith(mother, currGenerationInnovations);
+}
+
+auto SpeciesManager::GetFittestSpecies() -> const Species & {
+	if (species.empty()) {
+		throw std::out_of_range("Your population is empty");
+	}
+	SortSpeciesIfNeeded();
+	return species.front();
 }
 
 auto SpeciesManager::DeleteEmptySpecies() -> void {
@@ -60,68 +113,32 @@ auto SpeciesManager::FillOrganismIntoSpecies(Organism&& organism) -> void {
 	}
 }
 
-auto SpeciesManager::PrepareSpeciesForPopulation() -> void {
-	AnalyzeSpeciesPopulation();
-	DeleteStagnantSpecies();
-}
-
-auto SpeciesManager::AnalyzeSpeciesPopulation() -> void {
-	for (auto& currSpecies : species) {
-		currSpecies.AnalyzePopulation();
-	}
-}
-
-auto SpeciesManager::DeleteStagnantSpecies() -> void {
-	auto IsStagnant = [](const Species& species) {
-		return species.IsStagnant();
-	};
-	auto removePos = remove_if(species.begin(), species.end(), IsStagnant);
-	// Let at least one species survive
-	if (!species.empty() && removePos == species.begin()) {
-		++removePos;
-	}
-	species.erase(removePos, species.end());
-}
 
 auto SpeciesManager::ClearSpeciesPopulation() -> void {
-	for (auto& sp : species) {
+	for (auto& sp : species)
 		sp.ClearPopulation();
-	}
 }
 
-auto SpeciesManager::GetSpeciesToBreed() -> Species& {
-	// TODO jnf: Switch to stochastic universal sampling
-	if (species.empty()) {
-		throw std::out_of_range("There are no species");
-	}
-	auto totalSpeciesFitness = 0.0;
-	for (const auto& s : species) {
-		totalSpeciesFitness += s.GetFittestOrganism().GetOrCalculateFitness();
-	}
-	if (totalSpeciesFitness == 0) {
-		return species[rand() % species.size()];
-	}
-	auto chance = 0.0;
-	auto GetChanceForSpecies = [&chance, &totalSpeciesFitness](const Species& species) {
-		return chance + (species.GetFittestOrganism().GetOrCalculateFitness() / totalSpeciesFitness);
-	};
-	while (true) {
-		for (auto& s : species) {
-			auto randNum = static_cast<double>(rand() % 10'000) / 9'999.0;
-			chance = GetChanceForSpecies(s);
-			if (randNum < chance) {
-				return s;
-			}
-		}
-	}
+auto SpeciesManager::GetAverageFitness() const -> Type::fitness_t {
+	return GetTotalFitness() / GetPopulationCount();
+}
+
+auto SpeciesManager::GetPopulationCount() const -> std::size_t {
+	std::size_t populationCount = 0;
+	for (const auto & s : species)
+		populationCount += s.GetSize();
+	return populationCount;
+}
+
+auto SpeciesManager::GetTotalFitness() const -> Type::fitness_t {
+	auto totalFitness = 0.0;
+	for (auto & s : species)
+		totalFitness += s.GetTotalFitness();
+	return totalFitness;
 }
 
 auto SpeciesManager::GetFittestOrganism() -> const Organism& {
-	if (species.empty()) {
-		throw std::out_of_range("Your population is empty");
-	}
-	SortSpeciesIfNeeded();
-	return species.front().GetFittestOrganism();
+	return GetFittestSpecies().GetFittestOrganism();
 }
 
 auto SpeciesManager::SortSpeciesIfNeeded() -> void {
@@ -136,14 +153,12 @@ auto SpeciesManager::SortSpeciesIfNeeded() -> void {
 
 auto SpeciesManager::LetGenerationLive() -> void {
 	ResetPopulationToTeachableState();
-	for (auto& sp : species) {
+	for (auto& sp : species) 
 		sp.LetPopulationLive();
-	}
 	areSpeciesSortedByFitness = false;
 }
 
 auto SpeciesManager::ResetPopulationToTeachableState() -> void {
-	for (auto& sp : species) {
+	for (auto& sp : species) 
 		sp.ResetToTeachableState();
-	}
 }

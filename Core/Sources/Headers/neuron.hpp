@@ -3,6 +3,8 @@
 #include <vector>
 #include <string>
 
+#include "type.hpp"
+
 namespace Hippocrates {
 class NeuralNetwork;
 class Neuron {
@@ -10,13 +12,13 @@ class Neuron {
 public:
 	struct Connection {
 		Neuron* neuron = nullptr;
-		float weight = 0.0f;
+		Type::connection_weight_t weight = 0.0f;
 		bool isRecursive = false;
 		bool outGoing = false;
 	};
 private:
 	std::vector<Connection> connections;
-	float lastActionPotential = 0.0f;
+	Type::neuron_value_t lastActionPotential = 0.0f;
 	std::size_t layer = 0U;
 
 public:
@@ -24,20 +26,23 @@ public:
 	explicit Neuron(std::vector<Connection> connections);
 	Neuron(const Neuron& other) = default;
 	Neuron(Neuron&& other) = default;
+	Neuron(std::string json);
 	~Neuron() = default;
 
 	auto operator=(const Neuron& other) -> Neuron& = default;
 	auto operator=(Neuron&& other) -> Neuron& = default;
 
-	auto SetInput(float input) -> void;
+	auto SetInput(Type::neuron_value_t input) -> void;
 	auto GetConnections() const -> const std::vector<Connection>& { return connections; }
-	auto RequestDataAndGetActionPotential() -> float;
+	auto RequestDataAndGetActionPotential() ->Type::neuron_value_t;
 	auto GetLayer() const -> std::size_t { return layer; }
 	auto GetJSON() const->std::string;
 
+	auto Reset() -> void;
+
 private:
 	auto AddConnection(Connection connection) -> void;
-	static auto sigmoid(float d) -> float;
+	static auto sigmoid(Type::neuron_value_t d) ->Type::neuron_value_t;
 };
 
 }

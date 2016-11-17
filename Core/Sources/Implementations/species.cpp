@@ -1,11 +1,10 @@
 #include <algorithm>
-#include "../Headers/species.h"
+#include "../Headers/species.hpp"
 
 using namespace Hippocrates;
 using namespace std;
 
 Species::Species(Organism representative):
-parameters(representative.GetTrainingParameters()),
 representative(representative)
 {
 	population.push_back(move(representative));
@@ -13,23 +12,9 @@ representative(representative)
 
 auto Species::AddOrganism(Organism&& organism) -> void {
 	population.push_back(move(organism));
-	ElectRepresentative();
 	isSortedByFitness = false;
 	SetPopulationsFitnessModifier();
 }
-
-auto Species::AnalyzePopulation() -> void {
-	const auto currentBestFitness = GetFittestOrganism().GetOrCalculateRawFitness();
-	if (currentBestFitness > fitnessHighscore) {
-		fitnessHighscore = currentBestFitness;
-		numberOfStagnantGenerations = 0;
-	}
-	else {
-		numberOfStagnantGenerations++;
-	}
-	isSortedByFitness = false;
-}
-
 
 auto Species::IsCompatible(const Genome& genome) const -> bool {
 	auto distanceToSpecies = representative.GetGenome().GetGeneticalDistanceFrom(genome);
@@ -37,14 +22,34 @@ auto Species::IsCompatible(const Genome& genome) const -> bool {
 }
 
 auto Species::SetPopulationsFitnessModifier() -> void {
-	double fitnessModifier = 1.0 / static_cast<double>(population.size());
+	auto fitnessModifier = static_cast<Type::fitness_t>(1.0) / static_cast<Type::fitness_t>(population.size());
 	for (auto& organism : population) {
 		organism.SetFitnessModifier(fitnessModifier);
 	}
 }
 
 auto Species::ClearPopulation() -> void {
+	const auto currentBestFitness = GetFittestOrganism().GetOrCalculateRawFitness();
+	if (currentBestFitness > fitnessHighscore) {
+		fitnessHighscore = currentBestFitness;
+		numberOfStagnantGenerations = 0;
+	} else {
+		numberOfStagnantGenerations++;
+	}
+
+	ElectRepresentative();
 	population.clear();
+}
+
+auto Species::RemoveWorst() -> void {
+	const auto threshold = GetTrainingParameters().reproduction.reproductionThreshold;
+	const auto size = static_cast<double>(GetSize());
+	const auto numberOfPotentionalParents = static_cast<std::size_t>(size * threshold);
+
+	const auto minParents = GetTrainingParameters().reproduction.minParents;
+	const auto lastParent = population.begin() + std::max(numberOfPotentionalParents, minParents);
+
+	population.erase(lastParent, population.end());
 }
 
 auto Species::ElectRepresentative() -> void {
@@ -55,8 +60,7 @@ auto Species::ElectRepresentative() -> void {
 }
 
 auto Species::SelectRandomRepresentative() -> void {
-	auto randomMember = rand() % population.size();
-	representative = population[randomMember];
+	representative = *Utility::GetRandomElement(population);
 }
 
 auto Species::SelectFittestOrganismAsRepresentative() -> void {
@@ -64,18 +68,33 @@ auto Species::SelectFittestOrganismAsRepresentative() -> void {
 }
 
 auto Hippocrates::Species::IsStagnant() const -> bool {
-	return numberOfStagnantGenerations >= 
-		parameters.		
+	return numberOfStagnantGenerations >=
+		GetTrainingParameters().
 		speciation.
 		stagnantSpeciesClearThreshold;
 }
 
+auto Species::GetOffspringCount(Type::fitness_t averageFitness) const -> std::size_t {
+	if (IsStagnant())
+		return 0;
+
+	if (averageFitness == 0.0) 
+		return GetSize();
+	
+
+	std::size_t offspringCount = 0;
+	for (auto & organism : population) {
+		// TODO jnf: Should we round this?
+		offspringCount += static_cast<std::size_t>(std::round(organism.GetOrCalculateFitness() / averageFitness));
+	}
+	return offspringCount;
+}
+
 auto Species::LetPopulationLive() -> void {
 	for (auto& organism : population) {
-		while (!organism.HasFinishedTask()) {
-			organism.Update();
-		}
+		organism.Update();
 	}
+
 	isSortedByFitness = false;
 }
 
@@ -86,9 +105,6 @@ auto Species::ResetToTeachableState() -> void {
 }
 
 auto Species::GetFittestOrganism() const -> const Organism& {
-	if (population.empty()) {
-		return representative;
-	}
 	SortPopulationIfNeeded();
 	return population.front();
 }
@@ -103,26 +119,15 @@ auto Species::SortPopulationIfNeeded() const -> void {
 	}
 }
 
-auto Species::operator=(Species&& other) noexcept -> Species& {
-	population = move(other.population);
-	representative = move(other.representative);
-	isSortedByFitness = move(other.isSortedByFitness);
-	numberOfStagnantGenerations = move(other.numberOfStagnantGenerations);
-	fitnessHighscore = move(other.fitnessHighscore);
-	return *this;
-}
 
-auto Species::GetOrganismToBreed() -> Organism& {
+auto Species::GetOrganismToBreed() const -> const Organism& {
 	// TODO jnf: Switch to stochastic universal sampling
-	if (population.empty()) {
-		return representative;
-	}
-	double totalPopulationFitness = 0.0;
+	Type::fitness_t totalPopulationFitness = 0.0;
 	for (auto& organism : population) {
 		totalPopulationFitness += organism.GetOrCalculateFitness();
 	}
 	if (totalPopulationFitness == 0) {
-		return population[rand() % population.size()];
+		return *Utility::GetRandomElement(population);
 	}
 	double chance = 0.0;
 	auto GetChanceForOrganism = [&chance, &totalPopulationFitness](const Organism& organism) {
@@ -131,11 +136,9 @@ auto Species::GetOrganismToBreed() -> Organism& {
 
 	while (true) {
 		for (auto& organism : population) {
-			double randNum = static_cast<double>(rand() % 10'000) / 9'999.0;;
 			chance = GetChanceForOrganism(organism);
-			if (randNum < chance) {
+			if (Utility::DidChanceOccure(chance))
 				return organism;
-			}
 		}
 	}
 }
@@ -157,3 +160,14 @@ auto Species::GetJSON() const -> string {
 	return s;
 }
 
+auto Species::GetAverageFitness() const -> Type::fitness_t {
+	return GetTotalFitness() / GetSize();
+}
+
+auto Species::GetTotalFitness() const -> Type::fitness_t {
+	auto totalFitness = 0.0;
+	for (auto & organism : population) {
+		totalFitness += organism.GetOrCalculateFitness();
+	}
+	return totalFitness;
+}

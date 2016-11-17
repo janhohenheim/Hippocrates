@@ -1,6 +1,6 @@
 #pragma once
-#include "training_parameters.h"
-#include "organism.h"
+#include "training_parameters.hpp"
+#include "organism.hpp"
 #include <memory>
 #include <functional>
 
@@ -12,8 +12,8 @@ private:
 	Organism representative;
 	mutable bool isSortedByFitness = false;
 	std::size_t numberOfStagnantGenerations = 0;
-	double fitnessHighscore = 0;
-	const TrainingParameters& parameters;
+	Type::fitness_t fitnessHighscore = 0;
+	auto GetTrainingParameters() const -> const TrainingParameters& { return representative.GetTrainingParameters(); };
 
 public:
 	explicit Species(Organism representative);
@@ -21,27 +21,30 @@ public:
 	Species(Species&& other) = default;
 	~Species() = default;
 
-	auto operator=(Species&& other) noexcept -> Species&;
+	auto operator=(Species& other) & ->Species& = default;
+	auto operator=(Species&& other) & -> Species& = default;
 
 	auto AddOrganism(Organism&& organism) -> void;
-	auto AnalyzePopulation() -> void;
 
 	auto IsCompatible(const Genome& genome) const -> bool;
-	auto IsEmpty() const -> bool { return population.empty(); }
+	auto GetSize() const { return population.size(); }
+	auto IsEmpty() const { return population.empty(); }
+	auto GetAverageFitness() const ->Type::fitness_t;
+	auto GetTotalFitness() const ->Type::fitness_t;
 	auto IsStagnant() const -> bool;
+	auto GetOffspringCount(Type::fitness_t averageFitness) const -> std::size_t;
 
 	auto LetPopulationLive() -> void;
 
 	auto ResetToTeachableState() -> void;
 	auto SetPopulationsFitnessModifier() -> void;
 	auto ClearPopulation() -> void;
+	auto RemoveWorst() -> void;
 
 	auto GetFittestOrganism() const -> const Organism&;
 	auto SortPopulationIfNeeded() const -> void;
-	auto GetOrganismToBreed() -> Organism&;
+	auto GetOrganismToBreed() const -> const Organism&;
 	auto GetJSON() const->std::string;
-
-
 
 private:
 	auto ElectRepresentative() -> void;

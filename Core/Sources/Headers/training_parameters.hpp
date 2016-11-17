@@ -2,12 +2,17 @@
 #include <limits>
 #include <string>
 
+#include "type.hpp"
+
 namespace Hippocrates {
 
 struct TrainingParameters {
+	TrainingParameters() = default;
+	TrainingParameters(std::string json);
+
 	struct Ranges {
-		float minWeight = -1.0f;
-		float maxWeight = 1.0f;
+		Type::connection_weight_t minWeight = -8.0f;
+		Type::connection_weight_t maxWeight = 8.0f;
 	} ranges;
 	struct Mutation {
 		float chanceForWeightMutation = 0.8f;
@@ -25,10 +30,13 @@ struct TrainingParameters {
 	struct Reproduction {
 		float chanceForInterspecialReproduction = 0.001f;
 		std::size_t minSpeciesSizeForChampConservation = 5;
+		float reproductionThreshold = 0.2f;
+		std::size_t minParents = 1;
 	} reproduction;
 	struct Structure {
 		std::size_t numberOfBiasNeurons = 1;
-		bool areRecursiveConnectionsAllowed = true;
+		std::size_t memoryResetsBeforeTotalReset = 0;
+		bool allowRecurrentConnections = false;
 	} structure;
 
 	auto GetJSON() const -> std::string;

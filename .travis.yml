@@ -8,6 +8,7 @@ addons:
     sources:
       - ubuntu-toolchain-r-test
 script:
-  - cmake -DCMAKE_CXX_COMPILER=g++-6 CMakeLists.txt
-  - make 
-  - travis_wait make test
+  - cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER=g++-6 .
+  - make
+  - ctest --verbose
+
