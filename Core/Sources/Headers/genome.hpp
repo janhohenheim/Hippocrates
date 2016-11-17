@@ -8,7 +8,6 @@ namespace Hippocrates {
 
 class Genome {
 private:
-	TrainingParameters parameters;
 	std::vector<Gene> genes;
 	std::size_t inputCount = 0U;
 	std::size_t outputCount = 0U;
@@ -16,7 +15,7 @@ private:
 	auto ParseGenesJson(std::string json) -> std::vector<Gene>;
 
 public:
-	explicit Genome(std::size_t inputCount, std::size_t outputCount, TrainingParameters parameters);
+	explicit Genome(std::size_t inputCount, std::size_t outputCount);
 	explicit Genome(std::string json);
 	explicit Genome() = default;
 	Genome(const Genome& other) = default;
@@ -44,7 +43,6 @@ public:
 	auto AppendGene(Gene gene) -> void;
 	auto InsertGeneAt(Gene gene, size_t index) -> void;
 
-	auto GetTrainingParameters() const -> const TrainingParameters& { return parameters; }
 	auto GetGeneticalDistanceFrom(const Genome& other) const -> Type::connection_weight_t;
 	auto DoesContainGene(const Gene& gene) const -> bool;
 	auto GetJSON() const->std::string;

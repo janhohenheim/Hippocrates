@@ -31,7 +31,6 @@ public:
 
 	auto GetGenome() const -> const Genome&{ return genome; }
 	auto GetOutputsUsingInputs(Type::neuron_values_t inputs) -> Type::neuron_values_t;
-	auto GetTrainingParameters() const -> const TrainingParameters& { return GetGenome().GetTrainingParameters(); }
 
 	auto GetJSON() const -> std::string;
 

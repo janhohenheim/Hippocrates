@@ -18,19 +18,11 @@ public:
 	bool loggingEnabled = false;
 
 private:
-	TrainingParameters parameters;
 	SpeciesManager species;
 	Logger logger;
 	size_t generationsPassed = 0;
 
 public:
-	explicit NeuralNetworkTrainer(TrainingParameters parameters = TrainingParameters());
-	NeuralNetworkTrainer(const NeuralNetworkTrainer& other) = default;
-	NeuralNetworkTrainer(NeuralNetworkTrainer&& other) = default;
-
-	auto operator=(const NeuralNetworkTrainer&) -> NeuralNetworkTrainer& = default;
-	auto operator=(NeuralNetworkTrainer&&) -> NeuralNetworkTrainer& = default;
-
 	auto TrainUnsupervised(SpeciesManager::Bodies& bodies) ->Trained::TrainedNeuralNetwork;
 	template <typename Classification, std::size_t ClassificationCount>
 	auto TrainSupervised(const TrainingData<Classification, ClassificationCount>& data, std::size_t trainingInstances) -> Trained::Classifier<Classification>;

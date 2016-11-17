@@ -8,9 +8,9 @@ namespace Hippocrates {
 
 struct Gene {
 	Gene();
+	Gene(std::string json);
 	Gene(const Gene& other) = default;
 	Gene(Gene&& other) = default;
-	Gene(std::string json);
 	~Gene() = default;
 
 	auto operator=(const Gene& other) -> Gene& = default;

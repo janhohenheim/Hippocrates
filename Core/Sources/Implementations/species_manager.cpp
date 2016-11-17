@@ -5,7 +5,7 @@ using namespace Hippocrates;
 auto SpeciesManager::CreateInitialOrganisms(Bodies& bodies) -> void {
 	species.clear();
 	for (auto& currTrainer : bodies) {
-		Genome standardGenes(currTrainer.get().GetInputCount(), currTrainer.get().GetOutputCount(), parameters);
+		Genome standardGenes(currTrainer.get().GetInputCount(), currTrainer.get().GetOutputCount());
 		currGenerationInnovations.AssignAndCacheHistoricalMarkings(standardGenes);
 		NeuralNetwork network(std::move(standardGenes));
 		Organism organism(currTrainer, std::move(network));
@@ -45,7 +45,7 @@ auto SpeciesManager::Repopulate(Bodies& bodies) -> void {
 		s.RemoveWorst();
 
 		if (offspringCount >= 1 
-		&&	s.GetSize() > parameters.reproduction.minSpeciesSizeForChampConservation) {
+		&&	s.GetSize() > GetTrainingParameters().reproduction.minSpeciesSizeForChampConservation) {
 			CloneChamp(s);
 			offspringCount--;
 		}
@@ -73,7 +73,7 @@ auto SpeciesManager::BreedInSpecies(const Species& species) -> NeuralNetwork {
 
 	// Note that the father can be the same as the mother
 	const Organism* father = nullptr;
-	if (Utility::DidChanceOccure(parameters.reproduction.chanceForInterspecialReproduction))
+	if (Utility::DidChanceOccure(GetTrainingParameters().reproduction.chanceForInterspecialReproduction))
 		father = &Utility::GetRandomElement(this->species)->GetFittestOrganism();
 	else
 		father = &species.GetOrganismToBreed();

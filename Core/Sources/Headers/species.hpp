@@ -13,7 +13,6 @@ private:
 	mutable bool isSortedByFitness = false;
 	std::size_t numberOfStagnantGenerations = 0;
 	Type::fitness_t fitnessHighscore = 0;
-	auto GetTrainingParameters() const -> const TrainingParameters& { return representative.GetTrainingParameters(); };
 
 public:
 	explicit Species(Organism representative);
@@ -53,7 +52,7 @@ private:
 
 	template <class T>
 	constexpr auto IsAboveCompatibilityThreshold(T t) const -> bool {
-		return t > representative.GetTrainingParameters().
+		return t > GetTrainingParameters().
 			speciation.
 			compatibilityThreshold;
 	};

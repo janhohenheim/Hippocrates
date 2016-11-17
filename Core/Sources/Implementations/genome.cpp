@@ -9,18 +9,17 @@
 using namespace Hippocrates;
 using namespace std;
 
-Genome::Genome(std::size_t inputCount, std::size_t outputCount, TrainingParameters parameters) :
-	parameters(move(parameters)),
-	genes((inputCount + parameters.structure.numberOfBiasNeurons) * outputCount),
+Genome::Genome(std::size_t inputCount, std::size_t outputCount) :
+	genes((inputCount + GetTrainingParameters().structure.numberOfBiasNeurons) * outputCount),
 	inputCount(inputCount),
 	outputCount(outputCount),
-	neuronCount(inputCount + parameters.structure.numberOfBiasNeurons + outputCount)
+	neuronCount(inputCount + GetTrainingParameters().structure.numberOfBiasNeurons + outputCount)
 {
 	auto currentGene = genes.begin();
-	for (auto in = 0U; in < (inputCount + parameters.structure.numberOfBiasNeurons); ++in) {
+	for (auto in = 0U; in < (inputCount + GetTrainingParameters().structure.numberOfBiasNeurons); ++in) {
 		for (auto out = 0U; out < outputCount; ++out) {
 			currentGene->from = in;
-			currentGene->to = out + (inputCount + parameters.structure.numberOfBiasNeurons);
+			currentGene->to = out + (inputCount + GetTrainingParameters().structure.numberOfBiasNeurons);
 			++currentGene;
 		}
 	}
@@ -37,9 +36,6 @@ Genome::Genome(std::string json) {
 		auto key = json.substr(tokens[i].start, tokens[i].end - tokens[i].start);
 		auto value = json.substr(tokens[i+1].start, tokens[i+1].end - tokens[i+1].start);
 
-		if (key == "parameters") {
-			parameters = TrainingParameters(value);
-		} else
 		if (key == "inputCount") {
 			HIPPOCRATES_SSCANF(value.c_str(), "%zu", &inputCount);
 		} else
@@ -88,8 +84,8 @@ auto Genome::GetGeneticalDistanceFrom(const Genome& other) const -> Type::connec
 
 	auto averageWeightDifference = totalWeightDifference / (Type::connection_weight_t)numberOfOverlapingGenes;
 
-	disjointGenesInfluence *= (Type::connection_weight_t)parameters.speciation.importanceOfDisjointGenes;
-	averageWeightDifference *= (Type::connection_weight_t)parameters.speciation.importanceOfAverageWeightDifference;
+	disjointGenesInfluence *= (Type::connection_weight_t)GetTrainingParameters().speciation.importanceOfDisjointGenes;
+	averageWeightDifference *= (Type::connection_weight_t)GetTrainingParameters().speciation.importanceOfAverageWeightDifference;
 
 	return disjointGenesInfluence + averageWeightDifference;
 }
@@ -100,8 +96,6 @@ auto Genome::DoesContainGene(const Gene& gene) const -> bool {
 
 auto Genome::GetJSON() const -> string {
 	string s("{");
-	s += "\"parameters\":";
-	s += parameters.GetJSON();
 	s += ",\"inputCount\":";
 	s += std::to_string(inputCount);
 	s += ",\"outputCount\":";

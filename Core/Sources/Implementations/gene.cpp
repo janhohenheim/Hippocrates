@@ -5,6 +5,7 @@
 #include "../Headers/gene.hpp"
 #include "../Headers/jsmn.h"
 #include "../Headers/type.hpp"
+#include "../Headers/training_parameters.hpp"
 
 
 using namespace Hippocrates;
@@ -56,7 +57,7 @@ auto Gene::operator==(const Gene & other) const -> bool
 }
 
 auto Gene::SetRandomWeight() -> void {
-	weight = Utility::GetRandomNumberBetween(-8.0f, 8.0f);
+	weight = Utility::GetRandomNumberBetween(GetTrainingParameters().ranges.minWeight, GetTrainingParameters().ranges.maxWeight);
 }
 
 auto Gene::GetJSON() const -> string {

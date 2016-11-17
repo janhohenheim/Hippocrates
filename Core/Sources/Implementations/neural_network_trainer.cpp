@@ -3,11 +3,6 @@
 using namespace Hippocrates;
 using namespace std;
 
-NeuralNetworkTrainer::NeuralNetworkTrainer(TrainingParameters parameters) :
-	parameters(move(parameters)),
-	species{ this->parameters }
-{
-}
 
 auto NeuralNetworkTrainer::TrainUnsupervised(SpeciesManager::Bodies& bodies) -> Trained::TrainedNeuralNetwork {
 	if (loggingEnabled) {

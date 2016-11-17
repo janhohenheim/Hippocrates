@@ -42,4 +42,9 @@ struct TrainingParameters {
 	auto GetJSON() const -> std::string;
 };
 
+inline TrainingParameters& GetTrainingParameters(){
+	static TrainingParameters params;
+	return params;
+}
+
 }

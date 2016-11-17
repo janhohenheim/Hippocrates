@@ -7,7 +7,6 @@ class Organism;
 
 class SpeciesManager {
 private:
-	const TrainingParameters& parameters;
 	mutable bool areSpeciesSortedByFitness = false;
 	std::vector<Species> species;
 	InnovationCacher currGenerationInnovations;
@@ -15,7 +14,6 @@ private:
 public:
 	using Bodies = std::vector<std::reference_wrapper<IBody>>;
 
-	explicit SpeciesManager(const TrainingParameters& parameters) : parameters{ parameters } {}
 	auto operator[](std::size_t index) const -> const Species& { return species[index]; }
 
 	auto CreateInitialOrganisms(Bodies& bodies) -> void;
