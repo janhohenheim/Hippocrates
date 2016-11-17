@@ -17,7 +17,7 @@ Neuron::Neuron(std::string json) {
 	jsmn_init(&parser);
 	jsmntok_t tokens[256];
 
-	auto token_count = jsmn_parse(&parser, json.c_str(), json.length(), tokens, 256);
+	std::size_t token_count = jsmn_parse(&parser, json.c_str(), json.length(), tokens, 256);
 
 	for (size_t i = 0; i < token_count - 1; i++) {
 		auto key = json.substr(tokens[i].start, tokens[i].end - tokens[i].start);

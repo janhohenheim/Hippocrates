@@ -17,8 +17,8 @@ private:
 	std::map<size_t, std::vector<Neuron*>> layerMap;
 
 public:
-	NeuralNetwork(const Genome& genome);
-	NeuralNetwork(Genome&& genome);
+	explicit NeuralNetwork(const Genome& genome);
+	explicit NeuralNetwork(Genome&& genome);
 	explicit NeuralNetwork(const Genome& genome, InnovationCacher& currGenerationInnovations);
 	explicit NeuralNetwork(Genome&& genome, InnovationCacher& currGenerationInnovations);
 	explicit NeuralNetwork(const std::string& json);

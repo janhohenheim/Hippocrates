@@ -8,7 +8,7 @@ namespace Hippocrates {
 
 struct TrainingParameters {
 	TrainingParameters() = default;
-	TrainingParameters(std::string json);
+	explicit TrainingParameters(std::string json);
 
 	struct Ranges {
 		Type::connection_weight_t minWeight = -8.0f;

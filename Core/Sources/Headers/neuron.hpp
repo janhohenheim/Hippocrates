@@ -26,7 +26,7 @@ public:
 	explicit Neuron(std::vector<Connection> connections);
 	Neuron(const Neuron& other) = default;
 	Neuron(Neuron&& other) = default;
-	Neuron(std::string json);
+	explicit Neuron(std::string json);
 	~Neuron() = default;
 
 	auto operator=(const Neuron& other) -> Neuron& = default;

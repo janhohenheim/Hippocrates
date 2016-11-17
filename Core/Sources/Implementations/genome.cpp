@@ -30,7 +30,7 @@ Genome::Genome(std::string json) {
 	jsmn_init(&parser);
 	jsmntok_t tokens[256];
 
-	auto token_count = jsmn_parse(&parser, json.c_str(), json.length(), tokens, 256);
+	std::size_t token_count = jsmn_parse(&parser, json.c_str(), json.length(), tokens, 256);
 
 	for (size_t i = 0; i < token_count - 1; i++) {
 		auto key = json.substr(tokens[i].start, tokens[i].end - tokens[i].start);
@@ -76,11 +76,11 @@ auto Genome::GetGeneticalDistanceFrom(const Genome& other) const -> Type::connec
 	}
 
 	auto numberOfDisjointGenes = this->GetGeneCount() + other.GetGeneCount() - (size_t)2 * numberOfOverlapingGenes;
-	auto sizeOfBiggerGenome = max(this->GetGeneCount(), other.GetGeneCount());
-	// half of the next line has been commented out because stanley's original implementation does it this way, 
+	// the next line doesn't normalize by dividing through the size of the bigger genome
+	// because stanley's original implementation does it this way, 
 	// despite it not being strictly conform to his paper.
 	// It makes more sense this way though (see http://sharpneat.sourceforge.net/research/speciation-canonical-neat.html)
-	auto disjointGenesInfluence = (Type::connection_weight_t)numberOfDisjointGenes /* / (double)sizeOfBiggerGenome*/;
+	auto disjointGenesInfluence = (Type::connection_weight_t)numberOfDisjointGenes;
 
 	auto averageWeightDifference = totalWeightDifference / (Type::connection_weight_t)numberOfOverlapingGenes;
 
@@ -118,7 +118,7 @@ auto Genome::ParseGenesJson(std::string json) -> std::vector<Gene> {
 	jsmn_init(&parser);
 	jsmntok_t tokens[256];
 
-	auto token_count = jsmn_parse(&parser, json.c_str(), json.length(), tokens, 256);
+	std::size_t token_count = jsmn_parse(&parser, json.c_str(), json.length(), tokens, 256);
 
 	vector<Gene> genes;
 
