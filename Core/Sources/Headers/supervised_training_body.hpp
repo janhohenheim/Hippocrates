@@ -5,10 +5,10 @@
 
 namespace Hippocrates {
 
-template <typename InputType, typename Classification, std::size_t ClassificationCount>
+template <typename Classification, std::size_t ClassificationCount>
 class SupervisedTrainigBody : public IBody {
 public:
-	using Data = TrainingData<InputType, Classification, ClassificationCount>;
+	using Data = TrainingData<Classification, ClassificationCount>;
 
 	explicit SupervisedTrainigBody(const Data& data) :
 			trainingData{ data },
@@ -42,8 +42,8 @@ private:
 	const double maxFitness;
 };
 
-template <typename InputType, typename Classification, std::size_t ClassificationCount>
-auto SupervisedTrainigBody<InputType, Classification, ClassificationCount>::Update(const std::vector<float>& networkOutputs) -> void {
+template <typename Classification, std::size_t ClassificationCount>
+auto SupervisedTrainigBody<Classification, ClassificationCount>::Update(const std::vector<float>& networkOutputs) -> void {
 	auto maxOutput = std::distance(networkOutputs.begin(), std::max_element(networkOutputs.begin(), networkOutputs.end()));
 	if (static_cast<size_t>(maxOutput) == static_cast<size_t>(currSet->classification)) {
 		fitness += 1.0;

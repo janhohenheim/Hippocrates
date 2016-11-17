@@ -30,8 +30,8 @@ public:
 	auto operator=(NeuralNetworkTrainer&&) -> NeuralNetworkTrainer& = default;
 
 	auto TrainUnsupervised(SpeciesManager::Bodies& bodies) -> TrainedNeuralNetwork;
-	template <typename InputType, typename Classification, std::size_t ClassificationCount>
-	auto TrainSupervised(const TrainingData<InputType, Classification, ClassificationCount>& data, std::size_t trainingInstances) -> TrainedNeuralNetwork;
+	template <typename Classification, std::size_t ClassificationCount>
+	auto TrainSupervised(const TrainingData<Classification, ClassificationCount>& data, std::size_t trainingInstances) -> TrainedNeuralNetwork;
 	
 	auto GetGenerationsPassed() const { return generationsPassed; }
 
@@ -42,9 +42,9 @@ private:
 	auto TrainGenerationAndLogUsingBodies(SpeciesManager::Bodies& bodies) -> void;
 };
 
-template <typename InputType, typename Classification, std::size_t ClassificationCount>
-auto NeuralNetworkTrainer::TrainSupervised(const TrainingData<InputType, Classification, ClassificationCount>& data, std::size_t trainingInstances) -> TrainedNeuralNetwork {
-	using Body = SupervisedTrainigBody<InputType, Classification, ClassificationCount>;
+template <typename Classification, std::size_t ClassificationCount>
+auto NeuralNetworkTrainer::TrainSupervised(const TrainingData<Classification, ClassificationCount>& data, std::size_t trainingInstances) -> TrainedNeuralNetwork {
+	using Body = SupervisedTrainigBody<Classification, ClassificationCount>;
 	std::vector<Body> bodies;
 	bodies.reserve(trainingInstances);
 	for (std::size_t i = 0; i < trainingInstances; ++i) {

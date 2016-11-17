@@ -19,33 +19,32 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{2E0E7930-3B86-4440-9F8C-AD90D19A2A94}</ProjectGuid>
-    <RootNamespace>JNF_NEAT</RootNamespace>
+    <ProjectGuid>{21BF0885-F1EF-4BF6-A8FB-3384199CBEB0}</ProjectGuid>
+    <RootNamespace>XORSolver</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
-    <ProjectName>Core</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -75,10 +74,8 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>
-      </AdditionalIncludeDirectories>
-      <AdditionalOptions>/DLL %(AdditionalOptions)</AdditionalOptions>
-      <PreprocessorDefinitions> _UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\TestingUtilities\Sources\Headers;Sources\Headers</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -86,7 +83,8 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions> _UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\TestingUtilities\Sources\Headers;Sources\Headers</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -96,7 +94,8 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions> _UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\TestingUtilities\Sources\Headers;Sources\Headers</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -110,7 +109,8 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions> _UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\TestingUtilities\Sources\Headers;Sources\Headers</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -118,39 +118,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Sources\Headers\body.hpp" />
-    <ClInclude Include="Sources\Headers\gene.hpp" />
-    <ClInclude Include="Sources\Headers\genome.hpp" />
-    <ClInclude Include="Sources\Headers\innovation_cacher.hpp" />
-    <ClInclude Include="Sources\Headers\jsmn.h" />
-    <ClInclude Include="Sources\Headers\logger.hpp" />
-    <ClInclude Include="Sources\Headers\neural_network.hpp" />
-    <ClInclude Include="Sources\Headers\neural_network_trainer.hpp" />
-    <ClInclude Include="Sources\Headers\neuron.hpp" />
-    <ClInclude Include="Sources\Headers\organism.hpp" />
-    <ClInclude Include="Sources\Headers\species.hpp" />
-    <ClInclude Include="Sources\Headers\species_manager.hpp" />
-    <ClInclude Include="Sources\Headers\supervised_training_body.hpp" />
-    <ClInclude Include="Sources\Headers\trained_neural_network.hpp" />
-    <ClInclude Include="Sources\Headers\training_data.hpp" />
-    <ClInclude Include="Sources\Headers\training_parameters.hpp" />
-    <ClInclude Include="Sources\Headers\utility.hpp" />
+    <ClCompile Include="Sources\Implementations\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Sources\Implementations\gene.cpp" />
-    <ClCompile Include="Sources\Implementations\genome.cpp" />
-    <ClCompile Include="Sources\Implementations\innovation_cacher.cpp" />
-    <ClCompile Include="Sources\Implementations\jsmn.c" />
-    <ClCompile Include="Sources\Implementations\logger.cpp" />
-    <ClCompile Include="Sources\Implementations\neural_network.cpp" />
-    <ClCompile Include="Sources\Implementations\neural_network_trainer.cpp" />
-    <ClCompile Include="Sources\Implementations\neuron.cpp" />
-    <ClCompile Include="Sources\Implementations\organism.cpp" />
-    <ClCompile Include="Sources\Implementations\species.cpp" />
-    <ClCompile Include="Sources\Implementations\species_manager.cpp" />
-    <ClCompile Include="Sources\Implementations\trained_neural_network.cpp" />
-    <ClCompile Include="Sources\Implementations\training_parameters.cpp" />
-    <ClCompile Include="Sources\Implementations\utility.cpp" />
+    <ProjectReference Include="..\..\Core\Core.vcxproj">
+      <Project>{2e0e7930-3b86-4440-9f8c-ad90d19a2a94}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\TestingUtilities\TestingUtilities.vcxproj">
+      <Project>{495de3f6-9335-4278-a4ec-ec714db06144}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
