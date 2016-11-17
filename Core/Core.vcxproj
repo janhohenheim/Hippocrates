@@ -77,7 +77,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>
       </AdditionalIncludeDirectories>
-      <AdditionalOptions>/DLL %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/DLL /std:c++latest %(AdditionalOptions)</AdditionalOptions>
       <PreprocessorDefinitions> _UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
@@ -87,6 +87,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions> _UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>/DLL /std:c++latest %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -97,6 +98,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions> _UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>/DLL /std:c++latest %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -111,6 +113,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions> _UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>/DLL /std:c++latest %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -118,40 +121,40 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Sources\Headers\body.hpp" />
-    <ClInclude Include="Sources\Headers\gene.hpp" />
-    <ClInclude Include="Sources\Headers\genome.hpp" />
-    <ClInclude Include="Sources\Headers\innovation_cacher.hpp" />
-    <ClInclude Include="Sources\Headers\jsmn.h" />
-    <ClInclude Include="Sources\Headers\logger.hpp" />
-    <ClInclude Include="Sources\Headers\neural_network.hpp" />
-    <ClInclude Include="Sources\Headers\neural_network_trainer.hpp" />
-    <ClInclude Include="Sources\Headers\neuron.hpp" />
-    <ClInclude Include="Sources\Headers\organism.hpp" />
-    <ClInclude Include="Sources\Headers\species.hpp" />
-    <ClInclude Include="Sources\Headers\species_manager.hpp" />
-    <ClInclude Include="Sources\Headers\supervised_training_body.hpp" />
+    <ClInclude Include="Sources\Headers\body\body.hpp" />
+    <ClInclude Include="Sources\Headers\body\supervised_learning.hpp" />
+    <ClInclude Include="Sources\Headers\genotype\gene.hpp" />
+    <ClInclude Include="Sources\Headers\genotype\genome.hpp" />
+    <ClInclude Include="Sources\Headers\phenotype\neural_network.hpp" />
+    <ClInclude Include="Sources\Headers\phenotype\neuron.hpp" />
+    <ClInclude Include="Sources\Headers\phenotype\organism.hpp" />
     <ClInclude Include="Sources\Headers\trained\classifier.hpp" />
-    <ClInclude Include="Sources\Headers\trained\trained_neural_network.hpp" />
-    <ClInclude Include="Sources\Headers\training_data.hpp" />
-    <ClInclude Include="Sources\Headers\training_parameters.hpp" />
+    <ClInclude Include="Sources\Headers\Trained\neural_network.hpp" />
+    <ClInclude Include="Sources\Headers\training\innovation_cacher.hpp" />
+    <ClInclude Include="Sources\Headers\training\neural_network_trainer.hpp" />
+    <ClInclude Include="Sources\Headers\training\species.hpp" />
+    <ClInclude Include="Sources\Headers\training\species_manager.hpp" />
+    <ClInclude Include="Sources\Headers\training\data.hpp" />
+    <ClInclude Include="Sources\Headers\training\parameters.hpp" />
     <ClInclude Include="Sources\Headers\type.hpp" />
-    <ClInclude Include="Sources\Headers\utility.hpp" />
+    <ClInclude Include="Sources\Headers\utility\jsmn.h" />
+    <ClInclude Include="Sources\Headers\utility\logger.hpp" />
+    <ClInclude Include="Sources\Headers\utility\random.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Sources\Implementations\gene.cpp" />
-    <ClCompile Include="Sources\Implementations\genome.cpp" />
-    <ClCompile Include="Sources\Implementations\innovation_cacher.cpp" />
-    <ClCompile Include="Sources\Implementations\jsmn.c" />
-    <ClCompile Include="Sources\Implementations\logger.cpp" />
-    <ClCompile Include="Sources\Implementations\neural_network.cpp" />
-    <ClCompile Include="Sources\Implementations\neural_network_trainer.cpp" />
-    <ClCompile Include="Sources\Implementations\neuron.cpp" />
-    <ClCompile Include="Sources\Implementations\organism.cpp" />
-    <ClCompile Include="Sources\Implementations\species.cpp" />
-    <ClCompile Include="Sources\Implementations\species_manager.cpp" />
-    <ClCompile Include="Sources\Implementations\training_parameters.cpp" />
-    <ClCompile Include="Sources\Implementations\utility.cpp" />
+    <ClCompile Include="Sources\Implementations\genotype\gene.cpp" />
+    <ClCompile Include="Sources\Implementations\genotype\genome.cpp" />
+    <ClCompile Include="Sources\Implementations\phenotype\neural_network.cpp" />
+    <ClCompile Include="Sources\Implementations\phenotype\neuron.cpp" />
+    <ClCompile Include="Sources\Implementations\phenotype\organism.cpp" />
+    <ClCompile Include="Sources\Implementations\training\innovation_cacher.cpp" />
+    <ClCompile Include="Sources\Implementations\training\neural_network_trainer.cpp" />
+    <ClCompile Include="Sources\Implementations\training\species.cpp" />
+    <ClCompile Include="Sources\Implementations\training\species_manager.cpp" />
+    <ClCompile Include="Sources\Implementations\training\parameters.cpp" />
+    <ClCompile Include="Sources\Implementations\utility\jsmn.c" />
+    <ClCompile Include="Sources\Implementations\utility\logger.cpp" />
+    <ClCompile Include="Sources\Implementations\utility\random.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

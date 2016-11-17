@@ -10,7 +10,7 @@ enum class XORResult {
 };
 
 int main() {
-	TrainingData<XORResult> data;
+	Data<XORResult> data;
 	data.AddSet({0, 0, 0}, XORResult::Zero);
 	data.AddSet({0, 1, 0}, XORResult::One);
 	data.AddSet({1, 0, 0}, XORResult::One);
@@ -22,7 +22,7 @@ int main() {
 	auto champ = Tests::TestingUtilities::TrainWithTimeout(trainer, data, timeout);
 	std::cout << "Finished training in " << trainer.GetGenerationsPassed() << " generations\n";
 
-	TrainingData<XORResult> expectedData;
+	Data<XORResult> expectedData;
 	data.AddSet({0, 0, 0}, XORResult::Zero);
 	data.AddSet({0, 0, 1}, XORResult::One);
 	data.AddSet({0, 1, 1}, XORResult::Zero);
