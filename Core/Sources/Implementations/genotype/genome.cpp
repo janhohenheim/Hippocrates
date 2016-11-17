@@ -30,7 +30,7 @@ Genome::Genome(std::string json) {
 
 	std::size_t token_count = jsmn_parse(&parser, json.c_str(), json.length(), tokens, 256);
 
-	for (size_t i = 0; i < token_count - 1; i++) {
+	for (std::size_t i = 0; i < token_count - 1; i++) {
 		auto key = json.substr(tokens[i].start, tokens[i].end - tokens[i].start);
 		auto value = json.substr(tokens[i+1].start, tokens[i+1].end - tokens[i+1].start);
 
@@ -54,7 +54,7 @@ auto Genome::AppendGene(Gene gene) -> void {
 	genes.push_back(std::move(gene));
 }
 
-auto Genome::InsertGeneAt(Gene gene, size_t index) -> void {
+auto Genome::InsertGeneAt(Gene gene, std::size_t index) -> void {
 	AdjustNeuronCount(gene);
 	genes.insert(genes.begin() + index, std::move(gene));
 }
@@ -64,16 +64,16 @@ auto Genome::GetGeneticalDistanceFrom(const Genome& other) const -> Type::connec
 	size_t numberOfOverlapingGenes = 0;
 
 	size_t sizeOfSmallerGenome = std::min(this->GetGeneCount(), other.GetGeneCount());
-	auto IsHistoricalMarkingSameAt = [&](size_t i) {
+	auto IsHistoricalMarkingSameAt = [&](std::size_t i) {
 		return this->GetGeneAt(i).historicalMarking == other[i].historicalMarking;
 	};
 
-	for (size_t i = 0; i < sizeOfSmallerGenome && IsHistoricalMarkingSameAt(i); ++i) {
+	for (std::size_t i = 0; i < sizeOfSmallerGenome && IsHistoricalMarkingSameAt(i); ++i) {
 		totalWeightDifference += (Type::connection_weight_t)abs(this->GetGeneAt(i).weight - other[i].weight);
 		++numberOfOverlapingGenes;
 	}
 
-	auto numberOfDisjointGenes = this->GetGeneCount() + other.GetGeneCount() - (size_t)2 * numberOfOverlapingGenes;
+	auto numberOfDisjointGenes = this->GetGeneCount() + other.GetGeneCount() - (std::size_t)2 * numberOfOverlapingGenes;
 	// the next line doesn't normalize by dividing through the size of the bigger genome
 	// because stanley's original implementation does it this way, 
 	// despite it not being strictly conform to his paper.
@@ -101,7 +101,7 @@ auto Genome::GetJSON() const -> std::string {
 	s += ",\"neuronCount\":";
 	s += std::to_string(neuronCount);
 	s += ",\"genes\":[";
-	for (size_t i = 0; i < genes.size() - 1; ++i) {
+	for (std::size_t i = 0; i < genes.size() - 1; ++i) {
 		s += genes[i].GetJSON();
 		s += ",";
 	}
@@ -120,7 +120,7 @@ auto Genome::ParseGenesJson(std::string json) -> std::vector<Gene> {
 
 	std::vector<Gene> genes;
 
-	for (size_t i = 0; i < token_count - 1; i++) {
+	for (std::size_t i = 0; i < token_count - 1; i++) {
 		if (tokens[i].type == JSMN_OBJECT) {
 			genes.push_back(Gene(json.substr(tokens[i].start, tokens[i].end - tokens[i].start)));
 		}

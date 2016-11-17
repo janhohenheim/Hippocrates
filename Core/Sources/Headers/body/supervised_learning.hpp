@@ -38,8 +38,8 @@ private:
 	const Data& trainingData;
 	typename Data::const_iterator currSet = trainingData.begin();
 	Type::fitness_t fitness = static_cast<Type::fitness_t>(0.0);
-	const size_t inputCount;
-	const size_t outputCount;
+	const std::size_t inputCount;
+	const std::size_t outputCount;
 	const Type::fitness_t maxFitness;
 };
 

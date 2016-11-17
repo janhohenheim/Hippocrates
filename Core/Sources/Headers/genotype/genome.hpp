@@ -43,7 +43,7 @@ public:
 	auto GetOutputCount() const	{ return outputCount; }
 
 	auto AppendGene(Gene gene) -> void;
-	auto InsertGeneAt(Gene gene, size_t index) -> void;
+	auto InsertGeneAt(Gene gene, std::size_t index) -> void;
 
 	auto GetGeneticalDistanceFrom(const Genome& other) const -> Type::connection_weight_t;
 	auto DoesContainGene(const Gene& gene) const -> bool;

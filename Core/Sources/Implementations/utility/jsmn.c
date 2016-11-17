@@ -4,7 +4,7 @@
  * Allocates a fresh unused token from the token pull.
  */
 static jsmntok_t *jsmn_alloc_token(jsmn_parser *parser,
-		jsmntok_t *tokens, size_t num_tokens) {
+		jsmntok_t *tokens, std::size_t num_tokens) {
 	jsmntok_t *tok;
 	if (parser->toknext >= num_tokens) {
 		return NULL;
@@ -33,7 +33,7 @@ static void jsmn_fill_token(jsmntok_t *token, jsmntype_t type,
  * Fills next available token with JSON primitive.
  */
 static int jsmn_parse_primitive(jsmn_parser *parser, const char *js,
-		size_t len, jsmntok_t *tokens, size_t num_tokens) {
+		size_t len, jsmntok_t *tokens, std::size_t num_tokens) {
 	jsmntok_t *token;
 	int start;
 
@@ -82,7 +82,7 @@ found:
  * Fills next token with JSON string.
  */
 static int jsmn_parse_string(jsmn_parser *parser, const char *js,
-		size_t len, jsmntok_t *tokens, size_t num_tokens) {
+		size_t len, jsmntok_t *tokens, std::size_t num_tokens) {
 	jsmntok_t *token;
 
 	int start = parser->pos;
@@ -148,7 +148,7 @@ static int jsmn_parse_string(jsmn_parser *parser, const char *js,
 /**
  * Parse JSON string and fill tokens.
  */
-int jsmn_parse(jsmn_parser *parser, const char *js, size_t len,
+int jsmn_parse(jsmn_parser *parser, const char *js, std::size_t len,
 		jsmntok_t *tokens, unsigned int num_tokens) {
 	int r;
 	int i;

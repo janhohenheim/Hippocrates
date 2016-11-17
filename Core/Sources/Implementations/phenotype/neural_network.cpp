@@ -38,7 +38,7 @@ NeuralNetwork::NeuralNetwork(const std::string& json) {
 
 	std::size_t token_count = jsmn_parse(&parser, json.c_str(), json.length(), tokens, 256);
 
-	for (size_t i = 0; i < token_count - 1; i++) {
+	for (std::size_t i = 0; i < token_count - 1; i++) {
 		auto key = json.substr(tokens[i].start, tokens[i].end - tokens[i].start);
 		auto value = json.substr(tokens[i + 1].start, tokens[i + 1].end - tokens[i + 1].start);
 
@@ -99,13 +99,13 @@ auto NeuralNetwork::SetInputs(Type::neuron_values_t inputs) -> void {
 	if (inputNeurons.size() != inputs.size()) {
 		throw std::out_of_range("Number of inputs provided doesn't match genetic information");
 	}
-	for (size_t i = 0U; i < inputNeurons.size(); ++i) {
+	for (std::size_t i = 0U; i < inputNeurons.size(); ++i) {
 		inputNeurons[i]->SetInput(std::move(inputs[i]));
 	};
 }
 
 auto NeuralNetwork::GetOutputs() -> Type::neuron_values_t {
-	for (size_t i = 1; i < layerMap.size() - 1; ++i) {
+	for (std::size_t i = 1; i < layerMap.size() - 1; ++i) {
 		for (auto& neuron : layerMap[i]) {
 			neuron->RequestDataAndGetActionPotential();
 		}
@@ -327,14 +327,14 @@ auto NeuralNetwork::AreNeuronsConnected(const Neuron& lhs, const Neuron & rhs) -
 }
 
 auto NeuralNetwork::ShuffleWeights() -> void {
-	for (size_t i = 0; i < genome.GetGeneCount(); i++) {
+	for (std::size_t i = 0; i < genome.GetGeneCount(); i++) {
 		if (ShouldMutateWeight()) {
 			MutateWeightOfGeneAt(i);
 		}
 	}
 }
 
-auto NeuralNetwork::MutateWeightOfGeneAt(size_t index) -> void {
+auto NeuralNetwork::MutateWeightOfGeneAt(std::size_t index) -> void {
 	if (Utility::Random::DidChanceOccure(Training::GetParameters().mutation.chanceOfTotalWeightReset)) {
 		genome[index].SetRandomWeight();
 	}
@@ -343,7 +343,7 @@ auto NeuralNetwork::MutateWeightOfGeneAt(size_t index) -> void {
 	}
 }
 
-auto NeuralNetwork::PerturbWeightAt(size_t index) -> void {
+auto NeuralNetwork::PerturbWeightAt(std::size_t index) -> void {
 	constexpr auto perturbRange = 2.5f;
 	auto perturbance = Utility::Random::Number(-perturbRange, perturbRange);
 	genome[index].weight += perturbance;
@@ -398,7 +398,7 @@ auto NeuralNetwork::CategorizeNeuronsIntoLayers() -> void {
 	}
 }
 
-auto NeuralNetwork::CategorizeNeuronBranchIntoLayers(Neuron& currNode, size_t currentDepth) const -> void {
+auto NeuralNetwork::CategorizeNeuronBranchIntoLayers(Neuron& currNode, std::size_t currentDepth) const -> void {
 	currNode.layer = currentDepth;
 	const auto nextLayer = currNode.layer + 1;
 
@@ -464,7 +464,7 @@ auto NeuralNetwork::ParseNeuronsJson(std::string json) -> std::vector<Neuron> {
 
 	std::vector<Neuron> neurons;
 
-	for (size_t i = 0; i < token_count - 1; i++) {
+	for (std::size_t i = 0; i < token_count - 1; i++) {
 		if (tokens[i].type == JSMN_OBJECT) {
 			neurons.push_back(Neuron(json.substr(tokens[i].start, tokens[i].end - tokens[i].start)));
 		}

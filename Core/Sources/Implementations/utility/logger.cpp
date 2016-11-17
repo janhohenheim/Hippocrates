@@ -66,11 +66,11 @@ auto Logger::GetMetadataFileName(const std::wstring &sessionDir) -> std::wstring
 	return sessionDir + L"meta" + GetLogFileExtension(sessionDir);
 }
 
-auto Logger::GetLogFileName(const std::string& sessionDir, size_t generationsPassed) -> std::string {
+auto Logger::GetLogFileName(const std::string& sessionDir, std::size_t generationsPassed) -> std::string {
 	return std::string(sessionDir + "generation_" + std::to_string(generationsPassed) + GetLogFileExtension(sessionDir));
 }
 
-auto Logger::GetLogFileName(const std::wstring& sessionDir, size_t generationsPassed) -> std::wstring {
+auto Logger::GetLogFileName(const std::wstring& sessionDir, std::size_t generationsPassed) -> std::wstring {
 	return std::wstring(sessionDir + L"generation_" + std::to_wstring(generationsPassed) + GetLogFileExtension(sessionDir));
 }
 
@@ -82,7 +82,7 @@ auto Logger::SetFullLoggingPath(const std::wstring& path) -> void {
 	fullLoggingPathOnWindows = path;
 }
 
-auto Logger::LogGeneration(size_t generation, const std::string& log) -> void {
+auto Logger::LogGeneration(std::size_t generation, const std::string& log) -> void {
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
 	if (!fullLoggingPathOnWindows.empty()) {
 		auto logFileName = GetLogFileName(fullLoggingPathOnWindows, generation);

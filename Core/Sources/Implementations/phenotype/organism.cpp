@@ -18,7 +18,7 @@ auto Organism::Update() -> void {
 		numberOfTimesToFinishTask = Training::GetParameters().structure.memoryResetsBeforeTotalReset;
 	}
 
-	for (size_t i = 0; i < numberOfTimesToFinishTask; i++) {
+	for (std::size_t i = 0; i < numberOfTimesToFinishTask; i++) {
 		while (!body->HasFinishedTask()) {
 			const auto inputs(move(body->ProvideNetworkWithInputs()));
 			const auto outputs(move(network.GetOutputsUsingInputs(inputs)));
@@ -54,10 +54,10 @@ auto Organism::BreedWith(const Organism& partner, Training::InnovationCacher& cu
 
 	const auto sizeOfSmallerParent = std::min(this->GetGenome().GetGeneCount(), partner.GetGenome().GetGeneCount());
 	auto& partnerGenome = partner.GetGenome();
-	auto AreSameAt = [&](size_t i) {
+	auto AreSameAt = [&](std::size_t i) {
 		return childGenome[i] == partnerGenome[i];
 	};
-	for (size_t i = 0U; i < sizeOfSmallerParent && AreSameAt(i); ++i) {
+	for (std::size_t i = 0U; i < sizeOfSmallerParent && AreSameAt(i); ++i) {
 		if (Utility::Random::FlipACoin()) {
 			childGenome[i].weight = partnerGenome[i].weight;
 		}

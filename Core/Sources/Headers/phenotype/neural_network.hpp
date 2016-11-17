@@ -66,7 +66,7 @@ private:
 	auto PerturbWeightAt(std::size_t index) -> void;
 
 	auto CategorizeNeuronsIntoLayers() -> void;
-	auto CategorizeNeuronBranchIntoLayers(Neuron& currNode, size_t currentDepth = 0) const -> void;
+	auto CategorizeNeuronBranchIntoLayers(Neuron& currNode, std::size_t currentDepth = 0) const -> void;
 
 	auto ParseNeuronsJson(std::string json) -> std::vector<Neuron>;
 
