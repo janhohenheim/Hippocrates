@@ -97,9 +97,6 @@
     <ClCompile Include="Sources\Implementations\species.cpp">
       <Filter>Implementations</Filter>
     </ClCompile>
-    <ClCompile Include="Sources\Implementations\trained_neural_network.cpp">
-      <Filter>Implementations</Filter>
-    </ClCompile>
     <ClCompile Include="Sources\Implementations\training_parameters.cpp">
       <Filter>Implementations</Filter>
     </ClCompile>
