@@ -348,7 +348,7 @@ auto NeuralNetwork::PerturbWeightAt(size_t index) -> void {
 	const auto min = GetTrainingParameters().ranges.minWeight;
 	const auto max = GetTrainingParameters().ranges.maxWeight;
 	// In C++17
-	// std::clamp(genome[index].weight, -1.0f, 1.0f));
+	// std::clamp(genome[index].weight, min, max));
 	if (genome[index].weight < min) {
 		genome[index].weight = min;
 	}

@@ -1,5 +1,4 @@
 #pragma once
-#include "training_parameters.hpp"
 #include "species.hpp"
 #include "trained/trained_neural_network.hpp"
 #include "logger.hpp"

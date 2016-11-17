@@ -32,6 +32,8 @@ auto NeuralNetworkTrainer::TrainGenerationAndLogUsingBodies(SpeciesManager::Bodi
 
 auto NeuralNetworkTrainer::GetJSON() const -> string {
 	string s("{");
+	s += "\"trainingParameters\";";
+	s += GetTrainingParameters().GetJSON();
 	s += "\"generationsPassed\":";
 	s += to_string(generationsPassed);
 	s += ",";

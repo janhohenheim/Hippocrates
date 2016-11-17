@@ -1,5 +1,4 @@
 #pragma once
-#include "training_parameters.hpp"
 #include "organism.hpp"
 #include <memory>
 #include <functional>

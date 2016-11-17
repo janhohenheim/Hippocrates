@@ -1,7 +1,6 @@
 #pragma once
 #include "neural_network.hpp"
 #include "body.hpp"
-#include "training_parameters.hpp"
 #include "genome.hpp"
 #include <memory>
 
