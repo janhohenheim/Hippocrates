@@ -1,21 +1,21 @@
 #include <cstdlib>
 #include <algorithm>
-#include "../Headers/organism.hpp"
+#include "../../Headers/phenotype/organism.hpp"
+#include "../../Headers/utility/random.hpp"
 
-using namespace Hippocrates;
-using namespace std;
+using namespace Hippocrates::Phenotype;
 
-Organism::Organism(IBody& body, NeuralNetwork&& network) :
+Organism::Organism(Body::IBody& body, NeuralNetwork&& network) :
 	body(&body),
-	network(move(network))
+	network(std::move(network))
 {
 }
 
 auto Organism::Update() -> void {
 	size_t numberOfTimesToFinishTask = 1;
 
-	if (GetParameters().structure.allowRecurrentConnections) {
-		numberOfTimesToFinishTask = GetParameters().structure.memoryResetsBeforeTotalReset;
+	if (Training::GetParameters().structure.allowRecurrentConnections) {
+		numberOfTimesToFinishTask = Training::GetParameters().structure.memoryResetsBeforeTotalReset;
 	}
 
 	for (size_t i = 0; i < numberOfTimesToFinishTask; i++) {
@@ -40,11 +40,11 @@ auto Organism::GetOrCalculateRawFitness() const -> Type::fitness_t {
 	return fitness;
 }
 
-auto Organism::BreedWith(const Organism& partner, InnovationCacher& currGenerationInnovations) const -> NeuralNetwork {
+auto Organism::BreedWith(const Organism& partner, Training::InnovationCacher& currGenerationInnovations) const -> NeuralNetwork {
 	auto parentsHaveSameFitness = this->GetOrCalculateFitness() == partner.GetOrCalculateFitness();
 	const Organism* dominantParent = nullptr;
 	if (parentsHaveSameFitness) {
-		dominantParent = Utility::FlipACoin() ? this : &partner;
+		dominantParent = Utility::Random::FlipACoin() ? this : &partner;
 	}
 	else {
 		dominantParent = this->GetOrCalculateFitness() > partner.GetOrCalculateFitness() ? this : &partner;
@@ -52,26 +52,26 @@ auto Organism::BreedWith(const Organism& partner, InnovationCacher& currGenerati
 	// TODO jnf: conform to the paper
 	auto childGenome(dominantParent->GetGenome());
 
-	const auto sizeOfSmallerParent = min(this->GetGenome().GetGeneCount(), partner.GetGenome().GetGeneCount());
+	const auto sizeOfSmallerParent = std::min(this->GetGenome().GetGeneCount(), partner.GetGenome().GetGeneCount());
 	auto& partnerGenome = partner.GetGenome();
 	auto AreSameAt = [&](size_t i) {
 		return childGenome[i] == partnerGenome[i];
 	};
 	for (size_t i = 0U; i < sizeOfSmallerParent && AreSameAt(i); ++i) {
-		if (Utility::FlipACoin()) {
+		if (Utility::Random::FlipACoin()) {
 			childGenome[i].weight = partnerGenome[i].weight;
 		}
 	}
-	NeuralNetwork child(move(childGenome), currGenerationInnovations);
+	NeuralNetwork child(std::move(childGenome), currGenerationInnovations);
 	return child;
 }
 
-auto Organism::GetJSON() const -> string {
-	string s("{\"fitness\":");
-	s += to_string(GetOrCalculateRawFitness());
+auto Organism::GetJSON() const -> std::string {
+	std::string s("{\"fitness\":");
+	s += std::to_string(GetOrCalculateRawFitness());
 	s += ",";
 	s += "\"fitnessModifier\":";
-	s += to_string(fitnessModifier);
+	s += std::to_string(fitnessModifier);
 	s += ",";
 	s += "\"network\":";
 	s += network.GetJSON();
