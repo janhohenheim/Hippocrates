@@ -1,14 +1,11 @@
 #pragma once
 
-#include <iostream>
 #include <chrono>
 #include <future>
 #include <memory>
-#include <sstream>
 
 // TODO: Replace with library import
 #include "../../../../Core/Sources/Headers/training/neural_network_trainer.hpp"
-#include "../../../../Core/Sources/Headers/trained/classifier.hpp"
 
 namespace Hippocrates::Tests::TestingUtilities {
 

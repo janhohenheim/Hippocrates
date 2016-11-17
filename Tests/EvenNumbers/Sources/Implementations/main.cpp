@@ -1,6 +1,6 @@
+#include <iostream>
 #include "testing_utilities.hpp"
 
-using namespace std;
 using namespace Hippocrates;
 
 enum class Evenness {

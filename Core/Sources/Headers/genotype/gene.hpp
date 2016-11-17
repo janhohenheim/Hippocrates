@@ -1,6 +1,7 @@
 #pragma once
 #include <cstddef>
 #include <string>
+#include <limits>
 #include "../type.hpp"
 
 namespace Hippocrates::Genotype {

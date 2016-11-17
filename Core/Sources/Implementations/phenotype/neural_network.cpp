@@ -148,7 +148,7 @@ auto NeuralNetwork::GetInputNeurons() const -> std::vector<const Neuron *> {
 }
 
 auto NeuralNetwork::GetOutputsUsingInputs(Type::neuron_values_t inputs) -> Type::neuron_values_t {
-	SetInputs(move(inputs));
+	SetInputs(std::move(inputs));
 	return GetOutputs();
 }
 
