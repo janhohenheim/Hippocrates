@@ -119,7 +119,7 @@ auto SpeciesManager::ClearSpeciesPopulation() -> void {
 		sp.ClearPopulation();
 }
 
-auto SpeciesManager::GetAverageFitness() const -> double {
+auto SpeciesManager::GetAverageFitness() const -> Type::fitness_t {
 	return GetTotalFitness() / GetPopulationCount();
 }
 
@@ -130,7 +130,7 @@ auto SpeciesManager::GetPopulationCount() const -> std::size_t {
 	return populationCount;
 }
 
-auto SpeciesManager::GetTotalFitness() const -> double {
+auto SpeciesManager::GetTotalFitness() const -> Type::fitness_t {
 	auto totalFitness = 0.0;
 	for (auto & s : species)
 		totalFitness += s.GetTotalFitness();

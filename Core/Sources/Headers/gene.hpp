@@ -2,6 +2,7 @@
 #include <cstddef>
 #include <string>
 #include "../Headers/utility.hpp"
+#include "../Headers/type.hpp"
 
 namespace Hippocrates {
 
@@ -21,7 +22,7 @@ struct Gene {
 
 	std::size_t from = 0;
 	std::size_t to = 0;
-	float weight = 0.0f;
+	Type::connection_weight_t weight = 0.0f;
 	static constexpr auto invalidHistoricalMarking = std::numeric_limits<std::size_t>::max();
 	std::size_t historicalMarking = invalidHistoricalMarking;
 	bool isEnabled = true;

@@ -1,10 +1,12 @@
 #pragma once
+#include <vector>
+#include <map>
+
 #include "gene.hpp"
 #include "neuron.hpp"
 #include "genome.hpp"
 #include "innovation_cacher.hpp"
-#include <vector>
-#include <map>
+#include "type.hpp"
 
 namespace Hippocrates {
 
@@ -22,13 +24,13 @@ public:
 	explicit NeuralNetwork(const std::string& json);
 	NeuralNetwork(const NeuralNetwork& other);
 	NeuralNetwork(NeuralNetwork&& other) = default;
-	~NeuralNetwork() = default;
+	virtual ~NeuralNetwork() = default;
 
 	auto operator= (const NeuralNetwork& other) -> NeuralNetwork&;
 	auto operator= (NeuralNetwork&& other) -> NeuralNetwork& = default;
 
 	auto GetGenome() const -> const Genome&{ return genome; }
-	auto GetOutputsUsingInputs(std::vector<float> inputs) -> std::vector<float>;
+	auto GetOutputsUsingInputs(Type::neuron_values_t inputs) -> Type::neuron_values_t;
 	auto GetTrainingParameters() const -> const TrainingParameters& { return GetGenome().GetTrainingParameters(); }
 
 	auto GetJSON() const -> std::string;
@@ -36,8 +38,8 @@ public:
 	auto Reset() -> void;
 
 private:
-	auto SetInputs(std::vector<float> inputs) -> void;
-	auto GetOutputs() -> std::vector<float>;
+	auto SetInputs(Type::neuron_values_t inputs) -> void;
+	auto GetOutputs() -> Type::neuron_values_t;
 
 	auto GetOutputNeurons()->std::vector<Neuron*>;
 	auto GetOutputNeurons() const ->std::vector<const Neuron*>;

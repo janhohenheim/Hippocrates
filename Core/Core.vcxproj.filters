@@ -9,6 +9,9 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
+    <Filter Include="Headers\trained">
+      <UniqueIdentifier>{1b3a181c-c7b8-45a2-a69a-d9d44c2916a2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sources\Headers\utility.hpp">
@@ -47,9 +50,6 @@
     <ClInclude Include="Sources\Headers\supervised_training_body.hpp">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Sources\Headers\trained_neural_network.hpp">
-      <Filter>Headers</Filter>
-    </ClInclude>
     <ClInclude Include="Sources\Headers\training_data.hpp">
       <Filter>Headers</Filter>
     </ClInclude>
@@ -60,6 +60,15 @@
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="Sources\Headers\innovation_cacher.hpp">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Headers\trained\classifier.hpp">
+      <Filter>Headers\trained</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Headers\trained\trained_neural_network.hpp">
+      <Filter>Headers\trained</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Headers\type.hpp">
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>

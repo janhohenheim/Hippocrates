@@ -2,6 +2,8 @@
 #include <limits>
 #include <string>
 
+#include "type.hpp"
+
 namespace Hippocrates {
 
 struct TrainingParameters {
@@ -9,8 +11,8 @@ struct TrainingParameters {
 	TrainingParameters(std::string json);
 
 	struct Ranges {
-		float minWeight = -8.0f;
-		float maxWeight = 8.0f;
+		Type::connection_weight_t minWeight = -8.0f;
+		Type::connection_weight_t maxWeight = 8.0f;
 	} ranges;
 	struct Mutation {
 		float chanceForWeightMutation = 0.8f;

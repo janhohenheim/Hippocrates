@@ -1,7 +1,7 @@
 #include <iostream>
 #include "../Headers/training_parameters.hpp"
 #include "../Headers/jsmn.h"
-#include "../Headers/utility.hpp"
+#include "../Headers/type.hpp"
 
 using namespace Hippocrates;
 using namespace std;

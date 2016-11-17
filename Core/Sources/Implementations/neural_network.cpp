@@ -92,7 +92,7 @@ auto NeuralNetwork::BuildNetworkFromGenes() -> void {
 	CategorizeNeuronsIntoLayers();
 }
 
-auto NeuralNetwork::SetInputs(vector<float> inputs) -> void {
+auto NeuralNetwork::SetInputs(Type::neuron_values_t inputs) -> void {
 	auto inputNeurons = GetInputNeurons();
 	if (inputNeurons.size() != inputs.size()) {
 		throw out_of_range("Number of inputs provided doesn't match genetic information");
@@ -102,13 +102,13 @@ auto NeuralNetwork::SetInputs(vector<float> inputs) -> void {
 	};
 }
 
-auto NeuralNetwork::GetOutputs() -> vector<float> {
+auto NeuralNetwork::GetOutputs() -> Type::neuron_values_t {
 	for (size_t i = 1; i < layerMap.size() - 1; ++i) {
 		for (auto& neuron : layerMap[i]) {
 			neuron->RequestDataAndGetActionPotential();
 		}
 	}
-	vector<float> outputs;
+	Type::neuron_values_t outputs;
 	const auto outputNeurons = GetOutputNeurons();
 	outputs.reserve(outputNeurons.size());
 	for (auto& outputNeuron : outputNeurons) {
@@ -145,7 +145,7 @@ auto Hippocrates::NeuralNetwork::GetInputNeurons() const -> std::vector<const Ne
 	);
 }
 
-auto NeuralNetwork::GetOutputsUsingInputs(vector<float> inputs) -> vector<float> {
+auto NeuralNetwork::GetOutputsUsingInputs(Type::neuron_values_t inputs) -> Type::neuron_values_t {
 	SetInputs(move(inputs));
 	return GetOutputs();
 }

@@ -10,9 +10,9 @@ namespace Hippocrates {
 class Organism {
 private:
 	IBody* body = nullptr;
-	mutable double fitness = 0.0;
+	mutable Type::fitness_t fitness = 0.0;
 	mutable bool isFitnessUpToDate = false;
-	double fitnessModifier = 1.0;
+	Type::fitness_t fitnessModifier = 1.0;
 	NeuralNetwork network;
 
 public:
@@ -26,9 +26,9 @@ public:
 
 	auto Reset() -> void { body->Reset(); }
 	auto Update() -> void;
-	auto SetFitnessModifier(double factor) -> void { fitnessModifier = factor; }
-	auto GetOrCalculateFitness() const -> double;
-	auto GetOrCalculateRawFitness() const -> double;
+	auto SetFitnessModifier(Type::fitness_t factor) -> void { fitnessModifier = factor; }
+	auto GetOrCalculateFitness() const ->Type::fitness_t;
+	auto GetOrCalculateRawFitness() const ->Type::fitness_t;
 	auto GetMaxFitness() const { return body->GetMaximumFitness(); }
 	auto BreedWith(const Organism& partner, InnovationCacher& currGenerationInnovations) const -> NeuralNetwork;
 	auto GetGenome() const -> const Genome&{ return network.GetGenome(); }

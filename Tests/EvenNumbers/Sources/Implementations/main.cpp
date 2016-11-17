@@ -10,8 +10,6 @@ enum class Evenness {
 };
 
 int main() {
-	srand(static_cast<unsigned>(time(nullptr)));
-
 	constexpr auto maxValue = 40.0f;
 
 	TrainingData<Evenness> data;

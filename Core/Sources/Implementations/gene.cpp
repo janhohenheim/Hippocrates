@@ -4,6 +4,7 @@
 
 #include "../Headers/gene.hpp"
 #include "../Headers/jsmn.h"
+#include "../Headers/type.hpp"
 
 
 using namespace Hippocrates;

@@ -131,9 +131,11 @@
     <ClInclude Include="Sources\Headers\species.hpp" />
     <ClInclude Include="Sources\Headers\species_manager.hpp" />
     <ClInclude Include="Sources\Headers\supervised_training_body.hpp" />
-    <ClInclude Include="Sources\Headers\trained_neural_network.hpp" />
+    <ClInclude Include="Sources\Headers\trained\classifier.hpp" />
+    <ClInclude Include="Sources\Headers\trained\trained_neural_network.hpp" />
     <ClInclude Include="Sources\Headers\training_data.hpp" />
     <ClInclude Include="Sources\Headers\training_parameters.hpp" />
+    <ClInclude Include="Sources\Headers\type.hpp" />
     <ClInclude Include="Sources\Headers\utility.hpp" />
   </ItemGroup>
   <ItemGroup>

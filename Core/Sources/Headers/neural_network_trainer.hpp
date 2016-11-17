@@ -1,11 +1,13 @@
 #pragma once
 #include "training_parameters.hpp"
 #include "species.hpp"
-#include "trained_neural_network.hpp"
+#include "trained/trained_neural_network.hpp"
 #include "logger.hpp"
 #include "species_manager.hpp"
 #include "training_data.hpp"
 #include "supervised_training_body.hpp"
+#include "trained/classifier.hpp"
+
 #include <vector>
 #include <memory>
 
@@ -29,9 +31,9 @@ public:
 	auto operator=(const NeuralNetworkTrainer&) -> NeuralNetworkTrainer& = default;
 	auto operator=(NeuralNetworkTrainer&&) -> NeuralNetworkTrainer& = default;
 
-	auto TrainUnsupervised(SpeciesManager::Bodies& bodies) -> TrainedNeuralNetwork;
+	auto TrainUnsupervised(SpeciesManager::Bodies& bodies) ->Trained::TrainedNeuralNetwork;
 	template <typename Classification, std::size_t ClassificationCount>
-	auto TrainSupervised(const TrainingData<Classification, ClassificationCount>& data, std::size_t trainingInstances) -> TrainedNeuralNetwork;
+	auto TrainSupervised(const TrainingData<Classification, ClassificationCount>& data, std::size_t trainingInstances) -> Trained::Classifier<Classification>;
 	
 	auto GetGenerationsPassed() const { return generationsPassed; }
 
@@ -43,7 +45,7 @@ private:
 };
 
 template <typename Classification, std::size_t ClassificationCount>
-auto NeuralNetworkTrainer::TrainSupervised(const TrainingData<Classification, ClassificationCount>& data, std::size_t trainingInstances) -> TrainedNeuralNetwork {
+auto NeuralNetworkTrainer::TrainSupervised(const TrainingData<Classification, ClassificationCount>& data, std::size_t trainingInstances) -> Trained::Classifier<Classification> {
 	using Body = SupervisedTrainigBody<Classification, ClassificationCount>;
 	std::vector<Body> bodies;
 	bodies.reserve(trainingInstances);
@@ -52,7 +54,8 @@ auto NeuralNetworkTrainer::TrainSupervised(const TrainingData<Classification, Cl
 		bodies.push_back(std::move(body));
 	}
 	SpeciesManager::Bodies bodyRefs(bodies.begin(), bodies.end());
-	return TrainUnsupervised(bodyRefs);
+	auto champ = TrainUnsupervised(bodyRefs);
+	return Trained::Classifier<Classification>(std::move(champ));
 }
 
 }

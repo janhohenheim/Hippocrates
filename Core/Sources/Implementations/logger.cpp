@@ -1,5 +1,6 @@
 #include <fstream>
 #include "../Headers/logger.hpp"
+
 using namespace std;
 using namespace Hippocrates;
 
@@ -59,11 +60,11 @@ auto  Logger::GetSessionDir(const wstring& dumpDir) -> wstring {
 }
 
 auto Logger::GetMetadataFileName(const std::string &sessionDir) -> std::string {
-    return sessionDir + "meta" + GetLogFileExtension(sessionDir);
+	return sessionDir + "meta" + GetLogFileExtension(sessionDir);
 }
 
 auto Logger::GetMetadataFileName(const std::wstring &sessionDir) -> std::wstring {
-    return sessionDir + L"meta" + GetLogFileExtension(sessionDir);
+	return sessionDir + L"meta" + GetLogFileExtension(sessionDir);
 }
 
 auto Logger::GetLogFileName(const string& sessionDir, size_t generationsPassed) -> string {
@@ -105,12 +106,12 @@ auto Logger::LogGeneration(size_t generation, const std::string& log) -> void {
 	throw runtime_error("No logging directory found. Did you forget to call Logger::CreateLoggingDirs()?");
 }
 
-auto Logger::LogMetadata(double maxFitness) -> void {
+auto Logger::LogMetadata(Type::fitness_t maxFitness) -> void {
 	metaData += "{\"max_fitness\":" + to_string(maxFitness) + "},";
 	auto logToPrint = "{\"generations\":[" + metaData.substr(0, metaData.length() - 1) + "]}";
 
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
-    if (!fullLoggingPathOnWindows.empty()) {
+	if (!fullLoggingPathOnWindows.empty()) {
 		auto logFileName = GetMetadataFileName(fullLoggingPathOnWindows);
 		ofstream logFile(logFileName);
 		logFile << logToPrint;
@@ -119,14 +120,14 @@ auto Logger::LogMetadata(double maxFitness) -> void {
 		return;
 	}
 #else
-    if (!fullLoggingPathOnUnix.empty()) {
-        auto logFileName = GetMetadataFileName(fullLoggingPathOnUnix);
-        ofstream logFile(logFileName);
-        logFile << logToPrint;
-        logFile.close();
+	if (!fullLoggingPathOnUnix.empty()) {
+		auto logFileName = GetMetadataFileName(fullLoggingPathOnUnix);
+		ofstream logFile(logFileName);
+		logFile << logToPrint;
+		logFile.close();
 
-        return;
-    }
+		return;
+	}
 #endif
-    throw runtime_error("No logging directory found. Did you forget to call Logger::CreateLoggingDirs()?");
+	throw runtime_error("No logging directory found. Did you forget to call Logger::CreateLoggingDirs()?");
 }

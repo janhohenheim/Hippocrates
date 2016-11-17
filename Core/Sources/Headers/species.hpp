@@ -12,7 +12,7 @@ private:
 	Organism representative;
 	mutable bool isSortedByFitness = false;
 	std::size_t numberOfStagnantGenerations = 0;
-	double fitnessHighscore = 0;
+	Type::fitness_t fitnessHighscore = 0;
 	auto GetTrainingParameters() const -> const TrainingParameters& { return representative.GetTrainingParameters(); };
 
 public:
@@ -25,15 +25,14 @@ public:
 	auto operator=(Species&& other) & -> Species& = default;
 
 	auto AddOrganism(Organism&& organism) -> void;
-	auto AnalyzePopulation() -> void;
 
 	auto IsCompatible(const Genome& genome) const -> bool;
 	auto GetSize() const { return population.size(); }
 	auto IsEmpty() const { return population.empty(); }
-	auto GetAverageFitness() const -> double;
-	auto GetTotalFitness() const -> double;
+	auto GetAverageFitness() const ->Type::fitness_t;
+	auto GetTotalFitness() const ->Type::fitness_t;
 	auto IsStagnant() const -> bool;
-	auto GetOffspringCount(double averageFitness) const -> std::size_t;
+	auto GetOffspringCount(Type::fitness_t averageFitness) const -> std::size_t;
 
 	auto LetPopulationLive() -> void;
 

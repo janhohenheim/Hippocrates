@@ -2,13 +2,16 @@
 #include <string>
 #include <experimental/filesystem>
 #include <chrono>
+
+#include "type.hpp"
+
 namespace Hippocrates {
 
 class Logger {
 public:
 	auto CreateLoggingDirs() -> void;
 	auto LogGeneration(std::size_t generation, const std::string& log) -> void;
-	auto LogMetadata(double maxFitness) -> void;
+	auto LogMetadata(Type::fitness_t maxFitness) -> void;
 
 private:
 	auto GetCurrentDir(const char *) -> std::string;

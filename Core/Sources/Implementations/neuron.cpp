@@ -3,6 +3,7 @@
 #include "../Headers/neuron.hpp"
 #include "../Headers/jsmn.h"
 #include "../Headers/utility.hpp"
+#include "../Headers/type.hpp"
 
 using namespace Hippocrates;
 using namespace std;
@@ -38,8 +39,8 @@ auto Neuron::AddConnection(Connection connection) -> void {
 	connections.push_back(move(connection));
 }
 
-auto Neuron::RequestDataAndGetActionPotential() -> float {
-	float incomingPotentials = 0.0f;
+auto Neuron::RequestDataAndGetActionPotential() -> Type::neuron_value_t {
+	Type::neuron_value_t incomingPotentials = 0.0f;
 	for (auto& in : connections) {
 		if (!in.outGoing) {
 			incomingPotentials += in.neuron->lastActionPotential * in.weight;
@@ -49,11 +50,11 @@ auto Neuron::RequestDataAndGetActionPotential() -> float {
 	return lastActionPotential;
 }
 
-auto Neuron::sigmoid(float d) -> float {
+auto Neuron::sigmoid(Type::neuron_value_t d) -> Type::neuron_value_t {
 	return tanh(d);
 }
 
-auto Neuron::SetInput(float input) -> void {
+auto Neuron::SetInput(Type::neuron_value_t input) -> void {
 	lastActionPotential = input;
 }
 

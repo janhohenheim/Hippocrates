@@ -22,7 +22,7 @@ auto Species::IsCompatible(const Genome& genome) const -> bool {
 }
 
 auto Species::SetPopulationsFitnessModifier() -> void {
-	double fitnessModifier = 1.0 / static_cast<double>(population.size());
+	auto fitnessModifier = static_cast<Type::fitness_t>(1.0) / static_cast<Type::fitness_t>(population.size());
 	for (auto& organism : population) {
 		organism.SetFitnessModifier(fitnessModifier);
 	}
@@ -74,7 +74,7 @@ auto Hippocrates::Species::IsStagnant() const -> bool {
 		stagnantSpeciesClearThreshold;
 }
 
-auto Species::GetOffspringCount(double averageFitness) const -> std::size_t {
+auto Species::GetOffspringCount(Type::fitness_t averageFitness) const -> std::size_t {
 	if (IsStagnant())
 		return 0;
 
@@ -122,7 +122,7 @@ auto Species::SortPopulationIfNeeded() const -> void {
 
 auto Species::GetOrganismToBreed() const -> const Organism& {
 	// TODO jnf: Switch to stochastic universal sampling
-	double totalPopulationFitness = 0.0;
+	Type::fitness_t totalPopulationFitness = 0.0;
 	for (auto& organism : population) {
 		totalPopulationFitness += organism.GetOrCalculateFitness();
 	}
@@ -160,11 +160,11 @@ auto Species::GetJSON() const -> string {
 	return s;
 }
 
-auto Species::GetAverageFitness() const -> double {
+auto Species::GetAverageFitness() const -> Type::fitness_t {
 	return GetTotalFitness() / GetSize();
 }
 
-auto Species::GetTotalFitness() const -> double {
+auto Species::GetTotalFitness() const -> Type::fitness_t {
 	auto totalFitness = 0.0;
 	for (auto & organism : population) {
 		totalFitness += organism.GetOrCalculateFitness();

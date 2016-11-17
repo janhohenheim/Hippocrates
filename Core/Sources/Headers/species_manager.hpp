@@ -28,8 +28,8 @@ public:
 
 	auto GetSpeciesCount() const { return species.size(); }
 	auto GetPopulationCount() const -> std::size_t;
-	auto GetTotalFitness() const -> double;
-	auto GetAverageFitness() const -> double;
+	auto GetTotalFitness() const ->Type::fitness_t;
+	auto GetAverageFitness() const ->Type::fitness_t;
 
 	auto begin() const { return species.begin(); }
 	auto end() const { return species.end(); }

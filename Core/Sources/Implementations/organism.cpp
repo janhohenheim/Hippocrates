@@ -28,11 +28,11 @@ auto Organism::Update() -> void {
 	}
 }
 
-auto Organism::GetOrCalculateFitness() const -> double {
+auto Organism::GetOrCalculateFitness() const -> Type::fitness_t {
 	return GetOrCalculateRawFitness() * fitnessModifier;
 }
 
-auto Organism::GetOrCalculateRawFitness() const -> double {
+auto Organism::GetOrCalculateRawFitness() const -> Type::fitness_t {
 	if (!isFitnessUpToDate) {
 		fitness = body->GetFitness();
 		isFitnessUpToDate = true;

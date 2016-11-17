@@ -1,8 +1,10 @@
 #include <cmath>
 #include <algorithm>
 #include <iostream>
+
 #include "../Headers/genome.hpp"
 #include "../Headers/jsmn.h"
+#include "../Headers/type.hpp"
 
 using namespace Hippocrates;
 using namespace std;
@@ -63,8 +65,8 @@ auto Genome::InsertGeneAt(Gene gene, size_t index) -> void {
 	genes.insert(genes.begin() + index, std::move(gene));
 }
 
-auto Genome::GetGeneticalDistanceFrom(const Genome& other) const -> double {
-	double totalWeightDifference = 0.0;
+auto Genome::GetGeneticalDistanceFrom(const Genome& other) const -> Type::connection_weight_t {
+	Type::connection_weight_t totalWeightDifference = 0.0;
 	size_t numberOfOverlapingGenes = 0;
 
 	size_t sizeOfSmallerGenome = min(this->GetGeneCount(), other.GetGeneCount());
@@ -73,7 +75,7 @@ auto Genome::GetGeneticalDistanceFrom(const Genome& other) const -> double {
 	};
 
 	for (size_t i = 0; i < sizeOfSmallerGenome && IsHistoricalMarkingSameAt(i); ++i) {
-		totalWeightDifference += (double)abs(this->GetGeneAt(i).weight - other[i].weight);
+		totalWeightDifference += (Type::connection_weight_t)abs(this->GetGeneAt(i).weight - other[i].weight);
 		++numberOfOverlapingGenes;
 	}
 
@@ -82,12 +84,12 @@ auto Genome::GetGeneticalDistanceFrom(const Genome& other) const -> double {
 	// half of the next line has been commented out because stanley's original implementation does it this way, 
 	// despite it not being strictly conform to his paper.
 	// It makes more sense this way though (see http://sharpneat.sourceforge.net/research/speciation-canonical-neat.html)
-	auto disjointGenesInfluence = (double)numberOfDisjointGenes /* / (double)sizeOfBiggerGenome*/;
+	auto disjointGenesInfluence = (Type::connection_weight_t)numberOfDisjointGenes /* / (double)sizeOfBiggerGenome*/;
 
-	auto averageWeightDifference = totalWeightDifference / (double)numberOfOverlapingGenes;
+	auto averageWeightDifference = totalWeightDifference / (Type::connection_weight_t)numberOfOverlapingGenes;
 
-	disjointGenesInfluence *= (double)parameters.speciation.importanceOfDisjointGenes;
-	averageWeightDifference *= (double)parameters.speciation.importanceOfAverageWeightDifference;
+	disjointGenesInfluence *= (Type::connection_weight_t)parameters.speciation.importanceOfDisjointGenes;
+	averageWeightDifference *= (Type::connection_weight_t)parameters.speciation.importanceOfAverageWeightDifference;
 
 	return disjointGenesInfluence + averageWeightDifference;
 }

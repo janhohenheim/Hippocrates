@@ -45,7 +45,7 @@ public:
 	auto InsertGeneAt(Gene gene, size_t index) -> void;
 
 	auto GetTrainingParameters() const -> const TrainingParameters& { return parameters; }
-	auto GetGeneticalDistanceFrom(const Genome& other) const -> double;
+	auto GetGeneticalDistanceFrom(const Genome& other) const -> Type::connection_weight_t;
 	auto DoesContainGene(const Gene& gene) const -> bool;
 	auto GetJSON() const->std::string;
 
