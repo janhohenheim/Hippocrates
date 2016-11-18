@@ -3,7 +3,7 @@
 #include <stdexcept>
 
 #include "../../Headers/genotype/gene.hpp"
-#include "../../Headers/Utility/jsmn.h"
+#include "../../Headers/utility/jsmn.h"
 #include "../../Headers/type.hpp"
 #include "../../Headers/training/parameters.hpp"
 #include "../../Headers/utility/random.hpp"
