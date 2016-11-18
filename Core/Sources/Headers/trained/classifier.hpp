@@ -1,16 +1,15 @@
 #pragma once
-#include "trained_neural_network.hpp"
+#include "neural_network.hpp"
 
-namespace Hippocrates {
-namespace Trained {
+namespace Hippocrates::Trained {
 
 template<typename Classification>
-class Classifier : public TrainedNeuralNetwork {
+class Classifier : public NeuralNetwork {
 public:
-	using TrainedNeuralNetwork::TrainedNeuralNetwork;
-	Classifier() : TrainedNeuralNetwork(){ };
-	Classifier(const TrainedNeuralNetwork& other) : TrainedNeuralNetwork(other){};
-	Classifier(TrainedNeuralNetwork&& other) : TrainedNeuralNetwork(std::move(other)){};
+	using NeuralNetwork::NeuralNetwork;
+	Classifier() : NeuralNetwork(){ };
+	Classifier(const NeuralNetwork& other) : NeuralNetwork(other){};
+	Classifier(NeuralNetwork&& other) : NeuralNetwork(std::move(other)){};
 
 	auto Classify(const Type::neuron_values_t& inputs) {
 		auto outputs = GetOutputsUsingInputs(inputs);
@@ -20,5 +19,4 @@ public:
 	}
 };
 
-}
 }
