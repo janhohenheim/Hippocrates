@@ -1,6 +1,7 @@
 #include "../../Headers/utility/logger.hpp"
 #include <fstream>
 
+using namespace Hippocrates;
 using namespace Hippocrates::Utility;
 
 auto Logger::CreateLoggingDirs() -> void {

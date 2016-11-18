@@ -5,6 +5,7 @@
 #include "../../Headers/utility/random.hpp"
 #include "../../Headers/type.hpp"
 
+using namespace Hippocrates;
 using namespace Hippocrates::Phenotype;
 
 Neuron::Neuron(std::vector<Connection> connections) :

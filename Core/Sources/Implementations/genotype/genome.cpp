@@ -5,6 +5,7 @@
 #include "../../Headers/genotype/genome.hpp"
 #include "../../Headers/utility/jsmn.h"
 
+using namespace Hippocrates;
 using namespace Hippocrates::Genotype;
 
 Genome::Genome(std::size_t inputCount, std::size_t outputCount) :

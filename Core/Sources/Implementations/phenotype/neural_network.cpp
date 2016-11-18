@@ -6,7 +6,9 @@
 #include "../../Headers/phenotype/neural_network.hpp"
 #include "../../Headers/utility/jsmn.h"
 #include "../../Headers/utility/random.hpp"
+#include "../../Headers/genotype/genome.hpp"
 
+using namespace Hippocrates;
 using namespace Hippocrates::Phenotype;
 
 NeuralNetwork::NeuralNetwork(const Genotype::Genome& genome) :

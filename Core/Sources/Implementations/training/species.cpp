@@ -4,6 +4,7 @@
 #include "../../Headers/training/species.hpp"
 #include "../../Headers/utility/random.hpp"
 
+using namespace Hippocrates;
 using namespace Hippocrates::Training;
 
 Species::Species(Phenotype::Organism representative):

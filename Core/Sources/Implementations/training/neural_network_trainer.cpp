@@ -1,5 +1,6 @@
 #include "../../Headers/training/neural_network_trainer.hpp"
 
+using namespace Hippocrates;
 using namespace Hippocrates::Training;
 
 

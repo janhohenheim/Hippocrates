@@ -8,6 +8,7 @@
 #include "../../Headers/training/parameters.hpp"
 #include "../../Headers/utility/random.hpp"
 
+using namespace Hippocrates;
 using namespace Hippocrates::Genotype;
 
 Gene::Gene() {

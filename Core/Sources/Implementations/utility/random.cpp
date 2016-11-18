@@ -1,5 +1,6 @@
 #include "../../Headers/utility/random.hpp"
 
+using namespace Hippocrates;
 using namespace Hippocrates::Utility;
 
 std::random_device Random::randomDevice;

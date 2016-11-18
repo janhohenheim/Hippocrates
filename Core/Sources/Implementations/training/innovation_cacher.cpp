@@ -1,6 +1,7 @@
 #include "../../Headers/training/innovation_cacher.hpp"
 #include <algorithm>
 
+using namespace Hippocrates;
 using namespace Hippocrates::Training;
 
 auto InnovationCacher::AssignAndCacheHistoricalMarkings(Genotype::Genome & genome) -> void {

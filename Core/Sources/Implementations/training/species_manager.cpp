@@ -4,6 +4,7 @@
 #include <algorithm>
 
 
+using namespace Hippocrates;
 using namespace Hippocrates::Training;
 
 auto SpeciesManager::CreateInitialOrganisms(Bodies& bodies) -> void {

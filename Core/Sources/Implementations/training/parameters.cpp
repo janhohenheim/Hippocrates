@@ -3,6 +3,7 @@
 #include "../../Headers/utility/jsmn.h"
 #include "../../Headers/type.hpp"
 
+using namespace Hippocrates;
 using namespace Hippocrates::Training;
 
 Parameters::Parameters(std::string json) {

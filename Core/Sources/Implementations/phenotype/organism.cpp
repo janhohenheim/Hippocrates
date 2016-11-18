@@ -4,6 +4,7 @@
 #include "../../Headers/phenotype/organism.hpp"
 #include "../../Headers/utility/random.hpp"
 
+using namespace Hippocrates;
 using namespace Hippocrates::Phenotype;
 
 Organism::Organism(Body::IBody& body, NeuralNetwork&& network) :
