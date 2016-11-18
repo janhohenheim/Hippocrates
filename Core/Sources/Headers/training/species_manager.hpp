@@ -3,7 +3,6 @@
 #include "innovation_cacher.hpp"
 
 namespace Hippocrates::Training {
-class Organism;
 
 class SpeciesManager {
 private:

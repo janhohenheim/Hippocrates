@@ -1,5 +1,6 @@
 #include <cstdlib>
 #include <algorithm>
+
 #include "../../Headers/phenotype/organism.hpp"
 #include "../../Headers/utility/random.hpp"
 
@@ -12,7 +13,7 @@ Organism::Organism(Body::IBody& body, NeuralNetwork&& network) :
 }
 
 auto Organism::Update() -> void {
-	size_t numberOfTimesToFinishTask = 1;
+	std::size_t numberOfTimesToFinishTask = 1;
 
 	if (Training::GetParameters().structure.allowRecurrentConnections) {
 		numberOfTimesToFinishTask = Training::GetParameters().structure.memoryResetsBeforeTotalReset;
@@ -78,4 +79,3 @@ auto Organism::GetJSON() const -> std::string {
 	s += "}";
 	return s;
 }
-

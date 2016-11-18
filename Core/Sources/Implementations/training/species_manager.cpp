@@ -21,7 +21,7 @@ auto SpeciesManager::Repopulate(Bodies& bodies) -> void {
 	auto populationCount = GetPopulationCount();
 	auto averageFitness = GetAverageFitness();
 	
-	std::vector<Organism> newGeneration;
+	std::vector<Phenotype::Organism> newGeneration;
 	newGeneration.reserve(bodies.size());
 
 	auto currBody = bodies.begin();
