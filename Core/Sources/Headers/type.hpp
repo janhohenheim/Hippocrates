@@ -1,8 +1,7 @@
 #pragma once
 #include <vector>
 
-namespace Hippocrates {
-namespace Type {
+namespace Hippocrates::Type {
 
 #ifdef _WIN32
 #define HIPPOCRATES_SSCANF sscanf_s
@@ -15,5 +14,4 @@ using neuron_value_t = float;
 using neuron_values_t = std::vector<neuron_value_t>;
 using fitness_t = double;
 
-}
 }

@@ -1,6 +1,6 @@
+#include <iostream>
 #include "testing_utilities.hpp"
 
-using namespace std;
 using namespace Hippocrates;
 
 enum class Evenness {
@@ -12,7 +12,7 @@ enum class Evenness {
 int main() {
 	constexpr auto maxValue = 40.0f;
 
-	TrainingData<Evenness> data;
+	Training::Data<Evenness> data;
 	data.AddSet( { 1.0f / maxValue },  Evenness::Uneven );
 	data.AddSet( { 2.0f / maxValue },  Evenness::Even );
 	data.AddSet( { 3.0f / maxValue },  Evenness::Uneven );
@@ -36,12 +36,12 @@ int main() {
 	data.AddSet( { 19.0f / maxValue }, Evenness::Uneven );
 	data.AddSet( { 20.0f / maxValue }, Evenness::Even );
 	*/
-	NeuralNetworkTrainer trainer;
+	Training::NeuralNetworkTrainer trainer;
 	std::chrono::seconds timeout(45);
 	auto champ = Tests::TestingUtilities::TrainWithTimeout(trainer, data, timeout);
 	std::cout << "Finished training in " << trainer.GetGenerationsPassed() << " generations\n";
 
-	TrainingData<Evenness> expectedData;
+	Training::Data<Evenness> expectedData;
 	expectedData.AddSet( { 21.0f / maxValue }, Evenness::Uneven );
 	expectedData.AddSet( { 22.0f / maxValue }, Evenness::Even );
 	expectedData.AddSet( { 23.0f / maxValue }, Evenness::Uneven );
