@@ -1,4 +1,6 @@
 #include "ilayer.hpp"
+
+using namespace Convolutional;
 using namespace Convolutional::Layer;
 
 auto ILayer::ProcessMultiMatrix(const MultiMatrix & multiMatrix) const -> MultiMatrix {

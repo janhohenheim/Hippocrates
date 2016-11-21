@@ -1,6 +1,7 @@
 #include "max_pooler.hpp"
 #include <algorithm>
 
+using namespace Convolutional;
 using namespace Convolutional::Layer::Pooler;
 
 auto MaxPooler::ProcessMatrix(Matrix::Position position, const Matrix & matrix) const -> Matrix {

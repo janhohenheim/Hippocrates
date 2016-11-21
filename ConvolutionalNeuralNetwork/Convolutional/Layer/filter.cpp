@@ -3,6 +3,7 @@
 #include <cmath>
 #include <stdexcept>
 
+using namespace Convolutional;
 using namespace Convolutional::Layer;
 
 
