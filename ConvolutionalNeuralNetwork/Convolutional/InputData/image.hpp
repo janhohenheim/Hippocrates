@@ -1,8 +1,7 @@
 #pragma once
 #include "iinput_data.hpp"
 
-namespace Convolutional {
-namespace InputData {
+namespace Convolutional::InputData {
 
 class Image : public IInputData {
 public:
@@ -10,5 +9,4 @@ public:
 	auto GetMultiDimensionalMatrix() const -> MultiMatrix override;
 };
 
-}
 }

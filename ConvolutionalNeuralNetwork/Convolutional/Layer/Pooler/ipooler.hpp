@@ -2,15 +2,11 @@
 #include "../../matrix.hpp"
 #include "../ilayer.hpp"
 
-namespace Convolutional {
-namespace Layer {
-namespace Pooler {
+namespace Convolutional::Layer::Pooler {
 
 class IPooler : public ILayer {
 public:
 	
 };
 
-}
-}
 }

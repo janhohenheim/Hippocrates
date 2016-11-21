@@ -2,8 +2,7 @@
 #include "iinput_data.hpp"
 #include <string>
 
-namespace Convolutional {
-namespace InputData {
+namespace Convolutional::InputData {
 
 class Sentence : public IInputData {
 public:
@@ -15,5 +14,4 @@ private:
 	Type sentence;
 };
 
-}
 }

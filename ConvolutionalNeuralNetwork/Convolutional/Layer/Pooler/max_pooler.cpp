@@ -1,9 +1,7 @@
 #include "max_pooler.hpp"
 #include <algorithm>
 
-using namespace Convolutional; 
-using namespace Layer; 
-using namespace Pooler;
+using namespace Convolutional::Layer::Pooler;
 
 auto MaxPooler::ProcessMatrix(Matrix::Position position, const Matrix & matrix) const -> Matrix {
 	Matrix featureMap{ matrix.GetSubmatrix(position, receptiveField) };

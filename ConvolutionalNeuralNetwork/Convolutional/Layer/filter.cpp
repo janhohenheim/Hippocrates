@@ -3,8 +3,7 @@
 #include <cmath>
 #include <stdexcept>
 
-using namespace Convolutional;
-using namespace Layer;
+using namespace Convolutional::Layer;
 
 
 Filter::Filter(std::size_t size) :

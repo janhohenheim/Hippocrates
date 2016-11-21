@@ -1,6 +1,5 @@
 #include "ilayer.hpp"
-using namespace Convolutional;
-using namespace Layer;
+using namespace Convolutional::Layer;
 
 auto ILayer::ProcessMultiMatrix(const MultiMatrix & multiMatrix) const -> MultiMatrix {
     MultiMatrix::SubDimensionType dimensions;

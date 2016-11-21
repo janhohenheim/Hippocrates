@@ -1,9 +1,7 @@
 #pragma once
 #include "ipooler.hpp"
 
-namespace Convolutional {
-namespace Layer {
-namespace Pooler {
+namespace Convolutional::Layer::Pooler {
 
 class MaxPooler : public IPooler {
 public:
@@ -18,6 +16,4 @@ private:
 	Matrix::Size stride;
 };
 
-}
-}
 }
