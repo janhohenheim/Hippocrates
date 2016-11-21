@@ -109,5 +109,8 @@
     <ClInclude Include="Convolutional\Layer\Pooler\max_pooler.hpp">
       <Filter>Header Files\Convolutional\Layer\Pooler</Filter>
     </ClInclude>
+    <ClInclude Include="Convolutional\Layer\layers.hpp">
+      <Filter>Header Files\Convolutional\Layer</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

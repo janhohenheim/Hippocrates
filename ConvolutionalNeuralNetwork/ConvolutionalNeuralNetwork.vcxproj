@@ -103,6 +103,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalOptions>/std:c++latest %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -165,6 +166,7 @@
     <ClInclude Include="Convolutional\InputData\sentence.hpp" />
     <ClInclude Include="Convolutional\Layer\filter.hpp" />
     <ClInclude Include="Convolutional\Layer\ilayer.hpp" />
+    <ClInclude Include="Convolutional\Layer\layers.hpp" />
     <ClInclude Include="Convolutional\Layer\Pooler\ipooler.hpp" />
     <ClInclude Include="Convolutional\Layer\Pooler\max_pooler.hpp" />
     <ClInclude Include="Convolutional\matrix.hpp" />

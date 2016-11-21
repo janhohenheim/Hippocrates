@@ -1,7 +1,7 @@
 #pragma once
 #include <memory>
 #include "multi_matrix.hpp"
-#include "Layer/ilayer.hpp"
+#include "Layer/layers.hpp"
 #include "multi_matrix_factory.hpp"
 #include "Layer/filter.hpp"
 
@@ -10,18 +10,14 @@ namespace Convolutional {
 template <typename Classification>
 class NeuralNetwork {
 public:	
-	template <typename ... Ts>
-	explicit NeuralNetwork(Ts&&... params) {
-		// See http://stackoverflow.com/questions/40300977/pass-a-list-of-deriveds-for-storage-as-member
-		[[maybe_unused]]
-		volatile int dummy[] =
-		{0, (layers.emplace_back(std::make_unique<Ts>(std::forward<Ts>(params))), 0)...};
+	explicit NeuralNetwork(Layer::Layers&& layers) : layersByValue{std::move (layers)}, layers{ layersByValue } {	}
+	explicit NeuralNetwork(Layer::Layers& layers) : layers{ layers } {	}
 
-	}
-	Classification ClassifyMultiMatrix(const InputData::IInputData& input) {
+	auto ClassifyMultiMatrix(const InputData::IInputData& input) {
 		return ClassifyMultiMatrix(MultiMatrixFactory::GetMultiMatrix(input));
 	}
-	Classification ClassifyMultiMatrix(const MultiMatrix& multiMatrix) {
+
+	auto ClassifyMultiMatrix(const MultiMatrix& multiMatrix) {
 		auto processedMultiMatrix{ multiMatrix };
 		for (const auto& layer : layers) {
 			processedMultiMatrix = layer->ProcessMultiMatrix(processedMultiMatrix);
@@ -30,9 +26,8 @@ public:
 	}
 
 private:
-	std::vector<Layer::Filter> filters;
-	using Layer_t = std::unique_ptr<Layer::ILayer>;
-	std::vector<Layer_t> layers;
+	[[maybe_unused]] Layer::Layers layersByValue;
+	Layer::Layers& layers;
 };
 
 }

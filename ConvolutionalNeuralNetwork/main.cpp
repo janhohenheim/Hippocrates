@@ -23,7 +23,16 @@ auto GetTrainigData() {
 
 int main() {
 	auto trainingData(GetTrainigData());
-	NeuralNetworktrainer<Categories> networktrainer{std::move(trainingData)};
+	Layer::Layers layers { 
+		Layer::Filter(1.0, { 1.0 }), 
+		Layer::Pooler::MaxPooler() 
+	};
+
+	NeuralNetworktrainer<Categories> networktrainer{
+		50,
+		std::move(trainingData),
+		std::move(layers)
+	};
 
 	auto trainedNetwork = networktrainer.Train();
 	return 0;

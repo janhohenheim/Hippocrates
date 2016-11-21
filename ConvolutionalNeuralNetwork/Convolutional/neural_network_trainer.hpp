@@ -11,26 +11,48 @@ class NeuralNetworktrainer {
 	using TrainigDataType = TrainingData<Classification>;
 
 public:
-	explicit NeuralNetworktrainer(TrainigDataType trainingData) :
-		trainingData(std::move(trainingData))
-	{}
+	explicit NeuralNetworktrainer(
+		std::size_t networkCount, 
+		const TrainigDataType& trainingData, 
+		Layer::Layers&& layers) :
+
+		trainingData(trainingData),
+		layers{std::move(layers)}
+	{
+		GenerateNetworks(networkCount);
+	}
+
+	explicit NeuralNetworktrainer(
+		std::size_t networkCount,
+		TrainigDataType&& trainingData,
+		Layer::Layers&& layers) :
+
+		TrainingDataAsValue{ std::move(trainingData) },
+		trainingData{ TrainingDataAsValue },
+		layers{ std::move(layers) }
+	{
+		GenerateNetworks(networkCount);
+	}
 
 	auto Train() {
 		for (const auto& set : trainingData) {
-			NeuralNetwork<Classification> net(Layer::Filter(1.0, {1.0}), Layer::Pooler::MaxPooler());
-			auto result = net.ClassifyMultiMatrix(set.multiMatrix);
-			if (result == set.classification) {
-				// Good
-			}
-			else {
-				// Bad
-			}
 		}
-		return NeuralNetwork<Classification> (Layer::Filter(1.0, {1.0}), Layer::Pooler::MaxPooler());
+		return neuralNetworks.begin();
 	}
 
 private:
-	const TrainigDataType trainingData;
+	auto GenerateNetworks(std::size_t networkCount) {
+		neuralNetworks.reserve(networkCount);
+		for (std::size_t i = 0; i < networkCount; ++i) {
+			neuralNetworks.emplace_back(this->layers);
+		}
+	}
+
+private:
+	[[maybe_unused]] TrainigDataType TrainingDataAsValue;
+	const TrainigDataType& trainingData;
+	Layer::Layers layers;
+	std::vector<NeuralNetwork<Classification>> neuralNetworks;
 };
 
 }

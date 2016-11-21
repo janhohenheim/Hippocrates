@@ -3,8 +3,7 @@
 #include "ilayer.hpp"
 #include <vector>
 
-namespace Convolutional {
-namespace Layer {
+namespace Convolutional::Layer {
 
 class Filter : public ILayer {
 public:
@@ -31,5 +30,4 @@ private:
 	std::vector<double> weights;
 };
 
-}
 }

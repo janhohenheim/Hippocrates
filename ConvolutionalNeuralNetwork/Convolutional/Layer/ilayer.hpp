@@ -1,8 +1,7 @@
 #pragma once
 #include "../multi_matrix.hpp"
 
-namespace Convolutional {
-namespace Layer {
+namespace Convolutional::Layer {
 
 class ILayer {
 public:
@@ -14,5 +13,4 @@ public:
 	virtual auto GetStride() const noexcept -> Matrix::Size = 0;
 };
 
-}
 }
