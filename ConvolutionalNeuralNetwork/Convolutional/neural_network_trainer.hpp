@@ -36,8 +36,9 @@ public:
 
 	auto Train() {
 		for (const auto& set : trainingData) {
+
 		}
-		return neuralNetworks.begin();
+		return neuralNetworks.front();
 	}
 
 private:

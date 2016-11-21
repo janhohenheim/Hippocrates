@@ -11,18 +11,15 @@ public:
 		std::size_t y = 0;
 	};
 	struct Size {
+		auto operator==(const Size& other) const { return width == other.width && height == other.height; }
+		auto operator!=(const Size& other) const { return !operator==(other); }
 		std::size_t width = 0;
 		std::size_t height = 0;
 	};
 
 public:
 	explicit Matrix(Size size);
-	/*
-	Matrix(const Matrix& other) = default;
-	Matrix(Matrix&& other) = default;
-	auto operator= (const Matrix& other) -> Matrix&;
-	auto operator= (Matrix&& other) -> Matrix& = default;
-	*/
+
 	auto GetSubmatrix(Position position, Size size) const -> Matrix;
 	auto GetElementAt(Position position) const-> const elementType&;
 	auto GetElementAt(Position position) -> elementType&;
