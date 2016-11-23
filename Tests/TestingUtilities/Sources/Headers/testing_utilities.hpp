@@ -4,8 +4,7 @@
 #include <future>
 #include <memory>
 
-// TODO: Replace with library import
-#include "../../../../Core/Sources/Headers/training/neural_network_trainer.hpp"
+#include "neural_network_trainer.hpp"
 
 namespace Hippocrates::Tests::TestingUtilities {
 
