@@ -1,5 +1,5 @@
 #pragma once
-#include "../matrix.hpp"
+#include "matrix.hpp"
 #include "ilayer.hpp"
 #include <vector>
 
