@@ -7,30 +7,24 @@ namespace Convolutional::Learning {
 	template<typename Classification>
 	class ILearningMethod {
 	public:
+		using network_t = typename NeuralNetwork<Classification>;
+		using networks_t = typename std::vector<NeuralNetwork<Classification>>;
+
 		ILearningMethod(
-			NeuralNetwork<Classification>& neuralNetwork,
+			networks_t& neuralNetworks,
 			const TrainingData<Classification>& data) 
 			:
-			neuralNetwork(neuralNetwork),
-			data(data)	{}
+			neuralNetworks{ neuralNetworks.begin(), neuralNetworks.end() },
+			data{data}	{}
 		virtual ~ILearningMethod() = default;
 		
-		virtual auto BeginEpoch() -> void = 0;
-		virtual auto EvaluateSet(typename TrainingData<Classification>::const_iterator set) -> void = 0;
-		virtual auto EndEpoch() -> void = 0;
+		virtual auto BeginEpoch(typename networks_t::iterator network) -> void = 0;
+		virtual auto EvaluateSet(typename networks_t::iterator network, typename TrainingData<Classification>::const_iterator set) -> void = 0;
+		virtual auto EndEpoch(typename networks_t::iterator network) -> void = 0;
 
 	protected:
-		NeuralNetwork<Classification>& neuralNetwork;
+		std::vector<std::reference_wrapper<network_t>> neuralNetworks;
 		const TrainingData<Classification>& data;
-	};
-
-	template<typename Classification>
-	class memes : public ILearningMethod<Classification> {
-	public:
-		using ILearningMethod::ILearningMethod;
-		auto BeginEpoch() -> void override {}
-		auto EvaluateSet(typename TrainingData<Classification>::const_iterator set) -> void override {}
-		auto EndEpoch() -> void override {}
 	};
 
 }

@@ -24,9 +24,9 @@ auto GetTrainigData() {
 
 int main() {
 	auto trainingData(GetTrainigData());
-	Layer::Layers layers { 
-		Layer::Filter(1.0, { 1.0 }), 
-		Layer::Pooler::MaxPooler() 
+	Layer::Layers layers {
+		Layer::Filter{ 1.0, { 1.0 } },
+		Layer::Pooler::MaxPooler{}
 	};
 
 	NeuralNetworktrainer<Categories> networktrainer{
@@ -35,7 +35,7 @@ int main() {
 		std::move(layers)
 	};
 
-	auto trainedNetwork{ networktrainer.Train() };
+	auto trainedNetwork = networktrainer.Train();
 
 	//Learning::memes<Categories> m(trainedNetwork, trainingData);
 	return 0;

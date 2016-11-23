@@ -124,5 +124,8 @@
     <ClInclude Include="Convolutional\Learning\learning_method.hpp">
       <Filter>Header Files\Learning</Filter>
     </ClInclude>
+    <ClInclude Include="Convolutional\Learning\backpropagation.hpp">
+      <Filter>Header Files\Learning</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

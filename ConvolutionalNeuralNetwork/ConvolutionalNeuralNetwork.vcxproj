@@ -171,6 +171,7 @@
     <ClInclude Include="Convolutional\Layer\layers.hpp" />
     <ClInclude Include="Convolutional\Layer\Pooler\ipooler.hpp" />
     <ClInclude Include="Convolutional\Layer\Pooler\max_pooler.hpp" />
+    <ClInclude Include="Convolutional\Learning\backpropagation.hpp" />
     <ClInclude Include="Convolutional\Learning\fillable_ref.hpp" />
     <ClInclude Include="Convolutional\Learning\learning_method.hpp" />
     <ClInclude Include="Convolutional\matrix.hpp" />
