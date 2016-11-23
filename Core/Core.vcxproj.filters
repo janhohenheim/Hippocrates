@@ -98,6 +98,9 @@
     <ClInclude Include="Sources\Headers\training\parameters.hpp">
       <Filter>Headers\training</Filter>
     </ClInclude>
+    <ClInclude Include="Sources\Headers\utility\maybe_shared.hpp">
+      <Filter>Headers\utility</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Sources\Implementations\genotype\gene.cpp">
