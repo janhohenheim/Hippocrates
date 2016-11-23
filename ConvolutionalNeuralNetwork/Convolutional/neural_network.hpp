@@ -11,10 +11,7 @@ namespace Convolutional {
 	template <typename Classification>
 	class NeuralNetwork {
 	public:
-		explicit NeuralNetwork(Layer::Layers&& layers) : layersByValue{ std::move(layers) }, layers{ layersByValue } { }
-		explicit NeuralNetwork(Layer::Layers& layers) : layers{ layers } {	}
-
-		explicit NeuralNetwork(NeuralNetwork & other) : layersByValue{ other.layers }, layers{ layersByValue } { }
+		explicit NeuralNetwork(Layer::Layers layers) : layers{ std::move(layers) } {	}
 
 		auto ClassifyMultiMatrix(const InputData::IInputData& input) {
 			return ClassifyMultiMatrix(MultiMatrixFactory::GetMultiMatrix(input));
@@ -44,8 +41,7 @@ namespace Convolutional {
 		}
 
 	private:
-		[[maybe_unused]] Layer::Layers layersByValue;
-		Layer::Layers& layers;
+		Layer::Layers layers;
 	};
 
 }

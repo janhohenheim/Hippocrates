@@ -14,10 +14,10 @@ public:
 	explicit NeuralNetworktrainer(
 		std::size_t networkCount, 
 		const TrainigDataType& trainingData, 
-		Layer::Layers&& layers) :
+		Layer::Layers layers) :
 
-		trainingData(trainingData),
-		layers{std::move(layers)}
+		trainingData{ trainingData },
+		layers{ std::move(layers) }
 	{
 		GenerateNetworks(networkCount);
 	}
@@ -25,7 +25,7 @@ public:
 	explicit NeuralNetworktrainer(
 		std::size_t networkCount,
 		TrainigDataType&& trainingData,
-		Layer::Layers&& layers) :
+		Layer::Layers layers) :
 
 		TrainingDataAsValue{ std::move(trainingData) },
 		trainingData{ TrainingDataAsValue },
@@ -45,12 +45,12 @@ private:
 	auto GenerateNetworks(std::size_t networkCount) {
 		neuralNetworks.reserve(networkCount);
 		for (std::size_t i = 0; i < networkCount; ++i) {
-			neuralNetworks.emplace_back(this->layers);
+			neuralNetworks.emplace_back(layers);
 		}
 	}
 
 private:
-	[[maybe_unused]] TrainigDataType TrainingDataAsValue;
+	[[maybe_unused]] const TrainigDataType TrainingDataAsValue;
 	const TrainigDataType& trainingData;
 	Layer::Layers layers;
 	std::vector<NeuralNetwork<Classification>> neuralNetworks;
