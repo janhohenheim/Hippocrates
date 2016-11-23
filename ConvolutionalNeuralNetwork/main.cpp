@@ -1,5 +1,6 @@
 #include "Convolutional/neural_network_trainer.hpp"
 #include "Convolutional/InputData/sentence.hpp"
+#include "Convolutional/Learning/learning_method.hpp"
 
 using namespace Convolutional;
 
@@ -34,6 +35,8 @@ int main() {
 		std::move(layers)
 	};
 
-	auto trainedNetwork = networktrainer.Train();
+	auto trainedNetwork{ networktrainer.Train() };
+
+	//Learning::memes<Categories> m(trainedNetwork, trainingData);
 	return 0;
 }

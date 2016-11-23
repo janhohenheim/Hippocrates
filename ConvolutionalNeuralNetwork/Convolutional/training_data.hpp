@@ -11,15 +11,20 @@ template <typename Classification>
 class TrainingData {
 public:
 	struct CategorizedData {
-	    CategorizedData(const MultiMatrix& multiMatrix, Classification classification)
-	        : multiMatrix{multiMatrix},
-	          classification{classification} {
-	    }
+	    CategorizedData(
+			MultiMatrix multiMatrix, 
+			Classification classification)
+	        : 
+			multiMatrix{std::move(multiMatrix)},	          
+			classification{std::move(classification)} {   }
 
 		MultiMatrix multiMatrix;
 		Classification classification;
 	};
 
+	using const_iterator = typename std::vector<CategorizedData>::const_iterator;
+
+public:
 
 	TrainingData() = default;
 	explicit TrainingData(std::vector<CategorizedData> categorizedData) : categorizedData(std::move(categorizedData)) {};

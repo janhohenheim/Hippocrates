@@ -1,8 +1,7 @@
 #pragma once
 #include <random>
 
-namespace Convolutional {
-namespace Utility {
+namespace Convolutional::Utility {
 template <typename T>
 auto GetRandomNumberBetween(T min, T max)
 {
@@ -55,5 +54,4 @@ auto GetRandomElement(T&& container){
     return GetRandomElement(container.begin(), container.end());
 }
 
-}
 }

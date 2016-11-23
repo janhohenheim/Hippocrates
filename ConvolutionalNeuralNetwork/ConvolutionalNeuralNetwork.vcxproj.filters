@@ -33,6 +33,12 @@
     <Filter Include="Source Files\Convolutional\Layer\Pooler">
       <UniqueIdentifier>{f24abaf7-13bc-4419-ba84-0b102a78f776}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Learning">
+      <UniqueIdentifier>{b9b7f2d5-ef9c-42fe-af39-9ac80025e368}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Utility">
+      <UniqueIdentifier>{25638991-43c0-4e1c-818c-ab16da0f4bfb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Convolutional\InputData\image.cpp">
@@ -111,6 +117,12 @@
     </ClInclude>
     <ClInclude Include="Convolutional\Layer\layers.hpp">
       <Filter>Header Files\Convolutional\Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="Convolutional\Learning\fillable_ref.hpp">
+      <Filter>Header Files\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Convolutional\Learning\learning_method.hpp">
+      <Filter>Header Files\Learning</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
