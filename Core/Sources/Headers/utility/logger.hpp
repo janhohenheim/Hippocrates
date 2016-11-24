@@ -14,7 +14,7 @@
 
 #include <chrono>
 
-#include "../type.hpp"
+#include "type.hpp"
 
 namespace Hippocrates::Utility {
 

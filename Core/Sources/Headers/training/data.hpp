@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include <vector>
-#include "../phenotype/neural_network.hpp"
+#include "phenotype/neural_network.hpp"
 
 namespace Hippocrates::Training {
 

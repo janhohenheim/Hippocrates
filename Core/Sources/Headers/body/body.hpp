@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include "../type.hpp"
+#include "type.hpp"
 
 namespace Hippocrates::Body {
 

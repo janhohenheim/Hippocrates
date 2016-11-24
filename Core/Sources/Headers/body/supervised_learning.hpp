@@ -2,7 +2,7 @@
 #include <algorithm>
 
 #include "body.hpp"
-#include "../training/data.hpp"
+#include "training/data.hpp"
 
 namespace Hippocrates::Body {
 

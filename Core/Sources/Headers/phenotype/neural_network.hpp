@@ -3,9 +3,9 @@
 #include <map>
 
 #include "neuron.hpp"
-#include "../genotype/genome.hpp"
-#include "../training/innovation_cacher.hpp"
-#include "../type.hpp"
+#include "genotype/genome.hpp"
+#include "training/innovation_cacher.hpp"
+#include "type.hpp"
 
 namespace Hippocrates::Phenotype {
 
