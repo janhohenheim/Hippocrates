@@ -18,6 +18,8 @@ public:
 	auto GetBias() const noexcept { return bias; }
 	auto GetWeights() const noexcept { return weights; }
 
+	auto Clone() const noexcept -> std::unique_ptr<ILayer> { return std::make_unique<Filter>(*this); }
+
 private:
 	static auto sigmoid(Matrix::elementType n) -> double;
 

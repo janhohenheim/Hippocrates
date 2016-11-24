@@ -10,6 +10,8 @@ public:
 	auto GetZeroPadding() const noexcept -> Matrix::Size override { return zeroPadding; }
 	auto GetStride() const noexcept -> Matrix::Size override { return stride; }
 
+	auto Clone() const noexcept -> std::unique_ptr<ILayer> { return std::make_unique<MaxPooler>(*this); }
+
 private:
 	Matrix::Size receptiveField;
 	Matrix::Size zeroPadding;

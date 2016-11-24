@@ -2,6 +2,9 @@
 #include "neural_network.hpp"
 #include "max_pooler.hpp"
 #include "training_data.hpp"
+#include "fillable_ref.hpp"
+#include "learning_method.hpp"
+#include "backpropagation.hpp"
 
 namespace Convolutional {
 
@@ -13,46 +16,37 @@ class NeuralNetworktrainer {
 public:
 	explicit NeuralNetworktrainer(
 		std::size_t networkCount, 
-		const TrainigDataType& trainingData, 
-		Layer::Layers&& layers) :
+		TrainigDataType trainingData, 
+		Layer::Layers layers) :
 
-		trainingData(trainingData),
-		layers{std::move(layers)}
-	{
-		GenerateNetworks(networkCount);
-	}
-
-	explicit NeuralNetworktrainer(
-		std::size_t networkCount,
-		TrainigDataType&& trainingData,
-		Layer::Layers&& layers) :
-
-		TrainingDataAsValue{ std::move(trainingData) },
-		trainingData{ TrainingDataAsValue },
+		trainingData{ std::move(trainingData) },
 		layers{ std::move(layers) }
 	{
-		GenerateNetworks(networkCount);
+		neuralNetworks.reserve(networkCount);
+		for (std::size_t i = 0; i < networkCount; ++i) {
+			neuralNetworks.emplace_back(layers);
+		}
 	}
 
 	auto Train() {
-		for (const auto& set : trainingData) {
-
+		std::unique_ptr<Learning::ILearningMethod<Classification>> learningMethod = 
+			std::make_unique<Learning::Backpropagation<Classification>>(neuralNetworks, trainingData.Get());
+		for (auto network = neuralNetworks.begin(); network != neuralNetworks.end(); ++network) {
+			learningMethod->BeginEpoch(network);
+			for (auto set = trainingData.Get().begin(); set != trainingData.Get().end(); ++set) {
+				learningMethod->EvaluateSet(network, set);
+			}
+			learningMethod->EndEpoch(network);
 		}
+
+		// Todo jnf:
+		// Return fittest
 		return neuralNetworks.front();
 	}
 
 private:
-	auto GenerateNetworks(std::size_t networkCount) {
-		neuralNetworks.reserve(networkCount);
-		for (std::size_t i = 0; i < networkCount; ++i) {
-			neuralNetworks.emplace_back(this->layers);
-		}
-	}
-
-private:
-	[[maybe_unused]] TrainigDataType TrainingDataAsValue;
-	const TrainigDataType& trainingData;
-	Layer::Layers layers;
+	const Hippocrates::Utility::FillableRef<TrainigDataType> trainingData;
+	Hippocrates::Utility::FillableRef<Layer::Layers> layers;
 	std::vector<NeuralNetwork<Classification>> neuralNetworks;
 };
 
