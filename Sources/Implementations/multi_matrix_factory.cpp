@@ -1,6 +1,6 @@
 #include "multi_matrix_factory.hpp"
-#include "InputData/image.hpp"
-#include "InputData/sentence.hpp"
+#include "image.hpp"
+#include "sentence.hpp"
 #include <stdexcept>
 
 auto Convolutional::MultiMatrixFactory::GetMultiMatrix(const InputData::IInputData& input) -> MultiMatrix {

@@ -621,3 +621,5 @@ Temporary Items
 # Linux trash folder which might appear on any partition or disk
 .Trash-*
 
+cmake-build-debug/
+*.cbp

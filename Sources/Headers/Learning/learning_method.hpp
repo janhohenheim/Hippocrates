@@ -1,6 +1,6 @@
 #pragma once
-#include "../neural_network.hpp"
-#include "../training_data.hpp"
+#include "neural_network.hpp"
+#include "training_data.hpp"
 
 namespace Convolutional::Learning {
 

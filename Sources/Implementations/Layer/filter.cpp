@@ -1,5 +1,5 @@
 #include "filter.hpp"
-#include "../utility.hpp"
+#include "utility.hpp"
 #include <cmath>
 #include <stdexcept>
 

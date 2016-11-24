@@ -1,5 +1,5 @@
 #pragma once
-#include "../multi_matrix.hpp"
+#include "multi_matrix.hpp"
 
 namespace Convolutional::InputData {
 
