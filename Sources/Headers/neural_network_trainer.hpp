@@ -31,17 +31,17 @@ public:
 	auto Train() {
 		std::unique_ptr<Learning::ILearningMethod<Classification>> learningMethod = 
 			std::make_unique<Learning::Backpropagation<Classification>>(neuralNetworks, trainingData.Get());
-		for (auto network = neuralNetworks.begin(); network != neuralNetworks.end(); ++network) {
-			learningMethod->BeginEpoch(network);
-			for (auto set = trainingData.Get().begin(); set != trainingData.Get().end(); ++set) {
-				learningMethod->EvaluateSet(network, set);
-			}
-			learningMethod->EndEpoch(network);
-		}
 
-		// Todo jnf:
-		// Return fittest
-		return neuralNetworks.front();
+		while (!learningMethod->IsFinished())
+			for (auto network = neuralNetworks.begin(); network != neuralNetworks.end(); ++network) {
+				learningMethod->BeginEpoch(network);
+				for (auto set = trainingData.Get().begin(); set != trainingData.Get().end(); ++set) {
+					learningMethod->EvaluateSet(network, set);
+				}
+				learningMethod->EndEpoch(network);
+			}
+
+		return learningMethod->GetChamp();
 	}
 
 private:
