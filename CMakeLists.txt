@@ -10,8 +10,8 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/out/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/out/tests)
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Wall")
 
-file(GLOB_RECURSE SOURCES [RELATIVE Sources] *.hpp *.cpp)
-add_library(CNN SHARED ${SOURCES})
+add_subdirectory(Core)
+add_library(CNN SHARED $<TARGET_OBJECTS:Core>)
 
 MACRO(HEADER_DIRECTORIES return_list sources_folder)
     FILE(GLOB_RECURSE headers [RELATIVE ${sources_folder}] *.hpp *.h)
@@ -24,7 +24,7 @@ MACRO(HEADER_DIRECTORIES return_list sources_folder)
     SET(${return_list} ${dir_list})
 ENDMACRO()
 
-HEADER_DIRECTORIES(HEADERS Sources)
+HEADER_DIRECTORIES(HEADERS Core/Sources)
 target_include_directories(CNN PUBLIC ${HEADERS})
 
 enable_testing()
