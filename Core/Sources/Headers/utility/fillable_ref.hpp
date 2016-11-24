@@ -26,8 +26,6 @@ namespace Hippocrates::Utility {
 		FillableRef(T& ref) : asPointer{ &ref } {}
 		FillableRef(T&& value) : asValue{ std::forward<T>(value) } {}
 
-		auto IsShared() const { return !asValue.has_value(); }
-
 		const auto& operator*() const { return Get(); }
 		auto& operator*() { return Get(); }
 
@@ -36,7 +34,7 @@ namespace Hippocrates::Utility {
 				throw const_error("");
 			return const_cast<FillableRef*>(this)->Get();
 		}
-		auto& Get() { return IsShared() ? *asPointer : *asValue; }
+		auto& Get() { return asValue ? asValue.value() : *asPointer; }
 
 	private:
 		std::optional<T> asValue;
