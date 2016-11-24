@@ -1,11 +1,11 @@
-#include "filter.hpp"
-#include "utility.hpp"
 #include <cmath>
 #include <stdexcept>
 
+#include "Layer/filter.hpp"
+#include "Utility/utility.hpp"
+
 using namespace Convolutional;
 using namespace Convolutional::Layer;
-
 
 Filter::Filter(std::size_t size) :
 bias{Utility::GetRandomNumberBetween(-1.0, 1.0)} {

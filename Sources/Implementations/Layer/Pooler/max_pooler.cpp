@@ -1,5 +1,5 @@
-#include "max_pooler.hpp"
 #include <algorithm>
+#include "Layer/Pooler/max_pooler.hpp"
 
 using namespace Convolutional;
 using namespace Convolutional::Layer::Pooler;

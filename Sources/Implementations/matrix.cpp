@@ -1,6 +1,6 @@
 #include "matrix.hpp"
-using namespace Convolutional;
 
+using namespace Convolutional;
 
 Matrix::Matrix(Size size):
 	size(size),

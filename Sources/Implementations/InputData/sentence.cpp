@@ -1,4 +1,5 @@
 #include "sentence.hpp"
+
 using namespace Convolutional;
 using namespace Convolutional::InputData;
 
