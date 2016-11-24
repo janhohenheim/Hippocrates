@@ -7,8 +7,8 @@ namespace Convolutional::Learning {
 	template<typename Classification>
 	class ILearningMethod {
 	public:
-		using network_t = typename NeuralNetwork<Classification>;
-		using networks_t = typename std::vector<NeuralNetwork<Classification>>;
+		using network_t = NeuralNetwork<Classification>;
+		using networks_t = typename std::vector<network_t>;
 
 		ILearningMethod(
 			networks_t& neuralNetworks,
