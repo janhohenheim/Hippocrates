@@ -24,10 +24,10 @@ auto Filter::ProcessMatrix(Matrix::Position position, const Matrix& matrix) cons
 
 	Matrix featureMap{matrix.GetSubmatrix(position, receptiveField)};
 
-	Matrix::elementType featureValue = bias;
+	auto featureValue = bias;
 	auto weight = weights.begin();
 	for (const auto& element : featureMap) {
-		featureValue += element + *weight;
+		featureValue += element * *weight;
 		++weight;
 	}
 	featureValue = sigmoid(featureValue);

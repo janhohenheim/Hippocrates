@@ -53,9 +53,6 @@
     <ClInclude Include="Headers\training_data.hpp">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Headers\utility.hpp">
-      <Filter>Headers</Filter>
-    </ClInclude>
     <ClInclude Include="Headers\InputData\iinput_data.hpp">
       <Filter>Headers\InputData</Filter>
     </ClInclude>
@@ -87,6 +84,9 @@
       <Filter>Headers\Learning</Filter>
     </ClInclude>
     <ClInclude Include="Headers\Utility\fillable_ref.hpp">
+      <Filter>Headers\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Utility\utility.hpp">
       <Filter>Headers\Utility</Filter>
     </ClInclude>
   </ItemGroup>

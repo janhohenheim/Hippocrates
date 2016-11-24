@@ -71,31 +71,37 @@
   <PropertyGroup />
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <WarningLevel>Level4</WarningLevel>
+      <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir)Sources\Headers\Layer\Pooler;$(SolutionDir)Sources\Headers\Utility;$(SolutionDir)Sources\Headers\Learning;$(SolutionDir)Sources\Headers\Layer;$(SolutionDir)Sources\Headers\InputData;$(SolutionDir)Sources\Headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/std:c++latest /permissive- %(AdditionalOptions)</AdditionalOptions>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DiagnosticsFormat>Caret</DiagnosticsFormat>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <WarningLevel>Level4</WarningLevel>
+      <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir)Sources\Headers\Layer\Pooler;$(SolutionDir)Sources\Headers\Utility;$(SolutionDir)Sources\Headers\Learning;$(SolutionDir)Sources\Headers\Layer;$(SolutionDir)Sources\Headers\InputData;$(SolutionDir)Sources\Headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/std:c++latest /permissive- %(AdditionalOptions)</AdditionalOptions>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DiagnosticsFormat>Caret</DiagnosticsFormat>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <WarningLevel>Level4</WarningLevel>
+      <WarningLevel>Level3</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir)Sources\Headers\Layer\Pooler;$(SolutionDir)Sources\Headers\Utility;$(SolutionDir)Sources\Headers\Learning;$(SolutionDir)Sources\Headers\Layer;$(SolutionDir)Sources\Headers\InputData;$(SolutionDir)Sources\Headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/std:c++latest /permissive- %(AdditionalOptions)</AdditionalOptions>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DiagnosticsFormat>Caret</DiagnosticsFormat>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -104,13 +110,15 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <WarningLevel>Level4</WarningLevel>
+      <WarningLevel>Level3</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir)Sources\Headers\Layer\Pooler;$(SolutionDir)Sources\Headers\Utility;$(SolutionDir)Sources\Headers\Learning;$(SolutionDir)Sources\Headers\Layer;$(SolutionDir)Sources\Headers\InputData;$(SolutionDir)Sources\Headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/std:c++latest /permissive- %(AdditionalOptions)</AdditionalOptions>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DiagnosticsFormat>Caret</DiagnosticsFormat>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -134,8 +142,8 @@
     <ClInclude Include="Headers\neural_network.hpp" />
     <ClInclude Include="Headers\neural_network_trainer.hpp" />
     <ClInclude Include="Headers\training_data.hpp" />
-    <ClInclude Include="Headers\utility.hpp" />
     <ClInclude Include="Headers\Utility\fillable_ref.hpp" />
+    <ClInclude Include="Headers\Utility\utility.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Implementations\InputData\image.cpp" />

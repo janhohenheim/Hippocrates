@@ -5,7 +5,7 @@ namespace Convolutional {
 
 class Matrix {
 public:
-	using elementType = std::size_t;
+	using elementType = double;
 	struct Position {
 		std::size_t x = 0;
 		std::size_t y = 0;
