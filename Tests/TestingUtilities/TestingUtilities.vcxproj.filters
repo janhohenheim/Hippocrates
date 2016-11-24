@@ -5,10 +5,18 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Implementations">
+      <UniqueIdentifier>{40f5c816-64f4-4dca-a599-1869c87de0a9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sources\Headers\testing_utilities.hpp">
       <Filter>Headers</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Sources\Implementations\testing_utilities.cpp">
+      <Filter>Implementations</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
