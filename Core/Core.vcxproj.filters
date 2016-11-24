@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Headers">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Implementations">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Headers\InputData">
+      <UniqueIdentifier>{1f929315-ffba-4f0e-be0f-47381c720b69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Layer">
+      <UniqueIdentifier>{9d135904-3b4c-494f-8d5f-92fa9ee1217d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Learning">
+      <UniqueIdentifier>{0e97168e-ae9d-47ea-b37b-a32b00a4d557}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Utility">
+      <UniqueIdentifier>{de7cf18c-8bcf-41c7-a6c5-7f6cfa2a3c22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Layer\Pooler">
+      <UniqueIdentifier>{1d9d2beb-104f-473a-ba61-294f2be3bddd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Implementations\InputData">
+      <UniqueIdentifier>{604c8c91-efb4-4204-92dd-b177c7d66a38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Implementations\Layer">
+      <UniqueIdentifier>{c94a3513-a932-4d23-8253-1a09e0eecb6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Implementations\Layer\Pooler">
+      <UniqueIdentifier>{f170f2a7-2009-4531-9248-6dfa30df30ad}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Sources\Headers\InputData\iinput_data.hpp">
+      <Filter>Headers\InputData</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Headers\InputData\image.hpp">
+      <Filter>Headers\InputData</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Headers\InputData\sentence.hpp">
+      <Filter>Headers\InputData</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Headers\Layer\Pooler\ipooler.hpp">
+      <Filter>Headers\Layer\Pooler</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Headers\Layer\Pooler\max_pooler.hpp">
+      <Filter>Headers\Layer\Pooler</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Headers\Layer\filter.hpp">
+      <Filter>Headers\Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Headers\Layer\ilayer.hpp">
+      <Filter>Headers\Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Headers\Layer\layers.hpp">
+      <Filter>Headers\Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Headers\Learning\backpropagation.hpp">
+      <Filter>Headers\Learning</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Headers\Learning\learning_method.hpp">
+      <Filter>Headers\Learning</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Headers\Utility\fillable_ref.hpp">
+      <Filter>Headers\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Headers\Utility\utility.hpp">
+      <Filter>Headers\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Headers\matrix.hpp">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Headers\multi_matrix.hpp">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Headers\multi_matrix_factory.hpp">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Headers\neural_network.hpp">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Headers\neural_network_trainer.hpp">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Headers\training_data.hpp">
+      <Filter>Headers</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Sources\Implementations\InputData\image.cpp">
+      <Filter>Implementations\InputData</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Implementations\InputData\sentence.cpp">
+      <Filter>Implementations\InputData</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Implementations\Layer\filter.cpp">
+      <Filter>Implementations\Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Implementations\Layer\ilayer.cpp">
+      <Filter>Implementations\Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Implementations\Layer\Pooler\max_pooler.cpp">
+      <Filter>Implementations\Layer\Pooler</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Implementations\matrix.cpp">
+      <Filter>Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Implementations\multi_matrix.cpp">
+      <Filter>Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Implementations\multi_matrix_factory.cpp">
+      <Filter>Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Implementations\neural_network.cpp">
+      <Filter>Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Implementations\neural_network_trainer.cpp">
+      <Filter>Implementations</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
