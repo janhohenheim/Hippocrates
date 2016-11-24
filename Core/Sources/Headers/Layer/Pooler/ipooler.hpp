@@ -1,6 +1,6 @@
 #pragma once
 #include "matrix.hpp"
-#include "ilayer.hpp"
+#include "Layer/ilayer.hpp"
 
 namespace Convolutional::Layer::Pooler {
 

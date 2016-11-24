@@ -1,4 +1,4 @@
-#include "image.hpp"
+#include "InputData/image.hpp"
 
 using namespace Convolutional;
 using namespace Convolutional::InputData;
