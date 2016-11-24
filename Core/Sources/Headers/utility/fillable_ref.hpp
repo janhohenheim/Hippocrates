@@ -1,5 +1,14 @@
 #pragma once
-#include <optional>
+
+#ifdef __has_include
+#if __has_include(<optional>)
+	#include <optional>
+#elif __has_include(<experimental/optional>)
+	#include <experimental/optional>
+#endif
+#endif
+
+
 #include <stdexcept>
 
 namespace Hippocrates::Utility {
