@@ -4,7 +4,8 @@
 #if __has_include(<optional>)
 #include <optional>
 #elif __has_include(<experimental/optional>)
-#include <experimental/optional>
+	#include <experimental/optional>
+	using optional = experimental::optional;
 #endif
 #endif
 
