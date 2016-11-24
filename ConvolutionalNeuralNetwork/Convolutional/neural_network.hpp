@@ -1,6 +1,8 @@
 #pragma once
 #include <memory>
 #include <stdexcept>
+#include <algorithm>
+
 #include "multi_matrix.hpp"
 #include "Layer/layers.hpp"
 #include "multi_matrix_factory.hpp"
@@ -35,7 +37,7 @@ namespace Convolutional {
 			std::vector<Matrix::elementType> outputs;
 			outputs.reserve(processedMultiMatrix.GetDimensionCount());
 			for (const auto& matrix : processedMultiMatrix) {
-				outputs.push_back(matrix.GetElementAt(0));
+				outputs.push_back(matrix.GetElementAt({0,0 }));
 			}
 			return outputs;
 		}
