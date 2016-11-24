@@ -1,8 +1,8 @@
 #include <algorithm>
 #include <string>
 
-#include "../../Headers/training/species.hpp"
-#include "../../Headers/utility/random.hpp"
+#include "training/species.hpp"
+#include "utility/random.hpp"
 
 using namespace Hippocrates;
 using namespace Hippocrates::Training;

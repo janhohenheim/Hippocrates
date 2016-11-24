@@ -1,5 +1,6 @@
-#include "../../Headers/training/innovation_cacher.hpp"
 #include <algorithm>
+
+#include "training/innovation_cacher.hpp"
 
 using namespace Hippocrates;
 using namespace Hippocrates::Training;

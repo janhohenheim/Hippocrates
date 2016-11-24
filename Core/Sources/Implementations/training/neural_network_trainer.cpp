@@ -1,8 +1,7 @@
-#include "../../Headers/training/neural_network_trainer.hpp"
+#include "training/neural_network_trainer.hpp"
 
 using namespace Hippocrates;
 using namespace Hippocrates::Training;
-
 
 auto NeuralNetworkTrainer::TrainUnsupervised(SpeciesManager::Bodies& bodies) -> Trained::NeuralNetwork {
 	if (loggingEnabled) {

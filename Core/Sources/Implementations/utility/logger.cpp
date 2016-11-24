@@ -1,5 +1,6 @@
-#include "../../Headers/utility/logger.hpp"
 #include <fstream>
+
+#include "utility/logger.hpp"
 
 using namespace Hippocrates;
 using namespace Hippocrates::Utility;

@@ -1,8 +1,8 @@
 #include <cstdlib>
 #include <algorithm>
 
-#include "../../Headers/phenotype/organism.hpp"
-#include "../../Headers/utility/random.hpp"
+#include "phenotype/organism.hpp"
+#include "utility/random.hpp"
 
 using namespace Hippocrates;
 using namespace Hippocrates::Phenotype;
