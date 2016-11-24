@@ -98,7 +98,7 @@
     <ClInclude Include="Sources\Headers\training\parameters.hpp">
       <Filter>Headers\training</Filter>
     </ClInclude>
-    <ClInclude Include="Sources\Headers\utility\maybe_shared.hpp">
+    <ClInclude Include="Sources\Headers\utility\fillable_ref.hpp">
       <Filter>Headers\utility</Filter>
     </ClInclude>
   </ItemGroup>
