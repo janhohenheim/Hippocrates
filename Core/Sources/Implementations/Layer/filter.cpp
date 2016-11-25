@@ -39,7 +39,7 @@ auto Filter::ProcessMatrix(Matrix::Position position, const Matrix& matrix) cons
 	return featureMap;
 }
 
-auto Filter::sigmoid(Matrix::elementType n) -> double {
+auto Filter::sigmoid(Matrix::element_t n) -> double {
 	return tanh(n);
 }
 

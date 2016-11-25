@@ -7,9 +7,9 @@ namespace Convolutional {
 
 class MultiMatrix {
 public:
-	using SubDimensionType = std::vector<Matrix>;
+	using dimensions_t = std::vector<Matrix>;
 
-    explicit MultiMatrix(SubDimensionType subDimensions);
+    explicit MultiMatrix(dimensions_t subDimensions);
 
 	auto GetDimensionCount() const noexcept { return subDimensions.size(); }
 	auto GetElementCount() const -> std::size_t;
@@ -32,7 +32,7 @@ private:
 	}
 
 private:
-	SubDimensionType subDimensions;
+	dimensions_t subDimensions;
 };
 
 }

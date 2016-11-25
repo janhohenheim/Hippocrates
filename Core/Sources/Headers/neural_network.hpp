@@ -34,10 +34,10 @@ namespace Convolutional {
 			if (processedMultiMatrix.GetElementCount() != 1)
 				throw std::logic_error("The last layer did not make the MultiMatrix two dimensional");
 
-			std::vector<Matrix::elementType> outputs;
+			std::vector<Matrix::element_t> outputs;
 			outputs.reserve(processedMultiMatrix.GetDimensionCount());
 			for (const auto& matrix : processedMultiMatrix) {
-				outputs.push_back(matrix.GetElementAt({0,0 }));
+				outputs.push_back(matrix.ElementAt({0,0 }));
 			}
 			return outputs;
 		}

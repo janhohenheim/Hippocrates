@@ -2,7 +2,7 @@
 
 using namespace Convolutional;
 
-MultiMatrix::MultiMatrix(SubDimensionType subDimensions) :
+MultiMatrix::MultiMatrix(dimensions_t subDimensions) :
 subDimensions(std::move(subDimensions))
 {
 }

@@ -5,7 +5,8 @@ namespace Convolutional {
 
 class Matrix {
 public:
-	using elementType = double;
+	using element_t = double;
+	using elements_t = std::vector<element_t>;
 	struct Position {
 		std::size_t x = 0;
 		std::size_t y = 0;
@@ -21,8 +22,8 @@ public:
 	explicit Matrix(Size size);
 
 	auto GetSubmatrix(Position position, Size size) const -> Matrix;
-	auto GetElementAt(Position position) const -> const elementType&;
-	auto GetElementAt(Position position) -> elementType&;
+	auto ElementAt(Position position) const -> const element_t&;
+	auto ElementAt(Position position) -> element_t&;
 
 	auto GetSize() const noexcept { return size; }
 	auto GetElementCount() const noexcept { return GetSize().height * GetSize().width; }
@@ -34,7 +35,7 @@ public:
 
 private:
 	const Size size;
-	std::vector<elementType> elements;
+	std::vector<element_t> elements;
 };
 
 }

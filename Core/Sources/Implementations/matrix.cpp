@@ -26,16 +26,16 @@ auto Matrix::GetSubmatrix(Matrix::Position position, Matrix::Size size) const ->
 			Position macroPos = position;
 			macroPos.x += subPos.x;
 			macroPos.y += subPos.y;
-			subMatrix.GetElementAt(subPos) = GetElementAt(macroPos);
+			subMatrix.ElementAt(subPos) = ElementAt(macroPos);
 		}
 	}
 	return subMatrix;
 }
 
-auto Convolutional::Matrix::GetElementAt(Position position) const -> const elementType& {
+auto Matrix::ElementAt(Position position) const -> const element_t& {
 	return elements[position.x * GetSize().width + position.y];
 }
 
-auto Convolutional::Matrix::GetElementAt(Position position) -> elementType& {
+auto Matrix::ElementAt(Position position) -> element_t& {
 	return elements[position.x * GetSize().width + position.y];
 }

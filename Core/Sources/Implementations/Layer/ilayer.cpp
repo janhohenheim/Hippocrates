@@ -4,12 +4,14 @@ using namespace Convolutional;
 using namespace Convolutional::Layer;
 
 auto ILayer::ProcessMultiMatrix(const MultiMatrix & multiMatrix) const -> MultiMatrix {
-    MultiMatrix::SubDimensionType dimensions;
+    MultiMatrix::dimensions_t dimensions;
     dimensions.reserve(multiMatrix.GetDimensionCount());
     for (auto& submatrix : multiMatrix) {
         Matrix::Position pos;
-        for (; pos.y < submatrix.GetSize().height; pos.y += GetReceptiveField().height) {
-            for (; pos.x < submatrix.GetSize().width; pos.x += GetReceptiveField().width) {
+		const auto size = submatrix.GetSize();
+		const auto receptiveField = GetReceptiveField(size);
+        for (; pos.y < size.height; pos.y += receptiveField.height) {
+            for (; pos.x < size.width; pos.x += receptiveField.width) {
                 auto processedMatrix = ProcessMatrix(pos, submatrix);
                 dimensions.push_back(std::move(processedMatrix));
             }
