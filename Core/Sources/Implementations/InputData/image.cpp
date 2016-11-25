@@ -3,6 +3,10 @@
 using namespace Convolutional;
 using namespace Convolutional::InputData;
 
+Convolutional::InputData::Image::Image(const char * filename)
+{
+}
+
 auto Image::GetMultiDimensionalMatrix() const -> MultiMatrix {
 	Matrix::Size imageSize{ 1920, 1080 };
 	Matrix r{ imageSize };
