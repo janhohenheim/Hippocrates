@@ -2,9 +2,10 @@ language: cpp
 sudo: required
 dist: trusty
 
-compiler:
-  - gcc
-  - clang
+env:
+  matrix:
+    - CXX=g++-6
+    - CXX=clang++-3.9
 
 addons:
   apt:
