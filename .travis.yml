@@ -1,13 +1,40 @@
 language: cpp
 sudo: required
 dist: trusty
+
+compiler:
+  - gcc
+  - clang
+
 addons:
   apt:
     packages:
-      - g++-6
-    sources:
-      - ubuntu-toolchain-r-test
-script:
-  - cmake -DCMAKE_CXX_COMPILER=g++-6 CMakeLists.txt
-  - make 
+      - software-properties-common
+      - python-software-properties
+      - cmake
 
+before_install:
+  # gcc
+  - if [ "$CXX" == "g++" ]; then sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test; fi
+
+  # clang
+  - if [ "$CXX" == "clang++" ]; then sudo apt-get install -y wget; fi
+  - if [ "$CXX" == "clang++" ]; then wget -O - http://apt.llvm.org/llvm-snapshot.gpg.key|sudo apt-key add -; fi
+  - if [ "$CXX" == "clang++" ]; then sudo bash -c 'echo "deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.9 main" >> /etc/apt/sources.list'; fi
+  - if [ "$CXX" == "clang++" ]; then sudo bash -c 'echo "deb-src http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.9 main" >> /etc/apt/sources.list'; fi
+
+  - sudo apt-get update
+
+install:
+  # gcc
+  - if [ "$CXX" == "g++" ]; then sudo apt-get install -y g++-6; fi
+  - if [ "$CXX" == "g++" ]; then export CXX="g++-6"; fi
+
+  # clang
+  - if [ "$CXX" == "clang++" ]; then sudo apt-get install -y clang++-3.9; fi
+  - if [ "$CXX" == "clang++" ]; then export CXX="clang++-3.9"; fi
+
+script:
+  - cmake .
+  - make
+  - ctest --verbose
