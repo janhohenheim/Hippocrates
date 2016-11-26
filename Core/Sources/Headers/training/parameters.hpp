@@ -2,7 +2,7 @@
 #include <limits>
 #include <string>
 
-#include "../type.hpp"
+#include "type.hpp"
 
 namespace Hippocrates::Training {
 

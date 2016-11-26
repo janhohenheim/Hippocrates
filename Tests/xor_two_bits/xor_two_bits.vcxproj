@@ -74,7 +74,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>../TestingUtilities/Sources/Headers; $(SolutionDir)Core\Sources\Headers\training</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../TestingUtilities/Sources/Headers; $(SolutionDir)Core\Sources\Headers</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions> /std:c++latest /permissive- %(AdditionalOptions)</AdditionalOptions>
       <TreatWarningAsError>true</TreatWarningAsError>
@@ -89,7 +89,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>../TestingUtilities/Sources/Headers; $(SolutionDir)Core\Sources\Headers\training</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../TestingUtilities/Sources/Headers; $(SolutionDir)Core\Sources\Headers</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions> /std:c++latest /permissive- %(AdditionalOptions)</AdditionalOptions>
       <TreatWarningAsError>true</TreatWarningAsError>
@@ -106,7 +106,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>../TestingUtilities/Sources/Headers; $(SolutionDir)Core\Sources\Headers\training</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../TestingUtilities/Sources/Headers; $(SolutionDir)Core\Sources\Headers</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions> /std:c++latest /permissive- %(AdditionalOptions)</AdditionalOptions>
       <TreatWarningAsError>true</TreatWarningAsError>
@@ -125,7 +125,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>../TestingUtilities/Sources/Headers; $(SolutionDir)Core\Sources\Headers\training</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../TestingUtilities/Sources/Headers; $(SolutionDir)Core\Sources\Headers</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions> /std:c++latest /permissive- %(AdditionalOptions)</AdditionalOptions>
       <TreatWarningAsError>true</TreatWarningAsError>

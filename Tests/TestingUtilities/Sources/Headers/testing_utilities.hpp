@@ -4,7 +4,7 @@
 #include <future>
 #include <memory>
 
-#include "neural_network_trainer.hpp"
+#include "training/neural_network_trainer.hpp"
 
 namespace Hippocrates::Tests::TestingUtilities {
 

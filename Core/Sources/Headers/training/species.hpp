@@ -1,5 +1,5 @@
 #pragma once
-#include "../phenotype/organism.hpp"
+#include "phenotype/organism.hpp"
 #include <memory>
 #include <functional>
 
@@ -19,7 +19,7 @@ public:
 	Species(Species&& other) = default;
 	~Species() = default;
 
-	auto operator=(Species& other) & ->Species& = default;
+	auto operator=(Species& other) & -> Species& = default;
 	auto operator=(Species&& other) & -> Species& = default;
 
 	auto AddOrganism(Phenotype::Organism&& organism) -> void;
@@ -27,8 +27,8 @@ public:
 	auto IsCompatible(const Genotype::Genome& genome) const -> bool;
 	auto GetSize() const { return population.size(); }
 	auto IsEmpty() const { return population.empty(); }
-	auto GetAverageFitness() const ->Type::fitness_t;
-	auto GetTotalFitness() const ->Type::fitness_t;
+	auto GetAverageFitness() const -> Type::fitness_t;
+	auto GetTotalFitness() const -> Type::fitness_t;
 	auto IsStagnant() const -> bool;
 	auto GetOffspringCount(Type::fitness_t averageFitness) const -> std::size_t;
 

@@ -1,8 +1,8 @@
 #pragma once
 
 #include "gene.hpp"
-#include "../training/parameters.hpp"
-#include "../type.hpp"
+#include "training/parameters.hpp"
+#include "type.hpp"
 
 #include <vector>
 

@@ -1,4 +1,5 @@
 #pragma once
+#include <algorithm>
 #include "neural_network.hpp"
 
 namespace Hippocrates::Trained {

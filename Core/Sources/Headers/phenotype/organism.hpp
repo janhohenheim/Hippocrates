@@ -2,9 +2,9 @@
 #include <memory>
 
 #include "neural_network.hpp"
-#include "../body/body.hpp"
-#include "../genotype/genome.hpp"
-#include "../type.hpp"
+#include "body/body.hpp"
+#include "genotype/genome.hpp"
+#include "type.hpp"
 
 namespace Hippocrates::Phenotype {
 

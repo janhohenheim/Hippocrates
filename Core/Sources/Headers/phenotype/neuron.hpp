@@ -3,7 +3,7 @@
 #include <vector>
 #include <string>
 
-#include "../type.hpp"
+#include "type.hpp"
 
 namespace Hippocrates::Phenotype {
 
