@@ -21,7 +21,7 @@ before_install:
   - if [ "$CXX" == "clang++" ]; then sudo echo "deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.9 main" >> /etc/apt/sources.list; fi
   - if [ "$CXX" == "clang++" ]; then sudo echo "deb-src http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.9 main" >> /etc/apt/sources.list; fi
 
-  - apt-get update
+  - sudo apt-get update
 
 install:
   # gcc
