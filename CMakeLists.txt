@@ -6,7 +6,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/out/tests)
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Wall")
 
 set(CMAKE_C_FLAGS -fPIC)
-set(CMAKE_CXX_FLAGS -fPIC)
+set(CMAKE_CXX_FLAGS -fPIC -std=c++1z)
 
 add_subdirectory(Core)
 
