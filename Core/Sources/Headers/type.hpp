@@ -36,7 +36,7 @@ using fitness_t = double;
 using file_string_t = Filesystem::path::string_type;
 
 
-#if ::std::is_same<file_string_t, std::string>
+#if std::is_same<file_string_t, std::string>
 	#define HIPPOCRATES_LITERAL_AS_FILE_STRING(x) x
 	template<typename T>
 	auto to_file_string(T t) { return std::to_string(t); }
