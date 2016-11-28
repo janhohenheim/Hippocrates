@@ -27,14 +27,15 @@ before_install:
 
 install:
   # gcc
-  - if [ "$CXX" == "g++" ]; then sudo apt-get install -y g++-6 libc++-dev; fi
+  - if [ "$CXX" == "g++" ]; then sudo apt-get install -y g++-6; fi
   - if [ "$CXX" == "g++" ]; then export CXX="g++-6"; fi
 
   # clang
-  - if [ "$CXX" == "clang++" ]; then sudo apt-get install -y clang++-3.9; fi
+  - if [ "$CXX" == "clang++" ]; then sudo apt-get install -y clang++-3.9 libc++-dev; fi
   - if [ "$CXX" == "clang++" ]; then export CXX="clang++-3.9"; fi
 
 script:
   - cmake .
   - make
   - ctest --verbose
+
