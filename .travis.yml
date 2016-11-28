@@ -1,10 +1,14 @@
 language: cpp
 sudo: required
 dist: trusty
-
+  
 compiler:
   - gcc
   - clang
+
+matrix:
+  allow_failures:
+  - compiler: clang
 
 addons:
   apt:
@@ -31,7 +35,7 @@ install:
   - if [ "$CXX" == "g++" ]; then export CXX="g++-6"; fi
 
   # clang
-  - if [ "$CXX" == "clang++" ]; then sudo apt-get install -y clang++-3.9; fi
+  - if [ "$CXX" == "clang++" ]; then sudo apt-get install -y clang++-3.9 libc++-dev; fi
   - if [ "$CXX" == "clang++" ]; then export CXX="clang++-3.9"; fi
 
 script:
