@@ -14,43 +14,43 @@ auto Logger::CreateLoggingDirs() -> void {
 
 
 	auto dumpDir(currentDir + logFolder);
-	if (!Type::Filesystem::exists(dumpDir)) {
-		Type::Filesystem::create_directory(dumpDir);
+	if (!Filesystem::exists(dumpDir)) {
+		Filesystem::create_directory(dumpDir);
 	}
 
 
 	auto sessionDir = GetSessionDir(dumpDir);
-	if (!Type::Filesystem::exists(sessionDir)) {
-		Type::Filesystem::create_directory(sessionDir);
+	if (!Filesystem::exists(sessionDir)) {
+		Filesystem::create_directory(sessionDir);
 	}
 
 	SetFullLoggingPath(sessionDir);
 }
 
 auto Logger::GetCurrentDir() -> Type::file_string_t {
-	return Type::Filesystem::current_path();
+	return Filesystem::current_path();
 }
 
 auto Logger::GetLogFolder() -> Type::file_string_t {
-	return HIPPOCRATES_LITERAL_AS_FILE_STRING("/json_dumps/");
+	return Type::literal_as_file_string("/json_dumps/");
 }
 
 auto Logger::GetLogFileExtension() -> Type::file_string_t {
-	return HIPPOCRATES_LITERAL_AS_FILE_STRING(".json");
+	return Type::literal_as_file_string(".json");
 }
 
 
 auto Logger::GetSessionDir(const Type::file_string_t& dumpDir) -> Type::file_string_t {
-	return Type::file_string_t(dumpDir + Type::to_file_string(timestamp.time_since_epoch().count()) + HIPPOCRATES_LITERAL_AS_FILE_STRING("/"));
+	return Type::file_string_t(dumpDir + Type::to_file_string(timestamp.time_since_epoch().count()) + Type::literal_as_file_string("/"));
 }
 
 auto Logger::GetMetadataFileName(const Type::file_string_t &sessionDir) -> Type::file_string_t {
-	return sessionDir + HIPPOCRATES_LITERAL_AS_FILE_STRING("meta") + GetLogFileExtension();
+	return sessionDir + Type::literal_as_file_string("meta") + GetLogFileExtension();
 }
 
 
 auto Logger::GetLogFileName(const Type::file_string_t& sessionDir, std::size_t generationsPassed) -> Type::file_string_t {
-	return Type::file_string_t(sessionDir + HIPPOCRATES_LITERAL_AS_FILE_STRING("generation_") + Type::to_file_string(generationsPassed) + GetLogFileExtension());
+	return Type::file_string_t(sessionDir + Type::literal_as_file_string("generation_") + Type::to_file_string(generationsPassed) + GetLogFileExtension());
 }
 
 
