@@ -25,7 +25,7 @@ private:
 public:
 	auto TrainUnsupervised(SpeciesManager::Bodies& bodies) -> Trained::NeuralNetwork;
 	template <typename Classification, std::size_t ClassificationCount>
-	auto TrainSupervised(const Data<Classification, ClassificationCount>& data, std::size_t trainingInstances) -> Trained::Classifier<Classification>;
+	auto TrainSupervised(const Data<Classification, ClassificationCount>& data, std::size_t trainingInstances = 200) -> Trained::Classifier<Classification>;
 	
 	auto GetGenerationsPassed() const { return generationsPassed; }
 
