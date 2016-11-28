@@ -16,9 +16,9 @@ int main() {
 	data.AddSet( { 3.0f },  Evenness::Uneven );
 	data.AddSet( { 4.0f },  Evenness::Even );
 	data.AddSet( { 5.0f },  Evenness::Uneven );
-	data.AddSet( { 6.0f },  Evenness::Even );
 	// runs until here
 	/*
+	data.AddSet( { 6.0f },  Evenness::Even );
 	data.AddSet( { 7.0f },  Evenness::Uneven );
 	data.AddSet( { 8.0f },  Evenness::Even );
 	data.AddSet( { 9.0f },  Evenness::Uneven );
