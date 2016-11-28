@@ -37,7 +37,7 @@ private:
 };
 
 template <typename Classification, std::size_t ClassificationCount>
-auto NeuralNetworkTrainer::TrainSupervised(const Data<Classification, ClassificationCount>& data, std::size_t trainingInstances) -> Trained::Classifier<Classification> {
+auto NeuralNetworkTrainer::TrainSupervised(const Data<Classification, ClassificationCount>& data, std::size_t trainingInstances = 200) -> Trained::Classifier<Classification> {
 	using supervised_body_t = Body::SupervisedLearning<Classification, ClassificationCount>;
 	std::vector<supervised_body_t> bodies;
 	bodies.reserve(trainingInstances);
