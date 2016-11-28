@@ -10,9 +10,13 @@ set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Wall")
 set(CMAKE_C_FLAGS -fPIC)
 set(CMAKE_CXX_FLAGS "-fPIC -std=c++1z")
 
-add_subdirectory(Core)
+if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
+endif()
 
+add_subdirectory(Core)
 add_library(Hippocrates SHARED $<TARGET_OBJECTS:Core>)
+
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)
 
@@ -35,3 +39,4 @@ target_include_directories(Hippocrates PUBLIC ${HEADERS})
 
 enable_testing()
 add_subdirectory(Tests)
+
