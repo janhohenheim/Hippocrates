@@ -19,7 +19,7 @@
 #endif 
 
 #ifdef __has_include
-	#if __has_include(<any>) && !defined _WIN32
+	#if __has_include(<any>)
 		#include <any>
 		#define HIPPOCRATES_HAS_ANY
 	#elif __has_include (<experimental/any>)
@@ -49,6 +49,8 @@ namespace Hippocrates::Type {
 	namespace Filesystem = ::std::filesystem;
 #elif defined HIPPOCRATES_HAS_EXPERIMENTAL_FILESYSTEM
 	namespace Filesystem = ::std::experimental::filesystem;
+#else 
+	static_assert(false, "filesystem TS not found");
 #endif
 
 #ifdef HIPPOCRATES_HAS_ANY 
@@ -57,6 +59,8 @@ namespace Hippocrates::Type {
 #elif defined HIPPOCRATES_HAS_EXPERIMENTAL_ANY
 	using Any = ::std::experimental::any;
 	#define HIPPOCRATES_ANY_CAST std::experimental::any_cast
+#else 
+	static_assert(false, "any TS not found");
 #endif
 
 
