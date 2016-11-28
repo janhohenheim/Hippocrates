@@ -20,7 +20,7 @@
 #endif 
 
 #ifdef __has_include
-	#if __has_include(<any>)
+	#if __has_include(<any>) && !defined _WIN32
 		#include <any>
 		#define HIPPOCRATES_HAS_ANY
 	#elif __has_include (<experimental/any>)
@@ -28,8 +28,13 @@
 		#define HIPPOCRATES_HAS_EXPERIMENTAL_ANY
 	#endif
 #else
-	#include <any>
-	#define HIPPOCRATES_HAS_ANY
+	#ifdef _WIN32
+		#include <any>
+		#define HIPPOCRATES_HAS_ANY
+	#else
+		#include <experimental/any>
+		#define HIPPOCRATES_HAS_EXPERIMENTAL_ANY
+	#endif
 #endif 
 
 
