@@ -4,7 +4,6 @@
 #include <type_traits>
 #include <locale>
 #include <codecvt>
-#include <any>
 
 #ifdef __has_include
 #if __has_include(<filesystem>) && !defined _WIN32
