@@ -9,15 +9,27 @@
 #ifdef __has_include
 #if __has_include(<filesystem>) && !defined _WIN32
 		#include <filesystem>
-		namespace Filesystem = ::std::filesystem;
+		#define HIPPOCRATES_HAS_FILESYSTEM
 	#elif __has_include (<experimental/filesystem>)
 		#include <experimental/filesystem>
-		namespace Filesystem = ::std::experimental::filesystem;
+		#define HIPPOCRATES_HAS_EXPERIMENTAL_FILESYSTEM	
 	#endif
-
 #else
 	#include <experimental/filesystem>
-	namespace Filesystem = ::std::experimental::filesystem;
+	#define HIPPOCRATES_HAS_EXPERIMENTAL_FILESYSTEM
+#endif 
+
+#ifdef __has_include
+	#if __has_include(<any>)
+		#include <any>
+		#define HIPPOCRATES_HAS_ANY
+	#elif __has_include (<experimental/any>)
+		#include <experimental/any>
+		#define HIPPOCRATES_HAS_EXPERIMENTAL_ANY
+	#endif
+#else
+	#include <any>
+	#define HIPPOCRATES_HAS_ANY
 #endif 
 
 
@@ -29,6 +41,19 @@ namespace Hippocrates::Type {
 #define HIPPOCRATES_SSCANF sscanf
 #endif
 
+#ifdef HIPPOCRATES_HAS_FILESYSTEM 
+	namespace Filesystem = ::std::filesystem;
+#elif defined HIPPOCRATES_HAS_EXPERIMENTAL_FILESYSTEM
+	namespace Filesystem = ::std::experimental::filesystem;
+#endif
+
+#ifdef HIPPOCRATES_HAS_ANY 
+	using Any = ::std::any;
+	#define HIPPOCRATES_ANY_CAST std::any_cast
+#elif defined HIPPOCRATES_HAS_EXPERIMENTAL_ANY
+	using Any = ::std::experimental::any;
+	#define HIPPOCRATES_ANY_CAST std::experimental::any_cast
+#endif
 
 
 using connection_weight_t = float;
@@ -39,24 +64,23 @@ using fitness_t = double;
 using file_string_t = Filesystem::path::string_type;
 
 template<typename T>
-file_string_t to_file_string(T t) {
-	std::any s;
+static inline file_string_t to_file_string(const T& t) {
+	Any s;
 	if (std::is_same<file_string_t, std::string>::value)
 		s = std::to_string(t);
 	else
 		s = std::to_wstring(t);
-	return std::any_cast<file_string_t>(s);
+	return HIPPOCRATES_ANY_CAST<file_string_t>(s);
 }
 
-template<typename T>
-file_string_t literal_as_file_string(T t) {
-	std::any s;
+static inline file_string_t literal_as_file_string(const char* t) {
+	Any s;
 	static std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
 	if (std::is_same<file_string_t, std::string>::value)
 		s = std::string(t);
 	else 
 		s = converter.from_bytes(t);
-	return std::any_cast<file_string_t>(s);
+	return HIPPOCRATES_ANY_CAST<file_string_t>(s);
 }
 
 }

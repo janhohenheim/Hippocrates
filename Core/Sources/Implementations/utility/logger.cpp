@@ -14,21 +14,21 @@ auto Logger::CreateLoggingDirs() -> void {
 
 
 	auto dumpDir(currentDir + logFolder);
-	if (!Filesystem::exists(dumpDir)) {
-		Filesystem::create_directory(dumpDir);
+	if (!Type::Filesystem::exists(dumpDir)) {
+		Type::Filesystem::create_directory(dumpDir);
 	}
 
 
 	auto sessionDir = GetSessionDir(dumpDir);
-	if (!Filesystem::exists(sessionDir)) {
-		Filesystem::create_directory(sessionDir);
+	if (!Type::Filesystem::exists(sessionDir)) {
+		Type::Filesystem::create_directory(sessionDir);
 	}
 
 	SetFullLoggingPath(sessionDir);
 }
 
 auto Logger::GetCurrentDir() -> Type::file_string_t {
-	return Filesystem::current_path();
+	return Type::Filesystem::current_path();
 }
 
 auto Logger::GetLogFolder() -> Type::file_string_t {
