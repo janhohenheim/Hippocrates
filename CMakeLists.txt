@@ -11,7 +11,7 @@ set(CMAKE_C_FLAGS -fPIC)
 set(CMAKE_CXX_FLAGS "-fPIC -std=c++1z")
 
 if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++ -DLIBCXX_INSTALL_EXPERIMENTAL_LIBRARY=ON")
 endif()
 
 add_subdirectory(Core)
