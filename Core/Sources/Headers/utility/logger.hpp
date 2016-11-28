@@ -1,17 +1,5 @@
 #pragma once
 #include <string>
-#ifdef __has_include
-
-#if __has_include(<filesystem>)
-#include <filesystem>
-#elif __has_include (<experimental/filesystem>)
-#include <experimental/filesystem>
-#endif
-
-#else
-	#include <experimental/filesystem>
-#endif 
-
 #include <chrono>
 
 #include "type.hpp"
@@ -25,32 +13,21 @@ public:
 	auto LogMetadata(Type::fitness_t maxFitness) -> void;
 
 private:
-	auto GetCurrentDir(const char *) -> std::string;
-	auto GetCurrentDir(const wchar_t *) -> std::wstring;
+	auto GetCurrentDir() -> Type::file_string_t;
+	auto GetLogFolder() -> Type::file_string_t;
+	auto GetSessionDir(const Type::file_string_t& dumpDir) -> Type::file_string_t;
 
-	auto GetLogFolder(const std::string&) -> std::string;
-	auto GetLogFolder(const std::wstring&) -> std::wstring;
+	auto GetLogFileExtension() -> Type::file_string_t;
 
-	auto GetSessionDir(const std::string& dumpDir) -> std::string;
-	auto GetSessionDir(const std::wstring& dumpDir) -> std::wstring;
+	auto GetMetadataFileName(const Type::file_string_t &sessionDir) -> Type::file_string_t;
+	auto GetLogFileName(const Type::file_string_t& sessionDir, std::size_t generationsPassed) -> Type::file_string_t;
 
-	auto GetLogFileExtension(const std::string&) -> std::string;
-	auto GetLogFileExtension(const std::wstring&) -> std::wstring;
-
-	auto GetMetadataFileName(const std::string &sessionDir) -> std::string;
-	auto GetMetadataFileName(const std::wstring &sessionDir) -> std::wstring;
-	auto GetLogFileName(const std::string& sessionDir, std::size_t generationsPassed) -> std::string;
-	auto GetLogFileName(const std::wstring& sessionDir, std::size_t generationsPassed) -> std::wstring;
-
-	auto SetFullLoggingPath(const std::string& path) -> void;
-	auto SetFullLoggingPath(const std::wstring& path) -> void;
+	auto SetFullLoggingPath(const Type::file_string_t& path) -> void;
 
 private:
 	std::chrono::system_clock::time_point timestamp;
-	std::string fullLoggingPathOnUnix;
-	std::wstring fullLoggingPathOnWindows;
-
-	std::string metaData = "";
+	Type::file_string_t fullLoggingPath;
+	std::string metaData;
 };
 
 }
