@@ -4,6 +4,7 @@
 #include <type_traits>
 #include <locale>
 #include <codecvt>
+#include <any>
 
 #ifdef __has_include
 #if __has_include(<filesystem>) && !defined _WIN32
@@ -39,19 +40,23 @@ using file_string_t = Filesystem::path::string_type;
 
 template<typename T>
 file_string_t to_file_string(T t) {
+	std::any s;
 	if (std::is_same<file_string_t, std::string>::value)
-		return *reinterpret_cast<file_string_t*>(&std::to_string(t));
-
-	return *reinterpret_cast<file_string_t*>(&std::to_wstring(t));
+		s = std::to_string(t);
+	else
+		s = std::to_wstring(t);
+	return std::any_cast<file_string_t>(s);
 }
 
 template<typename T>
 file_string_t literal_as_file_string(T t) {
-	if (std::is_same<file_string_t, std::string>::value)
-		return *reinterpret_cast<file_string_t*>(&std::string(t));
-
+	std::any s;
 	static std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
-	return *reinterpret_cast<file_string_t*>(&converter.from_bytes(t));
+	if (std::is_same<file_string_t, std::string>::value)
+		s = std::string(t);
+	else 
+		s = converter.from_bytes(t);
+	return std::any_cast<file_string_t>(s);
 }
 
 }
