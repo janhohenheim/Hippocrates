@@ -1,10 +1,14 @@
 language: cpp
 sudo: required
 dist: trusty
-
+  
 compiler:
   - gcc
   - clang
+
+matrix:
+  allow_failures:
+  - compiler: clang
 
 addons:
   apt:
