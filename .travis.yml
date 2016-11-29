@@ -11,6 +11,7 @@ addons:
     packages:
       - software-properties-common
       - python-software-properties
+      - imagemagick
       - cmake
 
 before_install:
