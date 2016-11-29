@@ -42,3 +42,6 @@ script:
   - cmake .
   - make
   - ctest --verbose
+  
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
