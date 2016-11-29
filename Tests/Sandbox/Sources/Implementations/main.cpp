@@ -1,6 +1,7 @@
 #include "neural_network_trainer.hpp"
 #include "InputData/sentence.hpp"
 #include "Learning/learning_method.hpp"
+#include "InputData/image.hpp"
 
 using namespace Convolutional;
 
@@ -23,6 +24,8 @@ auto GetTrainigData() {
 }
 
 int main() {
+	Convolutional::InputData::Image image("image.png");
+
 	auto trainingData(GetTrainigData());
 	Layer::Layers layers {
 		Layer::Filter{ 1.0, { 1.0 } },
@@ -40,3 +43,4 @@ int main() {
 	//Learning::memes<Categories> m(trainedNetwork, trainingData);
 	return 0;
 }
+

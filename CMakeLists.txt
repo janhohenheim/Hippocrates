@@ -17,6 +17,11 @@ endif()
 add_subdirectory(Core)
 add_library(CNN SHARED $<TARGET_OBJECTS:Core>)
 
+find_package(ImageMagick COMPONENTS Magick++ REQUIRED)
+target_link_libraries(CNN PUBLIC ${ImageMagick_LIBRARIES})
+target_include_directories(Core PRIVATE ${ImageMagick_INCLUDE_DIRS})
+target_include_directories(CNN PUBLIC ${ImageMagick_INCLUDE_DIRS})
+
 MACRO(HEADER_DIRECTORIES return_list sources_folder)
     FILE(GLOB_RECURSE headers [RELATIVE ${sources_folder}] *.hpp *.h)
     SET(dir_list "")
