@@ -411,4 +411,4 @@ install_manifest.txt
 Testing/
 *.cmake
 cmake-build-debug/
-
+*.cbp

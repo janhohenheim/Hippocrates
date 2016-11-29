@@ -1,21 +1,15 @@
 #pragma once
 
-#include <iostream>
 #include <chrono>
 #include <future>
 #include <memory>
-#include <sstream>
 
-// TODO: Replace with library import
-#include "../../../../Core/Sources/Headers/neural_network_trainer.hpp"
-#include "../../../../Core/Sources/Headers/trained/classifier.hpp"
+#include "training/neural_network_trainer.hpp"
 
-namespace Hippocrates {
-namespace Tests {
-namespace TestingUtilities {
+namespace Hippocrates::Tests::TestingUtilities {
 
 template <typename Classification, typename Rep, typename Period>
-auto TrainWithTimeout(NeuralNetworkTrainer& trainer, const TrainingData<Classification> &data, std::chrono::duration<Rep, Period> span) {
+auto TrainWithTimeout(Training::NeuralNetworkTrainer& trainer, const Training::Data<Classification> &data, std::chrono::duration<Rep, Period> span) {
 	using classifier_t = Trained::Classifier<Classification>;
 	auto func = [&]() {
 		auto champ = trainer.TrainSupervised(data, static_cast<std::size_t>(150));
@@ -32,9 +26,9 @@ auto TrainWithTimeout(NeuralNetworkTrainer& trainer, const TrainingData<Classifi
 
 
 template <typename Classification>
-auto TestNetwork(Trained::Classifier<Classification> & network, TrainingData<Classification> &data) {
-	for (const auto& dataSet : data) {
-		if (network.Classify(dataSet.input) != dataSet.classification) {
+auto TestNetwork(Trained::Classifier<Classification> & network, Training::Data<Classification> &data) {
+	for (std::size_t i = 0; i < data.GetSize(); ++i) {
+		if (network.Classify(data[i].input) != data[i].classification) {
 			return 1;
 		}
 	}
@@ -54,6 +48,4 @@ struct measure {
 	}
 };
 
-}
-}
 }
