@@ -22,8 +22,8 @@ auto Organism::Update() -> void {
 
 	for (std::size_t i = 0; i < numberOfTimesToFinishTask; i++) {
 		while (!body->HasFinishedTask()) {
-			const auto inputs(move(body->ProvideNetworkWithInputs()));
-			const auto outputs(move(network.GetOutputsUsingInputs(inputs)));
+			const auto inputs(body->ProvideNetworkWithInputs());
+			const auto outputs(network.GetOutputsUsingInputs(inputs));
 			body->Update(outputs);
 			isFitnessUpToDate = false;
 		}
