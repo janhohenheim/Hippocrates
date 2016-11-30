@@ -1,4 +1,5 @@
 #pragma once
+#include <algorithm>
 #include "neural_network.hpp"
 
 namespace Hippocrates::Trained {
@@ -12,9 +13,9 @@ public:
 	Classifier(NeuralNetwork&& other) : NeuralNetwork(std::move(other)){};
 
 	auto Classify(const Type::neuron_values_t& inputs) {
-		auto outputs = GetOutputsUsingInputs(inputs);
-		auto maxOutput = std::max_element(outputs.begin(), outputs.end());
-		auto outputIndex = std::distance(outputs.begin(), maxOutput);
+		const auto outputs = GetOutputsUsingInputs(inputs);
+		const auto maxOutput = std::max_element(outputs.begin(), outputs.end());
+		const auto outputIndex = std::distance(outputs.begin(), maxOutput);
 		return static_cast<Classification>(outputIndex);
 	}
 };

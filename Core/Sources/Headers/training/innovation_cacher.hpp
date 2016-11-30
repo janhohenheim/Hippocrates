@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
-#include "../genotype/genome.hpp"
-#include "../genotype/gene.hpp"
+#include "genotype/genome.hpp"
+#include "genotype/gene.hpp"
 
 namespace Hippocrates::Training {
 

@@ -2,8 +2,8 @@
 #include <algorithm>
 #include <iostream>
 
-#include "../../Headers/genotype/genome.hpp"
-#include "../../Headers/utility/jsmn.h"
+#include "genotype/genome.hpp"
+#include "utility/jsmn.h"
 
 using namespace Hippocrates;
 using namespace Hippocrates::Genotype;

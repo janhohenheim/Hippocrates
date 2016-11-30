@@ -1,8 +1,7 @@
-#include "../../Headers/training/neural_network_trainer.hpp"
+#include "training/neural_network_trainer.hpp"
 
 using namespace Hippocrates;
 using namespace Hippocrates::Training;
-
 
 auto NeuralNetworkTrainer::TrainUnsupervised(SpeciesManager::Bodies& bodies) -> Trained::NeuralNetwork {
 	if (loggingEnabled) {
@@ -32,9 +31,9 @@ auto NeuralNetworkTrainer::TrainGenerationAndLogUsingBodies(SpeciesManager::Bodi
 
 auto NeuralNetworkTrainer::GetJSON() const -> std::string {
 	std::string s("{");
-	s += "\"Parameters\";";
+	s += "\"Parameters\":";
 	s += GetParameters().GetJSON();
-	s += "\"generationsPassed\":";
+	s += ",\"generationsPassed\":";
 	s += std::to_string(generationsPassed);
 	s += ",";
 	s += "\"species\":[";

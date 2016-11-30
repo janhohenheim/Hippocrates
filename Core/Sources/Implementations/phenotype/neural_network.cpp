@@ -3,10 +3,9 @@
 #include <iostream>
 #include <cstring>
 
-#include "../../Headers/phenotype/neural_network.hpp"
-#include "../../Headers/utility/jsmn.h"
-#include "../../Headers/utility/random.hpp"
-#include "../../Headers/genotype/genome.hpp"
+#include "phenotype/neural_network.hpp"
+#include "utility/jsmn.h"
+#include "utility/random.hpp"
 
 using namespace Hippocrates;
 using namespace Hippocrates::Phenotype;

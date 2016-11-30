@@ -2,11 +2,10 @@
 #include <cstring>
 #include <stdexcept>
 
-#include "../../Headers/genotype/gene.hpp"
-#include "../../Headers/utility/jsmn.h"
-#include "../../Headers/type.hpp"
-#include "../../Headers/training/parameters.hpp"
-#include "../../Headers/utility/random.hpp"
+#include "training/parameters.hpp"
+#include "genotype/gene.hpp"
+#include "utility/jsmn.h"
+#include "utility/random.hpp"
 
 using namespace Hippocrates;
 using namespace Hippocrates::Genotype;
@@ -79,4 +78,3 @@ auto Gene::GetJSON() const -> std::string {
 	s += "}";
 	return s;
 }
-

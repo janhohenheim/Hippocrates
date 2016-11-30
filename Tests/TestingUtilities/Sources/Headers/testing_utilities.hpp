@@ -4,8 +4,7 @@
 #include <future>
 #include <memory>
 
-// TODO: Replace with library import
-#include "../../../../Core/Sources/Headers/training/neural_network_trainer.hpp"
+#include "training/neural_network_trainer.hpp"
 
 namespace Hippocrates::Tests::TestingUtilities {
 
@@ -28,8 +27,8 @@ auto TrainWithTimeout(Training::NeuralNetworkTrainer& trainer, const Training::D
 
 template <typename Classification>
 auto TestNetwork(Trained::Classifier<Classification> & network, Training::Data<Classification> &data) {
-	for (const auto& dataSet : data) {
-		if (network.Classify(dataSet.input) != dataSet.classification) {
+	for (std::size_t i = 0; i < data.GetSize(); ++i) {
+		if (network.Classify(data[i].input) != data[i].classification) {
 			return 1;
 		}
 	}

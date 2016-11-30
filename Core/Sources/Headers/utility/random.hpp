@@ -8,8 +8,7 @@ class Random {
 
 public:
 template <typename T>
-static auto Number(T min, T max)
-{
+static auto Number(T min, T max) {
 	std::uniform_int_distribution<T> distribution(min, max);
 	return distribution(engine);
 }

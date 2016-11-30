@@ -1,9 +1,9 @@
 #include <cmath>
 #include <stdexcept>
-#include "../../Headers/phenotype/neuron.hpp"
-#include "../../Headers/utility/jsmn.h"
-#include "../../Headers/utility/random.hpp"
-#include "../../Headers/type.hpp"
+
+#include "phenotype/neuron.hpp"
+#include "utility/jsmn.h"
+#include "utility/random.hpp"
 
 using namespace Hippocrates;
 using namespace Hippocrates::Phenotype;
