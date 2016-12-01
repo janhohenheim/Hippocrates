@@ -6,7 +6,7 @@
 using namespace Hippocrates;
 using namespace Hippocrates::Training;
 
-Parameters::Parameters(std::string json) {
+Parameters::Parameters(const std::string& json) {
 	jsmn_parser parser;
 	jsmn_init(&parser);
 	jsmntok_t tokens[256];

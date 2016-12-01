@@ -456,7 +456,7 @@ auto NeuralNetwork::Reset() -> void {
 	}
 }
 
-auto NeuralNetwork::ParseNeuronsJson(std::string json) -> std::vector<Neuron> {
+auto NeuralNetwork::ParseNeuronsJson(const std::string& json) -> std::vector<Neuron> {
 	jsmn_parser parser;
 	jsmn_init(&parser);
 	jsmntok_t tokens[256];

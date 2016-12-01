@@ -14,7 +14,7 @@ Gene::Gene() {
 	SetRandomWeight();
 }
 
-Gene::Gene(std::string json) {
+Gene::Gene(const std::string& json) {
 	jsmn_parser parser;
 	jsmn_init(&parser);
 	jsmntok_t tokens[256];

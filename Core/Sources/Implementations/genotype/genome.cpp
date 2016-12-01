@@ -24,7 +24,7 @@ Genome::Genome(std::size_t inputCount, std::size_t outputCount) :
 	}
 }
 
-Genome::Genome(std::string json) {
+Genome::Genome(const std::string& json) {
 	jsmn_parser parser;
 	jsmn_init(&parser);
 	jsmntok_t tokens[256];
@@ -112,7 +112,7 @@ auto Genome::GetJSON() const -> std::string {
 	return s;
 }
 
-auto Genome::ParseGenesJson(std::string json) -> std::vector<Gene> {
+auto Genome::ParseGenesJson(const std::string& json) -> std::vector<Gene> {
 	jsmn_parser parser;
 	jsmn_init(&parser);
 	jsmntok_t tokens[256];

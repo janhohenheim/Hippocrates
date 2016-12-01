@@ -8,7 +8,7 @@ namespace Hippocrates::Genotype {
 
 struct Gene {
 	Gene();
-	explicit Gene(std::string json);
+	explicit Gene(const std::string& json);
 	Gene(const Gene& other) = default;
 	Gene(Gene&& other) = default;
 	~Gene() = default;

@@ -68,7 +68,7 @@ private:
 	auto CategorizeNeuronsIntoLayers() -> void;
 	auto CategorizeNeuronBranchIntoLayers(Neuron& currNode, std::size_t currentDepth = 0) const -> void;
 
-	auto ParseNeuronsJson(std::string json) -> std::vector<Neuron>;
+	auto ParseNeuronsJson(const std::string& json) -> std::vector<Neuron>;
 
 
 	template<typename Lambda>

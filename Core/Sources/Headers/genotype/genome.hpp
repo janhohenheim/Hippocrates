@@ -14,11 +14,11 @@ private:
 	std::size_t inputCount = 0U;
 	std::size_t outputCount = 0U;
 	std::size_t neuronCount = 0U;
-	auto ParseGenesJson(std::string json)->std::vector<Gene>;
+	auto ParseGenesJson(const std::string& json)->std::vector<Gene>;
 
 public:
 	explicit Genome(std::size_t inputCount, std::size_t outputCount);
-	explicit Genome(std::string json);
+	explicit Genome(const std::string& json);
 	explicit Genome() = default;
 	Genome(const Genome& other) = default;
 	Genome(Genome&& other) = default;

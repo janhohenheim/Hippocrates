@@ -12,7 +12,7 @@ Neuron::Neuron(std::vector<Connection> connections) :
 	connections(std::move(connections)) {
 }
 
-Neuron::Neuron(std::string json) {
+Neuron::Neuron(const std::string& json) {
 	jsmn_parser parser;
 	jsmn_init(&parser);
 	jsmntok_t tokens[256];
