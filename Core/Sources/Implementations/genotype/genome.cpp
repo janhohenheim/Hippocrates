@@ -95,7 +95,7 @@ auto Genome::DoesContainGene(const Gene& gene) const -> bool {
 
 auto Genome::GetJSON() const -> std::string {
 	std::string s("{");
-	s += ",\"inputCount\":";
+	s += "\"inputCount\":";
 	s += std::to_string(inputCount);
 	s += ",\"outputCount\":";
 	s += std::to_string(outputCount);
