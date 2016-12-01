@@ -30,8 +30,8 @@ public:
 	explicit Neuron(std::string json);
 	~Neuron() = default;
 
-	auto operator=(const Neuron& other) -> Neuron& = default;
-	auto operator=(Neuron&& other) -> Neuron& = default;
+	auto operator=(const Neuron& other)&-> Neuron& = default;
+	auto operator=(Neuron&& other)& -> Neuron& = default;
 
 	auto SetInput(Type::neuron_value_t input) -> void;
 	auto GetConnections() const -> const std::vector<Connection>& { return connections; }

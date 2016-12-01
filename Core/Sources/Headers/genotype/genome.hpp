@@ -25,8 +25,8 @@ public:
 
 	~Genome() = default;
 
-	auto operator=(const Genome& other)->Genome& = default;
-	auto operator=(Genome&& other)->Genome& = default;
+	auto operator=(const Genome& other)&->Genome& = default;
+	auto operator=(Genome&& other)&->Genome& = default;
 
 	auto operator[](std::size_t index) const -> const Gene& { return GetGeneAt(index); }
 	auto operator[](std::size_t index) -> Gene&	{ return GetGeneAt(index); }

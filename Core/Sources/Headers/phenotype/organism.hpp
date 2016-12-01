@@ -22,8 +22,8 @@ public:
 	Organism(Organism&& other) = default;
 	~Organism() = default;
 
-	auto operator=(const Organism& other) -> Organism& = default;
-	auto operator=(Organism&& other) -> Organism& = default;
+	auto operator=(const Organism& other)&-> Organism& = default;
+	auto operator=(Organism&& other)&-> Organism& = default;
 
 	auto Reset() -> void { body->Reset(); }
 	auto Update() -> void;

@@ -24,24 +24,37 @@ namespace Hippocrates::Utility {
 	template<typename T>
 	class FillableRef {
 	public:
-		FillableRef(const T& ref) : isConstRef{ true }, asPointer{ &ref } {}
+		FillableRef(const T& ref) : asConstPointer {&ref} {}
 		FillableRef(T& ref) : asPointer{ &ref } {}
-		FillableRef(T&& value) : asValue{ std::forward<T>(value) } {}
+		FillableRef(T&& value) : asValue( std::move(value) ) {}
+		FillableRef(const T&& value) = delete
+
+        FillableRef& operator=(const FillableRef&)& = default;
+		FillableRef& operator= (FillableRef&&)& = default;
+		FillableRef& operator= (const FillableRef&&)& = delete;
 
 		const auto& operator*() const { return Get(); }
 		auto& operator*() { return Get(); }
 
 		const auto& Get() const {
-			if (isConstRef)
-				throw const_error("");
+			if (asConstPointer)
+			    return *asConstPointer;
 			return const_cast<FillableRef*>(this)->Get();
 		}
-		auto& Get() { return asValue ? asValue.value() : *asPointer; }
+		auto& Get() { 
+            if (asValue)
+                return asValue.value();
+            if (asPointer)
+                return *asPointer;
+            if (asConstPointer)
+			    throw const_error("Tried to get non const reference from FillableRef containing a const value");
+            throw std::runtime_error("Tried to get value out of empty FillableRef");
+		}
 
 	private:
 		OPTIONAL<T> asValue;
-		bool isConstRef = false;
 		T* asPointer = nullptr;
+		const T* asConstPointer = nullptr;
 	};
 
 }

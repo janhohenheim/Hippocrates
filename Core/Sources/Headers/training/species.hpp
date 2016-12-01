@@ -19,7 +19,7 @@ public:
 	Species(Species&& other) = default;
 	~Species() = default;
 
-	auto operator=(Species& other) & -> Species& = default;
+	auto operator=(const Species& other) & -> Species& = default;
 	auto operator=(Species&& other) & -> Species& = default;
 
 	auto AddOrganism(Phenotype::Organism&& organism) -> void;

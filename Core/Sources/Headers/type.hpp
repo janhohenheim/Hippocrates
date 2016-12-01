@@ -46,18 +46,18 @@ namespace Hippocrates::Type {
 #endif
 
 #ifdef HIPPOCRATES_HAS_FILESYSTEM 
-	namespace Filesystem = ::std::filesystem;
+	namespace Filesystem = std::filesystem;
 #elif defined HIPPOCRATES_HAS_EXPERIMENTAL_FILESYSTEM
-	namespace Filesystem = ::std::experimental::filesystem;
+	namespace Filesystem = std::experimental::filesystem;
 #else 
 	static_assert(false, "filesystem TS not found");
 #endif
 
 #ifdef HIPPOCRATES_HAS_ANY 
-	using Any = ::std::any;
+	using Any = std::any;
 	#define HIPPOCRATES_ANY_CAST std::any_cast
 #elif defined HIPPOCRATES_HAS_EXPERIMENTAL_ANY
-	using Any = ::std::experimental::any;
+	using Any = std::experimental::any;
 	#define HIPPOCRATES_ANY_CAST std::experimental::any_cast
 #else 
 	static_assert(false, "any TS not found");
@@ -66,7 +66,7 @@ namespace Hippocrates::Type {
 
 using connection_weight_t = float;
 using neuron_value_t = float;
-using neuron_values_t = ::std::vector<neuron_value_t>;
+using neuron_values_t = std::vector<neuron_value_t>;
 using fitness_t = double;
 
 using file_string_t = Filesystem::path::string_type;

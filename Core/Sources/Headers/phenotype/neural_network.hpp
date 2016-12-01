@@ -25,8 +25,8 @@ public:
 	NeuralNetwork(NeuralNetwork&& other) = default;
 	virtual ~NeuralNetwork() = default;
 
-	auto operator= (const NeuralNetwork& other) -> NeuralNetwork&;
-	auto operator= (NeuralNetwork&& other) -> NeuralNetwork& = default;
+	auto operator= (const NeuralNetwork& other)&-> NeuralNetwork&;
+	auto operator= (NeuralNetwork&& other)&-> NeuralNetwork& = default;
 
 	auto GetGenome() const -> const Genotype::Genome&{ return genome; }
 	auto GetOutputsUsingInputs(Type::neuron_values_t inputs) -> Type::neuron_values_t;

@@ -60,7 +60,7 @@ NeuralNetwork::NeuralNetwork(const NeuralNetwork& other) :
 	BuildNetworkFromGenes();
 }
 
-auto NeuralNetwork::operator=(const NeuralNetwork& other) -> NeuralNetwork& {
+auto NeuralNetwork::operator=(const NeuralNetwork& other)& -> NeuralNetwork& {
 	genome = other.genome;
 	neurons.clear();
 	neurons.reserve(other.neurons.size());
