@@ -101,6 +101,12 @@
     <ClInclude Include="Sources\Headers\utility\fillable_ref.hpp">
       <Filter>Headers\utility</Filter>
     </ClInclude>
+    <ClInclude Include="Sources\Headers\phenotype\activation_functor.h">
+      <Filter>Headers\phenotype</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Headers\utility\interface.h">
+      <Filter>Headers\utility</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Sources\Implementations\genotype\gene.cpp">

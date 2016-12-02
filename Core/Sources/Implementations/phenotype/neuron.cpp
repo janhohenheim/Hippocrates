@@ -46,13 +46,13 @@ auto Neuron::RequestDataAndGetActionPotential() -> Type::neuron_value_t {
 			incomingPotentials += in.neuron->lastActionPotential * in.weight;
 		}
 	}
-	lastActionPotential = sigmoid(incomingPotentials);
-	return lastActionPotential;
+	return lastActionPotential = (*activationFunctor)(incomingPotentials);
 }
 
-auto Neuron::sigmoid(Type::neuron_value_t d) -> Type::neuron_value_t {
-	return tanh(d);
+auto Neuron::GetActivationFunctorUsed()->std::unique_ptr<IActivationFunctor> {
+    return std::make_unique<ActivationFunctor::Tanh>();
 }
+
 
 auto Neuron::SetInput(Type::neuron_value_t input) -> void {
 	lastActionPotential = input;

@@ -2,7 +2,9 @@
 #include <cstddef>
 #include <vector>
 #include <string>
+#include <memory>
 
+#include "activation_functor.h"
 #include "type.hpp"
 
 namespace Hippocrates::Phenotype {
@@ -21,6 +23,7 @@ private:
 	std::vector<Connection> connections;
 	Type::neuron_value_t lastActionPotential = 0.0f;
 	std::size_t layer = 0U;
+    std::unique_ptr<const IActivationFunctor> activationFunctor = GetActivationFunctorUsed();
 
 public:
 	Neuron() = default;
@@ -42,8 +45,8 @@ public:
 	auto Reset() -> void;
 
 private:
+	static auto GetActivationFunctorUsed() -> std::unique_ptr<IActivationFunctor>;
 	auto AddConnection(Connection connection) -> void;
-	static auto sigmoid(Type::neuron_value_t d) ->Type::neuron_value_t;
 };
 
 }

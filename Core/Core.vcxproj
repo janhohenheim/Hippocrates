@@ -135,6 +135,7 @@
     <ClInclude Include="Sources\Headers\body\supervised_learning.hpp" />
     <ClInclude Include="Sources\Headers\genotype\gene.hpp" />
     <ClInclude Include="Sources\Headers\genotype\genome.hpp" />
+    <ClInclude Include="Sources\Headers\phenotype\activation_functor.h" />
     <ClInclude Include="Sources\Headers\phenotype\neural_network.hpp" />
     <ClInclude Include="Sources\Headers\phenotype\neuron.hpp" />
     <ClInclude Include="Sources\Headers\phenotype\organism.hpp" />
@@ -148,6 +149,7 @@
     <ClInclude Include="Sources\Headers\training\parameters.hpp" />
     <ClInclude Include="Sources\Headers\type.hpp" />
     <ClInclude Include="Sources\Headers\utility\fillable_ref.hpp" />
+    <ClInclude Include="Sources\Headers\utility\interface.h" />
     <ClInclude Include="Sources\Headers\utility\jsmn.h" />
     <ClInclude Include="Sources\Headers\utility\logger.hpp" />
     <ClInclude Include="Sources\Headers\utility\random.hpp" />
