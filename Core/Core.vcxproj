@@ -135,7 +135,9 @@
     <ClInclude Include="Sources\Headers\body\supervised_learning.hpp" />
     <ClInclude Include="Sources\Headers\genotype\gene.hpp" />
     <ClInclude Include="Sources\Headers\genotype\genome.hpp" />
-    <ClInclude Include="Sources\Headers\phenotype\activation_functor.h" />
+    <ClInclude Include="Sources\Headers\phenotype\activation_function\activation_function.h" />
+    <ClInclude Include="Sources\Headers\phenotype\activation_function\sigmoid.h" />
+    <ClInclude Include="Sources\Headers\phenotype\activation_function\tanh.h" />
     <ClInclude Include="Sources\Headers\phenotype\neural_network.hpp" />
     <ClInclude Include="Sources\Headers\phenotype\neuron.hpp" />
     <ClInclude Include="Sources\Headers\phenotype\organism.hpp" />

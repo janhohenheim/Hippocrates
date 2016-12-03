@@ -4,7 +4,7 @@
 #include <string>
 #include <memory>
 
-#include "activation_functor.h"
+#include "activation_function\activation_function.h"
 #include "type.hpp"
 
 namespace Hippocrates::Phenotype {
@@ -23,7 +23,7 @@ private:
 	std::vector<Connection> connections;
 	Type::neuron_value_t lastActionPotential = 0.0f;
 	std::size_t layer = 0U;
-    std::unique_ptr<const IActivationFunctor> activationFunctor = GetActivationFunctorUsed();
+    std::unique_ptr<const ActivationFunction::IActivationFunction> activationFunction = GetActivationFunctionUsed();
 
 public:
 	Neuron() = default;
@@ -45,7 +45,7 @@ public:
 	auto Reset() -> void;
 
 private:
-	static auto GetActivationFunctorUsed() -> std::unique_ptr<IActivationFunctor>;
+	static auto GetActivationFunctionUsed() -> std::unique_ptr<ActivationFunction::IActivationFunction>;
 	auto AddConnection(Connection connection) -> void;
 };
 

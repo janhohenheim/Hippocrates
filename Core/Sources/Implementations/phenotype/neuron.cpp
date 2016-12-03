@@ -1,9 +1,9 @@
-#include <cmath>
 #include <stdexcept>
 
 #include "phenotype/neuron.hpp"
 #include "utility/jsmn.h"
 #include "utility/random.hpp"
+#include "phenotype\activation_function\tanh.h"
 
 using namespace Hippocrates;
 using namespace Hippocrates::Phenotype;
@@ -46,11 +46,11 @@ auto Neuron::RequestDataAndGetActionPotential() -> Type::neuron_value_t {
 			incomingPotentials += in.neuron->lastActionPotential * in.weight;
 		}
 	}
-	return lastActionPotential = (*activationFunctor)(incomingPotentials);
+	return lastActionPotential = (*activationFunction)(incomingPotentials);
 }
 
-auto Neuron::GetActivationFunctorUsed()->std::unique_ptr<IActivationFunctor> {
-    return std::make_unique<ActivationFunctor::Tanh>();
+auto Neuron::GetActivationFunctionUsed()->std::unique_ptr<ActivationFunction::IActivationFunction> {
+    return std::make_unique<ActivationFunction::Tanh>();
 }
 
 
