@@ -19,7 +19,7 @@ public:
 
 	auto Reset() -> void override { currSetIndex = 0; error = 0; };
 	auto Update(const Type::neuron_values_t& networkOutputs) -> void override;
-	auto GetFitness() const -> Type::fitness_t override { return pow(maxError - error, 2); }
+	auto GetFitness() const -> Type::fitness_t override { return std::pow(maxError - error, 2); }
 
 	auto HasFinishedTask() const -> bool override { return currSetIndex == trainingData.GetSize(); };
 	auto ProvideNetworkWithInputs() const-> Type::neuron_values_t override {
@@ -31,7 +31,7 @@ public:
 	auto GetInputCount() const -> std::size_t override { return inputCount; };
 	auto GetOutputCount() const -> std::size_t override { return outputCount; };
 
-	auto GetMaximumFitness() const -> Type::fitness_t override { return pow(maxError - 0, 2); };
+	auto GetMaximumFitness() const -> Type::fitness_t override { return std::pow(maxError - 0, 2); };
 
 private:
 	const Data& trainingData;

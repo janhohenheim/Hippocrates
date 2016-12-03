@@ -4,7 +4,7 @@
 #include <string>
 #include <memory>
 
-#include "activation_function\activation_function.h"
+#include "activation_function/activation_function.hpp"
 #include "type.hpp"
 
 namespace Hippocrates::Phenotype {

@@ -1,5 +1,5 @@
 #pragma once
-#include "utility\interface.h"
+#include "utility/interface.hpp"
 #include "type.hpp"
 
 namespace Hippocrates::Phenotype::ActivationFunction {
