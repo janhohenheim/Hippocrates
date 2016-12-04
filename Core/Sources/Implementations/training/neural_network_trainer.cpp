@@ -8,7 +8,7 @@ auto NeuralNetworkTrainer::TrainUnsupervised(SpeciesManager::Bodies& bodies) -> 
 		logger.CreateLoggingDirs();
 	}
 	species.CreateInitialOrganisms(bodies);
-	species.LetGenerationLive();
+	LetPopulationLive();
 
 	generationsPassed = 0;
 	auto* champ = &species.GetFittestOrganism();
@@ -21,12 +21,22 @@ auto NeuralNetworkTrainer::TrainUnsupervised(SpeciesManager::Bodies& bodies) -> 
 
 auto NeuralNetworkTrainer::TrainGenerationAndLogUsingBodies(SpeciesManager::Bodies& bodies) -> void {
 	species.Repopulate(bodies);
-	species.LetGenerationLive();
+	LetPopulationLive();
 	generationsPassed++;
 	if (loggingEnabled) {
 		logger.LogGeneration(generationsPassed, GetJSON());
 		logger.LogMetadata(species.GetFittestOrganism().GetOrCalculateRawFitness());
 	}
+}
+
+auto Hippocrates::Training::NeuralNetworkTrainer::LetPopulationLive() -> void {
+	std::size_t numberOfTimesToFinishTask = 1;
+
+	if (Training::GetParameters().structure.allowRecurrentConnections) 
+		numberOfTimesToFinishTask = Training::GetParameters().structure.memoryResetsBeforeTotalReset;
+
+	for (std::size_t i = 0; i < numberOfTimesToFinishTask; i++)
+		species.LetGenerationLive();
 }
 
 auto NeuralNetworkTrainer::GetJSON() const -> std::string {
