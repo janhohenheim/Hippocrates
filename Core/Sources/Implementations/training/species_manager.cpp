@@ -153,14 +153,17 @@ auto SpeciesManager::SortSpeciesIfNeeded() -> void {
 	}
 }
 
-auto SpeciesManager::LetGenerationLive() -> void {
-	ResetPopulationToTeachableState();
-	for (auto& sp : species) 
-		sp.LetPopulationLive();
+auto SpeciesManager::Update() -> void {
+	didLastUpdateFinishTask = true;
+	for (auto& sp : species) {
+		sp.Update();
+		if (didLastUpdateFinishTask)
+			didLastUpdateFinishTask = sp.DidLastUpdateFinishTask();
+	}
 	areSpeciesSortedByFitness = false;
 }
 
-auto SpeciesManager::ResetPopulationToTeachableState() -> void {
+auto SpeciesManager::Reset() -> void {
 	for (auto& sp : species) 
-		sp.ResetToTeachableState();
+		sp.Reset();
 }

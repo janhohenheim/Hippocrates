@@ -12,6 +12,7 @@ private:
 	mutable bool isSortedByFitness = false;
 	std::size_t numberOfStagnantGenerations = 0;
 	Type::fitness_t fitnessHighscore = 0;
+	bool didLastUpdateFinishTask = false;
 
 public:
 	explicit Species(Phenotype::Organism representative);
@@ -32,9 +33,10 @@ public:
 	auto IsStagnant() const -> bool;
 	auto GetOffspringCount(Type::fitness_t averageFitness) const -> std::size_t;
 
-	auto LetPopulationLive() -> void;
+	auto Update() -> void;
+	auto Reset() -> void;
+	auto DidLastUpdateFinishTask() const { return didLastUpdateFinishTask; }
 
-	auto ResetToTeachableState() -> void;
 	auto SetPopulationsFitnessModifier() -> void;
 	auto ClearPopulation() -> void;
 	auto RemoveWorst() -> void;
