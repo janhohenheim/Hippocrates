@@ -166,4 +166,5 @@ auto SpeciesManager::Update() -> void {
 auto SpeciesManager::Reset() -> void {
 	for (auto& sp : species) 
 		sp.Reset();
+	didLastUpdateFinishTask = false;
 }
