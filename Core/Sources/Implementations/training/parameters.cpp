@@ -18,11 +18,16 @@ Parameters::Parameters(const std::string& json) {
 		auto value = json.substr(tokens[i + 1].start, tokens[i + 1].end - tokens[i + 1].start);
 
 		if (key == "minWeight") {
-			ranges.minWeight = stof(value);
+			neural.minWeight = stof(value);
 		} else
 		if (key == "maxWeight") {
-			ranges.maxWeight = stof(value);
+			neural.maxWeight = stof(value);
 		} else
+		if (key == "activationFunction"){
+			std::size_t asNr;
+			HIPPOCRATES_SSCANF(value.c_str(), "%zu", &asNr);
+			neural.activationFunction = static_cast<ActivationFunction::PossibleActivationFunctions>(asNr);
+		}
 		if (key == "chanceForWeightMutation") {
 			mutation.chanceForWeightMutation = stof(value);
 		} else
@@ -78,12 +83,14 @@ auto Parameters::GetJSON() const -> std::string {
 	
 	std::string s("{");
 
-	s += "\"ranges\":";
+	s += "\"neural\":";
 	s += "{";
 	s += "\"minWeight\":";
-	s += std::to_string(ranges.minWeight);
+	s += std::to_string(neural.minWeight);
 	s += ",\"maxWeight\":";
-	s += std::to_string(ranges.maxWeight);
+	s += std::to_string(neural.maxWeight);
+	s += ",\"activationFunction\":";
+	s += std::to_string(static_cast<std::size_t>(neural.activationFunction));
 	s += "}";
 
 	s += ",\"mutation\":";

@@ -348,8 +348,8 @@ auto NeuralNetwork::PerturbWeightAt(std::size_t index) -> void {
 	constexpr auto perturbRange = 2.5f;
 	auto perturbance = Utility::Random::Number(-perturbRange, perturbRange);
 	genome[index].weight += perturbance;
-	const auto min = Training::GetParameters().ranges.minWeight;
-	const auto max = Training::GetParameters().ranges.maxWeight;
+	const auto min = Training::GetParameters().neural.minWeight;
+	const auto max = Training::GetParameters().neural.maxWeight;
 	// In C++17
 	// std::clamp(genome[index].weight, min, max));
 	if (genome[index].weight < min) {

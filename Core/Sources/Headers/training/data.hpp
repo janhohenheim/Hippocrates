@@ -48,7 +48,7 @@ public:
 		Set set = sets[index];
 		for (auto& in : set.input) {
 			const auto normalIn = Normalize(in, lowestInput, highestInput);
-			const auto scaledIn = ScaleInRange(normalIn, GetParameters().ranges.minWeight, GetParameters().ranges.maxWeight);
+			const auto scaledIn = ScaleInRange(normalIn, GetParameters().neural.minWeight, GetParameters().neural.maxWeight);
 			in = scaledIn;
 		}
 		return set;

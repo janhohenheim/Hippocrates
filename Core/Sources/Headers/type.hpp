@@ -36,7 +36,6 @@
 	#endif
 #endif 
 
-
 namespace Hippocrates::Type {
 
 #ifdef _WIN32
