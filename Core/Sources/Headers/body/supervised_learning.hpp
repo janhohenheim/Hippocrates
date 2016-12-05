@@ -52,7 +52,7 @@ private:
 template <typename Classification, std::size_t ClassificationCount>
 auto SupervisedLearning<Classification, ClassificationCount>::Update(const Type::neuron_values_t& networkOutputs) -> void {
 	const auto maxOutput = std::max_element(networkOutputs.begin(), networkOutputs.end());
-	const auto outputIndex = std::distance(networkOutputs.begin(), maxOutput);
+	const auto outputIndex = static_cast<size_t>(std::distance(networkOutputs.begin(), maxOutput));
 	const auto classificationAsNr = static_cast<size_t>(trainingData[currSetIndex].classification);
 
 	if (outputIndex == classificationAsNr)
