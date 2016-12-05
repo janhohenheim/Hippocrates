@@ -47,7 +47,7 @@ auto SpeciesManager::Repopulate(Bodies& bodies) -> void {
 		s.RemoveWorst();
 
 		if (offspringCount >= 1 
-		&&	s.GetSize() > GetParameters().reproduction.minSpeciesSizeForChampConservation) {
+		&& s.GetSize() > GetParameters().reproduction.minSpeciesSizeForChampConservation) {
 			CloneChamp(s);
 			offspringCount--;
 		}

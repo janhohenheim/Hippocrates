@@ -30,7 +30,7 @@ public:
 	auto SetFitnessModifier(Type::fitness_t factor) -> void { fitnessModifier = factor; }
 	auto GetOrCalculateFitness() const ->Type::fitness_t;
 	auto GetOrCalculateRawFitness() const ->Type::fitness_t;
-	auto GetMaxFitness() const { return body->GetMaximumFitness(); }
+	auto GetMaximumFitness() const { return body->GetMaximumFitness(); }
 	auto BreedWith(const Organism& partner, Training::InnovationCacher& currGenerationInnovations) const -> NeuralNetwork;
 	auto GetGenome() const -> const Genotype::Genome&{ return network.GetGenome(); }
 	auto GetNeuralNetwork() const -> const NeuralNetwork& {return network; }
