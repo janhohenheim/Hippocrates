@@ -11,10 +11,10 @@ enum class Evenness {
 
 int main() {
 	Training::Data<Evenness> data;
-	data.AddSet( { 1.0f },  Evenness::Uneven );
-	data.AddSet( { 2.0f },  Evenness::Even );
-	data.AddSet( { 3.0f },  Evenness::Uneven );
-	data.AddSet( { 4.0f },  Evenness::Even );
+	data.AddSet( { 1.0f }, Evenness::Uneven );
+	data.AddSet( { 2.0f }, Evenness::Even );
+	data.AddSet( { 3.0f }, Evenness::Uneven );
+	data.AddSet( { 4.0f }, Evenness::Even );
 
 	Training::NeuralNetworkTrainer trainer;
 	std::chrono::seconds timeout(45);

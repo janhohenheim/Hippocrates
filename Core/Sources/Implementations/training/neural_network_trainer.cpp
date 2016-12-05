@@ -12,7 +12,7 @@ auto NeuralNetworkTrainer::TrainUnsupervised(SpeciesManager::Bodies& bodies) -> 
 
 	generationsPassed = 0;
 	auto* champ = &species.GetFittestOrganism();
-	while (champ->GetOrCalculateRawFitness() < (champ->GetMaxFitness() - 1e-6)) {
+	while (champ->GetOrCalculateRawFitness() < (champ->GetMaximumFitness() - 1e-6)) {
 		TrainGenerationAndLogUsingBodies(bodies);
 		champ = &species.GetFittestOrganism();
 	}

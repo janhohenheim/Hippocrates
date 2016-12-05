@@ -16,6 +16,7 @@ public:
 	auto GetMinOutput() const -> Type::neuron_value_t override {
 		return -1;
 	}
+
 	auto GetMaxOutput() const -> Type::neuron_value_t override {
 		return 1;
 	}
