@@ -50,7 +50,7 @@ auto Neuron::RequestDataAndGetActionPotential() -> Type::neuron_value_t {
 }
 
 auto Neuron::GetActivationFunctionUsed()->std::unique_ptr<ActivationFunction::IActivationFunction> {
-    return std::make_unique<ActivationFunction::Tanh>();
+	return std::make_unique<ActivationFunction::Tanh>();
 }
 
 
