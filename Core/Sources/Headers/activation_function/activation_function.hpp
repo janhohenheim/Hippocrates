@@ -2,7 +2,7 @@
 #include "utility/interface.hpp"
 #include "type.hpp"
 
-namespace Hippocrates::Phenotype::ActivationFunction {
+namespace Hippocrates::ActivationFunction {
 
 class IActivationFunction : public Utility::Interface {
 public:

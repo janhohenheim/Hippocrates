@@ -106,6 +106,8 @@
       <TreatWarningAsError>true</TreatWarningAsError>
       <DiagnosticsFormat>Caret</DiagnosticsFormat>
       <AdditionalIncludeDirectories>$(SolutionDir)Core\Sources\Headers</AdditionalIncludeDirectories>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -124,6 +126,8 @@
       <TreatWarningAsError>true</TreatWarningAsError>
       <DiagnosticsFormat>Caret</DiagnosticsFormat>
       <AdditionalIncludeDirectories>$(SolutionDir)Core\Sources\Headers</AdditionalIncludeDirectories>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -131,13 +135,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Sources\Headers\activation_function\activation_function.hpp" />
+    <ClInclude Include="Sources\Headers\activation_function\activation_function_factory.hpp" />
+    <ClInclude Include="Sources\Headers\activation_function\fast_sigmoid.hpp" />
+    <ClInclude Include="Sources\Headers\activation_function\possible_activation_functions.hpp" />
+    <ClInclude Include="Sources\Headers\activation_function\tanh.hpp" />
     <ClInclude Include="Sources\Headers\body\body.hpp" />
     <ClInclude Include="Sources\Headers\body\supervised_learning.hpp" />
     <ClInclude Include="Sources\Headers\genotype\gene.hpp" />
     <ClInclude Include="Sources\Headers\genotype\genome.hpp" />
-    <ClInclude Include="Sources\Headers\phenotype\activation_function\activation_function.h" />
-    <ClInclude Include="Sources\Headers\phenotype\activation_function\sigmoid.h" />
-    <ClInclude Include="Sources\Headers\phenotype\activation_function\tanh.h" />
     <ClInclude Include="Sources\Headers\phenotype\neural_network.hpp" />
     <ClInclude Include="Sources\Headers\phenotype\neuron.hpp" />
     <ClInclude Include="Sources\Headers\phenotype\organism.hpp" />

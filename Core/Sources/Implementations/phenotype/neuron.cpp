@@ -46,11 +46,7 @@ auto Neuron::RequestDataAndGetActionPotential() -> Type::neuron_value_t {
 			incomingPotentials += in.neuron->lastActionPotential * in.weight;
 		}
 	}
-	return lastActionPotential = (*activationFunction)(incomingPotentials);
-}
-
-auto Neuron::GetActivationFunctionUsed()->std::unique_ptr<ActivationFunction::IActivationFunction> {
-	return std::make_unique<ActivationFunction::Tanh>();
+	return lastActionPotential = activationFunction(incomingPotentials);
 }
 
 

@@ -39,7 +39,7 @@
     <Filter Include="Implementations\genotype">
       <UniqueIdentifier>{938f9753-f15f-40e8-b911-9644cba4c10a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Headers\phenotype\activation_function">
+    <Filter Include="Headers\activation_function">
       <UniqueIdentifier>{2f32d6cc-a104-46b9-bcc8-7bc35803e9ea}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -107,14 +107,20 @@
     <ClInclude Include="Sources\Headers\utility\interface.h">
       <Filter>Headers\utility</Filter>
     </ClInclude>
-    <ClInclude Include="Sources\Headers\phenotype\activation_function\activation_function.h">
-      <Filter>Headers\phenotype\activation_function</Filter>
+    <ClInclude Include="Sources\Headers\activation_function\activation_function.hpp">
+      <Filter>Headers\activation_function</Filter>
     </ClInclude>
-    <ClInclude Include="Sources\Headers\phenotype\activation_function\sigmoid.h">
-      <Filter>Headers\phenotype\activation_function</Filter>
+    <ClInclude Include="Sources\Headers\activation_function\activation_function_factory.hpp">
+      <Filter>Headers\activation_function</Filter>
     </ClInclude>
-    <ClInclude Include="Sources\Headers\phenotype\activation_function\tanh.h">
-      <Filter>Headers\phenotype\activation_function</Filter>
+    <ClInclude Include="Sources\Headers\activation_function\fast_sigmoid.hpp">
+      <Filter>Headers\activation_function</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Headers\activation_function\possible_activation_functions.hpp">
+      <Filter>Headers\activation_function</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Headers\activation_function\tanh.hpp">
+      <Filter>Headers\activation_function</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

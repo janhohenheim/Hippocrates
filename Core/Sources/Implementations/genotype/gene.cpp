@@ -56,7 +56,7 @@ auto Gene::operator==(const Gene & other) const -> bool
 }
 
 auto Gene::SetRandomWeight() -> void {
-	weight = Utility::Random::Number(Training::GetParameters().ranges.minWeight, Training::GetParameters().ranges.maxWeight);
+	weight = Utility::Random::Number(Training::GetParameters().neural.minWeight, Training::GetParameters().neural.maxWeight);
 }
 
 auto Gene::GetJSON() const -> std::string {
