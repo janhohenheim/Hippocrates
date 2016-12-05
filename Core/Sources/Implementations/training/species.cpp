@@ -93,18 +93,22 @@ auto Species::GetOffspringCount(Type::fitness_t averageFitness) const -> std::si
 	return offspringCount;
 }
 
-auto Species::LetPopulationLive() -> void {
+auto Species::Update() -> void {
+	didLastUpdateFinishTask = true;
 	for (auto& organism : population) {
 		organism.Update();
+		if (didLastUpdateFinishTask)
+			didLastUpdateFinishTask = organism.HasFinishedTask();
 	}
 
 	isSortedByFitness = false;
 }
 
-auto Species::ResetToTeachableState() -> void {
+auto Species::Reset() -> void {
 	for (auto& organism : population) {
 		organism.Reset();
 	}
+	didLastUpdateFinishTask = false;
 }
 
 auto Species::GetFittestOrganism() const -> const Phenotype::Organism& {

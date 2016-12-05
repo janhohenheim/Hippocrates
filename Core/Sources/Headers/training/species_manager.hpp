@@ -9,6 +9,7 @@ private:
 	mutable bool areSpeciesSortedByFitness = false;
 	std::vector<Species> species;
 	InnovationCacher currGenerationInnovations;
+	bool didLastUpdateFinishTask = false;
 
 public:
 	using Bodies = std::vector<std::reference_wrapper<Body::IBody>>;
@@ -21,7 +22,9 @@ public:
 	auto GetFittestSpecies() -> const Species &;
 	auto GetFittestOrganism() -> const Phenotype::Organism&;
 
-	auto LetGenerationLive() -> void;
+	auto Reset() -> void;
+	auto Update() -> void;
+	auto DidLastUpdateFinishTask() const { return didLastUpdateFinishTask; }
 
 	auto GetSpeciesCount() const { return species.size(); }
 	auto GetPopulationCount() const -> std::size_t;
@@ -32,7 +35,6 @@ public:
 	auto end() const { return species.end(); }
 
 private:
-	auto ResetPopulationToTeachableState() -> void;
 	auto FillOrganismIntoSpecies(Phenotype::Organism&& organism) -> void;
 	auto DeleteEmptySpecies() -> void;
 	auto SortSpeciesIfNeeded() -> void;

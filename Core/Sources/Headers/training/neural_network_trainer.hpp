@@ -34,6 +34,7 @@ public:
 
 private:
 	auto TrainGenerationAndLogUsingBodies(SpeciesManager::Bodies& bodies) -> void;
+	auto UpdateEntireGeneration() -> void;
 };
 
 template <typename Classification, std::size_t ClassificationCount>
