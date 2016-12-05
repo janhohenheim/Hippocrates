@@ -419,7 +419,7 @@ auto NeuralNetwork::CategorizeNeuronBranchIntoLayers(Neuron& currNode, std::size
 }
 
 auto NeuralNetwork::GetRandomEnabledGene() -> Genotype::Gene& {
-	size_t num = Utility::Random::Number(0ULL, genome.GetGeneCount() - 1ULL);
+	size_t num = Utility::Random::Number(size_t(0), genome.GetGeneCount() - size_t(1));
 	auto randGene = genome.begin();
 	randGene += num;
 	while (randGene != genome.end() && !randGene->isEnabled) {
