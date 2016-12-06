@@ -4,8 +4,7 @@
 using namespace Convolutional;
 using namespace Convolutional::InputData;
 
-Convolutional::InputData::Image::Image(const char * filename) throw(std::exception)
-{
+Image::Image(const char * filename) {
 	image.read(filename);
 }
 
@@ -19,7 +18,7 @@ auto Image::GetMultiDimensionalMatrix() const -> MultiMatrix {
 	Matrix b{ imageSize };
 	Matrix a{ imageSize };
 
-	Magick::PixelPacket *pixels = const_cast<Magick::Image*>(&image)->getPixels(0, 0, w, h);
+	auto *pixels = const_cast<Magick::Image*>(&image)->getPixels(0, 0, w, h);
 
 	for(std::size_t i = 0; i < w; i++) {
 		for(std::size_t j = 0; j < h; j++) {

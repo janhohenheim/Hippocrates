@@ -12,7 +12,7 @@ private:
 public:
 	using Type = std::nullptr_t;
 
-	Image(const char* filename) throw(std::exception);
+	Image(const char* filename); 
 	auto GetMultiDimensionalMatrix() const -> MultiMatrix override;
 };
 
