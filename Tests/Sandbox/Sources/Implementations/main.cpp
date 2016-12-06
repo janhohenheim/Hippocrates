@@ -24,7 +24,7 @@ auto GetTrainigData() {
 }
 
 int main() {
-	Convolutional::InputData::Image image("image.png");
+	Convolutional::InputData::Image image("../../image.png");
 
 	auto trainingData(GetTrainigData());
 	Layer::Layers layers {
