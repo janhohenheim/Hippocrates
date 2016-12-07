@@ -4,8 +4,8 @@
 #include <algorithm>
 
 #include "multi_matrix.hpp"
-#include "Layer/layers.hpp"
 #include "multi_matrix_factory.hpp"
+#include "Layer/layers.hpp"
 #include "Layer/filter.hpp"
 
 namespace Convolutional {
@@ -37,12 +37,11 @@ namespace Convolutional {
 			std::vector<Matrix::element_t> outputs;
 			outputs.reserve(processedMultiMatrix.GetDimensionCount());
 			for (const auto& matrix : processedMultiMatrix) {
-				outputs.push_back(matrix.ElementAt({0,0 }));
+				outputs.push_back(matrix.ElementAt({ 0, 0 }));
 			}
 			return outputs;
 		}
 
-	private:
 		Layer::Layers layers;
 	};
 

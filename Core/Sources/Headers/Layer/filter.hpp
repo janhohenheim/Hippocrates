@@ -20,6 +20,9 @@ public:
 
 	auto Clone() const noexcept -> std::unique_ptr<ILayer> { return std::make_unique<Filter>(*this); }
 
+public:
+	std::vector<double> weights;
+
 private:
 	static auto sigmoid(Matrix::element_t n) -> double;
 
@@ -29,7 +32,6 @@ private:
 	Matrix::Size stride;
 
 	double bias = 0;
-	std::vector<double> weights;
 };
 
 }

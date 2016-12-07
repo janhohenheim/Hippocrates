@@ -16,7 +16,12 @@ namespace Convolutional::Learning {
 			:
 			neuralNetworks{ neuralNetworks.begin(), neuralNetworks.end() },
 			data{data}	{}
+        ILearningMethod(const ILearningMethod &) = default;
+        ILearningMethod(ILearningMethod &&) = default;
 		virtual ~ILearningMethod() = default;
+
+        ILearningMethod & operator=(const ILearningMethod &) & = default;
+        ILearningMethod & operator=(ILearningMethod &&) & = default;
 		
 
 		virtual auto IsFinished() const -> bool = 0;
