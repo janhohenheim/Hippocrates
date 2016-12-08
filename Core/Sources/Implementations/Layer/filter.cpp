@@ -3,7 +3,6 @@
 #include <vector>
 
 #include "Layer/filter.hpp"
-#include "Utility/utility.hpp"
 
 using namespace Convolutional;
 using namespace Convolutional::Layer;
