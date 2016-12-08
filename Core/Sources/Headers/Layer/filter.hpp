@@ -38,7 +38,7 @@ public:
 	auto Clone() const noexcept -> std::unique_ptr<ILayer> { return std::make_unique<Filter>(*this); }
 
 private:
-	auto LazyInitializeWeights(Matrix::Size size, std::size_t dimensionCount) const -> void;
+	auto LazyInitializeWeights(Matrix::Size size, std::size_t dimensionCount) -> void;
 
 	static auto sigmoid(Matrix::element_t n) -> double;
 

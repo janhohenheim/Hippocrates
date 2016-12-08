@@ -40,7 +40,7 @@ auto Filter::GetWeights() const -> const MultiMatrix& {
 	return *weights;
 }
 
-auto Filter::LazyInitializeWeights(Matrix::Size size, std::size_t dimensionCount) const -> void {
+auto Filter::LazyInitializeWeights(Matrix::Size size, std::size_t dimensionCount) -> void {
 	if (weights) {
 		return;
 	}
