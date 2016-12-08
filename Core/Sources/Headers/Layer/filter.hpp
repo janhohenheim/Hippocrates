@@ -11,12 +11,17 @@ public:
 	using ILayer::ILayer;
 
 	Filter(Matrix::Size receptiveField = {3, 3},
-			Matrix::Size stride = {1, 1})
-	:	receptiveField(receptiveField),
+		Matrix::Size stride = {1, 1})
+		: receptiveField(receptiveField),
 		stride(stride),
 		bias {Utility::GetRandomNumberBetween(-1.0, 1.0)}
-	{ }
-	Filter(const Filter&) = default;
+	{}
+	Filter(const Filter& other) :
+		receptiveField {other.receptiveField},
+		stride {other.stride}, 
+		bias {other.bias},
+		weights{ std::make_unique<MultiMatrix>(*weights) }
+	{};
 	Filter(Filter&&) = default;
 
 	auto ProcessMultiMatrix(const MultiMatrix & multiMatrix) -> MultiMatrix override;
@@ -39,9 +44,9 @@ private:
 
 	const Matrix::Size receptiveField;
 	const Matrix::Size stride;
-
-	mutable std::unique_ptr<MultiMatrix> weights = nullptr;
 	double bias = 0;
+
+	std::unique_ptr<MultiMatrix> weights = nullptr;
 
 };
 
