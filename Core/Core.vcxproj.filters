@@ -95,6 +95,9 @@
     <ClInclude Include="Sources\Headers\Utility\interface.hpp">
       <Filter>Headers\Utility</Filter>
     </ClInclude>
+    <ClInclude Include="Sources\Headers\Layer\filters.hpp">
+      <Filter>Headers\Layer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Sources\Implementations\InputData\image.cpp">
@@ -126,6 +129,12 @@
     </ClCompile>
     <ClCompile Include="Sources\Implementations\Layer\fully_connected_neural_network.cpp">
       <Filter>Implementations\Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Implementations\Layer\layers.cpp">
+      <Filter>Implementations\Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Headers\Layer\filters.cpp">
+      <Filter>Implementations</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

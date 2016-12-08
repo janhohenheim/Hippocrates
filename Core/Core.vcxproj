@@ -154,6 +154,7 @@
     <ClInclude Include="Sources\Headers\InputData\image.hpp" />
     <ClInclude Include="Sources\Headers\InputData\sentence.hpp" />
     <ClInclude Include="Sources\Headers\Layer\filter.hpp" />
+    <ClInclude Include="Sources\Headers\Layer\filters.hpp" />
     <ClInclude Include="Sources\Headers\Layer\fully_connected_neural_network.hpp" />
     <ClInclude Include="Sources\Headers\Layer\ilayer.hpp" />
     <ClInclude Include="Sources\Headers\Layer\layers.hpp" />
@@ -172,10 +173,12 @@
     <ClInclude Include="Sources\Headers\Utility\utility.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Sources\Headers\Layer\filters.cpp" />
     <ClCompile Include="Sources\Implementations\InputData\image.cpp" />
     <ClCompile Include="Sources\Implementations\InputData\sentence.cpp" />
     <ClCompile Include="Sources\Implementations\Layer\filter.cpp" />
     <ClCompile Include="Sources\Implementations\Layer\fully_connected_neural_network.cpp" />
+    <ClCompile Include="Sources\Implementations\Layer\layers.cpp" />
     <ClCompile Include="Sources\Implementations\Layer\Pooler\max_pooler.cpp" />
     <ClCompile Include="Sources\Implementations\matrix.cpp" />
     <ClCompile Include="Sources\Implementations\multi_matrix.cpp" />

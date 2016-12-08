@@ -14,8 +14,8 @@ auto MaxPooler::ProcessMultiMatrix(const MultiMatrix& multiMatrix) -> MultiMatri
 		const auto stride = GetStride(size);
 		Matrix pooledMatrix(GetSizeAfterPooling(size));
 		auto currPooledElement = pooledMatrix.begin();
-		for (; pos.y < size.height; pos.y += stride.height) {
-			for (; pos.x < size.width; pos.x += stride.width) {
+		for (; pos.y < size.height - receptiveField.height; pos.y += stride.height) {
+			for (; pos.x < size.width - receptiveField.width; pos.x += stride.width) {
 				auto receptedMatrix = submatrix.GetSubmatrix(pos, receptiveField);
 				*currPooledElement = ProcessMatrix(std::move(receptedMatrix));
 				++currPooledElement;

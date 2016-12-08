@@ -44,7 +44,7 @@ private:
 
 	const Matrix::Size receptiveField;
 	const Matrix::Size stride;
-	double bias = 0;
+	Matrix::element_t bias = 0;
 
 	std::unique_ptr<MultiMatrix> weights = nullptr;
 

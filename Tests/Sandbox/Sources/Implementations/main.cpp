@@ -3,6 +3,7 @@
 #include "Learning/learning_method.hpp"
 #include "InputData/image.hpp"
 #include "Layer/fully_connected_neural_network.hpp"
+#include "Layer/filters.hpp"
 
 using namespace Convolutional;
 
@@ -29,7 +30,7 @@ int main() {
 
 	auto trainingData(GetTrainigData());
 	Layer::Layers layers {
-		Layer::Filter{},
+		Layer::Filters{3},
 		Layer::Pooler::MaxPooler{},
 		Layer::FullyConnectedNeuralNetwork{static_cast<std::size_t>(Categories::CategoryCount)}
 	};

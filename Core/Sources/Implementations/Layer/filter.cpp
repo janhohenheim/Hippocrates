@@ -11,27 +11,32 @@ using namespace Convolutional::Layer;
 
 
 auto Filter::ProcessMultiMatrix(const MultiMatrix & multiMatrix) -> MultiMatrix {
-	LazyInitializeWeights(multiMatrix.GetSize(), multiMatrix.GetDimensionCount());
-	/*
-	if (matrix.GetElementCount() != weights->GetElementCount()) {
-		throw std::invalid_argument("Number of weights in filter does not match number of elements in matrix");
-	}
+	const auto origSize = multiMatrix.GetSize();
+	LazyInitializeWeights(origSize, multiMatrix.GetDimensionCount());
 
-	auto featureValue = bias;
-	auto weight = weights->begin();
-	for (const auto& element : matrix) {
-		featureValue += element * (*weight);
-		++weight;
-	}
-	featureValue = sigmoid(featureValue);
+	Matrix filteredMatrix {origSize};
+	auto paddedMM = multiMatrix;
+	//paddedMM.AddZeroPadding(GetZeroPadding(origSize));
 
-	for (auto& element : matrix) {
-		element = featureValue;
+	const auto paddedSize = paddedMM.GetSize();
+	const auto receptiveField = GetReceptiveField(paddedSize);
+	const auto stride = GetStride(paddedSize);
+	Matrix::Position pos;
+	for (; pos.y < paddedSize.height - receptiveField.height; pos.y += stride.height) {
+		for (; pos.x < paddedSize.width - receptiveField.width; pos.x += stride.width) {
+			for (std::size_t dim = 0; weights->GetDimensionCount(); ++dim) {
+				const auto weightSize = weights->GetSize();
+				const auto featureMap = (paddedMM.begin() + dim)->GetSubmatrix(pos, receptiveField);
+				const auto subWeights = *(paddedMM.begin() + dim);
+				for (std::size_t y = 0; weightSize.height; ++y) {
+					for (std::size_t x = 0; weightSize.width; ++x) {
+						filteredMatrix.ElementAt({x, y}) = featureMap.ElementAt({x, y}) * subWeights.ElementAt({x, y});
+					}
+				}
+			}
+		}
 	}
-
-	return matrix;
-	*/
-	return multiMatrix;
+	return MultiMatrix {{filteredMatrix}};
 }
 
 auto Filter::GetWeights() const -> const MultiMatrix& {
