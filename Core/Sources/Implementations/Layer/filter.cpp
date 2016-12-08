@@ -17,12 +17,12 @@ bias{Utility::GetRandomNumberBetween(-1.0, 1.0)} {
 }
 
 
-auto Filter::ProcessMatrix(Matrix::Position position, const Matrix& matrix) const -> Matrix {
+auto Filter::ProcessMatrix(Matrix matrix) const -> Matrix {
 	if (matrix.GetElementCount() != weights.size()) {
 		throw std::invalid_argument("Number of weights in filter does not match number of elements in matrix");
 	}
 
-	Matrix featureMap{matrix.GetSubmatrix(position, receptiveField)};
+	Matrix featureMap{matrix.GetSubmatrix(position, GetReceptiveField(matrix.GetSize()))};
 
 	auto featureValue = bias;
 	auto weight = weights.begin();

@@ -10,10 +10,11 @@ auto ILayer::ProcessMultiMatrix(const MultiMatrix & multiMatrix) const -> MultiM
         Matrix::Position pos;
 		const auto size = submatrix.GetSize();
 		const auto receptiveField = GetReceptiveField(size);
-        for (; pos.y < size.height; pos.y += receptiveField.height) {
-            for (; pos.x < size.width; pos.x += receptiveField.width) {
-                auto processedMatrix = ProcessMatrix(pos, submatrix);
-                dimensions.push_back(std::move(processedMatrix));
+		const auto stride = GetStride(size);
+        for (; pos.y < size.height; pos.y += stride.height) {
+            for (; pos.x < size.width; pos.x += stride.width) {
+				auto receptedMatrix = submatrix.GetSubmatrix(pos, receptiveField);
+                dimensions.push_back(ProcessMatrix(std::move(receptedMatrix)));
             }
         }
     }

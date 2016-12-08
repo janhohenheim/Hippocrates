@@ -89,6 +89,9 @@
     <ClInclude Include="Sources\Headers\training_data.hpp">
       <Filter>Headers</Filter>
     </ClInclude>
+    <ClInclude Include="Sources\Headers\Layer\fully_connected_neural_network.hpp">
+      <Filter>Headers\Layer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Sources\Implementations\InputData\image.cpp">
@@ -120,6 +123,9 @@
     </ClCompile>
     <ClCompile Include="Sources\Implementations\neural_network_trainer.cpp">
       <Filter>Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Implementations\Layer\fully_connected_neural_network.cpp">
+      <Filter>Implementations\Layer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

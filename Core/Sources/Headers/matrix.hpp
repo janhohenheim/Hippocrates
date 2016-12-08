@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <cmath>
 
 namespace Convolutional {
 
@@ -14,6 +15,25 @@ public:
 	struct Size {
 		auto operator==(const Size& other) const { return width == other.width && height == other.height; }
 		auto operator!=(const Size& other) const { return !operator==(other); }
+		template<typename T>
+		auto operator+(T amount) { 
+			width += static_cast<std::size_t>(amount);
+			height += static_cast<std::size_t>(amount); 
+			return *this;
+		}
+		template<typename T>
+		auto operator-(T amount) {
+			width -= static_cast<std::size_t>(amount);
+			height -= static_cast<std::size_t>(amount);
+			return *this;
+		}
+		template<typename T>
+		auto operator/(T amount) {
+			width = std::round(static_cast<T>(width) / amount);
+			height = std::round(static_cast<T>(height) / amount);
+			return *this;
+		}
+
 		std::size_t width = 0;
 		std::size_t height = 0;
 	};

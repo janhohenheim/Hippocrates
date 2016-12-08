@@ -4,13 +4,12 @@
 using namespace Convolutional;
 using namespace Convolutional::Layer::Pooler;
 
-auto MaxPooler::ProcessMatrix(Matrix::Position position, const Matrix & matrix) const -> Matrix {
-	Matrix featureMap{ matrix.GetSubmatrix(position, receptiveField) };
-	Matrix::element_t highestValue = *std::max_element(featureMap.begin(), featureMap.end());
+auto MaxPooler::ProcessMatrix(Matrix matrix) const -> Matrix {
+	Matrix::element_t highestValue = *std::max_element(matrix.begin(), matrix.end());
 
-	for (auto& element : featureMap) {
+	for (auto& element : matrix) {
 		element = highestValue;
 	}
 
-	return featureMap;
+	return matrix;
 }
