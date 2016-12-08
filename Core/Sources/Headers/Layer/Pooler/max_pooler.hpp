@@ -12,6 +12,8 @@ public:
 	:	receptiveField(receptiveField),
 		stride(stride)
 	{ }
+	MaxPooler(const MaxPooler&) = default;
+	MaxPooler(MaxPooler&&) = default;
 
 	auto ProcessMultiMatrix(const MultiMatrix& multiMatrix) -> MultiMatrix override;
 

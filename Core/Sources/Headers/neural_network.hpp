@@ -14,6 +14,8 @@ namespace Convolutional {
 	class NeuralNetwork {
 	public:
 		explicit NeuralNetwork(Layer::Layers layers) : layers{ std::move(layers) } {	}
+		NeuralNetwork(const NeuralNetwork&) = default;
+		NeuralNetwork(NeuralNetwork&&) = default;
 
 		auto ClassifyMultiMatrix(const InputData::IInputData& input) {
 			return ClassifyMultiMatrix(MultiMatrixFactory::GetMultiMatrix(input));

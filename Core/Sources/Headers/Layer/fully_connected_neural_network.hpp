@@ -8,7 +8,9 @@ public:
 	using ILayer::ILayer;
 
 	FullyConnectedNeuralNetwork(std::size_t outputCount);
-	
+	FullyConnectedNeuralNetwork(const FullyConnectedNeuralNetwork&) = default;
+	FullyConnectedNeuralNetwork(FullyConnectedNeuralNetwork&&) = default;
+
 	auto ProcessMultiMatrix(const MultiMatrix& multiMatrix) -> MultiMatrix override;
 	auto GetReceptiveField(Matrix::Size size) const noexcept -> Matrix::Size override { return {1, 1}; }
 	auto GetZeroPadding(Matrix::Size size) const noexcept -> Matrix::Size override { return {0, 0}; }

@@ -40,6 +40,8 @@ public:
 
 public:
 	explicit Matrix(Size size);
+	Matrix(const Matrix&) = default;
+	Matrix(Matrix&&) = default;
 
 	auto GetSubmatrix(Position position, Size size) const -> Matrix;
 	auto ElementAt(Position position) const -> const element_t&;

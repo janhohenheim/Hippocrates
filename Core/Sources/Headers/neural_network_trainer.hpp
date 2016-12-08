@@ -26,6 +26,8 @@ public:
 			neuralNetworks.emplace_back(layers);
 		}
 	}
+	NeuralNetworktrainer(const NeuralNetworktrainer&) = default;
+	NeuralNetworktrainer(NeuralNetworktrainer&&) = default;
 
 	auto Train() {
 		std::unique_ptr<Learning::ILearningMethod<Classification>> learningMethod = 

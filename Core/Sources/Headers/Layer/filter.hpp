@@ -10,12 +10,15 @@ class Filter : public ILayer {
 public:
 	using ILayer::ILayer;
 
-	Filter (Matrix::Size receptiveField = {3, 3},
+	Filter(Matrix::Size receptiveField = {3, 3},
 			Matrix::Size stride = {1, 1})
 	:	receptiveField(receptiveField),
 		stride(stride),
 		bias {Utility::GetRandomNumberBetween(-1.0, 1.0)}
 	{ }
+	Filter(const Filter&) = default;
+	Filter(Filter&&) = default;
+
 	auto ProcessMultiMatrix(const MultiMatrix & multiMatrix) -> MultiMatrix override;
 
 	auto GetReceptiveField(Matrix::Size size) const noexcept -> Matrix::Size override { return receptiveField; }

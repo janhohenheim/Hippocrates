@@ -10,6 +10,8 @@ public:
 	using dimensions_t = std::vector<Matrix>;
 
     explicit MultiMatrix(dimensions_t subDimensions);
+	MultiMatrix(const MultiMatrix&) = default;
+	MultiMatrix(MultiMatrix&&) = default;
 
 	auto GetDimensionCount() const noexcept { return subDimensions.size(); }
 	auto GetElementCount() const -> std::size_t;
