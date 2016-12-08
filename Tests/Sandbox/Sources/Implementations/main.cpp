@@ -2,6 +2,7 @@
 #include "InputData/sentence.hpp"
 #include "Learning/learning_method.hpp"
 #include "InputData/image.hpp"
+#include "Layer/fully_connected_neural_network.hpp"
 
 using namespace Convolutional;
 
@@ -28,11 +29,12 @@ int main() {
 
 	auto trainingData(GetTrainigData());
 	Layer::Layers layers {
-		Layer::Filter{ 1.0, { 1.0 } },
-		Layer::Pooler::MaxPooler{}
+		Layer::Filter{},
+		Layer::Pooler::MaxPooler{},
+		Layer::FullyConnectedNeuralNetwork{static_cast<std::size_t>(Categories::CategoryCount)}
 	};
 
-	NeuralNetworktrainer<Categories> networktrainer{
+	NeuralNetworktrainer<Categories> networktrainer {
 		50,
 		std::move(trainingData),
 		std::move(layers)
