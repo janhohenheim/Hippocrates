@@ -103,9 +103,6 @@
     <ClCompile Include="Sources\Implementations\Layer\filter.cpp">
       <Filter>Implementations\Layer</Filter>
     </ClCompile>
-    <ClCompile Include="Sources\Implementations\Layer\ilayer.cpp">
-      <Filter>Implementations\Layer</Filter>
-    </ClCompile>
     <ClCompile Include="Sources\Implementations\Layer\Pooler\max_pooler.cpp">
       <Filter>Implementations\Layer\Pooler</Filter>
     </ClCompile>

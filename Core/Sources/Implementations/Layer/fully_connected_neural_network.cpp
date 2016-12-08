@@ -2,13 +2,18 @@
 
 using namespace Convolutional::Layer;
 
-FullyConnectedNeuralNetwork::FullyConnectedNeuralNetwork(
-	std::size_t inputCount,
-	std::size_t outputCount,
-	std::size_t hiddenLayerCount,
-	std::size_t hiddenLayerSize)
-{}
+FullyConnectedNeuralNetwork::FullyConnectedNeuralNetwork(std::size_t outputCount) {
+	// No hidden layers because this class represents a single layer
+}
 	
-auto FullyConnectedNeuralNetwork::ProcessMatrix(Matrix net) const -> Matrix {
+auto FullyConnectedNeuralNetwork::ProcessMultiMatrix(const MultiMatrix& multiMatrix) -> MultiMatrix {
+	const auto inputCount = multiMatrix.GetDimensionCount();
+
+	// Getting the inputs
+	for (const auto& subMatrix : multiMatrix) {
+		for (auto input : subMatrix) {
+
+		}
+	}
 
 }

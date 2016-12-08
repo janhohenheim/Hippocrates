@@ -175,7 +175,6 @@
     <ClCompile Include="Sources\Implementations\InputData\sentence.cpp" />
     <ClCompile Include="Sources\Implementations\Layer\filter.cpp" />
     <ClCompile Include="Sources\Implementations\Layer\fully_connected_neural_network.cpp" />
-    <ClCompile Include="Sources\Implementations\Layer\ilayer.cpp" />
     <ClCompile Include="Sources\Implementations\Layer\Pooler\max_pooler.cpp" />
     <ClCompile Include="Sources\Implementations\matrix.cpp" />
     <ClCompile Include="Sources\Implementations\multi_matrix.cpp" />
