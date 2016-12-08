@@ -92,6 +92,9 @@
     <ClInclude Include="Sources\Headers\Layer\fully_connected_neural_network.hpp">
       <Filter>Headers\Layer</Filter>
     </ClInclude>
+    <ClInclude Include="Sources\Headers\Utility\interface.hpp">
+      <Filter>Headers\Utility</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Sources\Implementations\InputData\image.cpp">

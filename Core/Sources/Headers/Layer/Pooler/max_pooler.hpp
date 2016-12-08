@@ -5,6 +5,8 @@ namespace Convolutional::Layer::Pooler {
 
 class MaxPooler : public IPooler {
 public:
+	using IPooler::IPooler;
+
 	MaxPooler(Matrix::Size receptiveField = {2, 2},
 			Matrix::Size stride = {2, 2})
 	:	receptiveField(receptiveField),

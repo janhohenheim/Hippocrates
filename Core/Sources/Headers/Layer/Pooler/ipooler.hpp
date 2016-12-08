@@ -6,7 +6,7 @@ namespace Convolutional::Layer::Pooler {
 
 class IPooler : public ILayer {
 public:
-	
+	using ILayer::ILayer;
 };
 
 }

@@ -168,6 +168,7 @@
     <ClInclude Include="Sources\Headers\neural_network_trainer.hpp" />
     <ClInclude Include="Sources\Headers\training_data.hpp" />
     <ClInclude Include="Sources\Headers\Utility\fillable_ref.hpp" />
+    <ClInclude Include="Sources\Headers\Utility\interface.hpp" />
     <ClInclude Include="Sources\Headers\Utility\utility.hpp" />
   </ItemGroup>
   <ItemGroup>

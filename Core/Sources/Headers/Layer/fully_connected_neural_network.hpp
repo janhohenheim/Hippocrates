@@ -5,6 +5,8 @@ namespace Convolutional::Layer {
 
 class FullyConnectedNeuralNetwork : public ILayer {
 public:	
+	using ILayer::ILayer;
+
 	FullyConnectedNeuralNetwork(std::size_t outputCount);
 	
 	auto ProcessMultiMatrix(const MultiMatrix& multiMatrix) -> MultiMatrix override;
