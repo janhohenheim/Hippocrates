@@ -8,8 +8,8 @@ public:
 	Interface(const Interface&) = default;
 	Interface(Interface&&) = default;
 
-	Interface& operator=(const Interface &) = default;
-	Interface& operator=(Interface &&) = default;
+	virtual Interface& operator=(const Interface &)& = default;
+	virtual Interface& operator=(Interface &&)& = default;
 };
 
 inline Interface::~Interface() {}
