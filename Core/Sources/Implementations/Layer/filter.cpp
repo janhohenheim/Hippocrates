@@ -22,21 +22,19 @@ auto Filter::ProcessMatrix(Matrix matrix) const -> Matrix {
 		throw std::invalid_argument("Number of weights in filter does not match number of elements in matrix");
 	}
 
-	Matrix featureMap{matrix.GetSubmatrix(position, GetReceptiveField(matrix.GetSize()))};
-
 	auto featureValue = bias;
 	auto weight = weights.begin();
-	for (const auto& element : featureMap) {
+	for (const auto& element : matrix) {
 		featureValue += element * *weight;
 		++weight;
 	}
 	featureValue = sigmoid(featureValue);
 
-	for (auto& element : featureMap) {
+	for (auto& element : matrix) {
 		element = featureValue;
 	}
 
-	return featureMap;
+	return matrix;
 }
 
 auto Filter::sigmoid(Matrix::element_t n) -> double {
