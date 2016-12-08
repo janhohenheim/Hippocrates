@@ -104,9 +104,6 @@
     <ClInclude Include="Sources\Headers\utility\fillable_ref.hpp">
       <Filter>Headers\utility</Filter>
     </ClInclude>
-    <ClInclude Include="Sources\Headers\utility\interface.h">
-      <Filter>Headers\utility</Filter>
-    </ClInclude>
     <ClInclude Include="Sources\Headers\activation_function\activation_function.hpp">
       <Filter>Headers\activation_function</Filter>
     </ClInclude>
@@ -121,6 +118,9 @@
     </ClInclude>
     <ClInclude Include="Sources\Headers\activation_function\tanh.hpp">
       <Filter>Headers\activation_function</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Headers\utility\interface.hpp">
+      <Filter>Headers\utility</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

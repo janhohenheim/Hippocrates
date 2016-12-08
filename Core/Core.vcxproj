@@ -157,7 +157,7 @@
     <ClInclude Include="Sources\Headers\training\parameters.hpp" />
     <ClInclude Include="Sources\Headers\type.hpp" />
     <ClInclude Include="Sources\Headers\utility\fillable_ref.hpp" />
-    <ClInclude Include="Sources\Headers\utility\interface.h" />
+    <ClInclude Include="Sources\Headers\utility\interface.hpp" />
     <ClInclude Include="Sources\Headers\utility\jsmn.h" />
     <ClInclude Include="Sources\Headers\utility\logger.hpp" />
     <ClInclude Include="Sources\Headers\utility\random.hpp" />
