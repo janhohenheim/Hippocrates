@@ -32,7 +32,7 @@ namespace Convolutional {
 				processedMultiMatrix = layer->ProcessMultiMatrix(processedMultiMatrix);
 			}
 			if (processedMultiMatrix.GetElementCount() != 1)
-				throw std::logic_error("The last layer did not make the MultiMatrix two dimensional");
+				throw std::logic_error("The last layer did not reduce the MultiMatrix to one element per dimension");
 
 			std::vector<Matrix::element_t> outputs;
 			outputs.reserve(processedMultiMatrix.GetDimensionCount());
