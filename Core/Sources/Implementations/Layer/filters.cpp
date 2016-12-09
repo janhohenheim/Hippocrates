@@ -1,4 +1,6 @@
 #include "Layer/filters.hpp"
+
+using namespace Convolutional;
 using namespace Convolutional::Layer;
 
 auto Filters::ProcessMultiMatrix(const MultiMatrix & multiMatrix) -> MultiMatrix {

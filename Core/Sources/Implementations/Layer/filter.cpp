@@ -8,8 +8,6 @@ using namespace Convolutional;
 using namespace Convolutional::Layer;
 
 
-
-
 auto Filter::ProcessMultiMatrix(const MultiMatrix & multiMatrix) -> MultiMatrix {
 	const auto origSize = multiMatrix.GetSize();
 	LazyInitializeWeights(origSize, multiMatrix.GetDimensionCount());

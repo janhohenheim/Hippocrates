@@ -1,5 +1,6 @@
 #include "Layer/fully_connected_neural_network.hpp"
 
+using namespace Convolutional;
 using namespace Convolutional::Layer;
 
 FullyConnectedNeuralNetwork::FullyConnectedNeuralNetwork(std::size_t outputCount) {
@@ -15,5 +16,5 @@ auto FullyConnectedNeuralNetwork::ProcessMultiMatrix(const MultiMatrix& multiMat
 
 		}
 	}
-
+	return MultiMatrix({});
 }
