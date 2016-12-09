@@ -6,6 +6,8 @@ if exist "C:\Program Files\ImageMagick-6.9.6-Q8\" exit /b 0
 REM Download from FTP
 echo open ftp.imagemagick.org>> ImageMagick.ftp
 echo cd pub/ImageMagick/binaries/>> ImageMagick.ftp
+REM linux fix
+echo pass>> ImageMagick.ftp
 echo get ImageMagick-6.9.6-7-Q8-x64-dll.exe>> ImageMagick.ftp
 echo quit>> ImageMagick.ftp
 
