@@ -80,7 +80,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>CORE_RL_Magick++_.lib;$(OutDir)Core.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Program Files\ImageMagick-6.9.6-Q8\lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Program Files\ImageMagick-6.9.6-Q8\lib;</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -94,7 +94,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>CORE_RL_Magick++_.lib;$(OutDir)Core.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Program Files\ImageMagick-6.9.6-Q8\lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Program Files\ImageMagick-6.9.6-Q8\lib;</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -106,13 +106,13 @@
       <SDLCheck>true</SDLCheck>
       <TreatWarningAsError>true</TreatWarningAsError>
       <AdditionalOptions>/std:c++latest /permissive- %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>C:\Program Files\ImageMagick-7.0.3-Q16\include;$(SolutionDir)Core\Sources\Headers</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Program Files\ImageMagick-6.9.6-Q8\include;$(SolutionDir)Core\Sources\Headers</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>CORE_RL_Magick++_.lib;$(OutDir)Core.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Program Files\ImageMagick-7.0.3-Q16\lib\</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Program Files\ImageMagick-6.9.6-Q8\lib;</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -124,13 +124,13 @@
       <SDLCheck>true</SDLCheck>
       <TreatWarningAsError>true</TreatWarningAsError>
       <AdditionalOptions>/std:c++latest /permissive- %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>C:\Program Files\ImageMagick-7.0.3-Q16\include;$(SolutionDir)Core\Sources\Headers</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Program Files\ImageMagick-6.9.6-Q8\include;$(SolutionDir)Core\Sources\Headers</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>CORE_RL_Magick++_.lib;$(OutDir)Core.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Program Files\ImageMagick-7.0.3-Q16\lib\</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Program Files\ImageMagick-6.9.6-Q8\lib;</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

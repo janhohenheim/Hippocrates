@@ -68,7 +68,18 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ExtensionsToDeleteOnClean>*.dll;$(ExtensionsToDeleteOnClean)</ExtensionsToDeleteOnClean>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ExtensionsToDeleteOnClean>*.dll;$(ExtensionsToDeleteOnClean)</ExtensionsToDeleteOnClean>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ExtensionsToDeleteOnClean>*.dll;$(ExtensionsToDeleteOnClean)</ExtensionsToDeleteOnClean>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ExtensionsToDeleteOnClean>*.dll;$(ExtensionsToDeleteOnClean)</ExtensionsToDeleteOnClean>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -79,12 +90,24 @@
       <AdditionalIncludeDirectories>C:\Program Files\ImageMagick-6.9.6-Q8\include;$(SolutionDir)Core\Sources\Headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Lib>
-      <AdditionalDependencies>CORE_RL_Magick++_.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Program Files\ImageMagick-6.9.6-Q8\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>CORE_RL_Magick++_.lib;</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Program Files\ImageMagick-6.9.6-Q8\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
     <ProjectReference>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
     </ProjectReference>
+    <PreBuildEvent>
+      <Command>call $(SolutionDir)install_dependencies.bat</Command>
+    </PreBuildEvent>
+    <PreBuildEvent>
+      <Message>Download dependencies</Message>
+    </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>XCOPY "C:\Program Files\ImageMagick-6.9.6-Q8\"*.DLL "$(TargetDir)" /D /K /Y</Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message>Add ImageMagick DLLs</Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -96,12 +119,24 @@
       <AdditionalIncludeDirectories>C:\Program Files\ImageMagick-6.9.6-Q8\include;$(SolutionDir)Core\Sources\Headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Lib>
-      <AdditionalDependencies>CORE_RL_Magick++_.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Program Files\ImageMagick-6.9.6-Q8\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>CORE_RL_Magick++_.lib;</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Program Files\ImageMagick-6.9.6-Q8\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
     <ProjectReference>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
     </ProjectReference>
+    <PreBuildEvent>
+      <Command>call $(SolutionDir)install_dependencies.bat</Command>
+    </PreBuildEvent>
+    <PreBuildEvent>
+      <Message>Download dependencies</Message>
+    </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>XCOPY "C:\Program Files\ImageMagick-6.9.6-Q8\"*.DLL "$(TargetDir)" /D /K /Y</Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message>Add ImageMagick DLLs</Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -112,19 +147,31 @@
       <SDLCheck>true</SDLCheck>
       <TreatWarningAsError>true</TreatWarningAsError>
       <AdditionalOptions>/std:c++latest /permissive- %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>C:\Program Files\ImageMagick-7.0.3-Q16\include;$(SolutionDir)Core\Sources\Headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Program Files\ImageMagick-6.9.6-Q8\include;$(SolutionDir)Core\Sources\Headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <Lib>
-      <AdditionalDependencies>CORE_RL_Magick++_.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Program Files\ImageMagick-7.0.3-Q16\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>CORE_RL_Magick++_.lib;</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Program Files\ImageMagick-6.9.6-Q8\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
     <ProjectReference>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
     </ProjectReference>
+    <PreBuildEvent>
+      <Command>call $(SolutionDir)install_dependencies.bat</Command>
+    </PreBuildEvent>
+    <PreBuildEvent>
+      <Message>Download dependencies</Message>
+    </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>XCOPY "C:\Program Files\ImageMagick-6.9.6-Q8\"*.DLL "$(TargetDir)" /D /K /Y</Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message>Add ImageMagick DLLs</Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -135,19 +182,31 @@
       <SDLCheck>true</SDLCheck>
       <TreatWarningAsError>true</TreatWarningAsError>
       <AdditionalOptions>/std:c++latest /permissive- %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>C:\Program Files\ImageMagick-7.0.3-Q16\include;$(SolutionDir)Core\Sources\Headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Program Files\ImageMagick-6.9.6-Q8\include;$(SolutionDir)Core\Sources\Headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <Lib>
-      <AdditionalDependencies>CORE_RL_Magick++_.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Program Files\ImageMagick-7.0.3-Q16\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>CORE_RL_Magick++_.lib;</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Program Files\ImageMagick-6.9.6-Q8\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
     <ProjectReference>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
     </ProjectReference>
+    <PreBuildEvent>
+      <Command>call $(SolutionDir)install_dependencies.bat</Command>
+    </PreBuildEvent>
+    <PreBuildEvent>
+      <Message>Download dependencies</Message>
+    </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>XCOPY "C:\Program Files\ImageMagick-6.9.6-Q8\"*.DLL "$(TargetDir)" /D /K /Y</Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message>Add ImageMagick DLLs</Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Sources\Headers\InputData\iinput_data.hpp" />
