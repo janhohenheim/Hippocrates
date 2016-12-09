@@ -5,7 +5,9 @@ VisualStudioVersion = 15.0.25914.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Core", "Core\Core.vcxproj", "{6F4797EB-E20C-4187-9C3D-2F4163730349}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Tests", "Tests\Tests.vcxproj", "{9B686998-F22E-4AD1-8424-D40D6806ECC9}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{9D4337E1-A48F-4722-8171-73080D4C56C2}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sandbox", "Tests\Sandbox\Sandbox.vcxproj", "{9B686998-F22E-4AD1-8424-D40D6806ECC9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,5 +36,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9B686998-F22E-4AD1-8424-D40D6806ECC9} = {9D4337E1-A48F-4722-8171-73080D4C56C2}
 	EndGlobalSection
 EndGlobal
