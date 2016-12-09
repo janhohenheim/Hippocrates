@@ -1,5 +1,5 @@
 #pragma once
-#include <vector>
+#include <deque>
 #include <cmath>
 
 namespace Convolutional {
@@ -7,7 +7,7 @@ namespace Convolutional {
 class Matrix {
 public:
 	using element_t = double;
-	using elements_t = std::vector<element_t>;
+	using elements_t = std::deque<element_t>;
 	struct Position {
 		std::size_t x = 0;
 		std::size_t y = 0;
@@ -43,6 +43,7 @@ public:
 	Matrix(const Matrix&) = default;
 	Matrix(Matrix&&) = default;
 
+	auto AddZeroPadding(Matrix::Size paddingAmount) -> void;
 	auto GetSubmatrix(Position position, Size size) const -> Matrix;
 	auto ElementAt(Position position) const -> const element_t&;
 	auto ElementAt(Position position) -> element_t&;
@@ -56,8 +57,8 @@ public:
 	auto end() const noexcept { return elements.end(); }
 
 private:
-	const Size size;
-	std::vector<element_t> elements;
+	Size size;
+	elements_t elements;
 };
 
 }

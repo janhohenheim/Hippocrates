@@ -16,7 +16,7 @@ auto Filter::ProcessMultiMatrix(const MultiMatrix & multiMatrix) -> MultiMatrix 
 
 	Matrix filteredMatrix {origSize};
 	auto paddedMM = multiMatrix;
-	//paddedMM.AddZeroPadding(GetZeroPadding(origSize));
+	paddedMM.AddZeroPadding(GetZeroPadding(origSize));
 
 	const auto paddedSize = paddedMM.GetSize();
 	const auto receptiveField = GetReceptiveField(paddedSize);

@@ -130,11 +130,8 @@
     <ClCompile Include="Sources\Implementations\Layer\fully_connected_neural_network.cpp">
       <Filter>Implementations\Layer</Filter>
     </ClCompile>
-    <ClCompile Include="Sources\Implementations\Layer\layers.cpp">
+    <ClCompile Include="Sources\Implementations\Layer\filters.cpp">
       <Filter>Implementations\Layer</Filter>
-    </ClCompile>
-    <ClCompile Include="Sources\Headers\Layer\filters.cpp">
-      <Filter>Implementations</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -18,6 +18,25 @@ Matrix& Convolutional::Matrix::operator=(const Matrix & other)
 }
 */
 
+auto Convolutional::Matrix::AddZeroPadding(Matrix::Size paddingAmount) -> void {
+	// Pad left and right
+	for (auto element = elements.begin(); element != elements.end(); ++element) {
+		elements.insert(element, 0);
+		element+=size.width;
+		elements.insert(element, 0);
+	}
+	elements.push_back(0);
+
+	size.height += paddingAmount.height * 2;
+	size.width += paddingAmount.width * 2;
+
+	// Pad above and below
+	for (std::size_t i = 0; i < paddingAmount.height * size.width; ++i) {
+		elements.push_front(0);
+		elements.push_back(0);
+	}
+}
+
 auto Matrix::GetSubmatrix(Matrix::Position position, Matrix::Size size) const -> Matrix {
 	Matrix subMatrix {size};
 	Position subPos;
@@ -33,7 +52,7 @@ auto Matrix::GetSubmatrix(Matrix::Position position, Matrix::Size size) const ->
 }
 
 auto Matrix::ElementAt(Position position) const -> const element_t& {
-	return elements[position.x * GetSize().width + position.y];
+	return const_cast<Matrix*>(this)->ElementAt(position);;
 }
 
 auto Matrix::ElementAt(Position position) -> element_t& {

@@ -13,6 +13,7 @@ public:
 	MultiMatrix(const MultiMatrix&) = default;
 	MultiMatrix(MultiMatrix&&) = default;
 
+	auto AddZeroPadding(Matrix::Size paddingAmount) -> void;
 	auto GetDimensionCount() const noexcept { return subDimensions.size(); }
 	auto GetElementCount() const -> std::size_t;
 	auto GetSize() const -> Matrix::Size;
