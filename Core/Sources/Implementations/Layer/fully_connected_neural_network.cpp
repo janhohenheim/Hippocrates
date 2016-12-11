@@ -6,14 +6,16 @@ using namespace Convolutional::Layer;
 auto FullyConnectedNeuralNetwork::ProcessMultiMatrix(const MultiMatrix& multiMatrix) -> MultiMatrix {
 	const auto inputCount = multiMatrix.GetDimensionCount() * multiMatrix.GetElementCount();
 
-	inputNeurons = std::vector<Neuron>(inputCount, Neuron(nOutputs));
-	inputNeurons.push_back(BiasNeuron(nOutputs));
+	inputNeurons = std::vector<Neuron>(inputCount, Neuron());
+	inputNeurons.push_back(BiasNeuron());
+
+	outputNeurons = std::vector<Neuron>(nOutputs, Neuron(inputCount + 1));
 
 	for (std::size_t i = 0; i < multiMatrix.GetDimensionCount(); i++) {
 		for (std::size_t j = 0; j < multiMatrix.GetElementCount(); j++) {
 			for (std::size_t k = 0; k < nOutputs; k++) {
 				Connection connection(inputNeurons[i * multiMatrix.GetElementCount() + j], outputNeurons[i]);
-				inputNeurons[i * multiMatrix.GetElementCount() + j].AddConnection(connection);
+				outputNeurons[i].AddConnection(connection);
 			}
 		}
 	}
@@ -22,9 +24,13 @@ auto FullyConnectedNeuralNetwork::ProcessMultiMatrix(const MultiMatrix& multiMat
 	for (const auto& subMatrix : multiMatrix) {
 		for (auto input : subMatrix) {
 			inputNeurons[currentNeuron].lastActionPotenzial = input;
-			inputNeurons[currentNeuron].Fire();
-
 			currentNeuron++;
+		}
+	}
+
+	for (auto neuron : outputNeurons) {
+		for (auto connection : neuron.connections) {
+			neuron.lastActionPotenzial += connection.from.lastActionPotenzial * connection.weight;
 		}
 	}
 
@@ -34,10 +40,4 @@ auto FullyConnectedNeuralNetwork::ProcessMultiMatrix(const MultiMatrix& multiMat
 	}
 
 	return MultiMatrix {{outputs}};
-}
-
-auto FullyConnectedNeuralNetwork::Neuron::Fire() -> void {
-	for (auto connection : connections) {
-		connection.to.lastActionPotenzial += tanh(lastActionPotenzial) * connection.weight;
-	}
 }
