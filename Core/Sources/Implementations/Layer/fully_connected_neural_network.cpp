@@ -23,20 +23,22 @@ auto FullyConnectedNeuralNetwork::ProcessMultiMatrix(const MultiMatrix& multiMat
 	std::size_t currentNeuron = 0;
 	for (const auto& subMatrix : multiMatrix) {
 		for (auto input : subMatrix) {
-			inputNeurons[currentNeuron].lastActionPotenzial = input;
+			inputNeurons[currentNeuron].lastActionPotential = input;
 			currentNeuron++;
 		}
 	}
 
 	for (auto neuron : outputNeurons) {
 		for (auto connection : neuron.connections) {
-			neuron.lastActionPotenzial += connection.from.lastActionPotenzial * connection.weight;
+			neuron.lastActionPotential += connection.from.lastActionPotential * connection.weight;
 		}
+
+		neuron.lastActionPotential = tanh(neuron.lastActionPotential);
 	}
 
 	std::vector<double> outputs(nOutputs);
 	for (auto neuron : outputNeurons) {
-		outputs.push_back(tanh(neuron.lastActionPotenzial));
+		outputs.push_back(neuron.lastActionPotential);
 	}
 
 	return MultiMatrix {{outputs}};

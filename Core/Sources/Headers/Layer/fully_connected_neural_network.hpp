@@ -22,7 +22,7 @@ public:
 
     class Neuron {
 	public:
-		double lastActionPotenzial = 0;
+		double lastActionPotential = 0;
 		std::vector<Connection> connections;
 
 		Neuron(std::size_t nConnections = 0) { connections.reserve(nConnections); };
@@ -34,7 +34,7 @@ public:
 
 	class BiasNeuron: public Neuron {
 	public:
-		BiasNeuron(std::size_t nOutputs = 0) : Neuron(nOutputs) { lastActionPotenzial = 1.0; };
+		BiasNeuron(std::size_t nOutputs = 0) : Neuron(nOutputs) { lastActionPotential = 1.0; };
 	};
 
 	std::size_t nOutputs;
