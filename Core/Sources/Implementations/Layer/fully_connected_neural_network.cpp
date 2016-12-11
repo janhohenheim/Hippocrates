@@ -36,9 +36,14 @@ auto FullyConnectedNeuralNetwork::ProcessMultiMatrix(const MultiMatrix& multiMat
 		neuron.lastActionPotential = tanh(neuron.lastActionPotential);
 	}
 
-	std::vector<double> outputs(nOutputs);
-	for (auto neuron : outputNeurons) {
-		outputs.push_back(neuron.lastActionPotential);
+	Matrix::Size size;
+	size.width = nOutputs;
+	size.height = 1;
+
+	Matrix outputs(size);
+
+	for (std::size_t i = 0; i < nOutputs; i++) {
+		outputs.ElementAt({i, 0}) = outputNeurons[i].lastActionPotential;
 	}
 
 	return MultiMatrix {{outputs}};
