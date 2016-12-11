@@ -22,7 +22,7 @@ public:
 
     class Neuron {
 	public:
-		double lastActionPotential = 0;
+		Matrix::element_t lastActionPotential = 0;
 		std::vector<Connection> connections;
 
 		Neuron(std::size_t nConnections = 0) { connections.reserve(nConnections); };
