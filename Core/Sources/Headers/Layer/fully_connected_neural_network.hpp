@@ -34,7 +34,7 @@ public:
 
 	class BiasNeuron: public Neuron {
 	public:
-		BiasNeuron(std::size_t nOutputs = 0) : Neuron(nOutputs) { lastActionPotential = 1.0; };
+		BiasNeuron() { lastActionPotential = 1.0; };
 	};
 
 	std::size_t nOutputs;
