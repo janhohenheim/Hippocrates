@@ -13,7 +13,7 @@ auto FullyConnectedNeuralNetwork::ProcessMultiMatrix(const MultiMatrix& multiMat
 
 	for (auto& input : inputNeurons)
 		for (auto& output : outputNeurons)
-			output.AddConnection({input, output});
+			output.connections.push_back({input, output});
 
 	for (auto& input : inputNeurons)
 		for (const auto& subMatrix : multiMatrix)
