@@ -4,7 +4,7 @@ configuration:
   - Release
 
 install: 
-  - "powershell.exe -NoProfile -ExecutionPolicy RemoteSigned -File InstallDependencies.ps1"
+  - ps: . .\InstallDependencies.ps1 
 
 build_script:
   - msbuild %solution_name%
