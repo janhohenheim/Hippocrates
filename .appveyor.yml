@@ -1,0 +1,13 @@
+image: Visual Studio 2017 RC
+
+configuration:
+  - Release
+
+install: 
+  - ps: . .\InstallDependencies.ps1 
+
+build_script:
+  - msbuild %solution_name%
+
+test_script:
+  - C:\projects\cnn-code\Release\Sandbox.exe
