@@ -24,7 +24,6 @@ auto FullyConnectedNeuralNetwork::ProcessMultiMatrix(const MultiMatrix& multiMat
 		for (const auto& connection : neuron.connections) {
 			neuron.lastActionPotential += connection.from.lastActionPotential * connection.weight;
 		}
-
 		neuron.lastActionPotential = tanh(neuron.lastActionPotential);
 	}
 
@@ -32,7 +31,7 @@ auto FullyConnectedNeuralNetwork::ProcessMultiMatrix(const MultiMatrix& multiMat
 	size.width = outputNeurons.size();
 	size.height = 1;
 
-	Matrix outputs(size);
+	Matrix outputs(std::move(size));
 
 	for (std::size_t i = 0; i < outputNeurons.size(); i++) {
 		outputs.ElementAt({i, 0}) = outputNeurons[i].lastActionPotential;
