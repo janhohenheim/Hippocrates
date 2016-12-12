@@ -11,12 +11,9 @@ auto FullyConnectedNeuralNetwork::ProcessMultiMatrix(const MultiMatrix& multiMat
 
 	outputNeurons = std::vector<Neuron>(outputNeurons.size(), Neuron(inputCount + 1));
 
-	for (auto& input : inputNeurons) {
-		for (auto& output : outputNeurons) {
-			Connection connection(input, output);
-			output.AddConnection(connection);
-		}
-	}
+	for (auto& input : inputNeurons)
+		for (auto& output : outputNeurons)
+			output.AddConnection({input, output});
 
 	std::size_t currentNeuron = 0;
 	for (const auto& subMatrix : multiMatrix) {

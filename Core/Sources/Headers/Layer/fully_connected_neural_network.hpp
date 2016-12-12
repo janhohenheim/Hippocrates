@@ -28,8 +28,8 @@ public:
 		Neuron() = default;
 		Neuron(std::size_t nConnections) { connections.reserve(nConnections); };
 
-		auto AddConnection(Connection& connection) -> void {
-			connections.push_back(connection);
+		auto AddConnection(Connection connection) -> void {
+			connections.push_back(std::move(connection));
 		}
 	};
 
