@@ -5,29 +5,9 @@ using namespace Convolutional::Layer;
 
 auto FullyConnectedNeuralNetwork::ProcessMultiMatrix(const MultiMatrix& multiMatrix) -> MultiMatrix {
 	BuildNetwork(multiMatrix.GetDimensionCount() * multiMatrix.GetElementCount());
-
-	auto input = inputNeurons.begin();
-		for (const auto& subMatrix : multiMatrix)
-			for (const auto& element : subMatrix)
-				(input++)->lastActionPotential = element;
-
-	for (auto& neuron : outputNeurons) {
-		for (const auto& connection : neuron.connections) {
-			neuron.lastActionPotential += connection.from.lastActionPotential * connection.weight;
-		}
-		neuron.lastActionPotential = tanh(neuron.lastActionPotential);
-	}
-
-	Matrix::Size size;
-	size.width = outputNeurons.size();
-	size.height = 1;
-
-	Matrix outputs(std::move(size));
-
-	for (std::size_t i = 0; i < outputNeurons.size(); i++) {
-		outputs.ElementAt({i, 0}) = outputNeurons[i].lastActionPotential;
-	}
-
+	LoadInputs(multiMatrix);
+	ProcessOutputs();
+	const auto outputs = GetOutputsAsMatrix();
 	return MultiMatrix {{outputs}};
 }
 
@@ -45,4 +25,33 @@ auto FullyConnectedNeuralNetwork::BuildNetwork(std::size_t inputCount) -> void {
 			output.connections.push_back({input, output});
 
 	wasBuilt = true;
+}
+
+auto FullyConnectedNeuralNetwork::LoadInputs(const MultiMatrix & multiMatrix) -> void {
+	auto input = inputNeurons.begin();
+	for (const auto& subMatrix : multiMatrix)
+		for (const auto& element : subMatrix)
+			(input++)->lastActionPotential = element;
+}
+
+auto FullyConnectedNeuralNetwork::ProcessOutputs() -> void {
+	for (auto& neuron : outputNeurons) {
+		for (const auto& connection : neuron.connections) {
+			neuron.lastActionPotential += connection.from.lastActionPotential * connection.weight;
+		}
+		neuron.lastActionPotential = tanh(neuron.lastActionPotential);
+	}
+}
+
+auto FullyConnectedNeuralNetwork::GetOutputsAsMatrix() const -> Matrix {
+	Matrix::Size size;
+	size.width = outputNeurons.size();
+	size.height = 1;
+
+	Matrix outputs(std::move(size));
+
+	for (std::size_t i = 0; i < outputNeurons.size(); i++) {
+		outputs.ElementAt({i, 0}) = outputNeurons[i].lastActionPotential;
+	}
+	return outputs;
 }

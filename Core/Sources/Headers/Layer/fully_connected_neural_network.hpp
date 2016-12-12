@@ -46,7 +46,11 @@ public:
 
 private:
 	bool wasBuilt = false;
+
 	auto BuildNetwork(std::size_t inputCount) -> void;
+	auto LoadInputs(const MultiMatrix& multiMatrix) -> void;
+	auto ProcessOutputs() -> void;
+	auto GetOutputsAsMatrix() const -> Matrix;
 };
 
 }
