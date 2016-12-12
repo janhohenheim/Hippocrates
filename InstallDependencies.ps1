@@ -1,4 +1,5 @@
-﻿$config = """Lang=default
+﻿$config = """[Setup]
+Lang=default
 Dir=C:\Program Files\ImageMagick-6.9.6-Q8
 Group=ImageMagick 6.9.6 Q8 (64-bit)
 NoIcons=0
