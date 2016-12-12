@@ -19,9 +19,12 @@ public:
 	Filter(const Filter& other) :
 		receptiveField {other.receptiveField},
 		stride {other.stride}, 
-		bias {other.bias},
-		weights{ std::make_unique<MultiMatrix>(*weights) }
-	{};
+		bias {other.bias}
+	{
+		if (other.weights) 
+			weights = std::make_unique<MultiMatrix>(*other.weights);
+	};
+
 	Filter(Filter&&) = default;
 
 	auto ProcessMultiMatrix(const MultiMatrix & multiMatrix) -> MultiMatrix override;
@@ -46,7 +49,7 @@ private:
 	const Matrix::Size stride;
 	Matrix::element_t bias = 0;
 
-	std::unique_ptr<MultiMatrix> weights = nullptr;
+	std::unique_ptr<MultiMatrix> weights;
 
 };
 

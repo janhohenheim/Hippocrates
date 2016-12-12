@@ -8,27 +8,18 @@
 using namespace Convolutional;
 
 enum class Categories {
-	Even,
-	Uneven,
+	Cat,
+	NotCat,
 
 	CategoryCount
 };
 
-auto GetTrainigData() {
-	TrainingData<Categories> trainingData;
-	for (std::size_t i = 0; i < 100; ++i) {
-		InputData::Sentence trainigSentence = std::to_string(i);
-		Categories classification = static_cast<Categories>(i % 2);
-
-		trainingData.AddData(std::move(trainigSentence), classification);
-	}
-	return trainingData;
-}
-
 int main() {
-	Convolutional::InputData::Image image("../../image.png");
+	TrainingData<Categories> trainingData;
+	//InputData::Image someCat("https://www.cs.toronto.edu/~kriz/cifar-10-sample/cat1.png");
+	InputData::Image someCat("../../image.png");
+	trainingData.AddData(std::move(someCat), Categories::Cat);
 
-	auto trainingData(GetTrainigData());
 	Layer::Layers layers {
 		Layer::Filters{3},
 		Layer::Pooler::MaxPooler{},

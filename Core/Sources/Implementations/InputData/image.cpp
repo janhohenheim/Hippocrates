@@ -4,8 +4,9 @@
 using namespace Convolutional;
 using namespace Convolutional::InputData;
 
-Image::Image(const char * filename) {
-	image.read(filename);
+Image::Image(const char * filename) :
+	image("640x480", "white")
+{
 }
 
 auto Image::GetMultiDimensionalMatrix() const -> MultiMatrix {

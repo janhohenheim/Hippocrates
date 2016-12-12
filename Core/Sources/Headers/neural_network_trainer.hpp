@@ -23,7 +23,8 @@ public:
 	{
 		neuralNetworks.reserve(networkCount);
 		for (std::size_t i = 0; i < networkCount; ++i) {
-			neuralNetworks.emplace_back(layers);
+			NeuralNetwork<Classification> net{this->layers};
+			neuralNetworks.push_back(std::move(net));
 		}
 	}
 	NeuralNetworktrainer(const NeuralNetworktrainer&) = default;
@@ -31,12 +32,12 @@ public:
 
 	auto Train() {
 		std::unique_ptr<Learning::ILearningMethod<Classification>> learningMethod = 
-			std::make_unique<Learning::Backpropagation<Classification>>(neuralNetworks, trainingData.Get());
+			std::make_unique<Learning::Backpropagation<Classification>>(neuralNetworks, trainingData);
 
 		while (!learningMethod->IsFinished())
 			for (auto network = neuralNetworks.begin(); network != neuralNetworks.end(); ++network) {
 				learningMethod->BeginEpoch(network);
-				for (auto set = trainingData.Get().begin(); set != trainingData.Get().end(); ++set) {
+				for (auto set = trainingData.begin(); set != trainingData.end(); ++set) {
 					learningMethod->EvaluateSet(network, set);
 				}
 				learningMethod->EndEpoch(network);
@@ -46,8 +47,8 @@ public:
 	}
 
 private:
-	const Hippocrates::Utility::FillableRef<TrainigDataType> trainingData;
-	Hippocrates::Utility::FillableRef<Layer::Layers> layers;
+	TrainigDataType trainingData;
+	Layer::Layers layers;
 	std::vector<NeuralNetwork<Classification>> neuralNetworks;
 };
 
