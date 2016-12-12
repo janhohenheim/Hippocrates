@@ -38,11 +38,10 @@ public:
 		BiasNeuron() { lastActionPotential = 1.0; };
 	};
 
-	std::size_t nOutputs;
 	std::vector<Neuron> inputNeurons;
 	std::vector<Neuron> outputNeurons;
 
-	FullyConnectedNeuralNetwork(std::size_t outputCount): nOutputs(outputCount), outputNeurons(outputCount, Neuron()) { };
+	FullyConnectedNeuralNetwork(std::size_t outputCount): outputNeurons(outputCount, Neuron()) { };
 	FullyConnectedNeuralNetwork(const FullyConnectedNeuralNetwork&) = default;
 	FullyConnectedNeuralNetwork(FullyConnectedNeuralNetwork&&) = default;
 

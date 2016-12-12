@@ -9,11 +9,11 @@ auto FullyConnectedNeuralNetwork::ProcessMultiMatrix(const MultiMatrix& multiMat
 	inputNeurons = std::vector<Neuron>(inputCount, Neuron());
 	inputNeurons.push_back(BiasNeuron());
 
-	outputNeurons = std::vector<Neuron>(nOutputs, Neuron(inputCount + 1));
+	outputNeurons = std::vector<Neuron>(outputNeurons.size(), Neuron(inputCount + 1));
 
 	for (std::size_t i = 0; i < multiMatrix.GetDimensionCount(); i++) {
 		for (std::size_t j = 0; j < multiMatrix.GetElementCount(); j++) {
-			for (std::size_t k = 0; k < nOutputs; k++) {
+			for (std::size_t k = 0; k < outputNeurons.size(); k++) {
 				Connection connection(inputNeurons[i * multiMatrix.GetElementCount() + j], outputNeurons[k]);
 				outputNeurons[k].AddConnection(connection);
 			}
@@ -37,12 +37,12 @@ auto FullyConnectedNeuralNetwork::ProcessMultiMatrix(const MultiMatrix& multiMat
 	}
 
 	Matrix::Size size;
-	size.width = nOutputs;
+	size.width = outputNeurons.size();
 	size.height = 1;
 
 	Matrix outputs(size);
 
-	for (std::size_t i = 0; i < nOutputs; i++) {
+	for (std::size_t i = 0; i < outputNeurons.size(); i++) {
 		outputs.ElementAt({i, 0}) = outputNeurons[i].lastActionPotential;
 	}
 
