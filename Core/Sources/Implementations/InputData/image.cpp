@@ -5,7 +5,11 @@ using namespace Convolutional;
 using namespace Convolutional::InputData;
 
 Image::Image(const char * filename) :
-	image("640x480", "white")
+#ifdef _DEBUG
+	image("32x32", "black")
+#else
+	image(filename)
+#endif
 {
 }
 
