@@ -3,7 +3,8 @@ image: Visual Studio 2017 RC
 configuration:
   - Release
 
-install: powershell.exe -NoProfile -ExecutionPolicy RemoteSigned -File InstallDependencies.ps1
+install: 
+  - "powershell.exe -NoProfile -ExecutionPolicy RemoteSigned -File InstallDependencies.ps1"
 
 build_script:
   - msbuild %solution_name%
