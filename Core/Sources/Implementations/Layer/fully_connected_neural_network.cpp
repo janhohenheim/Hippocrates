@@ -4,16 +4,7 @@ using namespace Convolutional;
 using namespace Convolutional::Layer;
 
 auto FullyConnectedNeuralNetwork::ProcessMultiMatrix(const MultiMatrix& multiMatrix) -> MultiMatrix {
-	const auto inputCount = multiMatrix.GetDimensionCount() * multiMatrix.GetElementCount();
-
-	inputNeurons = std::vector<Neuron> {inputCount, Neuron{}};
-	inputNeurons.push_back(BiasNeuron{});
-
-	outputNeurons = std::vector<Neuron>{outputNeurons.size(), Neuron{inputCount + 1}};
-
-	for (auto& input : inputNeurons)
-		for (auto& output : outputNeurons)
-			output.connections.push_back({input, output});
+	BuildNetwork(multiMatrix.GetDimensionCount() * multiMatrix.GetElementCount());
 
 	auto input = inputNeurons.begin();
 		for (const auto& subMatrix : multiMatrix)
@@ -38,4 +29,20 @@ auto FullyConnectedNeuralNetwork::ProcessMultiMatrix(const MultiMatrix& multiMat
 	}
 
 	return MultiMatrix {{outputs}};
+}
+
+auto FullyConnectedNeuralNetwork::BuildNetwork(std::size_t inputCount) -> void {
+	if (wasBuilt)
+		return;
+
+	inputNeurons = std::vector<Neuron> {inputCount, Neuron {}};
+	inputNeurons.push_back(BiasNeuron {});
+
+	outputNeurons = std::vector<Neuron> {outputNeurons.size(), Neuron {inputCount + 1}};
+
+	for (auto& input : inputNeurons)
+		for (auto& output : outputNeurons)
+			output.connections.push_back({input, output});
+
+	wasBuilt = true;
 }

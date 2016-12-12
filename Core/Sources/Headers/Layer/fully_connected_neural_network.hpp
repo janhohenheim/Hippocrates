@@ -43,6 +43,10 @@ public:
 	auto GetStride(Matrix::Size size) const noexcept -> Matrix::Size override { return {1, 1}; }
 
 	auto Clone() const noexcept -> std::unique_ptr<ILayer> override { return std::make_unique<FullyConnectedNeuralNetwork>(*this); }
+
+private:
+	bool wasBuilt = false;
+	auto BuildNetwork(std::size_t inputCount) -> void;
 };
 
 }
