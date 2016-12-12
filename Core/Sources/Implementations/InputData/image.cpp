@@ -6,7 +6,7 @@ using namespace Convolutional::InputData;
 
 Image::Image(const char * filename) :
 #ifdef _DEBUG
-	image("32x32", "black")
+	image("32x32", "white")
 #else
 	image(filename)
 #endif

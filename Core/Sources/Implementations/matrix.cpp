@@ -8,6 +8,12 @@ Matrix::Matrix(Size size):
 {
 }
 
+Convolutional::Matrix::Matrix(Size size, element_t value) :
+	size(size),
+	elements(size.height * size.width, value)
+{
+}
+
 /*
 Matrix& Convolutional::Matrix::operator=(const Matrix & other)
 {

@@ -40,6 +40,7 @@ public:
 
 public:
 	explicit Matrix(Size size);
+	explicit Matrix(Size size, element_t value);
 	Matrix(const Matrix&) = default;
 	Matrix(Matrix&&) = default;
 
