@@ -33,7 +33,7 @@ public:
 	std::vector<Neuron> inputNeurons;
 	std::vector<Neuron> outputNeurons;
 
-	FullyConnectedNeuralNetwork(std::size_t outputCount): outputNeurons(outputCount, Neuron()) { };
+	FullyConnectedNeuralNetwork(std::size_t outputCount) : outputNeurons {outputCount, Neuron {}} { };
 	FullyConnectedNeuralNetwork(const FullyConnectedNeuralNetwork&) = default;
 	FullyConnectedNeuralNetwork(FullyConnectedNeuralNetwork&&) = default;
 

@@ -6,10 +6,10 @@ using namespace Convolutional::Layer;
 auto FullyConnectedNeuralNetwork::ProcessMultiMatrix(const MultiMatrix& multiMatrix) -> MultiMatrix {
 	const auto inputCount = multiMatrix.GetDimensionCount() * multiMatrix.GetElementCount();
 
-	inputNeurons = std::vector<Neuron>(inputCount, Neuron());
-	inputNeurons.push_back(BiasNeuron());
+	inputNeurons = std::vector<Neuron> {inputCount, Neuron{}};
+	inputNeurons.push_back(BiasNeuron{});
 
-	outputNeurons = std::vector<Neuron>(outputNeurons.size(), Neuron(inputCount + 1));
+	outputNeurons = std::vector<Neuron>{outputNeurons.size(), Neuron{inputCount + 1}};
 
 	for (auto& input : inputNeurons)
 		for (auto& output : outputNeurons)
