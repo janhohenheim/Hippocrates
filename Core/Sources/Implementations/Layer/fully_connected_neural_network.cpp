@@ -15,10 +15,10 @@ auto FullyConnectedNeuralNetwork::ProcessMultiMatrix(const MultiMatrix& multiMat
 		for (auto& output : outputNeurons)
 			output.connections.push_back({input, output});
 
-	for (auto& input : inputNeurons)
+	auto input = inputNeurons.begin();
 		for (const auto& subMatrix : multiMatrix)
 			for (const auto& element : subMatrix)
-				input.lastActionPotential = element;
+				(input++)->lastActionPotential = element;
 
 	for (auto& neuron : outputNeurons) {
 		for (const auto& connection : neuron.connections) {
