@@ -8,10 +8,8 @@ class FullyConnectedNeuralNetwork : public ILayer {
 public:	
 	using ILayer::ILayer;
 
-	class Neuron;
-
-	class Connection {
-	public:
+	struct Neuron;
+	struct Connection {
 		Neuron& from;
 		Neuron& to;
 
@@ -20,8 +18,7 @@ public:
 		Connection(Neuron& from, Neuron& to) : from(from), to(to) { };
 	};
 
-	class Neuron {
-	public:
+	struct Neuron {
 		Matrix::element_t lastActionPotential = 0;
 		std::vector<Connection> connections;
 
@@ -29,8 +26,7 @@ public:
 		Neuron(std::size_t nConnections) { connections.reserve(nConnections); };
 	};
 
-	class BiasNeuron: public Neuron {
-	public:
+	struct BiasNeuron: public Neuron {
 		BiasNeuron() { lastActionPotential = 1.0; };
 	};
 
