@@ -97,10 +97,12 @@
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
     </ProjectReference>
     <PreBuildEvent>
-      <Command>call $(SolutionDir)install_dependencies.bat</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <PreBuildEvent>
-      <Message>Download dependencies</Message>
+      <Message>
+      </Message>
     </PreBuildEvent>
     <PostBuildEvent>
       <Command>XCOPY "C:\Program Files\ImageMagick-6.9.6-Q8\"*.DLL "$(TargetDir)" /D /K /Y</Command>
