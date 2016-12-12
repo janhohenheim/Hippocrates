@@ -10,4 +10,4 @@ build_script:
   - msbuild %solution_name%
 
 test_script:
-  - C:\projects\cnn-code\Release\Sandbox.exe
+  - C:\projects\cnn-code\x64\Release\Sandbox.exe
