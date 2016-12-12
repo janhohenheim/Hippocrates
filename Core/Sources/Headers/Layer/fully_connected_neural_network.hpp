@@ -25,7 +25,8 @@ public:
 		Matrix::element_t lastActionPotential = 0;
 		std::vector<Connection> connections;
 
-		Neuron(std::size_t nConnections = 0) { connections.reserve(nConnections); };
+		Neuron() = default;
+		Neuron(std::size_t nConnections) { connections.reserve(nConnections); };
 
 		auto AddConnection(Connection& connection) -> void {
 			connections.push_back(connection);
