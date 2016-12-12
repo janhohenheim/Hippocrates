@@ -28,8 +28,8 @@ auto FullyConnectedNeuralNetwork::ProcessMultiMatrix(const MultiMatrix& multiMat
 		}
 	}
 
-	for (auto neuron : outputNeurons) {
-		for (auto connection : neuron.connections) {
+	for (auto& neuron : outputNeurons) {
+		for (const auto& connection : neuron.connections) {
 			neuron.lastActionPotential += connection.from.lastActionPotential * connection.weight;
 		}
 
