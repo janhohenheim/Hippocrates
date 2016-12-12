@@ -11,12 +11,10 @@ auto FullyConnectedNeuralNetwork::ProcessMultiMatrix(const MultiMatrix& multiMat
 
 	outputNeurons = std::vector<Neuron>(outputNeurons.size(), Neuron(inputCount + 1));
 
-	for (std::size_t i = 0; i < multiMatrix.GetDimensionCount(); i++) {
-		for (std::size_t j = 0; j < multiMatrix.GetElementCount(); j++) {
-			for (std::size_t k = 0; k < outputNeurons.size(); k++) {
-				Connection connection(inputNeurons[i * multiMatrix.GetElementCount() + j], outputNeurons[k]);
-				outputNeurons[k].AddConnection(connection);
-			}
+	for (auto& input : inputNeurons) {
+		for (auto& output : outputNeurons) {
+			Connection connection(input, output);
+			output.AddConnection(connection);
 		}
 	}
 
