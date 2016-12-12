@@ -19,22 +19,22 @@ Matrix& Convolutional::Matrix::operator=(const Matrix & other)
 */
 
 auto Convolutional::Matrix::AddZeroPadding(Matrix::Size paddingAmount) -> void {
-	// Pad left and right
-	for (auto element = elements.begin(); element != elements.end(); ++element) {
-		elements.insert(element, 0);
-		element+=size.width;
-		elements.insert(element, 0);
-	}
-	elements.push_back(0);
+	if (paddingAmount.height == 0 
+	 && paddingAmount.width == 0)
+		return;
 
-	size.height += paddingAmount.height * 2;
-	size.width += paddingAmount.width * 2;
+	auto paddedSize = size;
+	paddedSize.height += paddingAmount.height * 2;
+	paddedSize.width += paddingAmount.width * 2;
+	Matrix paddedMatrix(paddedSize);
 
-	// Pad above and below
-	for (std::size_t i = 0; i < paddingAmount.height * size.width; ++i) {
-		elements.push_front(0);
-		elements.push_back(0);
-	}
+	auto element = elements.begin();
+
+	for (auto y = paddingAmount.height; y < paddedSize.height - paddingAmount.height; ++y)
+		for (auto x = paddingAmount.width; x < paddedSize.width - paddingAmount.width; ++x)
+			paddedMatrix.ElementAt({x, y}) = *(element++);
+	
+	*this = std::move(paddedMatrix);
 }
 
 auto Matrix::GetSubmatrix(Matrix::Position position, Matrix::Size size) const -> Matrix {
