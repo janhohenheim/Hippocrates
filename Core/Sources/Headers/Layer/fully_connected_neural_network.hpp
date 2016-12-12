@@ -8,19 +8,19 @@ class FullyConnectedNeuralNetwork : public ILayer {
 public:	
 	using ILayer::ILayer;
 
-    class Neuron;
+	class Neuron;
 
-    class Connection {
-    public:
-        Neuron& from;
-        Neuron& to;
+	class Connection {
+	public:
+		Neuron& from;
+		Neuron& to;
 
-        double weight = ((double) rand() / RAND_MAX * 2) - 1;
+		double weight = ((double) rand() / RAND_MAX * 2) - 1;
 
-        Connection(Neuron& from, Neuron& to) : from(from), to(to) { };
-    };
+		Connection(Neuron& from, Neuron& to) : from(from), to(to) { };
+	};
 
-    class Neuron {
+	class Neuron {
 	public:
 		Matrix::element_t lastActionPotential = 0;
 		std::vector<Connection> connections;
