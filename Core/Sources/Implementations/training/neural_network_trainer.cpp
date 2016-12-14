@@ -1,4 +1,4 @@
-#include "training/neural_network_trainer.hpp"
+﻿#include "training/neural_network_trainer.hpp"
 #include <sstream>
 
 using namespace Hippocrates;
@@ -32,9 +32,7 @@ auto NeuralNetworkTrainer::TrainGenerationAndLogUsingBodies(SpeciesManager::Bodi
 	}
 }
 
-<<<<<<< HEAD
-std::ostream & Hippocrates::Training::operator<<(std::ostream & stream, const NeuralNetworkTrainer & neuralNetworkTrainer)
-{
+std::ostream & Hippocrates::Training::operator<<(std::ostream & stream, const NeuralNetworkTrainer & neuralNetworkTrainer) {
 	stream << "{" <<
 	"\"Parameters\":" <<
 	GetParameters() <<

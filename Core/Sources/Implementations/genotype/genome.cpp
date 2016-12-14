@@ -1,4 +1,4 @@
-#include <cmath>
+﻿#include <cmath>
 #include <algorithm>
 #include <iostream>
 
@@ -91,25 +91,6 @@ auto Genome::GetGeneticalDistanceFrom(const Genome& other) const -> Type::connec
 
 auto Genome::DoesContainGene(const Gene& gene) const -> bool {
 	return std::find(begin(), end(), gene) != end();
-}
-
-auto Genome::GetJSON() const -> std::string {
-	std::string s("{");
-	s += "\"inputCount\":";
-	s += std::to_string(inputCount);
-	s += ",\"outputCount\":";
-	s += std::to_string(outputCount);
-	s += ",\"neuronCount\":";
-	s += std::to_string(neuronCount);
-	s += ",\"genes\":[";
-	for (std::size_t i = 0; i < genes.size() - 1; ++i) {
-		s += genes[i].GetJSON();
-		s += ",";
-	}
-	s += genes.back().GetJSON();
-	s += "]";
-	s += "}";
-	return s;
 }
 
 auto Genome::ParseGenesJson(const std::string& json) -> std::vector<Gene> {

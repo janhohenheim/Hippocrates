@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 
 #include "training/parameters.hpp"
 #include "utility/jsmn.h"
@@ -87,9 +87,9 @@ std::ostream & Hippocrates::Training::operator<<(std::ostream & stream, const Pa
 	"\"ranges\":" <<
 	"{" <<
 	"\"minWeight\":" <<
-	std::to_string(parameters.ranges.minWeight) <<
+	std::to_string(parameters.neural.minWeight) <<
 	",\"maxWeight\":" <<
-	std::to_string(parameters.ranges.maxWeight) <<
+	std::to_string(parameters.neural.maxWeight) <<
 	"}" <<
 
 	",\"mutation\":" <<

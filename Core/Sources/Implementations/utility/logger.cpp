@@ -1,4 +1,4 @@
-#include <fstream>
+﻿#include <fstream>
 
 #include "utility/logger.hpp"
 
@@ -50,10 +50,6 @@ auto Logger::GetMetadataFileName(const Type::file_string_t &sessionDir) const ->
 
 auto Logger::GetLogFileName(const Type::file_string_t& sessionDir, std::size_t generationsPassed) const -> Type::file_string_t {
 	return Type::file_string_t(sessionDir + Type::literal_as_file_string("generation_") + Type::to_file_string(generationsPassed) + GetLogFileExtension());
-}
-
-auto Logger::SetFullLoggingPath(const Type::file_string_t& path) -> void {
-	fullLoggingPath = path;
 }
 
 auto Logger::LogGeneration(std::size_t generation, std::ostream& logstream) -> void {
