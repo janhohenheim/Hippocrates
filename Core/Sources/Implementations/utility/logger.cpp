@@ -59,13 +59,14 @@ auto Logger::SetFullLoggingPath(const Type::file_string_t& path) -> void {
 }
 
 
-auto Logger::LogGeneration(std::size_t generation, const std::string& log) -> void {
+auto Logger::LogGeneration(std::size_t generation, std::ostream& logstream) -> void {
 	if (fullLoggingPath.empty()) 
 		throw std::runtime_error("No logging directory found. Did you forget to call Logger::CreateLoggingDirs()?");
 	
 	auto logFileName = GetLogFileName(fullLoggingPath, generation);
 	std::ofstream logFile(logFileName);
-	logFile << log;
+	//TODO check if it works
+	logFile << logstream.rdbuf();
 	logFile.close();
 }
 

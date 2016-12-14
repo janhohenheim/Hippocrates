@@ -1,4 +1,5 @@
 #include "training/neural_network_trainer.hpp"
+#include <sstream>
 
 using namespace Hippocrates;
 using namespace Hippocrates::Training;
@@ -24,12 +25,14 @@ auto NeuralNetworkTrainer::TrainGenerationAndLogUsingBodies(SpeciesManager::Bodi
 	species.LetGenerationLive();
 	generationsPassed++;
 	if (loggingEnabled) {
-		logger.LogGeneration(generationsPassed, GetJSON());
+		std::stringstream log;
+		log << *this;
+		logger.LogGeneration(generationsPassed, log);
 		logger.LogMetadata(species.GetFittestOrganism().GetOrCalculateRawFitness());
 	}
 }
 
-std::ostream & Hippocrates::Training::operator«(std::ostream & stream, const NeuralNetworkTrainer & neuralNetworkTrainer)
+std::ostream & Hippocrates::Training::operator<<(std::ostream & stream, const NeuralNetworkTrainer & neuralNetworkTrainer)
 {
 	stream << "{" <<
 	"\"Parameters\":" <<
@@ -38,11 +41,11 @@ std::ostream & Hippocrates::Training::operator«(std::ostream & stream, const Neu
 	std::to_string(neuralNetworkTrainer.generationsPassed) <<
 	"," <<
 	"\"species\":[";
-	for (const auto& sp : neuralNetworkTrainer.species) {
-		stream << sp <<
-		",";
+	auto& species = neuralNetworkTrainer.species;
+	const auto speciesCount = species.GetSpeciesCount();
+	for (std::size_t i = 0; i < speciesCount - 1; ++i) {
+		stream << species[i] << ",";
 	}
-	stream << pop_back() <<
-	"]}";
+	stream << species[speciesCount - 1] << "]}";
 	return stream;
 }

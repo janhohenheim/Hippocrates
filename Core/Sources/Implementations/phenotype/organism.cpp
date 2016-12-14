@@ -68,7 +68,7 @@ auto Organism::BreedWith(const Organism& partner, Training::InnovationCacher& cu
 	return child;
 }
 
-std::ostream & Hippocrates::Phenotype::operator«(std::ostream & stream, const Organism & organism)
+std::ostream & Hippocrates::Phenotype::operator<<(std::ostream & stream, const Organism & organism)
 {
 	stream << "{\"fitness\":" <<
 	std::to_string(organism.GetOrCalculateRawFitness()) <<

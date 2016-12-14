@@ -18,7 +18,7 @@ struct Gene {
 	auto operator==(const Gene& other) const -> bool;
 
 	auto SetRandomWeight() -> void;
-	friend std::ostream& operator«(std::ostream& stream, const Gene & gene);
+	friend std::ostream& operator<<(std::ostream& stream, const Gene & gene);
 
 	std::size_t from = 0;
 	std::size_t to = 0;

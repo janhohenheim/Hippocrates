@@ -39,7 +39,7 @@ struct Parameters {
 		bool allowRecurrentConnections = false;
 	} structure;
 
-	friend std::ostream& operator«(std::ostream& stream, const Parameters & parameters);
+	friend std::ostream& operator<<(std::ostream& stream, const Parameters & parameters);
 };
 
 inline Parameters& GetParameters(){

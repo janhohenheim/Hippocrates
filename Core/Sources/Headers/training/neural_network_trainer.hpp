@@ -29,7 +29,7 @@ public:
 	
 	auto GetGenerationsPassed() const { return generationsPassed; }
 
-	friend std::ostream& operator«(std::ostream& stream, const NeuralNetworkTrainer & neuralNetworkTrainer);
+	friend std::ostream& operator<<(std::ostream& stream, const NeuralNetworkTrainer & neuralNetworkTrainer);
 
 
 private:

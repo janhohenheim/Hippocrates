@@ -71,7 +71,7 @@ Parameters::Parameters(std::string json) {
 	}
 }
 
-std::ostream & Hippocrates::Training::operator«(std::ostream & stream, const Parameters & parameters)
+std::ostream & Hippocrates::Training::operator<<(std::ostream & stream, const Parameters & parameters)
 {
 	auto BoolToString = [](bool b) {
 		return b ? "true" : "false";

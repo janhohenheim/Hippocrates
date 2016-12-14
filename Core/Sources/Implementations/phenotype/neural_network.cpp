@@ -437,10 +437,6 @@ auto NeuralNetwork::GetRandomEnabledGene() -> Genotype::Gene& {
 	return *randGene;
 }
 
-auto NeuralNetwork::GetJSON() const -> std::string {
-	
-}
-
 auto NeuralNetwork::Reset() -> void {
 	for (auto& neuron : neurons) {
 		neuron.Reset();
@@ -465,16 +461,19 @@ auto NeuralNetwork::ParseNeuronsJson(std::string json) -> std::vector<Neuron> {
 	return neurons;
 }
 
-std::ostream & Hippocrates::Phenotype::operator«(std::ostream & stream, const NeuralNetwork & neuralNetwork)
+std::ostream & Hippocrates::Phenotype::operator<<(std::ostream & stream, const NeuralNetwork & neuralNetwork)
 {
 	stream <<"{\"neurons\":[";
-	for (const auto& neuron : neuralNetwork.neurons) {
-		stream << neuron <<
-		",";
+
+	auto& neurons = neuralNetwork.neurons;
+	const auto neuronsCount = neurons.size();
+
+	for (std::size_t i = 0; i < neuronsCount - 1; ++i) {
+		stream << neurons[i] << ",";
 	}
-	stream << neuralNetwork.pop_back() <<
+	stream << neurons[neuronsCount - 1] <<
 	"],\"genome\":" <<
-	genome <<
+	neuralNetwork.genome <<
 	"}";
 	return stream;
 }

@@ -158,7 +158,7 @@ auto Species::GetTotalFitness() const -> Type::fitness_t {
 	return totalFitness;
 }
 
-std::ostream & Hippocrates::Training::operator«(std::ostream & stream, const Species & species)
+std::ostream & Hippocrates::Training::operator<<(std::ostream & stream, const Species & species)
 {
 	stream << "{\"fitnessHighscore\":" <<
 	std::to_string(species.fitnessHighscore) <<
@@ -167,11 +167,13 @@ std::ostream & Hippocrates::Training::operator«(std::ostream & stream, const Spe
 	",\"representative\":" <<
 	species.representative <<
 	",\"population\": [";
-	for (const auto& sp : species.population) {
-		stream << sp <<
-		",";
+
+	auto& population = species.population;
+	const auto populationCount = population.size();
+
+	for (std::size_t i = 0; i < populationCount - 1; ++i) {
+		stream << population[i] << ",";
 	}
-	stream << pop_back() <<
-	"]}";
+	stream << population[populationCount - 1] << "]}";
 	return stream;
 }

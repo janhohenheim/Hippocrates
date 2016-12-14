@@ -62,7 +62,7 @@ void Neuron::Reset() {
 	lastActionPotential = 0.0f;
 }
 
-std::ostream & Hippocrates::Phenotype::operator«(std::ostream & stream, const Neuron & neuron)
+std::ostream & Hippocrates::Phenotype::operator<<(std::ostream & stream, const Neuron & neuron)
 {
 	stream << "{\"layer\":" <<
 	std::to_string(neuron.layer) <<

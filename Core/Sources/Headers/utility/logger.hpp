@@ -9,7 +9,7 @@ namespace Hippocrates::Utility {
 class Logger {
 public:
 	auto CreateLoggingDirs() -> void;
-	auto LogGeneration(std::size_t generation, const std::string& log) -> void;
+	auto LogGeneration(std::size_t generation, std::ostream& logstream) -> void;
 	auto LogMetadata(Type::fitness_t maxFitness) -> void;
 
 private:

@@ -59,7 +59,7 @@ auto Gene::SetRandomWeight() -> void {
 	weight = Utility::Random::Number(Training::GetParameters().ranges.minWeight, Training::GetParameters().ranges.maxWeight);
 }
 
-std::ostream & Hippocrates::Genotype::operator«(std::ostream & stream, const Gene & gene)
+std::ostream & Hippocrates::Genotype::operator<<(std::ostream & stream, const Gene & gene)
 {
 	auto BoolToString = [](bool b) {
 		return b ? "true" : "false";

@@ -117,10 +117,10 @@ auto Genome::AdjustNeuronCount(const Gene & gene) -> void {
 	}
 }
 
-std::ostream & Hippocrates::Genotype::operator«(std::ostream & stream, const Genome & genome)
+std::ostream & Hippocrates::Genotype::operator<<(std::ostream & stream, const Genome & genome)
 {
 	stream << "\"parameters\":" <<
-	genome.parameters <<
+	Training::GetParameters() <<
 	",\"inputCount\":" <<
 	std::to_string(genome.inputCount) <<
 	",\"outputCount\":" <<

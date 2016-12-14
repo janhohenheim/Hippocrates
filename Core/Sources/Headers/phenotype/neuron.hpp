@@ -37,7 +37,7 @@ public:
 	auto GetConnections() const -> const std::vector<Connection>& { return connections; }
 	auto RequestDataAndGetActionPotential() ->Type::neuron_value_t;
 	auto GetLayer() const -> std::size_t { return layer; }
-	friend std::ostream& operator«(std::ostream& stream, const Neuron & neuron);
+	friend std::ostream& operator<<(std::ostream& stream, const Neuron & neuron);
 
 	auto Reset() -> void;
 
