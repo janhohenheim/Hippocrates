@@ -9,11 +9,11 @@ auto NeuralNetworkTrainer::TrainUnsupervised(SpeciesManager::Bodies& bodies) -> 
 		logger.CreateLoggingDirs();
 	}
 	species.CreateInitialOrganisms(bodies);
-	species.LetGenerationLive();
+	UpdateEntireGeneration();
 
 	generationsPassed = 0;
 	auto* champ = &species.GetFittestOrganism();
-	while (champ->GetOrCalculateRawFitness() < (champ->GetMaxFitness() - 1e-6)) {
+	while (champ->GetOrCalculateRawFitness() < (champ->GetMaximumFitness() - 1e-6)) {
 		TrainGenerationAndLogUsingBodies(bodies);
 		champ = &species.GetFittestOrganism();
 	}
@@ -22,7 +22,7 @@ auto NeuralNetworkTrainer::TrainUnsupervised(SpeciesManager::Bodies& bodies) -> 
 
 auto NeuralNetworkTrainer::TrainGenerationAndLogUsingBodies(SpeciesManager::Bodies& bodies) -> void {
 	species.Repopulate(bodies);
-	species.LetGenerationLive();
+	UpdateEntireGeneration();
 	generationsPassed++;
 	if (loggingEnabled) {
 		std::stringstream log;
@@ -32,6 +32,7 @@ auto NeuralNetworkTrainer::TrainGenerationAndLogUsingBodies(SpeciesManager::Bodi
 	}
 }
 
+<<<<<<< HEAD
 std::ostream & Hippocrates::Training::operator<<(std::ostream & stream, const NeuralNetworkTrainer & neuralNetworkTrainer)
 {
 	stream << "{" <<
@@ -49,3 +50,17 @@ std::ostream & Hippocrates::Training::operator<<(std::ostream & stream, const Ne
 	stream << species[speciesCount - 1] << "]}";
 	return stream;
 }
+
+auto NeuralNetworkTrainer::UpdateEntireGeneration() -> void {
+	std::size_t numberOfTimesToFinishTask = 1;
+
+	if (Training::GetParameters().structure.allowRecurrentConnections) 
+		numberOfTimesToFinishTask = Training::GetParameters().structure.memoryResetsBeforeTotalReset;
+
+	for (std::size_t i = 0; i < numberOfTimesToFinishTask; i++) {
+		species.Reset();
+		while (!species.DidLastUpdateFinishTask())
+			species.Update();
+	}
+}
+

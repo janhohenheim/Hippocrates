@@ -1,9 +1,9 @@
-#include <cmath>
 #include <stdexcept>
 
 #include "phenotype/neuron.hpp"
 #include "utility/jsmn.h"
 #include "utility/random.hpp"
+#include "activation_function/tanh.hpp"
 
 using namespace Hippocrates;
 using namespace Hippocrates::Phenotype;
@@ -12,7 +12,7 @@ Neuron::Neuron(std::vector<Connection> connections) :
 	connections(std::move(connections)) {
 }
 
-Neuron::Neuron(std::string json) {
+Neuron::Neuron(const std::string& json) {
 	jsmn_parser parser;
 	jsmn_init(&parser);
 	jsmntok_t tokens[256];
@@ -46,13 +46,9 @@ auto Neuron::RequestDataAndGetActionPotential() -> Type::neuron_value_t {
 			incomingPotentials += in.neuron->lastActionPotential * in.weight;
 		}
 	}
-	lastActionPotential = sigmoid(incomingPotentials);
-	return lastActionPotential;
+	return lastActionPotential = activationFunction(incomingPotentials);
 }
 
-auto Neuron::sigmoid(Type::neuron_value_t d) -> Type::neuron_value_t {
-	return tanh(d);
-}
 
 auto Neuron::SetInput(Type::neuron_value_t input) -> void {
 	lastActionPotential = input;

@@ -14,7 +14,7 @@ Gene::Gene() {
 	SetRandomWeight();
 }
 
-Gene::Gene(std::string json) {
+Gene::Gene(const std::string& json) {
 	jsmn_parser parser;
 	jsmn_init(&parser);
 	jsmntok_t tokens[256];
@@ -56,7 +56,7 @@ auto Gene::operator==(const Gene & other) const -> bool
 }
 
 auto Gene::SetRandomWeight() -> void {
-	weight = Utility::Random::Number(Training::GetParameters().ranges.minWeight, Training::GetParameters().ranges.maxWeight);
+	weight = Utility::Random::Number(Training::GetParameters().neural.minWeight, Training::GetParameters().neural.maxWeight);
 }
 
 std::ostream & Hippocrates::Genotype::operator<<(std::ostream & stream, const Gene & gene)

@@ -84,27 +84,31 @@ auto Species::GetOffspringCount(Type::fitness_t averageFitness) const -> std::si
 	if (averageFitness == 0.0) 
 		return GetSize();
 	
-
-	std::size_t offspringCount = 0;
+	double offspringCount = 0;
 	for (auto & organism : population) {
-		// TODO jnf: Should we round this?
-		offspringCount += static_cast<std::size_t>(std::round(organism.GetOrCalculateFitness() / averageFitness));
+		const auto fitness = organism.GetOrCalculateFitness();
+		offspringCount += fitness / averageFitness;
 	}
-	return offspringCount;
+	// TODO jnf: Should we round this?
+	return static_cast<std::size_t>(std::round(offspringCount));
 }
 
-auto Species::LetPopulationLive() -> void {
+auto Species::Update() -> void {
+	didLastUpdateFinishTask = true;
 	for (auto& organism : population) {
 		organism.Update();
+		if (didLastUpdateFinishTask)
+			didLastUpdateFinishTask = organism.HasFinishedTask();
 	}
 
 	isSortedByFitness = false;
 }
 
-auto Species::ResetToTeachableState() -> void {
+auto Species::Reset() -> void {
 	for (auto& organism : population) {
 		organism.Reset();
 	}
+	didLastUpdateFinishTask = false;
 }
 
 auto Species::GetFittestOrganism() const -> const Phenotype::Organism& {

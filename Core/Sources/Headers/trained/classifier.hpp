@@ -8,7 +8,6 @@ template<typename Classification>
 class Classifier : public NeuralNetwork {
 public:
 	using NeuralNetwork::NeuralNetwork;
-	Classifier() : NeuralNetwork(){ };
 	Classifier(const NeuralNetwork& other) : NeuralNetwork(other){};
 	Classifier(NeuralNetwork&& other) : NeuralNetwork(std::move(other)){};
 

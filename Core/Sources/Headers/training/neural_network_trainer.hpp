@@ -34,17 +34,13 @@ public:
 
 private:
 	auto TrainGenerationAndLogUsingBodies(SpeciesManager::Bodies& bodies) -> void;
+	auto UpdateEntireGeneration() -> void;
 };
 
 template <typename Classification, std::size_t ClassificationCount>
 auto NeuralNetworkTrainer::TrainSupervised(const Data<Classification, ClassificationCount>& data, std::size_t trainingInstances) -> Trained::Classifier<Classification> {
 	using supervised_body_t = Body::SupervisedLearning<Classification, ClassificationCount>;
-	std::vector<supervised_body_t> bodies;
-	bodies.reserve(trainingInstances);
-	for (std::size_t i = 0; i < trainingInstances; ++i) {
-		supervised_body_t body(data);
-		bodies.push_back(std::move(body));
-	}
+	std::vector<supervised_body_t> bodies(trainingInstances, supervised_body_t {data});
 	SpeciesManager::Bodies bodyRefs(bodies.begin(), bodies.end());
 	auto champ = TrainUnsupervised(bodyRefs);
 	return Trained::Classifier<Classification>(std::move(champ));

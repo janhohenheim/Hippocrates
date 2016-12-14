@@ -24,7 +24,7 @@ Genome::Genome(std::size_t inputCount, std::size_t outputCount) :
 	}
 }
 
-Genome::Genome(std::string json) {
+Genome::Genome(const std::string& json) {
 	jsmn_parser parser;
 	jsmn_init(&parser);
 	jsmntok_t tokens[256];
@@ -93,7 +93,26 @@ auto Genome::DoesContainGene(const Gene& gene) const -> bool {
 	return std::find(begin(), end(), gene) != end();
 }
 
-auto Genome::ParseGenesJson(std::string json) -> std::vector<Gene> {
+auto Genome::GetJSON() const -> std::string {
+	std::string s("{");
+	s += "\"inputCount\":";
+	s += std::to_string(inputCount);
+	s += ",\"outputCount\":";
+	s += std::to_string(outputCount);
+	s += ",\"neuronCount\":";
+	s += std::to_string(neuronCount);
+	s += ",\"genes\":[";
+	for (std::size_t i = 0; i < genes.size() - 1; ++i) {
+		s += genes[i].GetJSON();
+		s += ",";
+	}
+	s += genes.back().GetJSON();
+	s += "]";
+	s += "}";
+	return s;
+}
+
+auto Genome::ParseGenesJson(const std::string& json) -> std::vector<Gene> {
 	jsmn_parser parser;
 	jsmn_init(&parser);
 	jsmntok_t tokens[256];

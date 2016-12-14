@@ -14,19 +14,11 @@ Organism::Organism(Body::IBody& body, NeuralNetwork&& network) :
 }
 
 auto Organism::Update() -> void {
-	std::size_t numberOfTimesToFinishTask = 1;
-
-	if (Training::GetParameters().structure.allowRecurrentConnections) {
-		numberOfTimesToFinishTask = Training::GetParameters().structure.memoryResetsBeforeTotalReset;
-	}
-
-	for (std::size_t i = 0; i < numberOfTimesToFinishTask; i++) {
-		while (!body->HasFinishedTask()) {
-			const auto inputs(move(body->ProvideNetworkWithInputs()));
-			const auto outputs(move(network.GetOutputsUsingInputs(inputs)));
-			body->Update(outputs);
-			isFitnessUpToDate = false;
-		}
+	if (!body->HasFinishedTask()) {
+		const auto inputs(body->ProvideNetworkWithInputs());
+		const auto outputs(network.GetOutputsUsingInputs(inputs));
+		body->Update(outputs);
+		isFitnessUpToDate = false;
 	}
 }
 

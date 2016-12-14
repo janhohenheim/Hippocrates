@@ -22,15 +22,15 @@ public:
 	Organism(Organism&& other) = default;
 	~Organism() = default;
 
-	auto operator=(const Organism& other) -> Organism& = default;
-	auto operator=(Organism&& other) -> Organism& = default;
+	auto operator=(const Organism& other)&-> Organism& = default;
+	auto operator=(Organism&& other)&-> Organism& = default;
 
 	auto Reset() -> void { body->Reset(); }
 	auto Update() -> void;
 	auto SetFitnessModifier(Type::fitness_t factor) -> void { fitnessModifier = factor; }
 	auto GetOrCalculateFitness() const ->Type::fitness_t;
 	auto GetOrCalculateRawFitness() const ->Type::fitness_t;
-	auto GetMaxFitness() const { return body->GetMaximumFitness(); }
+	auto GetMaximumFitness() const { return body->GetMaximumFitness(); }
 	auto BreedWith(const Organism& partner, Training::InnovationCacher& currGenerationInnovations) const -> NeuralNetwork;
 	auto GetGenome() const -> const Genotype::Genome&{ return network.GetGenome(); }
 	auto GetNeuralNetwork() const -> const NeuralNetwork& {return network; }

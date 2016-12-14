@@ -3,17 +3,20 @@
 #include <string>
 
 #include "type.hpp"
+#include "activation_function/possible_activation_functions.hpp"
 
 namespace Hippocrates::Training {
 
 struct Parameters {
 	Parameters() = default;
-	explicit Parameters(std::string json);
+	explicit Parameters(const std::string& json);
 
-	struct Ranges {
-		Type::connection_weight_t minWeight = -8.0f;
-		Type::connection_weight_t maxWeight = 8.0f;
-	} ranges;
+	struct Neural {
+		Type::connection_weight_t minWeight = -1.0f;
+		Type::connection_weight_t maxWeight = 1.0f;
+		using Fun = ActivationFunction::PossibleActivationFunctions;
+		Fun activationFunction = Fun::tanh;
+	} neural;
 	struct Mutation {
 		float chanceForWeightMutation = 0.8f;
 		float chanceForConnectionalMutation = 0.05f;
@@ -46,5 +49,7 @@ inline Parameters& GetParameters(){
 	static Parameters params;
 	return params;
 }
+
+
 
 }

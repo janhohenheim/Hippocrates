@@ -6,7 +6,7 @@
 using namespace Hippocrates;
 using namespace Hippocrates::Training;
 
-Parameters::Parameters(std::string json) {
+Parameters::Parameters(const std::string& json) {
 	jsmn_parser parser;
 	jsmn_init(&parser);
 	jsmntok_t tokens[256];
@@ -18,11 +18,16 @@ Parameters::Parameters(std::string json) {
 		auto value = json.substr(tokens[i + 1].start, tokens[i + 1].end - tokens[i + 1].start);
 
 		if (key == "minWeight") {
-			ranges.minWeight = stof(value);
+			neural.minWeight = stof(value);
 		} else
 		if (key == "maxWeight") {
-			ranges.maxWeight = stof(value);
+			neural.maxWeight = stof(value);
 		} else
+		if (key == "activationFunction"){
+			std::size_t asNr;
+			HIPPOCRATES_SSCANF(value.c_str(), "%zu", &asNr);
+			neural.activationFunction = static_cast<ActivationFunction::PossibleActivationFunctions>(asNr);
+		}
 		if (key == "chanceForWeightMutation") {
 			mutation.chanceForWeightMutation = stof(value);
 		} else

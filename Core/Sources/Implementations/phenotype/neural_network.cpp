@@ -60,7 +60,7 @@ NeuralNetwork::NeuralNetwork(const NeuralNetwork& other) :
 	BuildNetworkFromGenes();
 }
 
-auto NeuralNetwork::operator=(const NeuralNetwork& other) -> NeuralNetwork& {
+auto NeuralNetwork::operator=(const NeuralNetwork& other)& -> NeuralNetwork& {
 	genome = other.genome;
 	neurons.clear();
 	neurons.reserve(other.neurons.size());
@@ -348,8 +348,8 @@ auto NeuralNetwork::PerturbWeightAt(std::size_t index) -> void {
 	constexpr auto perturbRange = 2.5f;
 	auto perturbance = Utility::Random::Number(-perturbRange, perturbRange);
 	genome[index].weight += perturbance;
-	const auto min = Training::GetParameters().ranges.minWeight;
-	const auto max = Training::GetParameters().ranges.maxWeight;
+	const auto min = Training::GetParameters().neural.minWeight;
+	const auto max = Training::GetParameters().neural.maxWeight;
 	// In C++17
 	// std::clamp(genome[index].weight, min, max));
 	if (genome[index].weight < min) {
@@ -419,7 +419,7 @@ auto NeuralNetwork::CategorizeNeuronBranchIntoLayers(Neuron& currNode, std::size
 }
 
 auto NeuralNetwork::GetRandomEnabledGene() -> Genotype::Gene& {
-	size_t num = Utility::Random::Number(0ULL, genome.GetGeneCount() - 1ULL);
+	size_t num = Utility::Random::Number(size_t(0), genome.GetGeneCount() - size_t(1));
 	auto randGene = genome.begin();
 	randGene += num;
 	while (randGene != genome.end() && !randGene->isEnabled) {
@@ -443,7 +443,7 @@ auto NeuralNetwork::Reset() -> void {
 	}
 }
 
-auto NeuralNetwork::ParseNeuronsJson(std::string json) -> std::vector<Neuron> {
+auto NeuralNetwork::ParseNeuronsJson(const std::string& json) -> std::vector<Neuron> {
 	jsmn_parser parser;
 	jsmn_init(&parser);
 	jsmntok_t tokens[256];

@@ -24,40 +24,37 @@ auto Logger::CreateLoggingDirs() -> void {
 		Type::Filesystem::create_directory(sessionDir);
 	}
 
-	SetFullLoggingPath(sessionDir);
+	fullLoggingPath = sessionDir;
 }
 
-auto Logger::GetCurrentDir() -> Type::file_string_t {
+auto Logger::GetCurrentDir() const -> Type::file_string_t {
 	return Type::Filesystem::current_path();
 }
 
-auto Logger::GetLogFolder() -> Type::file_string_t {
+auto Logger::GetLogFolder() const -> Type::file_string_t {
 	return Type::literal_as_file_string("/json_dumps/");
 }
 
-auto Logger::GetLogFileExtension() -> Type::file_string_t {
+auto Logger::GetLogFileExtension() const -> Type::file_string_t {
 	return Type::literal_as_file_string(".json");
 }
 
 
-auto Logger::GetSessionDir(const Type::file_string_t& dumpDir) -> Type::file_string_t {
+auto Logger::GetSessionDir(const Type::file_string_t& dumpDir) const -> Type::file_string_t {
 	return Type::file_string_t(dumpDir + Type::to_file_string(timestamp.time_since_epoch().count()) + Type::literal_as_file_string("/"));
 }
 
-auto Logger::GetMetadataFileName(const Type::file_string_t &sessionDir) -> Type::file_string_t {
+auto Logger::GetMetadataFileName(const Type::file_string_t &sessionDir) const -> Type::file_string_t {
 	return sessionDir + Type::literal_as_file_string("meta") + GetLogFileExtension();
 }
 
-
-auto Logger::GetLogFileName(const Type::file_string_t& sessionDir, std::size_t generationsPassed) -> Type::file_string_t {
+auto Logger::GetLogFileName(const Type::file_string_t& sessionDir, std::size_t generationsPassed) const -> Type::file_string_t {
 	return Type::file_string_t(sessionDir + Type::literal_as_file_string("generation_") + Type::to_file_string(generationsPassed) + GetLogFileExtension());
 }
-
 
 auto Logger::SetFullLoggingPath(const Type::file_string_t& path) -> void {
 	fullLoggingPath = path;
 }
-
 
 auto Logger::LogGeneration(std::size_t generation, std::ostream& logstream) -> void {
 	if (fullLoggingPath.empty()) 
