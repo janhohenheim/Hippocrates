@@ -1,4 +1,4 @@
-#include <algorithm>
+﻿#include <algorithm>
 #include <functional>
 #include <iostream>
 #include <cstring>
@@ -472,7 +472,7 @@ std::ostream & Hippocrates::Phenotype::operator<<(std::ostream & stream, const N
 		stream << neurons[i] << ",";
 	}
 	stream << neurons[neuronsCount - 1] <<
-	"],\"genome\":" <<
+	"],\"genome\":{" <<
 	neuralNetwork.genome <<
 	"}";
 	return stream;
