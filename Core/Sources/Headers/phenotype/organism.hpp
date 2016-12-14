@@ -35,7 +35,7 @@ public:
 	auto GetGenome() const -> const Genotype::Genome&{ return network.GetGenome(); }
 	auto GetNeuralNetwork() const -> const NeuralNetwork& {return network; }
 	auto HasFinishedTask() const -> bool { return body->HasFinishedTask(); }
-	auto GetJSON() const->std::string;
+	friend std::ostream& operator«(std::ostream& stream, const Organism & organism);
 };
 
 }

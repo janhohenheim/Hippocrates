@@ -29,19 +29,20 @@ auto NeuralNetworkTrainer::TrainGenerationAndLogUsingBodies(SpeciesManager::Bodi
 	}
 }
 
-auto NeuralNetworkTrainer::GetJSON() const -> std::string {
-	std::string s("{");
-	s += "\"Parameters\":";
-	s += GetParameters().GetJSON();
-	s += ",\"generationsPassed\":";
-	s += std::to_string(generationsPassed);
-	s += ",";
-	s += "\"species\":[";
-	for (const auto& sp : species) {
-		s += sp.GetJSON();
-		s += ",";
+std::ostream & Hippocrates::Training::operator«(std::ostream & stream, const NeuralNetworkTrainer & neuralNetworkTrainer)
+{
+	stream << "{" <<
+	"\"Parameters\":" <<
+	GetParameters() <<
+	",\"generationsPassed\":" <<
+	std::to_string(neuralNetworkTrainer.generationsPassed) <<
+	"," <<
+	"\"species\":[";
+	for (const auto& sp : neuralNetworkTrainer.species) {
+		stream << sp <<
+		",";
 	}
-	s.pop_back();
-	s += "]}";
-	return s;
+	stream << pop_back() <<
+	"]}";
+	return stream;
 }

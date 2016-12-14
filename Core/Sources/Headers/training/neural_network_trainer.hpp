@@ -29,7 +29,7 @@ public:
 	
 	auto GetGenerationsPassed() const { return generationsPassed; }
 
-	auto GetJSON() const -> std::string;
+	friend std::ostream& operator«(std::ostream& stream, const NeuralNetworkTrainer & neuralNetworkTrainer);
 
 
 private:

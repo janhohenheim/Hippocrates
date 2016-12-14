@@ -71,68 +71,69 @@ Parameters::Parameters(std::string json) {
 	}
 }
 
-auto Parameters::GetJSON() const -> std::string {
+std::ostream & Hippocrates::Training::operator«(std::ostream & stream, const Parameters & parameters)
+{
 	auto BoolToString = [](bool b) {
 		return b ? "true" : "false";
 	};
-	
-	std::string s("{");
 
-	s += "\"ranges\":";
-	s += "{";
-	s += "\"minWeight\":";
-	s += std::to_string(ranges.minWeight);
-	s += ",\"maxWeight\":";
-	s += std::to_string(ranges.maxWeight);
-	s += "}";
+	stream << "{" <<
 
-	s += ",\"mutation\":";
-	s += "{";
-	s += "\"chanceForWeightMutation\":";
-	s += std::to_string(mutation.chanceForWeightMutation);
-	s += ",\"chanceForConnectionalMutation\":";
-	s += std::to_string(mutation.chanceForConnectionalMutation);
-	s += ",\"chanceForNeuralMutation\":";
-	s += std::to_string(mutation.chanceForNeuralMutation);
-	s += ",\"chanceOfTotalWeightReset\":";
-	s += std::to_string(mutation.chanceOfTotalWeightReset);
-	s += "}";
+	"\"ranges\":" <<
+	"{" <<
+	"\"minWeight\":" <<
+	std::to_string(parameters.ranges.minWeight) <<
+	",\"maxWeight\":" <<
+	std::to_string(parameters.ranges.maxWeight) <<
+	"}" <<
 
-	s += ",\"speciation\":";
-	s += "{";
-	s += "\"importanceOfDisjointGenes\":";
-	s += std::to_string(speciation.importanceOfDisjointGenes);
-	s += ",\"importanceOfAverageWeightDifference\":";
-	s += std::to_string(speciation.importanceOfAverageWeightDifference);
-	s += ",\"compatibilityThreshold\":";
-	s += std::to_string(speciation.compatibilityThreshold);
-	s += ",\"stagnantSpeciesClearThreshold\":";
-	s += std::to_string(speciation.stagnantSpeciesClearThreshold);
-	s += ",\"normalizeForLargerGenome\":";
-	s += BoolToString(speciation.normalizeForLargerGenome);
-	s += "}";
+	",\"mutation\":" <<
+	"{" <<
+	"\"chanceForWeightMutation\":" <<
+	std::to_string(parameters.mutation.chanceForWeightMutation) <<
+	",\"chanceForConnectionalMutation\":" <<
+	std::to_string(parameters.mutation.chanceForConnectionalMutation) <<
+	",\"chanceForNeuralMutation\":" <<
+	std::to_string(parameters.mutation.chanceForNeuralMutation) <<
+	",\"chanceOfTotalWeightReset\":" <<
+	std::to_string(parameters.mutation.chanceOfTotalWeightReset) <<
+	"}" <<
 
-	s += ",\"reproduction\":";
-	s += "{";
-	s += "\"chanceForInterspecialReproduction\":";
-	s += std::to_string(reproduction.chanceForInterspecialReproduction);
-	s += ",\"minSpeciesSizeForChampConservation\":";
-	s += std::to_string(reproduction.minSpeciesSizeForChampConservation);
-	s += ",\"reproductionThreshold\":";
-	s += std::to_string(reproduction.reproductionThreshold);
-	s += ",\"minParents\":";
-	s += std::to_string(reproduction.minParents);
-	s += "}";
+	",\"speciation\":" <<
+	"{" <<
+	"\"importanceOfDisjointGenes\":" <<
+	std::to_string(parameters.speciation.importanceOfDisjointGenes) <<
+	",\"importanceOfAverageWeightDifference\":" <<
+	std::to_string(parameters.speciation.importanceOfAverageWeightDifference) <<
+	",\"compatibilityThreshold\":" <<
+	std::to_string(parameters.speciation.compatibilityThreshold) <<
+	",\"stagnantSpeciesClearThreshold\":" <<
+	std::to_string(parameters.speciation.stagnantSpeciesClearThreshold) <<
+	",\"normalizeForLargerGenome\":" <<
+	BoolToString(parameters.speciation.normalizeForLargerGenome) <<
+	"}" <<
 
-	s += ",\"structure\":";
-	s += "{";
-	s += "\"numberOfBiasNeurons\":";
-	s += std::to_string(structure.numberOfBiasNeurons);
-	s += ",\"allowRecurrentConnections\":";
-	s += BoolToString(structure.allowRecurrentConnections);
-	s += "}";
+	",\"reproduction\":" <<
+	"{" <<
+	"\"chanceForInterspecialReproduction\":" <<
+	std::to_string(parameters.reproduction.chanceForInterspecialReproduction) <<
+	",\"minSpeciesSizeForChampConservation\":" <<
+	std::to_string(parameters.reproduction.minSpeciesSizeForChampConservation) <<
+	",\"reproductionThreshold\":" <<
+	std::to_string(parameters.reproduction.reproductionThreshold) <<
+	",\"minParents\":" <<
+	std::to_string(parameters.reproduction.minParents) <<
+	"}" <<
 
-	s += "}";
+	",\"structure\":" <<
+	"{" <<
+	"\"numberOfBiasNeurons\":" <<
+	std::to_string(parameters.structure.numberOfBiasNeurons) <<
+	",\"allowRecurrentConnections\":" <<
+	BoolToString(parameters.structure.allowRecurrentConnections) <<
+	"}" <<
 
-	return s;
+	"}";
+
+	return stream;
 }

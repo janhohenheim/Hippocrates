@@ -42,7 +42,7 @@ public:
 	auto GetFittestOrganism() const -> const Phenotype::Organism&;
 	auto SortPopulationIfNeeded() const -> void;
 	auto GetOrganismToBreed() const -> const Phenotype::Organism&;
-	auto GetJSON() const->std::string;
+	friend std::ostream& operator«(std::ostream& stream, const Species & species);
 
 private:
 	auto ElectRepresentative() -> void;

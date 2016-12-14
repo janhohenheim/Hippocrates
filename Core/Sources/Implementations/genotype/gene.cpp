@@ -59,22 +59,23 @@ auto Gene::SetRandomWeight() -> void {
 	weight = Utility::Random::Number(Training::GetParameters().ranges.minWeight, Training::GetParameters().ranges.maxWeight);
 }
 
-auto Gene::GetJSON() const -> std::string {
+std::ostream & Hippocrates::Genotype::operator«(std::ostream & stream, const Gene & gene)
+{
 	auto BoolToString = [](bool b) {
 		return b ? "true" : "false";
 	};
-	std::string s("{\"historicalMarking\":");
-	s += std::to_string(historicalMarking);
-	s += ",\"from\":";
-	s += std::to_string(from);
-	s += ",\"to\":";
-	s += std::to_string(to);
-	s += ",\"weight\":";
-	s += std::to_string(weight);
-	s += ",\"isEnabled\":";
-	s += BoolToString(isEnabled);
-	s += ",\"isRecursive\":";
-	s += BoolToString(isRecursive);
-	s += "}";
-	return s;
+	stream << "{\"historicalMarking\":" <<
+	std::to_string(gene.historicalMarking)<<
+	",\"from\":"<<
+	std::to_string(gene.from)<<
+	",\"to\":"<<
+	std::to_string(gene.to)<<
+	",\"weight\":"<<
+	std::to_string(gene.weight)<<
+	",\"isEnabled\":"<<
+	BoolToString(gene.isEnabled)<<
+	",\"isRecursive\":"<<
+	BoolToString(gene.isRecursive)<<
+	"}";
+	return stream;
 }

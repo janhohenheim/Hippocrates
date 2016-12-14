@@ -146,23 +146,6 @@ auto Species::GetOrganismToBreed() const -> const Phenotype::Organism& {
 	}
 }
 
-auto Species::GetJSON() const -> std::string {
-	std::string s("{\"fitnessHighscore\":");
-	s += std::to_string(fitnessHighscore);
-	s += ",\"numberOfStagnantGenerations\":";
-	s += std::to_string(numberOfStagnantGenerations);
-	s += ",\"representative\":";
-	s += representative.GetJSON();
-	s += ",\"population\": [";
-	for (const auto& sp : population) {
-		s += sp.GetJSON();
-		s += ",";
-	}
-	s.pop_back();
-	s += "]}";
-	return s;
-}
-
 auto Species::GetAverageFitness() const -> Type::fitness_t {
 	return GetTotalFitness() / GetSize();
 }
@@ -173,4 +156,22 @@ auto Species::GetTotalFitness() const -> Type::fitness_t {
 		totalFitness += organism.GetOrCalculateFitness();
 	}
 	return totalFitness;
+}
+
+std::ostream & Hippocrates::Training::operator«(std::ostream & stream, const Species & species)
+{
+	stream << "{\"fitnessHighscore\":" <<
+	std::to_string(species.fitnessHighscore) <<
+	",\"numberOfStagnantGenerations\":" <<
+	std::to_string(species.numberOfStagnantGenerations) <<
+	",\"representative\":" <<
+	species.representative <<
+	",\"population\": [";
+	for (const auto& sp : species.population) {
+		stream << sp <<
+		",";
+	}
+	stream << pop_back() <<
+	"]}";
+	return stream;
 }

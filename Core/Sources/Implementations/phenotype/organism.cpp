@@ -68,15 +68,16 @@ auto Organism::BreedWith(const Organism& partner, Training::InnovationCacher& cu
 	return child;
 }
 
-auto Organism::GetJSON() const -> std::string {
-	std::string s("{\"fitness\":");
-	s += std::to_string(GetOrCalculateRawFitness());
-	s += ",";
-	s += "\"fitnessModifier\":";
-	s += std::to_string(fitnessModifier);
-	s += ",";
-	s += "\"network\":";
-	s += network.GetJSON();
-	s += "}";
-	return s;
+std::ostream & Hippocrates::Phenotype::operator«(std::ostream & stream, const Organism & organism)
+{
+	stream << "{\"fitness\":" <<
+	std::to_string(organism.GetOrCalculateRawFitness()) <<
+	"," <<
+	"\"fitnessModifier\":" <<
+	std::to_string(organism.fitnessModifier) <<
+	"," <<
+	"\"network\":" <<
+	organism.network <<
+	"}";
+	return stream;
 }
