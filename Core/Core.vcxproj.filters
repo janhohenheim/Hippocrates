@@ -33,6 +33,9 @@
     <Filter Include="Implementations\Layer\Pooler">
       <UniqueIdentifier>{f170f2a7-2009-4531-9248-6dfa30df30ad}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Implementations\Learning">
+      <UniqueIdentifier>{fd102074-8677-4f5e-88d1-49c05bd5e79b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sources\Headers\InputData\iinput_data.hpp">
@@ -97,6 +100,9 @@
     </ClInclude>
     <ClInclude Include="Sources\Headers\Layer\filters.hpp">
       <Filter>Headers\Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Implementations\Learning\backpropagation.hpp">
+      <Filter>Implementations\Learning</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
