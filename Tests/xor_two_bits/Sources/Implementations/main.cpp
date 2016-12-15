@@ -18,7 +18,7 @@ int main() {
 
 	Training::NeuralNetworkTrainer trainer;
 	trainer.loggingEnabled = true;
-	std::chrono::seconds timeout(10);
+	std::chrono::seconds timeout(100);
 	auto champ = Tests::TestingUtilities::TrainWithTimeout(trainer, data, timeout);
 	std::cout << "Finished training in " << trainer.GetGenerationsPassed() << " generations\n";
 	return Tests::TestingUtilities::TestNetwork(champ, data);
