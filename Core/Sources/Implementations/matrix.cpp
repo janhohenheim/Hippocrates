@@ -62,5 +62,5 @@ auto Matrix::ElementAt(Position position) const -> const element_t& {
 }
 
 auto Matrix::ElementAt(Position position) -> element_t& {
-	return elements[position.x * GetSize().width + position.y];
+	return elements[position.y * GetSize().width + position.x];
 }

@@ -15,7 +15,7 @@ auto FullyConnectedNeuralNetwork::BuildNetwork(std::size_t inputCount) -> void {
 	if (wasBuilt)
 		return;
 
-	inputNeurons = std::vector<Neuron> {inputCount, Neuron {}};
+	inputNeurons = std::vector<Neuron>(inputCount, Neuron{});
 	inputNeurons.push_back(BiasNeuron {});
 
 	outputNeurons = std::vector<Neuron> {outputNeurons.size(), Neuron {inputCount + 1}};

@@ -22,12 +22,12 @@ auto Filter::ProcessMultiMatrix(const MultiMatrix & multiMatrix) -> MultiMatrix 
 	Matrix::Position pos;
 	for (; pos.y < paddedSize.height - receptiveField.height; pos.y += stride.height) {
 		for (; pos.x < paddedSize.width - receptiveField.width; pos.x += stride.width) {
-			for (std::size_t dim = 0; weights->GetDimensionCount(); ++dim) {
+			for (std::size_t dim = 0; dim < weights->GetDimensionCount(); ++dim) {
 				const auto weightSize = weights->GetSize();
 				const auto featureMap = (paddedMM.begin() + dim)->GetSubmatrix(pos, receptiveField);
 				const auto subWeights = *(paddedMM.begin() + dim);
-				for (std::size_t y = 0; weightSize.height; ++y) {
-					for (std::size_t x = 0; weightSize.width; ++x) {
+				for (std::size_t y = 0; y < weightSize.height; ++y) {
+					for (std::size_t x = 0; x < weightSize.width; ++x) {
 						filteredMatrix.ElementAt({x, y}) = featureMap.ElementAt({x, y}) * subWeights.ElementAt({x, y});
 					}
 				}
@@ -52,7 +52,7 @@ auto Filter::LazyInitializeWeights(Matrix::Size size, std::size_t dimensionCount
 	std::vector<Matrix> matrices;
 	matrices.reserve(dimensionCount);
 	for (std::size_t i = 0; i < dimensionCount; ++i) {
-		Matrix matrix {size};
+		Matrix matrix {GetReceptiveField(size)};
 		for (auto& element : matrix) {
 			element = Utility::GetRandomNumberBetween(-1.0, 1.0);
 		}

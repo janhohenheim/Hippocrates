@@ -33,14 +33,12 @@ namespace Convolutional {
 			for (const auto& layer : layers) {
 				processedMultiMatrix = layer->ProcessMultiMatrix(processedMultiMatrix);
 			}
-			if (processedMultiMatrix.GetElementCount() != 1)
-				throw std::logic_error("The last layer did not reduce the MultiMatrix to one element per dimension");
 
 			std::vector<Matrix::element_t> outputs;
-			outputs.reserve(processedMultiMatrix.GetDimensionCount());
-			for (const auto& matrix : processedMultiMatrix) {
-				outputs.push_back(matrix.ElementAt({ 0, 0 }));
-			}
+			outputs.reserve(processedMultiMatrix.GetDimensionCount() * processedMultiMatrix.GetElementCount());
+			for (const auto& matrix : processedMultiMatrix)
+				for (const auto element : matrix)
+					outputs.push_back(element);
 			return outputs;
 		}
 
