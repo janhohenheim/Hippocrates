@@ -1,4 +1,4 @@
-#include "Layer/fully_connected_neural_network.hpp"
+﻿#include "Layer/fully_connected_neural_network.hpp"
 
 using namespace Convolutional;
 using namespace Convolutional::Layer;
@@ -50,8 +50,8 @@ auto FullyConnectedNeuralNetwork::GetOutputsAsMatrix() const -> Matrix {
 
 	Matrix outputs(std::move(size));
 
-	for (std::size_t i = 0; i < outputNeurons.size(); i++) {
+	for (std::size_t i = 0; i < outputNeurons.size(); i++)
 		outputs.ElementAt({i, 0}) = outputNeurons[i].lastActionPotential;
-	}
+
 	return outputs;
 }
