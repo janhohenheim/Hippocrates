@@ -84,12 +84,14 @@ std::ostream & Hippocrates::Training::operator<<(std::ostream & stream, const Pa
 
 	stream << "{" <<
 
-	"\"ranges\":" <<
+	"\"neural\":" <<
 	"{" <<
 	"\"minWeight\":" <<
 	std::to_string(parameters.neural.minWeight) <<
 	",\"maxWeight\":" <<
 	std::to_string(parameters.neural.maxWeight) <<
+	",\"activationFunction\":" <<
+	static_cast<std::size_t>(parameters.neural.activationFunction) <<
 	"}" <<
 
 	",\"mutation\":" <<
