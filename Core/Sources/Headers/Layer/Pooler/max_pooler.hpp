@@ -21,7 +21,7 @@ public:
 	auto GetZeroPadding(Matrix::Size size) const noexcept -> Matrix::Size override { return {0, 0}; }
 	auto GetStride(Matrix::Size size) const noexcept -> Matrix::Size override { return stride; }
 
-	auto Clone() const noexcept -> std::unique_ptr<ILayer> { return std::make_unique<MaxPooler>(*this); }
+	auto Clone() const noexcept -> std::unique_ptr<ILayer> override { return std::make_unique<MaxPooler>(*this); }
 
 
 	auto ProcessMatrix(const Matrix& matrix) const -> Matrix::element_t;

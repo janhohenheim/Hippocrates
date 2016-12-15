@@ -38,7 +38,7 @@ public:
 	auto GetWeights() const -> const MultiMatrix&;
 	auto SetWeights(MultiMatrix weights) noexcept { this->weights.release(); this->weights = std::make_unique<MultiMatrix>(std::move(weights)); }
 
-	auto Clone() const noexcept -> std::unique_ptr<ILayer> { return std::make_unique<Filter>(*this); }
+	auto Clone() const noexcept -> std::unique_ptr<ILayer> override { return std::make_unique<Filter>(*this); }
 
 private:
 	auto LazyInitializeWeights(Matrix::Size size, std::size_t dimensionCount) -> void;

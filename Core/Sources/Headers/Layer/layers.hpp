@@ -38,6 +38,7 @@ namespace Convolutional::Layer {
 			for (const auto& layer : other.layers) {
 				layers.push_back(layer->Clone());
 			}
+			return *this;
 		}
 
 		Layers& operator=(Layers&& other) = default;
