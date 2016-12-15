@@ -27,8 +27,8 @@ auto Filter::ProcessMultiMatrix(const MultiMatrix & multiMatrix) -> MultiMatrix 
 	Matrix filteredMatrix {filteredSize};
 	auto currFilteredElement = filteredMatrix.begin();
 	Matrix::Position pos;
-	for (; pos.y < paddedSize.height - receptiveField.height; pos.y += stride.height) {
-		for (; pos.x < paddedSize.width - receptiveField.width; pos.x += stride.width) {
+	for (pos.y = 0; pos.y < paddedSize.height - receptiveField.height; pos.y += stride.height) {
+		for (pos.x = 0; pos.x < paddedSize.width - receptiveField.width; pos.x += stride.width) {
 			Matrix::element_t filteredElement = 0;
 			for (std::size_t dim = 0; dim < weights->GetDimensionCount(); ++dim) {
 				const auto weightSize = weights->GetSize();

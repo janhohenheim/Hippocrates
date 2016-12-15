@@ -1,4 +1,4 @@
-#include "matrix.hpp"
+﻿#include "matrix.hpp"
 
 using namespace Convolutional;
 
@@ -46,8 +46,8 @@ auto Convolutional::Matrix::AddZeroPadding(Matrix::Size paddingAmount) -> void {
 auto Matrix::GetSubmatrix(Matrix::Position position, Matrix::Size size) const -> Matrix {
 	Matrix subMatrix {size};
 	Position subPos;
-	for (; subPos.y < size.width; ++subPos.y) {
-		for (; subPos.x < size.height; ++subPos.x) {
+	for (subPos.y = 0; subPos.y < size.width; ++subPos.y) {
+		for (subPos.x = 0; subPos.x < size.height; ++subPos.x) {
 			Position macroPos = position;
 			macroPos.x += subPos.x;
 			macroPos.y += subPos.y;

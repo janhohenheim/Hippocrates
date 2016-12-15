@@ -1,4 +1,4 @@
-#include <algorithm>
+﻿#include <algorithm>
 #include "Layer/Pooler/max_pooler.hpp"
 
 using namespace Convolutional;
@@ -8,14 +8,14 @@ auto MaxPooler::ProcessMultiMatrix(const MultiMatrix& multiMatrix) -> MultiMatri
 	MultiMatrix::dimensions_t dimensions;
 	dimensions.reserve(multiMatrix.GetDimensionCount());
 	for (auto& submatrix : multiMatrix) {
-		Matrix::Position pos;
 		const auto size = submatrix.GetSize();
 		const auto receptiveField = GetReceptiveField(size);
 		const auto stride = GetStride(size);
 		Matrix pooledMatrix(GetSizeAfterPooling(size));
 		auto currPooledElement = pooledMatrix.begin();
-		for (; pos.y < size.height - receptiveField.height; pos.y += stride.height) {
-			for (; pos.x < size.width - receptiveField.width; pos.x += stride.width) {
+		Matrix::Position pos;
+		for (pos.y = 0; pos.y < size.height - receptiveField.height; pos.y += stride.height) {
+			for (pos.x = 0; pos.x < size.width - receptiveField.width; pos.x += stride.width) {
 				auto receptedMatrix = submatrix.GetSubmatrix(pos, receptiveField);
 				*currPooledElement = ProcessMatrix(std::move(receptedMatrix));
 				++currPooledElement;
