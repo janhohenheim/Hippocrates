@@ -16,8 +16,8 @@ enum class Categories {
 
 int main() {
 	TrainingData<Categories> trainingData;
-	//InputData::Image someCat("https://www.cs.toronto.edu/~kriz/cifar-10-sample/cat1.png");
-	InputData::Image someCat("../../image.png");
+	InputData::Image someCat("https://www.cs.toronto.edu/~kriz/cifar-10-sample/cat1.png");
+	//InputData::Image someCat("../../image.png");
 	trainingData.AddData(std::move(someCat), Categories::Cat);
 
 	Layer::Layers layers {

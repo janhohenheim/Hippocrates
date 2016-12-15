@@ -236,7 +236,6 @@
     <ClInclude Include="Sources\Headers\Utility\fillable_ref.hpp" />
     <ClInclude Include="Sources\Headers\Utility\interface.hpp" />
     <ClInclude Include="Sources\Headers\Utility\utility.hpp" />
-    <ClInclude Include="Sources\Implementations\Learning\backpropagation.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Sources\Implementations\InputData\image.cpp" />
