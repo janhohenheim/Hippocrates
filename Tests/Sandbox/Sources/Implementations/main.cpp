@@ -1,4 +1,4 @@
-#include "neural_network_trainer.hpp"
+﻿#include "neural_network_trainer.hpp"
 #include "InputData/sentence.hpp"
 #include "Learning/learning_method.hpp"
 #include "InputData/image.hpp"
@@ -14,7 +14,9 @@ enum class Categories {
 	CategoryCount
 };
 
-int main() {
+int main(int argc, char* argv[]){
+	Magick::InitializeMagick(argv[0]);
+
 	TrainingData<Categories> trainingData;
 	InputData::Image someCat("../../image.png");
 	trainingData.AddData(std::move(someCat), Categories::Cat);
