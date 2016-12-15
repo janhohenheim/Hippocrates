@@ -15,8 +15,6 @@ enum class Categories {
 };
 
 int main(int argc, char* argv[]){
-	Magick::InitializeMagick(argv[0]);
-
 	TrainingData<Categories> trainingData;
 	InputData::Image someCat("../../image.png");
 	trainingData.AddData(std::move(someCat), Categories::Cat);
