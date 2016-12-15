@@ -6,9 +6,6 @@ configuration:
 install: 
   - ps: . .\InstallDependencies.ps1 
 
-cache:
-  - C:\Program Files\ImageMagick-6.9.6-Q8 -> InstallDependencies.ps1
-
 build_script:
   - msbuild %solution_name%
 
