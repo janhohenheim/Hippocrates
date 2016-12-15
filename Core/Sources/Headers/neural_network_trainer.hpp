@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "neural_network.hpp"
 #include "Layer/Pooler/max_pooler.hpp"
 #include "training_data.hpp"

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <vector>
 #include <cmath>
 
@@ -29,8 +29,8 @@ public:
 		}
 		template<typename T>
 		auto operator/(T amount) {
-			width = std::round(static_cast<T>(width) / amount);
-			height = std::round(static_cast<T>(height) / amount);
+			width = static_cast<std::size_t>(std::round(static_cast<T>(width) / amount));
+			height = static_cast<std::size_t>(std::round(static_cast<T>(height) / amount));
 			return *this;
 		}
 

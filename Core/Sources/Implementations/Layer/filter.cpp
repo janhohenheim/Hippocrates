@@ -1,4 +1,4 @@
-#include <cmath>
+﻿#include <cmath>
 #include <stdexcept>
 #include <vector>
 
@@ -12,30 +12,40 @@ auto Filter::ProcessMultiMatrix(const MultiMatrix & multiMatrix) -> MultiMatrix 
 	const auto origSize = multiMatrix.GetSize();
 	LazyInitializeWeights(origSize, multiMatrix.GetDimensionCount());
 
-	Matrix filteredMatrix {origSize};
 	auto paddedMM = multiMatrix;
-	paddedMM.AddZeroPadding(GetZeroPadding(origSize));
+	const auto padding = GetZeroPadding(origSize);
+	paddedMM.AddZeroPadding(padding);
 
 	const auto paddedSize = paddedMM.GetSize();
-	const auto receptiveField = GetReceptiveField(paddedSize);
+	const auto receptiveSize = GetReceptiveField(paddedSize);
 	const auto stride = GetStride(paddedSize);
+	Matrix::Size filteredSize;
+	// If we set the the zero padding accordingly, these will be equal to origSize
+	filteredSize.height = static_cast<std::size_t>(static_cast<double>(origSize.height - receptiveField.height + 2 * padding.height) / static_cast<double>(stride.height) + 1.0);
+	filteredSize.width = static_cast<std::size_t>(double(origSize.width - receptiveField.width + 2 * padding.width) / static_cast<double>(stride.width) + 1.0);
+	
+	Matrix filteredMatrix {filteredSize};
+	auto currFilteredElement = filteredMatrix.begin();
 	Matrix::Position pos;
 	for (; pos.y < paddedSize.height - receptiveField.height; pos.y += stride.height) {
 		for (; pos.x < paddedSize.width - receptiveField.width; pos.x += stride.width) {
+			Matrix::element_t filteredElement = 0;
 			for (std::size_t dim = 0; dim < weights->GetDimensionCount(); ++dim) {
 				const auto weightSize = weights->GetSize();
 				const auto featureMap = (paddedMM.begin() + dim)->GetSubmatrix(pos, receptiveField);
-				const auto subWeights = *(paddedMM.begin() + dim);
+				const auto subWeights = *(weights->begin() + dim);
 				for (std::size_t y = 0; y < weightSize.height; ++y) {
 					for (std::size_t x = 0; x < weightSize.width; ++x) {
-						filteredMatrix.ElementAt({x, y}) = featureMap.ElementAt({x, y}) * subWeights.ElementAt({x, y});
+						filteredElement += featureMap.ElementAt({x, y}) * subWeights.ElementAt({x, y});
 					}
 				}
 			}
+			*(currFilteredElement++) = filteredElement + bias;
 		}
 	}
 	return MultiMatrix {{filteredMatrix}};
 }
+
 
 auto Filter::GetWeights() const -> const MultiMatrix& {
 	if (!weights) 

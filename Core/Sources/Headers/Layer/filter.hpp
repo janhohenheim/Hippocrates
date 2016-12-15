@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "matrix.hpp"
 #include "ilayer.hpp"
 #include "Utility/utility.hpp"
@@ -30,7 +30,7 @@ public:
 	auto ProcessMultiMatrix(const MultiMatrix & multiMatrix) -> MultiMatrix override;
 
 	auto GetReceptiveField(Matrix::Size size) const noexcept -> Matrix::Size override { return receptiveField; }
-	auto GetZeroPadding(Matrix::Size size) const noexcept -> Matrix::Size override { return GetReceptiveField(size) - 1 / 2; }
+	auto GetZeroPadding(Matrix::Size size) const noexcept -> Matrix::Size override { return (GetReceptiveField(size) - 1) / 2; }
 	auto GetStride(Matrix::Size size) const noexcept -> Matrix::Size override { return stride; }
 
 	auto GetBias() const noexcept { return bias; }

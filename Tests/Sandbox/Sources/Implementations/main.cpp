@@ -34,8 +34,5 @@ int main(int argc, char* argv[]){
 	};
 
 	auto trainedNetwork = networktrainer.Train();
-
-	//Learning::memes<Categories> m(trainedNetwork, trainingData);
 	return 0;
 }
-
