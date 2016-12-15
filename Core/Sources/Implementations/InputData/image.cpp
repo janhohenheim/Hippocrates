@@ -1,11 +1,13 @@
-#include "InputData/image.hpp"
+﻿#include "InputData/image.hpp"
 #include <iostream>
+
+//#define USE_CAT
 
 using namespace Convolutional;
 using namespace Convolutional::InputData;
 
 Image::Image(const char * filename) :
-#ifdef _DEBUG
+#ifndef USE_CAT
 	image("32x32", "white")
 #else
 	image(filename)
