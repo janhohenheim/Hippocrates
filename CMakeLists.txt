@@ -22,8 +22,6 @@ target_link_libraries(CNN PUBLIC ${ImageMagick_LIBRARIES})
 target_include_directories(Core PRIVATE ${ImageMagick_INCLUDE_DIRS})
 target_include_directories(CNN PUBLIC ${ImageMagick_INCLUDE_DIRS})
 
-target_compile_definitions(Core PRIVATE USE_CAT=1)
-
 MACRO(HEADER_DIRECTORIES return_list sources_folder)
     FILE(GLOB_RECURSE headers [RELATIVE ${sources_folder}] *.hpp *.h)
     SET(dir_list "")
