@@ -28,5 +28,6 @@ Write-Host -ForegroundColor Green "Download complete."
 Write-Host -ForegroundColor Cyan "Starting installer..."
 Start-Process -FilePath $installer -ArgumentList @("/sp", "/verysilent", "/norestart", "/loadinf=`"$configFile`"") -Wait
 
+
 Remove-Item -Force -Recurse $tmp
 Write-Host -ForegroundColor Green "Installation complete."
