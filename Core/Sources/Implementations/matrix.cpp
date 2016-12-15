@@ -44,6 +44,9 @@ auto Convolutional::Matrix::AddZeroPadding(Matrix::Size paddingAmount) -> void {
 }
 
 auto Matrix::GetSubmatrix(Matrix::Position position, Matrix::Size size) const -> Matrix {
+	if (size == GetSize())
+		return *this;
+
 	Matrix subMatrix {size};
 	Position subPos;
 	for (subPos.y = 0; subPos.y < size.width; ++subPos.y) {

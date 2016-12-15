@@ -243,6 +243,7 @@
     <ClInclude Include="Sources\Headers\Layer\layers.hpp" />
     <ClInclude Include="Sources\Headers\Layer\Pooler\ipooler.hpp" />
     <ClInclude Include="Sources\Headers\Layer\Pooler\max_pooler.hpp" />
+    <ClInclude Include="Sources\Headers\Layer\relu.hpp" />
     <ClInclude Include="Sources\Headers\Learning\backpropagation.hpp" />
     <ClInclude Include="Sources\Headers\Learning\learning_method.hpp" />
     <ClInclude Include="Sources\Headers\matrix.hpp" />
@@ -262,6 +263,7 @@
     <ClCompile Include="Sources\Implementations\Layer\fully_connected_neural_network.cpp" />
     <ClCompile Include="Sources\Implementations\Layer\filters.cpp" />
     <ClCompile Include="Sources\Implementations\Layer\Pooler\max_pooler.cpp" />
+    <ClCompile Include="Sources\Implementations\Layer\relu.cpp" />
     <ClCompile Include="Sources\Implementations\matrix.cpp" />
     <ClCompile Include="Sources\Implementations\multi_matrix.cpp" />
     <ClCompile Include="Sources\Implementations\multi_matrix_factory.cpp" />

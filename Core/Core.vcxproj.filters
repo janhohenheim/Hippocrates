@@ -98,6 +98,9 @@
     <ClInclude Include="Sources\Headers\Layer\filters.hpp">
       <Filter>Headers\Layer</Filter>
     </ClInclude>
+    <ClInclude Include="Sources\Headers\Layer\relu.hpp">
+      <Filter>Headers\Layer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Sources\Implementations\InputData\image.cpp">
@@ -128,6 +131,9 @@
       <Filter>Implementations\Layer</Filter>
     </ClCompile>
     <ClCompile Include="Sources\Implementations\Layer\filters.cpp">
+      <Filter>Implementations\Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Implementations\Layer\relu.cpp">
       <Filter>Implementations\Layer</Filter>
     </ClCompile>
   </ItemGroup>

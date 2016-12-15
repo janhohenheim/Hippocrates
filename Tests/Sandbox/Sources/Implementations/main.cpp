@@ -23,6 +23,7 @@ int main(int argc, char* argv[]){
 
 	Layer::Layers layers {
 		Layer::Filters{3},
+		Layer::ReLU{},
 		Layer::Pooler::MaxPooler{},
 		Layer::FullyConnectedNeuralNetwork{static_cast<std::size_t>(Categories::CategoryCount)}
 	};
