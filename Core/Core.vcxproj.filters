@@ -121,9 +121,6 @@
     <ClCompile Include="Sources\Implementations\multi_matrix_factory.cpp">
       <Filter>Implementations</Filter>
     </ClCompile>
-    <ClCompile Include="Sources\Implementations\neural_network.cpp">
-      <Filter>Implementations</Filter>
-    </ClCompile>
     <ClCompile Include="Sources\Implementations\neural_network_trainer.cpp">
       <Filter>Implementations</Filter>
     </ClCompile>

@@ -68,7 +68,30 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <CodeAnalysisRuleSet>C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Team Tools\Static Analysis Tools\Rule Sets\NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <EnableCppCoreCheck>true</EnableCppCoreCheck>
+    <EnableExperimentalCppCoreCheck>false</EnableExperimentalCppCoreCheck>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <CodeAnalysisRuleSet>C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Team Tools\Static Analysis Tools\Rule Sets\NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <EnableCppCoreCheck>true</EnableCppCoreCheck>
+    <EnableExperimentalCppCoreCheck>false</EnableExperimentalCppCoreCheck>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <CodeAnalysisRuleSet>C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Team Tools\Static Analysis Tools\Rule Sets\NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <EnableCppCoreCheck>true</EnableCppCoreCheck>
+    <EnableExperimentalCppCoreCheck>false</EnableExperimentalCppCoreCheck>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <CodeAnalysisRuleSet>C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Team Tools\Static Analysis Tools\Rule Sets\NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <EnableCppCoreCheck>true</EnableCppCoreCheck>
+    <EnableExperimentalCppCoreCheck>false</EnableExperimentalCppCoreCheck>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -77,6 +100,7 @@
       <TreatWarningAsError>true</TreatWarningAsError>
       <AdditionalOptions>/std:c++latest /permissive- %(AdditionalOptions)</AdditionalOptions>
       <AdditionalIncludeDirectories>C:\Program Files\ImageMagick-6.9.6-Q8\include;$(SolutionDir)Core\Sources\Headers</AdditionalIncludeDirectories>
+      <EnablePREfast>false</EnablePREfast>
     </ClCompile>
     <Link>
       <AdditionalDependencies>CORE_RL_Magick++_.lib;$(OutDir)Core.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -91,6 +115,7 @@
       <TreatWarningAsError>true</TreatWarningAsError>
       <AdditionalOptions>/std:c++latest /permissive- %(AdditionalOptions)</AdditionalOptions>
       <AdditionalIncludeDirectories>C:\Program Files\ImageMagick-6.9.6-Q8\include;$(SolutionDir)Core\Sources\Headers</AdditionalIncludeDirectories>
+      <EnablePREfast>false</EnablePREfast>
     </ClCompile>
     <Link>
       <AdditionalDependencies>CORE_RL_Magick++_.lib;$(OutDir)Core.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -107,6 +132,7 @@
       <TreatWarningAsError>true</TreatWarningAsError>
       <AdditionalOptions>/std:c++latest /permissive- %(AdditionalOptions)</AdditionalOptions>
       <AdditionalIncludeDirectories>C:\Program Files\ImageMagick-6.9.6-Q8\include;$(SolutionDir)Core\Sources\Headers</AdditionalIncludeDirectories>
+      <EnablePREfast>false</EnablePREfast>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -125,6 +151,7 @@
       <TreatWarningAsError>true</TreatWarningAsError>
       <AdditionalOptions>/std:c++latest /permissive- %(AdditionalOptions)</AdditionalOptions>
       <AdditionalIncludeDirectories>C:\Program Files\ImageMagick-6.9.6-Q8\include;$(SolutionDir)Core\Sources\Headers</AdditionalIncludeDirectories>
+      <EnablePREfast>false</EnablePREfast>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>

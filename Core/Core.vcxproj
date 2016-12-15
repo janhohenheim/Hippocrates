@@ -70,17 +70,31 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ExtensionsToDeleteOnClean>*.dll;$(ExtensionsToDeleteOnClean)</ExtensionsToDeleteOnClean>
+    <EnableCppCoreCheck>true</EnableCppCoreCheck>
+    <EnableExperimentalCppCoreCheck>false</EnableExperimentalCppCoreCheck>
+    <CodeAnalysisRuleSet>C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Team Tools\Static Analysis Tools\Rule Sets\NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ExtensionsToDeleteOnClean>*.dll;$(ExtensionsToDeleteOnClean)</ExtensionsToDeleteOnClean>
+    <CodeAnalysisRuleSet>C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Team Tools\Static Analysis Tools\Rule Sets\NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <EnableCppCoreCheck>true</EnableCppCoreCheck>
+    <EnableExperimentalCppCoreCheck>false</EnableExperimentalCppCoreCheck>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ExtensionsToDeleteOnClean>*.dll;$(ExtensionsToDeleteOnClean)</ExtensionsToDeleteOnClean>
     <EnableCppCoreCheck>true</EnableCppCoreCheck>
-    <EnableExperimentalCppCoreCheck>true</EnableExperimentalCppCoreCheck>
+    <EnableExperimentalCppCoreCheck>false</EnableExperimentalCppCoreCheck>
+    <CodeAnalysisRuleSet>C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Team Tools\Static Analysis Tools\Rule Sets\NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ExtensionsToDeleteOnClean>*.dll;$(ExtensionsToDeleteOnClean)</ExtensionsToDeleteOnClean>
+    <CodeAnalysisRuleSet>C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Team Tools\Static Analysis Tools\Rule Sets\NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <EnableCppCoreCheck>true</EnableCppCoreCheck>
+    <EnableExperimentalCppCoreCheck>false</EnableExperimentalCppCoreCheck>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -90,6 +104,7 @@
       <TreatWarningAsError>true</TreatWarningAsError>
       <AdditionalOptions>/std:c++latest /permissive- %(AdditionalOptions)</AdditionalOptions>
       <AdditionalIncludeDirectories>C:\Program Files\ImageMagick-6.9.6-Q8\include;$(SolutionDir)Core\Sources\Headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <EnablePREfast>false</EnablePREfast>
     </ClCompile>
     <Lib>
       <AdditionalDependencies>CORE_RL_Magick++_.lib;</AdditionalDependencies>
@@ -121,6 +136,7 @@
       <TreatWarningAsError>true</TreatWarningAsError>
       <AdditionalOptions>/std:c++latest /permissive- %(AdditionalOptions)</AdditionalOptions>
       <AdditionalIncludeDirectories>C:\Program Files\ImageMagick-6.9.6-Q8\include;$(SolutionDir)Core\Sources\Headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <EnablePREfast>false</EnablePREfast>
     </ClCompile>
     <Lib>
       <AdditionalDependencies>CORE_RL_Magick++_.lib;</AdditionalDependencies>
@@ -152,6 +168,7 @@
       <TreatWarningAsError>true</TreatWarningAsError>
       <AdditionalOptions>/std:c++latest /permissive- %(AdditionalOptions)</AdditionalOptions>
       <AdditionalIncludeDirectories>C:\Program Files\ImageMagick-6.9.6-Q8\include;$(SolutionDir)Core\Sources\Headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <EnablePREfast>false</EnablePREfast>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -187,6 +204,7 @@
       <TreatWarningAsError>true</TreatWarningAsError>
       <AdditionalOptions>/std:c++latest /permissive- %(AdditionalOptions)</AdditionalOptions>
       <AdditionalIncludeDirectories>C:\Program Files\ImageMagick-6.9.6-Q8\include;$(SolutionDir)Core\Sources\Headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <EnablePREfast>false</EnablePREfast>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -247,7 +265,6 @@
     <ClCompile Include="Sources\Implementations\matrix.cpp" />
     <ClCompile Include="Sources\Implementations\multi_matrix.cpp" />
     <ClCompile Include="Sources\Implementations\multi_matrix_factory.cpp" />
-    <ClCompile Include="Sources\Implementations\neural_network.cpp" />
     <ClCompile Include="Sources\Implementations\neural_network_trainer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
