@@ -6,10 +6,6 @@ compiler:
   - gcc
   - clang
   
-matrix:
-  allow_failures:
-  - compiler: clang
-  
 addons:
   apt:
     packages:
