@@ -14,7 +14,7 @@ enum class Categories {
 	CategoryCount
 };
 
-int main(int argc, char* argv[]){
+int main() {
 	TrainingData<Categories> trainingData;
 	InputData::Image someCat("../../image.png");
 	trainingData.AddData(std::move(someCat), Categories::Cat);
