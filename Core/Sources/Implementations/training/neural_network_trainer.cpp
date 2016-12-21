@@ -33,13 +33,13 @@ auto NeuralNetworkTrainer::TrainGenerationAndLogUsingBodies(SpeciesManager::Bodi
 }
 
 std::ostream & Hippocrates::Training::operator<<(std::ostream & stream, const NeuralNetworkTrainer & neuralNetworkTrainer) {
-	stream << "{" <<
-	"\"Parameters\":" <<
-	GetParameters() <<
-	",\"generationsPassed\":" <<
-	std::to_string(neuralNetworkTrainer.generationsPassed) <<
-	"," <<
-	"\"species\":[";
+	stream 
+		<< "{" 
+		<< "\"Parameters\":" 
+		<< GetParameters() 
+		<< ",\"generationsPassed\":" << neuralNetworkTrainer.generationsPassed
+		<< "," 
+		<< "\"species\":[";
 	auto& species = neuralNetworkTrainer.species;
 	const auto speciesCount = species.GetSpeciesCount();
 	for (std::size_t i = 0; i < speciesCount - 1; ++i) {

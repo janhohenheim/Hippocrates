@@ -78,69 +78,49 @@ Parameters::Parameters(const std::string& json) {
 
 std::ostream & Hippocrates::Training::operator<<(std::ostream & stream, const Parameters & parameters)
 {
-	auto BoolToString = [](bool b) {
-		return b ? "true" : "false";
-	};
+	stream 
 
-	stream << "{" <<
+		<< "{" 
+		<< "\"neural\":"
+		<< "{"
+		<< "\"minWeight\":" << parameters.neural.minWeight 
+		<< ",\"maxWeight\":" << parameters.neural.maxWeight
+		<< ",\"activationFunction\":" 
+		<< static_cast<std::size_t>(parameters.neural.activationFunction) 
+		<< "}"
 
-	"\"neural\":" <<
-	"{" <<
-	"\"minWeight\":" <<
-	std::to_string(parameters.neural.minWeight) <<
-	",\"maxWeight\":" <<
-	std::to_string(parameters.neural.maxWeight) <<
-	",\"activationFunction\":" <<
-	static_cast<std::size_t>(parameters.neural.activationFunction) <<
-	"}" <<
+		<< ",\"mutation\":" 
+		<< "{" 
+		<< "\"chanceForWeightMutation\":" << parameters.mutation.chanceForWeightMutation
+		<< ",\"chanceForConnectionalMutation\":" << parameters.mutation.chanceForConnectionalMutation
+		<< ",\"chanceForNeuralMutation\":" << parameters.mutation.chanceForNeuralMutation
+		<< ",\"chanceOfTotalWeightReset\":" << parameters.mutation.chanceOfTotalWeightReset
+		<< "}"
 
-	",\"mutation\":" <<
-	"{" <<
-	"\"chanceForWeightMutation\":" <<
-	std::to_string(parameters.mutation.chanceForWeightMutation) <<
-	",\"chanceForConnectionalMutation\":" <<
-	std::to_string(parameters.mutation.chanceForConnectionalMutation) <<
-	",\"chanceForNeuralMutation\":" <<
-	std::to_string(parameters.mutation.chanceForNeuralMutation) <<
-	",\"chanceOfTotalWeightReset\":" <<
-	std::to_string(parameters.mutation.chanceOfTotalWeightReset) <<
-	"}" <<
+		<< ",\"speciation\":"
+		<< "{" 
+		<< "\"importanceOfDisjointGenes\":" << parameters.speciation.importanceOfDisjointGenes
+		<< ",\"importanceOfAverageWeightDifference\":" << parameters.speciation.importanceOfAverageWeightDifference
+		<< ",\"compatibilityThreshold\":" << parameters.speciation.compatibilityThreshold
+		<< ",\"stagnantSpeciesClearThreshold\":" << parameters.speciation.stagnantSpeciesClearThreshold
+		<< ",\"normalizeForLargerGenome\":" << std::boolalpha << parameters.speciation.normalizeForLargerGenome 
+		<< "}" 
 
-	",\"speciation\":" <<
-	"{" <<
-	"\"importanceOfDisjointGenes\":" <<
-	std::to_string(parameters.speciation.importanceOfDisjointGenes) <<
-	",\"importanceOfAverageWeightDifference\":" <<
-	std::to_string(parameters.speciation.importanceOfAverageWeightDifference) <<
-	",\"compatibilityThreshold\":" <<
-	std::to_string(parameters.speciation.compatibilityThreshold) <<
-	",\"stagnantSpeciesClearThreshold\":" <<
-	std::to_string(parameters.speciation.stagnantSpeciesClearThreshold) <<
-	",\"normalizeForLargerGenome\":" <<
-	BoolToString(parameters.speciation.normalizeForLargerGenome) <<
-	"}" <<
+		<< ",\"reproduction\":" 
+		<< "{" 
+		<< "\"chanceForInterspecialReproduction\":" << parameters.reproduction.chanceForInterspecialReproduction
+		<< ",\"minSpeciesSizeForChampConservation\":" << parameters.reproduction.minSpeciesSizeForChampConservation
+		<< ",\"reproductionThreshold\":" << parameters.reproduction.reproductionThreshold
+		<< ",\"minParents\":" << parameters.reproduction.minParents
+		<< "}" 
 
-	",\"reproduction\":" <<
-	"{" <<
-	"\"chanceForInterspecialReproduction\":" <<
-	std::to_string(parameters.reproduction.chanceForInterspecialReproduction) <<
-	",\"minSpeciesSizeForChampConservation\":" <<
-	std::to_string(parameters.reproduction.minSpeciesSizeForChampConservation) <<
-	",\"reproductionThreshold\":" <<
-	std::to_string(parameters.reproduction.reproductionThreshold) <<
-	",\"minParents\":" <<
-	std::to_string(parameters.reproduction.minParents) <<
-	"}" <<
+		<< ",\"structure\":" 
+		<< "{" 
+		<< "\"numberOfBiasNeurons\":" << parameters.structure.numberOfBiasNeurons
+		<< ",\"allowRecurrentConnections\":" << std::boolalpha << parameters.structure.allowRecurrentConnections
+		<< "}"
 
-	",\"structure\":" <<
-	"{" <<
-	"\"numberOfBiasNeurons\":" <<
-	std::to_string(parameters.structure.numberOfBiasNeurons) <<
-	",\"allowRecurrentConnections\":" <<
-	BoolToString(parameters.structure.allowRecurrentConnections) <<
-	"}" <<
-
-	"}";
+		<<"}";
 
 	return stream;
 }

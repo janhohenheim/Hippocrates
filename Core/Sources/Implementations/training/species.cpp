@@ -1,4 +1,4 @@
-#include <algorithm>
+﻿#include <algorithm>
 #include <string>
 
 #include "training/species.hpp"
@@ -164,13 +164,12 @@ auto Species::GetTotalFitness() const -> Type::fitness_t {
 
 std::ostream & Hippocrates::Training::operator<<(std::ostream & stream, const Species & species)
 {
-	stream << "{\"fitnessHighscore\":" <<
-	std::to_string(species.fitnessHighscore) <<
-	",\"numberOfStagnantGenerations\":" <<
-	std::to_string(species.numberOfStagnantGenerations) <<
-	",\"representative\":" <<
-	species.representative <<
-	",\"population\": [";
+	stream 
+		<< "{\"fitnessHighscore\":" << species.fitnessHighscore
+		<< ",\"numberOfStagnantGenerations\":" << species.numberOfStagnantGenerations
+		<< ",\"representative\":"
+		<< species.representative 
+		<< ",\"population\": [";
 
 	auto& population = species.population;
 	const auto populationCount = population.size();

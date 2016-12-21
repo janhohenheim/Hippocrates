@@ -121,10 +121,10 @@ std::ostream & Hippocrates::Genotype::operator<<(std::ostream & stream, const Ge
 {
 	stream 
 		<< "\"parameters\":" << Training::GetParameters()
-		<<	",\"inputCount\":" << genome.inputCount
-		<<	",\"outputCount\":" <<	genome.outputCount
-		<<	",\"neuronCount\":" <<	genome.neuronCount
-		<<	",\"genes\":"
+		<< ",\"inputCount\":" << genome.inputCount
+		<< ",\"outputCount\":" <<	genome.outputCount
+		<< ",\"neuronCount\":" <<	genome.neuronCount
+		<< ",\"genes\":"
 		<< '[';
 	for (size_t i = 0; i < genome.genes.size() - 1; ++i)
 		stream << genome.genes[i] << ",";

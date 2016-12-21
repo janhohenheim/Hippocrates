@@ -463,7 +463,8 @@ auto NeuralNetwork::ParseNeuronsJson(const std::string& json) -> std::vector<Neu
 
 std::ostream & Hippocrates::Phenotype::operator<<(std::ostream & stream, const NeuralNetwork & neuralNetwork)
 {
-	stream <<"{\"neurons\":[";
+	stream 
+		<<"{\"neurons\":[";
 
 	auto& neurons = neuralNetwork.neurons;
 	const auto neuronsCount = neurons.size();
@@ -471,9 +472,10 @@ std::ostream & Hippocrates::Phenotype::operator<<(std::ostream & stream, const N
 	for (std::size_t i = 0; i < neuronsCount - 1; ++i) {
 		stream << neurons[i] << ",";
 	}
-	stream << neurons[neuronsCount - 1] <<
-	"],\"genome\":{" <<
-	neuralNetwork.genome <<
-	"}";
+	stream 
+		<< neurons[neuronsCount - 1] <<
+		"],\"genome\":{" <<
+		neuralNetwork.genome <<
+		"}";
 	return stream;
 }
