@@ -26,3 +26,7 @@ It focuses (in contrast to other implementations) on
 
 # Acknowledgements
 - Serge A. Zaitsev ([jsmn](https://github.com/zserge/jsmn))
+
+## Dependencies
+- ImageMagick 6.9.6-8 
+

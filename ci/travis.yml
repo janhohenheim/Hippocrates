@@ -15,6 +15,7 @@ addons:
     packages:
       - software-properties-common
       - python-software-properties
+      - libmagick++-dev
       - cmake
 
 before_install:
@@ -45,3 +46,4 @@ script:
   
 after_success:
   - bash <(curl -s https://codecov.io/bash)
+
