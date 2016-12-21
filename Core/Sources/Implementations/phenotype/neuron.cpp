@@ -1,4 +1,4 @@
-#include <stdexcept>
+﻿#include <stdexcept>
 
 #include "phenotype/neuron.hpp"
 #include "utility/jsmn.h"
@@ -54,16 +54,17 @@ auto Neuron::SetInput(Type::neuron_value_t input) -> void {
 	lastActionPotential = input;
 }
 
-std::string Neuron::GetJSON() const {
-	std::string s("{\"layer\":");
-	s += std::to_string(layer);
-	s += ",";
-	s += "\"lastActionPotential\":";
-	s += std::to_string(lastActionPotential);
-	s += "}";
-	return s;
-}
-
 void Neuron::Reset() {
 	lastActionPotential = 0.0f;
+}
+
+std::ostream & Hippocrates::Phenotype::operator<<(std::ostream & stream, const Neuron & neuron)
+{
+	stream 
+		<< "{\"layer\":" << neuron.layer
+		<< ","
+		<< "\"lastActionPotential\":" << neuron.lastActionPotential
+		<< "}";
+
+	return stream;
 }

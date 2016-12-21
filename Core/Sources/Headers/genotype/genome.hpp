@@ -47,7 +47,7 @@ public:
 
 	auto GetGeneticalDistanceFrom(const Genome& other) const -> Type::connection_weight_t;
 	auto DoesContainGene(const Gene& gene) const -> bool;
-	auto GetJSON() const->std::string;
+	friend std::ostream& operator<<(std::ostream& stream, const Genome & genome);
 
 private:
 	auto AdjustNeuronCount(const Gene& gene) -> void;

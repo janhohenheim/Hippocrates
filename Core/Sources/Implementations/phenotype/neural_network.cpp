@@ -1,4 +1,4 @@
-#include <algorithm>
+﻿#include <algorithm>
 #include <functional>
 #include <iostream>
 #include <cstring>
@@ -437,19 +437,6 @@ auto NeuralNetwork::GetRandomEnabledGene() -> Genotype::Gene& {
 	return *randGene;
 }
 
-auto NeuralNetwork::GetJSON() const -> std::string {
-	std::string s("{\"neurons\":[");
-	for (const auto& neuron : neurons) {
-		s += neuron.GetJSON();
-		s += ",";
-	}
-	s.pop_back();
-	s += "],\"genome\":";
-	s += genome.GetJSON();
-	s += "}";
-	return s;
-}
-
 auto NeuralNetwork::Reset() -> void {
 	for (auto& neuron : neurons) {
 		neuron.Reset();
@@ -472,4 +459,23 @@ auto NeuralNetwork::ParseNeuronsJson(const std::string& json) -> std::vector<Neu
 	}
 
 	return neurons;
+}
+
+std::ostream & Hippocrates::Phenotype::operator<<(std::ostream & stream, const NeuralNetwork & neuralNetwork)
+{
+	stream 
+		<<"{\"neurons\":[";
+
+	auto& neurons = neuralNetwork.neurons;
+	const auto neuronsCount = neurons.size();
+
+	for (std::size_t i = 0; i < neuronsCount - 1; ++i) {
+		stream << neurons[i] << ",";
+	}
+	stream 
+		<< neurons[neuronsCount - 1] <<
+		"],\"genome\":{" <<
+		neuralNetwork.genome <<
+		"}";
+	return stream;
 }

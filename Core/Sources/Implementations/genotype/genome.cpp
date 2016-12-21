@@ -1,4 +1,4 @@
-#include <cmath>
+﻿#include <cmath>
 #include <algorithm>
 #include <iostream>
 
@@ -93,25 +93,6 @@ auto Genome::DoesContainGene(const Gene& gene) const -> bool {
 	return std::find(begin(), end(), gene) != end();
 }
 
-auto Genome::GetJSON() const -> std::string {
-	std::string s("{");
-	s += "\"inputCount\":";
-	s += std::to_string(inputCount);
-	s += ",\"outputCount\":";
-	s += std::to_string(outputCount);
-	s += ",\"neuronCount\":";
-	s += std::to_string(neuronCount);
-	s += ",\"genes\":[";
-	for (std::size_t i = 0; i < genes.size() - 1; ++i) {
-		s += genes[i].GetJSON();
-		s += ",";
-	}
-	s += genes.back().GetJSON();
-	s += "]";
-	s += "}";
-	return s;
-}
-
 auto Genome::ParseGenesJson(const std::string& json) -> std::vector<Gene> {
 	jsmn_parser parser;
 	jsmn_init(&parser);
@@ -134,4 +115,23 @@ auto Genome::AdjustNeuronCount(const Gene & gene) -> void {
 	if (gene.to + 1 > neuronCount) {
 		neuronCount = gene.to + 1;
 	}
+}
+
+std::ostream & Hippocrates::Genotype::operator<<(std::ostream & stream, const Genome & genome)
+{
+	stream 
+		<< "\"parameters\":" << Training::GetParameters()
+		<< ",\"inputCount\":" << genome.inputCount
+		<< ",\"outputCount\":" <<	genome.outputCount
+		<< ",\"neuronCount\":" <<	genome.neuronCount
+		<< ",\"genes\":"
+		<< '[';
+	for (size_t i = 0; i < genome.genes.size() - 1; ++i)
+		stream << genome.genes[i] << ",";
+	stream 
+		<< genome.genes.back() 
+		<< "]" 
+		<< "}";
+
+	return stream;
 }

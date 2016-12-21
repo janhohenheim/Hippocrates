@@ -1,4 +1,5 @@
-#include "training/neural_network_trainer.hpp"
+﻿#include "training/neural_network_trainer.hpp"
+#include <sstream>
 
 using namespace Hippocrates;
 using namespace Hippocrates::Training;
@@ -24,9 +25,28 @@ auto NeuralNetworkTrainer::TrainGenerationAndLogUsingBodies(SpeciesManager::Bodi
 	UpdateEntireGeneration();
 	generationsPassed++;
 	if (loggingEnabled) {
-		logger.LogGeneration(generationsPassed, GetJSON());
+		std::stringstream log;
+		log << *this;
+		logger.LogGeneration(generationsPassed, log);
 		logger.LogMetadata(species.GetFittestOrganism().GetOrCalculateRawFitness());
 	}
+}
+
+std::ostream & Hippocrates::Training::operator<<(std::ostream & stream, const NeuralNetworkTrainer & neuralNetworkTrainer) {
+	stream 
+		<< "{" 
+		<< "\"Parameters\":" 
+		<< GetParameters() 
+		<< ",\"generationsPassed\":" << neuralNetworkTrainer.generationsPassed
+		<< "," 
+		<< "\"species\":[";
+	auto& species = neuralNetworkTrainer.species;
+	const auto speciesCount = species.GetSpeciesCount();
+	for (std::size_t i = 0; i < speciesCount - 1; ++i) {
+		stream << species[i] << ",";
+	}
+	stream << species[speciesCount - 1] << "]}";
+	return stream;
 }
 
 auto NeuralNetworkTrainer::UpdateEntireGeneration() -> void {
@@ -42,19 +62,3 @@ auto NeuralNetworkTrainer::UpdateEntireGeneration() -> void {
 	}
 }
 
-auto NeuralNetworkTrainer::GetJSON() const -> std::string {
-	std::string s("{");
-	s += "\"Parameters\":";
-	s += GetParameters().GetJSON();
-	s += ",\"generationsPassed\":";
-	s += std::to_string(generationsPassed);
-	s += ",";
-	s += "\"species\":[";
-	for (const auto& sp : species) {
-		s += sp.GetJSON();
-		s += ",";
-	}
-	s.pop_back();
-	s += "]}";
-	return s;
-}

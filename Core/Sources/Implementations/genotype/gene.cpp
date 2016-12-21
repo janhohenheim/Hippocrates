@@ -1,4 +1,4 @@
-#include <stdlib.h>
+﻿#include <stdlib.h>
 #include <cstring>
 #include <stdexcept>
 
@@ -59,22 +59,15 @@ auto Gene::SetRandomWeight() -> void {
 	weight = Utility::Random::Number(Training::GetParameters().neural.minWeight, Training::GetParameters().neural.maxWeight);
 }
 
-auto Gene::GetJSON() const -> std::string {
-	auto BoolToString = [](bool b) {
-		return b ? "true" : "false";
-	};
-	std::string s("{\"historicalMarking\":");
-	s += std::to_string(historicalMarking);
-	s += ",\"from\":";
-	s += std::to_string(from);
-	s += ",\"to\":";
-	s += std::to_string(to);
-	s += ",\"weight\":";
-	s += std::to_string(weight);
-	s += ",\"isEnabled\":";
-	s += BoolToString(isEnabled);
-	s += ",\"isRecursive\":";
-	s += BoolToString(isRecursive);
-	s += "}";
-	return s;
+std::ostream & Hippocrates::Genotype::operator<<(std::ostream & stream, const Gene & gene) {
+	stream 
+		<< '{'
+		<< "\"historicalMarking\":" << gene.historicalMarking
+		<< ",\"from\":" << gene.from 
+		<< ",\"to\":" << gene.to
+		<< ",\"weight\":" << gene.weight 
+		<< ",\"isEnabled\":" << std::boolalpha << gene.isEnabled 
+		<< ",\"isRecursive\":" << std::boolalpha << gene.isRecursive
+		<< "}";
+	return stream;
 }

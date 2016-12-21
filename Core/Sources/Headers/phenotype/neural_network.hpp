@@ -31,7 +31,7 @@ public:
 	auto GetGenome() const -> const Genotype::Genome&{ return genome; }
 	auto GetOutputsUsingInputs(Type::neuron_values_t inputs) -> Type::neuron_values_t;
 
-	auto GetJSON() const -> std::string;
+	friend std::ostream& operator<<(std::ostream& stream, const NeuralNetwork & neuralNetwork);
 
 	auto Reset() -> void;
 

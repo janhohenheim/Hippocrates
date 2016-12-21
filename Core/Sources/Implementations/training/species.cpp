@@ -1,4 +1,4 @@
-#include <algorithm>
+﻿#include <algorithm>
 #include <string>
 
 #include "training/species.hpp"
@@ -150,23 +150,6 @@ auto Species::GetOrganismToBreed() const -> const Phenotype::Organism& {
 	}
 }
 
-auto Species::GetJSON() const -> std::string {
-	std::string s("{\"fitnessHighscore\":");
-	s += std::to_string(fitnessHighscore);
-	s += ",\"numberOfStagnantGenerations\":";
-	s += std::to_string(numberOfStagnantGenerations);
-	s += ",\"representative\":";
-	s += representative.GetJSON();
-	s += ",\"population\": [";
-	for (const auto& sp : population) {
-		s += sp.GetJSON();
-		s += ",";
-	}
-	s.pop_back();
-	s += "]}";
-	return s;
-}
-
 auto Species::GetAverageFitness() const -> Type::fitness_t {
 	return GetTotalFitness() / GetSize();
 }
@@ -177,4 +160,23 @@ auto Species::GetTotalFitness() const -> Type::fitness_t {
 		totalFitness += organism.GetOrCalculateFitness();
 	}
 	return totalFitness;
+}
+
+std::ostream & Hippocrates::Training::operator<<(std::ostream & stream, const Species & species)
+{
+	stream 
+		<< "{\"fitnessHighscore\":" << species.fitnessHighscore
+		<< ",\"numberOfStagnantGenerations\":" << species.numberOfStagnantGenerations
+		<< ",\"representative\":"
+		<< species.representative 
+		<< ",\"population\": [";
+
+	auto& population = species.population;
+	const auto populationCount = population.size();
+
+	for (std::size_t i = 0; i < populationCount - 1; ++i) {
+		stream << population[i] << ",";
+	}
+	stream << population[populationCount - 1] << "]}";
+	return stream;
 }

@@ -40,7 +40,7 @@ public:
 	auto GetConnections() const -> const std::vector<Connection>& { return connections; }
 	auto RequestDataAndGetActionPotential() ->Type::neuron_value_t;
 	auto GetLayer() const -> std::size_t { return layer; }
-	auto GetJSON() const->std::string;
+	friend std::ostream& operator<<(std::ostream& stream, const Neuron & neuron);
 
 	auto Reset() -> void;
 

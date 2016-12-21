@@ -1,4 +1,4 @@
-#include <fstream>
+﻿#include <fstream>
 
 #include "utility/logger.hpp"
 
@@ -48,19 +48,18 @@ auto Logger::GetMetadataFileName(const Type::file_string_t &sessionDir) const ->
 	return sessionDir + Type::literal_as_file_string("meta") + GetLogFileExtension();
 }
 
-
 auto Logger::GetLogFileName(const Type::file_string_t& sessionDir, std::size_t generationsPassed) const -> Type::file_string_t {
 	return Type::file_string_t(sessionDir + Type::literal_as_file_string("generation_") + Type::to_file_string(generationsPassed) + GetLogFileExtension());
 }
 
-
-auto Logger::LogGeneration(std::size_t generation, const std::string& log) -> void {
+auto Logger::LogGeneration(std::size_t generation, std::ostream& logstream) -> void {
 	if (fullLoggingPath.empty()) 
 		throw std::runtime_error("No logging directory found. Did you forget to call Logger::CreateLoggingDirs()?");
 	
 	auto logFileName = GetLogFileName(fullLoggingPath, generation);
 	std::ofstream logFile(logFileName);
-	logFile << log;
+	//TODO check if it works
+	logFile << logstream.rdbuf();
 	logFile.close();
 }
 

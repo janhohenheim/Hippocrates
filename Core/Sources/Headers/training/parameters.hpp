@@ -42,7 +42,7 @@ struct Parameters {
 		bool allowRecurrentConnections = false;
 	} structure;
 
-	auto GetJSON() const -> std::string;
+	friend std::ostream& operator<<(std::ostream& stream, const Parameters & parameters);
 };
 
 inline Parameters& GetParameters(){

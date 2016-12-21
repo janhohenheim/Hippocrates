@@ -1,4 +1,4 @@
-#include <cstdlib>
+﻿#include <cstdlib>
 #include <algorithm>
 
 #include "phenotype/organism.hpp"
@@ -60,15 +60,15 @@ auto Organism::BreedWith(const Organism& partner, Training::InnovationCacher& cu
 	return child;
 }
 
-auto Organism::GetJSON() const -> std::string {
-	std::string s("{\"fitness\":");
-	s += std::to_string(GetOrCalculateRawFitness());
-	s += ",";
-	s += "\"fitnessModifier\":";
-	s += std::to_string(fitnessModifier);
-	s += ",";
-	s += "\"network\":";
-	s += network.GetJSON();
-	s += "}";
-	return s;
+std::ostream & Hippocrates::Phenotype::operator<<(std::ostream & stream, const Organism & organism)
+{
+	stream 
+		<< "{\"fitness\":" << organism.GetOrCalculateRawFitness() 
+		<<"," 
+		<<"\"fitnessModifier\":" << organism.fitnessModifier
+		<<"," 
+		<<"\"network\":"
+		<<organism.network
+		<<"}";
+	return stream;
 }
