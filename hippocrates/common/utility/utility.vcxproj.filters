@@ -10,4 +10,26 @@
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="header\fillable_ref.hpp">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="header\interface.hpp">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="header\jsmn.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="header\random.hpp">
+      <Filter>header</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="source\jsmn.c">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\random.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+  </ItemGroup>
 </Project>

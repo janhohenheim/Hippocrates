@@ -110,6 +110,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="header\fillable_ref.hpp" />
+    <ClInclude Include="header\interface.hpp" />
+    <ClInclude Include="header\jsmn.h" />
+    <ClInclude Include="header\random.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="source\jsmn.c" />
+    <ClCompile Include="source\random.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
