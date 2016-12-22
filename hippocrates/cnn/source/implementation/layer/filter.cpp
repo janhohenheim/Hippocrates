@@ -2,7 +2,7 @@
 #include <stdexcept>
 #include <vector>
 
-#include "Layer/filter.hpp"
+#include "layer/filter.hpp"
 
 using namespace Convolutional;
 using namespace Convolutional::Layer;
@@ -64,7 +64,7 @@ auto Filter::LazyInitializeWeights(Matrix::Size size, std::size_t dimensionCount
 	for (std::size_t i = 0; i < dimensionCount; ++i) {
 		Matrix matrix {GetReceptiveField(size)};
 		for (auto& element : matrix) {
-			element = Utility::GetRandomNumberBetween(-1.0, 1.0);
+			element = Hippocrates::Utility::Random::Number(-1.0, 1.0);
 		}
 		matrices.push_back(std::move(matrix));
 	}

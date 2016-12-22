@@ -1,6 +1,6 @@
 #pragma once
 #include "multi_matrix.hpp"
-#include "InputData/iinput_data.hpp"
+#include "input_data/iinput_data.hpp"
 
 namespace Convolutional {
 

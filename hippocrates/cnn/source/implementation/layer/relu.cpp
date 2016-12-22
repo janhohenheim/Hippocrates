@@ -1,4 +1,4 @@
-﻿#include "Layer/relu.hpp"
+﻿#include "layer/relu.hpp"
 #include <algorithm>
 
 using namespace Convolutional;

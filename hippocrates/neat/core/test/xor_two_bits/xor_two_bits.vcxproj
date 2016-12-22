@@ -74,7 +74,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>../TestingUtilities/Sources/Headers; $(SolutionDir)Core\Sources\Headers</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)hippocrates\common\utility\source\header;$(SolutionDir)hippocrates\neat\core\test\testing_utilities;$(SolutionDir)hippocrates\neat\core\source\header</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions> /std:c++latest /permissive- %(AdditionalOptions)</AdditionalOptions>
       <TreatWarningAsError>true</TreatWarningAsError>
@@ -89,7 +89,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>../TestingUtilities/Sources/Headers; $(SolutionDir)Core\Sources\Headers</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)hippocrates\common\utility\source\header;$(SolutionDir)hippocrates\neat\core\test\testing_utilities;$(SolutionDir)hippocrates\neat\core\source\header</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions> /std:c++latest /permissive- %(AdditionalOptions)</AdditionalOptions>
       <TreatWarningAsError>true</TreatWarningAsError>
@@ -106,7 +106,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>../TestingUtilities/Sources/Headers; $(SolutionDir)Core\Sources\Headers</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)hippocrates\common\utility\source\header;$(SolutionDir)hippocrates\neat\core\test\testing_utilities;$(SolutionDir)hippocrates\neat\core\source\header</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions> /std:c++latest /permissive- %(AdditionalOptions)</AdditionalOptions>
       <TreatWarningAsError>true</TreatWarningAsError>
@@ -125,7 +125,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>../TestingUtilities/Sources/Headers; $(SolutionDir)Core\Sources\Headers</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)hippocrates\common\utility\source\header;$(SolutionDir)hippocrates\neat\core\test\testing_utilities;$(SolutionDir)hippocrates\neat\core\source\header</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions> /std:c++latest /permissive- %(AdditionalOptions)</AdditionalOptions>
       <TreatWarningAsError>true</TreatWarningAsError>
@@ -138,12 +138,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Core\Core.vcxproj">
-      <Project>{2e0e7930-3b86-4440-9f8c-ad90d19a2a94}</Project>
-    </ProjectReference>
+    <ClCompile Include="source\implementation\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="source\implementation\main.cpp" />
+    <ProjectReference Include="..\..\source\neat.vcxproj">
+      <Project>{2e0e7930-3b86-4440-9f8c-ad90d19a2a94}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\testing_utilities\testing_utilities.vcxproj">
+      <Project>{495de3f6-9335-4278-a4ec-ec714db06144}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

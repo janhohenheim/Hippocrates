@@ -2,7 +2,7 @@
 #include <string>
 
 #include "training/species.hpp"
-#include "utility/random.hpp"
+#include "random.hpp"
 
 using namespace Hippocrates;
 using namespace Hippocrates::Training;

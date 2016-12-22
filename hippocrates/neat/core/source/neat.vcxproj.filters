@@ -20,9 +20,6 @@
     <Filter Include="header\body">
       <UniqueIdentifier>{12aad913-2080-45bb-b6eb-467bac118a68}</UniqueIdentifier>
     </Filter>
-    <Filter Include="header\utility">
-      <UniqueIdentifier>{9924541a-57ef-41f7-83f0-f04c305a8b02}</UniqueIdentifier>
-    </Filter>
     <Filter Include="header\activation_function">
       <UniqueIdentifier>{2f32d6cc-a104-46b9-bcc8-7bc35803e9ea}</UniqueIdentifier>
     </Filter>
@@ -41,6 +38,9 @@
     </Filter>
     <Filter Include="implementation\genotype">
       <UniqueIdentifier>{938f9753-f15f-40e8-b911-9644cba4c10a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="header\utility">
+      <UniqueIdentifier>{ef52ab3c-8328-4c88-81fa-1a6f69461682}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -104,23 +104,11 @@
     <ClInclude Include="header\training\species_manager.hpp">
       <Filter>header\training</Filter>
     </ClInclude>
-    <ClInclude Include="header\utility\fillable_ref.hpp">
-      <Filter>header\utility</Filter>
-    </ClInclude>
-    <ClInclude Include="header\utility\interface.hpp">
-      <Filter>header\utility</Filter>
-    </ClInclude>
-    <ClInclude Include="header\utility\jsmn.h">
-      <Filter>header\utility</Filter>
+    <ClInclude Include="header\type.hpp">
+      <Filter>header</Filter>
     </ClInclude>
     <ClInclude Include="header\utility\logger.hpp">
       <Filter>header\utility</Filter>
-    </ClInclude>
-    <ClInclude Include="header\utility\random.hpp">
-      <Filter>header\utility</Filter>
-    </ClInclude>
-    <ClInclude Include="header\type.hpp">
-      <Filter>header</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -154,13 +142,7 @@
     <ClCompile Include="implementation\training\species_manager.cpp">
       <Filter>implementation\training</Filter>
     </ClCompile>
-    <ClCompile Include="implementation\utility\jsmn.c">
-      <Filter>implementation\utility</Filter>
-    </ClCompile>
     <ClCompile Include="implementation\utility\logger.cpp">
-      <Filter>implementation\utility</Filter>
-    </ClCompile>
-    <ClCompile Include="implementation\utility\random.cpp">
       <Filter>implementation\utility</Filter>
     </ClCompile>
   </ItemGroup>

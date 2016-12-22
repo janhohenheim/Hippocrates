@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include "ilayer.hpp"
-#include "Utility/utility.hpp"
+#include "random.hpp"
 #include <stdlib.h>
 
 namespace Convolutional::Layer {
@@ -15,7 +15,7 @@ public:
 
 		Neuron& from;
 		Neuron& to;
-		double weight = Utility::GetRandomNumberBetween(-1.0, 1.0);
+		double weight = Hippocrates::Utility::Random::Number(-1.0, 1.0);
 	};
 
 	struct Neuron {

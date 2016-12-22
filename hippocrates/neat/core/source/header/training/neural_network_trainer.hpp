@@ -4,7 +4,7 @@
 #include "data.hpp"
 #include "trained/neural_network.hpp"
 #include "trained/classifier.hpp"
-#include "utility/logger.hpp"
+#include "logger.hpp"
 #include "body/supervised_learning.hpp"
 
 

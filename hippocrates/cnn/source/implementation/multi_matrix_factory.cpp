@@ -1,8 +1,8 @@
 #include <stdexcept>
 
 #include "multi_matrix_factory.hpp"
-#include "InputData/image.hpp"
-#include "InputData/sentence.hpp"
+#include "input_data/image.hpp"
+#include "input_data/sentence.hpp"
 
 using namespace Convolutional;
 

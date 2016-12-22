@@ -3,7 +3,7 @@
 #include <iostream>
 
 #include "genotype/genome.hpp"
-#include "utility/jsmn.h"
+#include "jsmn.h"
 
 using namespace Hippocrates;
 using namespace Hippocrates::Genotype;

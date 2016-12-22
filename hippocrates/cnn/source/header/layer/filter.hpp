@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "matrix.hpp"
 #include "ilayer.hpp"
-#include "Utility/utility.hpp"
+#include "random.hpp"
 #include <memory>
 
 namespace Convolutional::Layer {
@@ -14,7 +14,7 @@ public:
 		Matrix::Size stride = {1, 1})
 		: receptiveField(receptiveField),
 		stride(stride),
-		bias {Utility::GetRandomNumberBetween(-1.0, 1.0)}
+		bias {Hippocrates::Utility::Random::Number(-1.0, 1.0)}
 	{}
 	Filter(const Filter& other) :
 		receptiveField {other.receptiveField},

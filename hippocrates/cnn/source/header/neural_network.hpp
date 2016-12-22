@@ -5,8 +5,8 @@
 
 #include "multi_matrix.hpp"
 #include "multi_matrix_factory.hpp"
-#include "Layer/layers.hpp"
-#include "Layer/filter.hpp"
+#include "layer/layers.hpp"
+#include "layer/filter.hpp"
 
 namespace Convolutional {
 

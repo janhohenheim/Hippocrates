@@ -1,4 +1,4 @@
-#include "Layer/filters.hpp"
+#include "layer/filters.hpp"
 
 using namespace Convolutional;
 using namespace Convolutional::Layer;

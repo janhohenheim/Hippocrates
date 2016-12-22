@@ -4,8 +4,8 @@
 
 #include "training/parameters.hpp"
 #include "genotype/gene.hpp"
-#include "utility/jsmn.h"
-#include "utility/random.hpp"
+#include "jsmn.h"
+#include "random.hpp"
 
 using namespace Hippocrates;
 using namespace Hippocrates::Genotype;

@@ -1,8 +1,8 @@
 ﻿#include <stdexcept>
 
 #include "phenotype/neuron.hpp"
-#include "utility/jsmn.h"
-#include "utility/random.hpp"
+#include "jsmn.h"
+#include "random.hpp"
 #include "activation_function/tanh.hpp"
 
 using namespace Hippocrates;

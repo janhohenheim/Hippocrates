@@ -1,4 +1,4 @@
-#include "utility/random.hpp"
+#include "random.hpp"
 
 using namespace Hippocrates;
 using namespace Hippocrates::Utility;

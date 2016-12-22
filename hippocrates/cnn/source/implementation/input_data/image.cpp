@@ -1,4 +1,4 @@
-﻿#include "InputData/image.hpp"
+﻿#include "input_data/image.hpp"
 #include <iostream>
 
 using namespace Convolutional;

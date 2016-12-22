@@ -4,8 +4,8 @@
 #include <cstring>
 
 #include "phenotype/neural_network.hpp"
-#include "utility/jsmn.h"
-#include "utility/random.hpp"
+#include "jsmn.h"
+#include "random.hpp"
 
 using namespace Hippocrates;
 using namespace Hippocrates::Phenotype;

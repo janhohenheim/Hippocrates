@@ -15,9 +15,6 @@
     <Filter Include="header\learning">
       <UniqueIdentifier>{d1376943-63a3-4922-856f-5bc4fcffdf6f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="header\utility">
-      <UniqueIdentifier>{4e9d3b98-c8b3-4be1-9770-24f8ccc323f6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="implementation\input_data">
       <UniqueIdentifier>{c97a48b6-dcd6-45d6-980c-62f72ed7da1b}</UniqueIdentifier>
     </Filter>
@@ -68,20 +65,29 @@
     <ClInclude Include="header\layer\relu.hpp">
       <Filter>header\layer</Filter>
     </ClInclude>
-    <ClInclude Include="header\utility\fillable_ref.hpp">
-      <Filter>header\utility</Filter>
-    </ClInclude>
-    <ClInclude Include="header\utility\interface.hpp">
-      <Filter>header\utility</Filter>
-    </ClInclude>
-    <ClInclude Include="header\utility\utility.hpp">
-      <Filter>header\utility</Filter>
-    </ClInclude>
     <ClInclude Include="header\layer\pooler\ipooler.hpp">
       <Filter>header\layer\pooler</Filter>
     </ClInclude>
     <ClInclude Include="header\layer\pooler\max_pooler.hpp">
       <Filter>header\layer\pooler</Filter>
+    </ClInclude>
+    <ClInclude Include="header\matrix.hpp">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="header\multi_matrix.hpp">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="header\multi_matrix_factory.hpp">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="header\neural_network.hpp">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="header\neural_network_trainer.hpp">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="header\training_data.hpp">
+      <Filter>header</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

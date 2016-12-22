@@ -1,5 +1,5 @@
 #pragma once
-#include "Layer/Pooler/ipooler.hpp"
+#include "layer/Pooler/ipooler.hpp"
 
 namespace Convolutional::Layer::Pooler {
 
