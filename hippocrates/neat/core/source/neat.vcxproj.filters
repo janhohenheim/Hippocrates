@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="header">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="header\trained">
+      <UniqueIdentifier>{1b3a181c-c7b8-45a2-a69a-d9d44c2916a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="header\genotype">
+      <UniqueIdentifier>{47175009-9fb0-42c1-a3d0-e494e31ab576}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="header\phenotype">
+      <UniqueIdentifier>{7eff9a19-53b8-4cbe-b45e-2bcf850e646b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="header\training">
+      <UniqueIdentifier>{05c8e61d-bf8b-4e59-9b8a-3f4e4eea7c77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="header\body">
+      <UniqueIdentifier>{12aad913-2080-45bb-b6eb-467bac118a68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="header\utility">
+      <UniqueIdentifier>{9924541a-57ef-41f7-83f0-f04c305a8b02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="header\activation_function">
+      <UniqueIdentifier>{2f32d6cc-a104-46b9-bcc8-7bc35803e9ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="implementation">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="implementation\utility">
+      <UniqueIdentifier>{789582d4-5c4e-46bf-a1d3-8a4ee85bbab0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="implementation\training">
+      <UniqueIdentifier>{5a054ed5-4cb0-4bea-8aee-f60667fff562}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="implementation\phenotype">
+      <UniqueIdentifier>{5a7bd4d8-4fe9-4082-b592-afcfb2d14d9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="implementation\genotype">
+      <UniqueIdentifier>{938f9753-f15f-40e8-b911-9644cba4c10a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="header\activation_function\activation_function.hpp">
+      <Filter>header\activation_function</Filter>
+    </ClInclude>
+    <ClInclude Include="header\activation_function\activation_function_factory.hpp">
+      <Filter>header\activation_function</Filter>
+    </ClInclude>
+    <ClInclude Include="header\activation_function\fast_sigmoid.hpp">
+      <Filter>header\activation_function</Filter>
+    </ClInclude>
+    <ClInclude Include="header\activation_function\possible_activation_functions.hpp">
+      <Filter>header\activation_function</Filter>
+    </ClInclude>
+    <ClInclude Include="header\activation_function\tanh.hpp">
+      <Filter>header\activation_function</Filter>
+    </ClInclude>
+    <ClInclude Include="header\body\body.hpp">
+      <Filter>header\body</Filter>
+    </ClInclude>
+    <ClInclude Include="header\body\supervised_learning.hpp">
+      <Filter>header\body</Filter>
+    </ClInclude>
+    <ClInclude Include="header\genotype\gene.hpp">
+      <Filter>header\genotype</Filter>
+    </ClInclude>
+    <ClInclude Include="header\genotype\genome.hpp">
+      <Filter>header\genotype</Filter>
+    </ClInclude>
+    <ClInclude Include="header\phenotype\neural_network.hpp">
+      <Filter>header\phenotype</Filter>
+    </ClInclude>
+    <ClInclude Include="header\phenotype\neuron.hpp">
+      <Filter>header\phenotype</Filter>
+    </ClInclude>
+    <ClInclude Include="header\phenotype\organism.hpp">
+      <Filter>header\phenotype</Filter>
+    </ClInclude>
+    <ClInclude Include="header\trained\classifier.hpp">
+      <Filter>header\trained</Filter>
+    </ClInclude>
+    <ClInclude Include="header\trained\neural_network.hpp">
+      <Filter>header\trained</Filter>
+    </ClInclude>
+    <ClInclude Include="header\training\data.hpp">
+      <Filter>header\training</Filter>
+    </ClInclude>
+    <ClInclude Include="header\training\innovation_cacher.hpp">
+      <Filter>header\training</Filter>
+    </ClInclude>
+    <ClInclude Include="header\training\neural_network_trainer.hpp">
+      <Filter>header\training</Filter>
+    </ClInclude>
+    <ClInclude Include="header\training\parameters.hpp">
+      <Filter>header\training</Filter>
+    </ClInclude>
+    <ClInclude Include="header\training\species.hpp">
+      <Filter>header\training</Filter>
+    </ClInclude>
+    <ClInclude Include="header\training\species_manager.hpp">
+      <Filter>header\training</Filter>
+    </ClInclude>
+    <ClInclude Include="header\utility\fillable_ref.hpp">
+      <Filter>header\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="header\utility\interface.hpp">
+      <Filter>header\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="header\utility\jsmn.h">
+      <Filter>header\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="header\utility\logger.hpp">
+      <Filter>header\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="header\utility\random.hpp">
+      <Filter>header\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="header\type.hpp">
+      <Filter>header</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="implementation\genotype\gene.cpp">
+      <Filter>implementation\genotype</Filter>
+    </ClCompile>
+    <ClCompile Include="implementation\genotype\genome.cpp">
+      <Filter>implementation\genotype</Filter>
+    </ClCompile>
+    <ClCompile Include="implementation\phenotype\neural_network.cpp">
+      <Filter>implementation\phenotype</Filter>
+    </ClCompile>
+    <ClCompile Include="implementation\phenotype\neuron.cpp">
+      <Filter>implementation\phenotype</Filter>
+    </ClCompile>
+    <ClCompile Include="implementation\phenotype\organism.cpp">
+      <Filter>implementation\phenotype</Filter>
+    </ClCompile>
+    <ClCompile Include="implementation\training\innovation_cacher.cpp">
+      <Filter>implementation\training</Filter>
+    </ClCompile>
+    <ClCompile Include="implementation\training\neural_network_trainer.cpp">
+      <Filter>implementation\training</Filter>
+    </ClCompile>
+    <ClCompile Include="implementation\training\parameters.cpp">
+      <Filter>implementation\training</Filter>
+    </ClCompile>
+    <ClCompile Include="implementation\training\species.cpp">
+      <Filter>implementation\training</Filter>
+    </ClCompile>
+    <ClCompile Include="implementation\training\species_manager.cpp">
+      <Filter>implementation\training</Filter>
+    </ClCompile>
+    <ClCompile Include="implementation\utility\jsmn.c">
+      <Filter>implementation\utility</Filter>
+    </ClCompile>
+    <ClCompile Include="implementation\utility\logger.cpp">
+      <Filter>implementation\utility</Filter>
+    </ClCompile>
+    <ClCompile Include="implementation\utility\random.cpp">
+      <Filter>implementation\utility</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
