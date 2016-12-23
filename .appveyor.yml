@@ -4,7 +4,7 @@ configuration:
   - Release
 
 install: 
-  - ps: . .\InstallDependencies.ps1 
+  - ps: . .\ci\install_dependencies.ps1
 
 build_script:
   - msbuild %solution_name%
@@ -14,4 +14,3 @@ test_script:
   - C:\projects\jnf-neat\Release\xor_three_bits.exe
   - C:\projects\jnf-neat\Release\EvenNumbers.exe
   - C:\projects\cnn-code\x64\Release\Sandbox.exe
-
