@@ -2,7 +2,6 @@
 #include "neural_network.hpp"
 #include "layer/Pooler/max_pooler.hpp"
 #include "training_data.hpp"
-#include "fillable_ref.hpp"
 #include "Learning/backpropagation.hpp"
 
 namespace Convolutional {

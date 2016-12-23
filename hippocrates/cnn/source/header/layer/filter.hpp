@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "matrix.hpp"
 #include "ilayer.hpp"
-#include "random.hpp"
+#include "common/utility/source/header/random.hpp"
 #include <memory>
 
 namespace Convolutional::Layer {

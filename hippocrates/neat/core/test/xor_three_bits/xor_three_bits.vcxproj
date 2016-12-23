@@ -74,14 +74,14 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)hippocrates\common\utility\source\header;$(SolutionDir)hippocrates\neat\core\test\testing_utilities;$(SolutionDir)hippocrates\neat\core\source\header</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)hippocrates;$(SolutionDir)hippocrates\neat\core\test\testing_utilities\source\header;$(SolutionDir)hippocrates\neat\core\source\header</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions> /std:c++latest /permissive- %(AdditionalOptions)</AdditionalOptions>
       <TreatWarningAsError>true</TreatWarningAsError>
       <DiagnosticsFormat>Caret</DiagnosticsFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>$(OutDir)TestingUtilities.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(OutDir)testing_utilities.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -89,14 +89,14 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)hippocrates\common\utility\source\header;$(SolutionDir)hippocrates\neat\core\test\testing_utilities;$(SolutionDir)hippocrates\neat\core\source\header</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)hippocrates;$(SolutionDir)hippocrates\neat\core\test\testing_utilities\source\header;$(SolutionDir)hippocrates\neat\core\source\header</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions> /std:c++latest /permissive- %(AdditionalOptions)</AdditionalOptions>
       <TreatWarningAsError>true</TreatWarningAsError>
       <DiagnosticsFormat>Caret</DiagnosticsFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>$(OutDir)TestingUtilities.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(OutDir)testing_utilities.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -106,7 +106,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)hippocrates\common\utility\source\header;$(SolutionDir)hippocrates\neat\core\test\testing_utilities;$(SolutionDir)hippocrates\neat\core\source\header</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)hippocrates;$(SolutionDir)hippocrates\neat\core\test\testing_utilities\source\header;$(SolutionDir)hippocrates\neat\core\source\header</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions> /std:c++latest /permissive- %(AdditionalOptions)</AdditionalOptions>
       <TreatWarningAsError>true</TreatWarningAsError>
@@ -115,7 +115,7 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>$(OutDir)TestingUtilities.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(OutDir)testing_utilities.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -125,7 +125,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)hippocrates\common\utility\source\header;$(SolutionDir)hippocrates\neat\core\test\testing_utilities;$(SolutionDir)hippocrates\neat\core\source\header</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)hippocrates;$(SolutionDir)hippocrates\neat\core\test\testing_utilities\source\header;$(SolutionDir)hippocrates\neat\core\source\header</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions> /std:c++latest /permissive- %(AdditionalOptions)</AdditionalOptions>
       <TreatWarningAsError>true</TreatWarningAsError>
@@ -134,12 +134,9 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>$(OutDir)TestingUtilities.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(OutDir)testing_utilities.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="source\implementaiton\main.cpp" />
-  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\source\neat.vcxproj">
       <Project>{2e0e7930-3b86-4440-9f8c-ad90d19a2a94}</Project>
@@ -147,6 +144,9 @@
     <ProjectReference Include="..\testing_utilities\testing_utilities.vcxproj">
       <Project>{495de3f6-9335-4278-a4ec-ec714db06144}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="source\implementation\main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

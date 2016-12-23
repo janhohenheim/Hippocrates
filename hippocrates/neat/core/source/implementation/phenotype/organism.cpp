@@ -2,7 +2,7 @@
 #include <algorithm>
 
 #include "phenotype/organism.hpp"
-#include "random.hpp"
+#include "common/utility/source/header/random.hpp"
 
 using namespace Hippocrates;
 using namespace Hippocrates::Phenotype;

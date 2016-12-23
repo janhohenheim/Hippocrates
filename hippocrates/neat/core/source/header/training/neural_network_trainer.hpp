@@ -1,10 +1,10 @@
-#pragma once
+﻿#pragma once
 #include "species.hpp"
 #include "species_manager.hpp"
 #include "data.hpp"
 #include "trained/neural_network.hpp"
 #include "trained/classifier.hpp"
-#include "logger.hpp"
+#include "utility/logger.hpp"
 #include "body/supervised_learning.hpp"
 
 
