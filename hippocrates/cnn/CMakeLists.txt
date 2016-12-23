@@ -13,3 +13,7 @@ target_include_directories(cnn PUBLIC ${common_HEADERS})
 find_package(ImageMagick COMPONENTS Magick++ REQUIRED)
 target_link_libraries(cnn PUBLIC ${ImageMagick_LIBRARIES})
 target_include_directories(cnn PUBLIC ${ImageMagick_INCLUDE_DIRS})
+
+
+add_subdirectory(test)
+enable_testing()
