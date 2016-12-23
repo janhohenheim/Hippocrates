@@ -1,5 +1,5 @@
 ﻿#include "training/species_manager.hpp"
-#include "common/utility/source/header/random.hpp"
+#include "random.hpp"
 
 using namespace Hippocrates;
 using namespace Hippocrates::Training;

@@ -12,3 +12,4 @@ set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Wall")
 
 add_subdirectory(hippocrates/common)
 add_subdirectory(hippocrates/cnn)
+add_subdirectory(hippocrates/neat)
