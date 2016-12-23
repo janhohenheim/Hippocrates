@@ -15,4 +15,3 @@ target_include_directories(cnn PUBLIC ${ImageMagick_INCLUDE_DIRS})
 
 
 add_subdirectory(test)
-enable_testing()

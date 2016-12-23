@@ -12,4 +12,3 @@ target_include_directories(neat_core PUBLIC ${common_HEADERS})
 
 
 add_subdirectory(test)
-enable_testing()

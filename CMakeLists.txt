@@ -10,6 +10,8 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/out/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/out/tests)
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Wall")
 
+enable_testing()
+
 add_subdirectory(hippocrates/common)
 add_subdirectory(hippocrates/cnn)
 add_subdirectory(hippocrates/neat)
