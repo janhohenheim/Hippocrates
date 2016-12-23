@@ -1,0 +1,16 @@
+file(GLOB_RECURSE SOURCES *.cpp *.hpp *.c *.h)
+add_library(CoreTestingUtilities SHARED ${SOURCES})
+
+macro(header_directories return_list sources_folder)
+    file(GLOB_RECURSE headers [RELATIVE ${sources_folder}] *.hpp *.h)
+    set(dir_list "")
+    foreach(file_path ${headers})
+        get_filename_component(dir_path ${file_path} PATH)
+        set(dir_list ${dir_list} ${dir_path})
+    endforeach()
+    list(REMOVE_DUPLICATES dir_list)
+    set(${return_list} ${dir_list})
+endmacro()
+
+header_directories(HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/source/header)
+target_include_directories(CoreTestingUtilities PUBLIC ${HEADERS})

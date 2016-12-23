@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include "ilayer.hpp"
-#include "common/utility/source/header/random.hpp"
+#include "random.hpp"
 #include <stdlib.h>
 
 namespace Convolutional::Layer {

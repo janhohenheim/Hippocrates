@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include "multi_matrix.hpp"
-#include "common/utility/source/header/interface.hpp"
+#include "interface.hpp"
 
 #include <memory>
 
