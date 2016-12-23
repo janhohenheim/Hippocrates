@@ -1,5 +1,5 @@
 #pragma once
-#include "Learning/learning_method.hpp"
+#include "learning/learning_method.hpp"
 
 namespace Convolutional::Learning {
 

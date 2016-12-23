@@ -1,9 +1,5 @@
 ﻿#include "neural_network_trainer.hpp"
-#include "input_data/sentence.hpp"
-#include "Learning/learning_method.hpp"
 #include "input_data/image.hpp"
-#include "layer/fully_connected_neural_network.hpp"
-#include "layer/filters.hpp"
 
 using namespace Convolutional;
 
