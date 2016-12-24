@@ -1,8 +1,8 @@
 ﻿#pragma once
 #include "neural_network.hpp"
-#include "layer/Pooler/max_pooler.hpp"
+#include "layer/pooler/max_pooler.hpp"
 #include "training_data.hpp"
-#include "Learning/backpropagation.hpp"
+#include "learning/backpropagation.hpp"
 
 namespace Convolutional {
 

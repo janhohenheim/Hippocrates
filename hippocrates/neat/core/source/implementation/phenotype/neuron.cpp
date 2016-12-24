@@ -3,7 +3,6 @@
 #include "phenotype/neuron.hpp"
 #include "jsmn.h"
 #include "random.hpp"
-#include "activation_function/tanh.hpp"
 
 using namespace Hippocrates;
 using namespace Hippocrates::Phenotype;

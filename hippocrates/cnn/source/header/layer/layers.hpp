@@ -4,7 +4,7 @@
 // Umbrella header part
 #include "filters.hpp"
 #include "fully_connected_neural_network.hpp"
-#include "Pooler/max_pooler.hpp"
+#include "pooler/max_pooler.hpp"
 #include "relu.hpp"
 
 #include <memory>

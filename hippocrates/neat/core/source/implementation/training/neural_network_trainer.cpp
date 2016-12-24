@@ -1,5 +1,4 @@
 ﻿#include "training/neural_network_trainer.hpp"
-#include <sstream>
 
 using namespace Hippocrates;
 using namespace Hippocrates::Training;
