@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "common/utility/source/header/interface.hpp"
+#include "interface.hpp"
 #include "type.hpp"
 
 namespace Hippocrates::ActivationFunction {
