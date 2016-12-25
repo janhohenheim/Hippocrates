@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include "phenotype/neuron.hpp"
 
 namespace Hippocrates::Phenotype::NetworkComponents {
 	class ITransformationUnit;

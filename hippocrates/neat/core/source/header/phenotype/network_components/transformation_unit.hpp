@@ -15,7 +15,7 @@ public:
 
 	std::vector<OutputAdaptor> outputAdaptors;
 	std::vector<InputAdaptor> inputAdaptors;
-	std::vector<Connection> incomingConnections;
+	std::vector<NetworkComponents::Connection> incomingConnections;
 	std::size_t layer = 0U;
 
 	virtual auto HasSingleOutputAdaptor() const -> bool = 0;

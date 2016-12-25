@@ -116,25 +116,25 @@
     <ClInclude Include="header\utility\logger.hpp">
       <Filter>header\utility</Filter>
     </ClInclude>
-    <ClInclude Include="header\phenotype\transformation_unit.hpp">
+    <ClInclude Include="header\phenotype\network_components\connection.hpp">
       <Filter>header\phenotype\network_components</Filter>
     </ClInclude>
-    <ClInclude Include="header\phenotype\connection.hpp">
+    <ClInclude Include="header\phenotype\network_components\input_adaptor.hpp">
       <Filter>header\phenotype\network_components</Filter>
     </ClInclude>
-    <ClInclude Include="header\phenotype\input_adaptor.hpp">
+    <ClInclude Include="header\phenotype\network_components\output_adaptor.hpp">
       <Filter>header\phenotype\network_components</Filter>
     </ClInclude>
-    <ClInclude Include="header\phenotype\output_adaptor.hpp">
+    <ClInclude Include="header\phenotype\network_components\transformation_unit.hpp">
       <Filter>header\phenotype\network_components</Filter>
     </ClInclude>
-    <ClInclude Include="header\phenotype\filter_unit.hpp">
+    <ClInclude Include="header\phenotype\network_components\convolutional\filter_unit.hpp">
       <Filter>header\phenotype\network_components\convolutional</Filter>
     </ClInclude>
-    <ClInclude Include="header\phenotype\pooler_unit.hpp">
+    <ClInclude Include="header\phenotype\network_components\convolutional\pooler_unit.hpp">
       <Filter>header\phenotype\network_components\convolutional</Filter>
     </ClInclude>
-    <ClInclude Include="header\phenotype\relu_unit.hpp">
+    <ClInclude Include="header\phenotype\network_components\convolutional\relu_unit.hpp">
       <Filter>header\phenotype\network_components\convolutional</Filter>
     </ClInclude>
   </ItemGroup>
