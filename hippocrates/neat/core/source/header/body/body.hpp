@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include <vector>
 #include "type.hpp"
-#include "interface.hpp"
+#include "common/utility/source/header/interface.hpp"
 
 namespace Hippocrates::Body {
 
