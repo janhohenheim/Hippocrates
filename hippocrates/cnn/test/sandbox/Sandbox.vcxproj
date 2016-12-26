@@ -99,7 +99,7 @@
       <SDLCheck>true</SDLCheck>
       <TreatWarningAsError>true</TreatWarningAsError>
       <AdditionalOptions>/std:c++latest /permissive- %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>$(SolutionDir)hippocrates\;C:\Program Files\ImageMagick-6.9.6-Q8\include;$(SolutionDir)hippocrates\cnn\source\header</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)hippocrates\;C:\Program Files\ImageMagick-6.9.6-Q8\include;$(SolutionDir)hippocrates\cnn\source\header;$(SolutionDir)hippocrates\common\utility\source\header</AdditionalIncludeDirectories>
       <EnablePREfast>false</EnablePREfast>
       <DiagnosticsFormat>Caret</DiagnosticsFormat>
     </ClCompile>
@@ -153,7 +153,7 @@
       <SDLCheck>true</SDLCheck>
       <TreatWarningAsError>true</TreatWarningAsError>
       <AdditionalOptions>/std:c++latest /permissive- %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>$(SolutionDir)hippocrates\;C:\Program Files\ImageMagick-6.9.6-Q8\include;$(SolutionDir)hippocrates\cnn\source\header</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)hippocrates\;C:\Program Files\ImageMagick-6.9.6-Q8\include;$(SolutionDir)hippocrates\cnn\source\header;$(SolutionDir)hippocrates\common\utility\source\header</AdditionalIncludeDirectories>
       <EnablePREfast>false</EnablePREfast>
       <DiagnosticsFormat>Caret</DiagnosticsFormat>
     </ClCompile>

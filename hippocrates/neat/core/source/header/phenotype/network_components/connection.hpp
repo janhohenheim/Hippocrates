@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "phenotype/network_components/input_adaptor.hpp"
 #include "phenotype/network_components/output_adaptor.hpp"
-#include "common/utility/source/header/interface.hpp"
+#include "interface.hpp"
 
 namespace Hippocrates::Phenotype::NetworkComponents {
 

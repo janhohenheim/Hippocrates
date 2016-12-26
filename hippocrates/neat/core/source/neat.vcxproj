@@ -97,7 +97,7 @@
       <AdditionalOptions>/DLL /std:c++latest  /permissive- %(AdditionalOptions)</AdditionalOptions>
       <TreatWarningAsError>true</TreatWarningAsError>
       <DiagnosticsFormat>Caret</DiagnosticsFormat>
-      <AdditionalIncludeDirectories>$(SolutionDir)hippocrates\;$(SolutionDir)hippocrates\neat\core\source\header</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)hippocrates\;$(SolutionDir)hippocrates\neat\core\source\header;$(SolutionDir)hippocrates\cnn\source\header;$(SolutionDir)hippocrates\common\utility\source\header</AdditionalIncludeDirectories>
     </ClCompile>
     <ProjectReference>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
@@ -143,7 +143,7 @@
       <AdditionalOptions>/DLL /std:c++latest  /permissive- %(AdditionalOptions)</AdditionalOptions>
       <TreatWarningAsError>true</TreatWarningAsError>
       <DiagnosticsFormat>Caret</DiagnosticsFormat>
-      <AdditionalIncludeDirectories>$(SolutionDir)hippocrates\;$(SolutionDir)hippocrates\neat\core\source\header</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)hippocrates\;$(SolutionDir)hippocrates\neat\core\source\header;$(SolutionDir)hippocrates\cnn\source\header;$(SolutionDir)hippocrates\common\utility\source\header</AdditionalIncludeDirectories>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
     </ClCompile>

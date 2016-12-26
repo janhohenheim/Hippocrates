@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include "phenotype/network_components/transformation_unit.hpp"
-#include "cnn/source/header/layer/filter.hpp"
+#include "layer/filter.hpp"
 
 using namespace Hippocrates;
 using namespace Phenotype;

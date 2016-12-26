@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "type.hpp"
-#include "common/utility/source/header/interface.hpp"
+#include "interface.hpp"
 #include "connection.hpp"
 
 namespace Hippocrates::Phenotype::NetworkComponents {
