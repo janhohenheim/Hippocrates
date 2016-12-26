@@ -8,12 +8,7 @@ using namespace Convolutional::Layer;
 
 namespace Hippocrates::Phenotype::NetworkComponents::Convolutional {
 
-class PoolerUnit : ITransformationUnit {
-
-public:
-	Pooler::IPooler pooler;
-
-	explicit PoolerUnit(Pooler::IPooler&& filter) : pooler(std::move(filter)) { }
+class PoolerUnit : ITransformationUnit<Pooler::IPooler> {
 };
 
 }

@@ -8,12 +8,7 @@ using namespace Convolutional::Layer;
 
 namespace Hippocrates::Phenotype::NetworkComponents::Convolutional {
 
-class ReluUnit : ITransformationUnit {
-
-public:
-	ReLU relu;
-
-	explicit ReluUnit(ReLU&& filter) : relu(std::move(filter)) { }
+class ReluUnit : ITransformationUnit<ReLU> {
 };
 
 }

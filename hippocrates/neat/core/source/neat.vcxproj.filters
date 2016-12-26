@@ -48,6 +48,9 @@
     <Filter Include="header\phenotype\network_components\convolutional">
       <UniqueIdentifier>{eb29a6aa-4a4a-49be-88cb-84a811560fae}</UniqueIdentifier>
     </Filter>
+    <Filter Include="implementation\phenotype\network_components">
+      <UniqueIdentifier>{8eaa8538-6387-4d3a-8bf3-3e8ece7f9ce7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\activation_function\activation_function.hpp">
@@ -137,6 +140,9 @@
     <ClInclude Include="header\phenotype\network_components\convolutional\relu_unit.hpp">
       <Filter>header\phenotype\network_components\convolutional</Filter>
     </ClInclude>
+    <ClInclude Include="header\phenotype\network_components\neuron_unit.hpp">
+      <Filter>header\phenotype\network_components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="implementation\genotype\gene.cpp">
@@ -171,6 +177,9 @@
     </ClCompile>
     <ClCompile Include="implementation\utility\logger.cpp">
       <Filter>implementation\utility</Filter>
+    </ClCompile>
+    <ClCompile Include="implementation\phenotype\network_components\neuron_unit.cpp">
+      <Filter>implementation\phenotype\network_components</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

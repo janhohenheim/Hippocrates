@@ -8,11 +8,7 @@ using namespace Convolutional::Layer;
 
 namespace Hippocrates::Phenotype::NetworkComponents::Convolutional {
 
-class FilterUnit : ITransformationUnit {
-	
-public:
-	Filter filter;
-
+class FilterUnit : ITransformationUnit<Filter> {
 };
 
 }

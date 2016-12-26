@@ -173,6 +173,7 @@
     <ClInclude Include="header\phenotype\network_components\convolutional\pooler_unit.hpp" />
     <ClInclude Include="header\phenotype\network_components\convolutional\relu_unit.hpp" />
     <ClInclude Include="header\phenotype\network_components\input_adaptor.hpp" />
+    <ClInclude Include="header\phenotype\network_components\neuron_unit.hpp" />
     <ClInclude Include="header\phenotype\network_components\output_adaptor.hpp" />
     <ClInclude Include="header\phenotype\network_components\transformation_unit.hpp" />
     <ClInclude Include="header\phenotype\neural_network.hpp" />
@@ -192,6 +193,7 @@
   <ItemGroup>
     <ClCompile Include="implementation\genotype\gene.cpp" />
     <ClCompile Include="implementation\genotype\genome.cpp" />
+    <ClCompile Include="implementation\phenotype\network_components\neuron_unit.cpp" />
     <ClCompile Include="implementation\phenotype\neural_network.cpp" />
     <ClCompile Include="implementation\phenotype\neuron.cpp" />
     <ClCompile Include="implementation\phenotype\organism.cpp" />
