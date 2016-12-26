@@ -5,6 +5,7 @@
 
 namespace Hippocrates::Phenotype::NetworkComponents {
 
+template<typename TUnit>
 class Connection : public Utility::Interface {
 private:
 	OutputAdaptor& source;

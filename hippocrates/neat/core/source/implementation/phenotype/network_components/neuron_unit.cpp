@@ -6,28 +6,15 @@
 using namespace Hippocrates;
 using namespace NetworkComponents;
 
-auto NeuronUnit::HasSingleOutputAdaptor() -> bool {
+auto NeuronUnit::HasSingleOutputAdaptor() const -> bool {
 	return true;
 }
 
-auto NeuronUnit::GetSingleOutputAdaptor() -> OutputAdaptor {
-
-}
-
-auto NeuronUnit::HasSingleInputAdaptor() -> bool {
+auto NeuronUnit::HasSingleInputAdaptor() const -> bool {
 	return true;
-}
-
-auto NeuronUnit::GetSingleInputAdaptor() -> InputAdaptor<Neuron> {
-
 }
 
 auto NeuronUnit::RecalculateOutputs() -> void {
-
-}
-
-auto NeuronUnit::InputAdaptorActivated(Type::neuron_value_t activationValue) -> void {
-		
-}
-	
-
+	this->unit.SetInput(this->inputAdaptors[0].lastActivationValue);
+	this->outputAdaptors[0].lastActionPotential = this->unit.RequestDataAndGetActionPotential();
+}	
