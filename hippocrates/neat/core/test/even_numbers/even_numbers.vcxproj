@@ -108,7 +108,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions> _DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)hippocrates;$(SolutionDir)hippocrates\neat\core\test\testing_utilities\source\header;$(SolutionDir)hippocrates\neat\core\source\header</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)hippocrates;$(SolutionDir)hippocrates\neat\core\test\testing_utilities\source\header;$(SolutionDir)hippocrates\neat\core\source\header;$(SolutionDir)hippocrates\common\utility\source\header</AdditionalIncludeDirectories>
       <AdditionalOptions> /std:c++latest /permissive- %(AdditionalOptions)</AdditionalOptions>
       <TreatWarningAsError>true</TreatWarningAsError>
       <DiagnosticsFormat>Caret</DiagnosticsFormat>
@@ -116,7 +116,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>$(OutDir)testing_utilities.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(OutDir)testing_utilities.lib;$(OutDir)utility.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -166,6 +166,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\common\utility\utility.vcxproj">
+      <Project>{0f45a91c-5983-4c60-af48-f89b8d873d73}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\..\source\neat.vcxproj">
       <Project>{2e0e7930-3b86-4440-9f8c-ad90d19a2a94}</Project>
     </ProjectReference>

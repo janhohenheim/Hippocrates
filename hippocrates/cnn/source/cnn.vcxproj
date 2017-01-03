@@ -27,6 +27,7 @@
     <ClInclude Include="header\layer\fully_connected_neural_network.hpp" />
     <ClInclude Include="header\layer\ilayer.hpp" />
     <ClInclude Include="header\layer\layers.hpp" />
+    <ClInclude Include="header\layer\pooler\global_average_pooler.hpp" />
     <ClInclude Include="header\layer\pooler\ipooler.hpp" />
     <ClInclude Include="header\layer\pooler\max_pooler.hpp" />
     <ClInclude Include="header\layer\relu.hpp" />
@@ -45,6 +46,7 @@
     <ClCompile Include="implementation\layer\filter.cpp" />
     <ClCompile Include="implementation\layer\filters.cpp" />
     <ClCompile Include="implementation\layer\fully_connected_neural_network.cpp" />
+    <ClCompile Include="implementation\layer\pooler\global_average_pooler.cpp" />
     <ClCompile Include="implementation\layer\pooler\max_pooler.cpp" />
     <ClCompile Include="implementation\layer\relu.cpp" />
     <ClCompile Include="implementation\matrix.cpp" />

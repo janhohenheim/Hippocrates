@@ -89,6 +89,9 @@
     <ClInclude Include="header\training_data.hpp">
       <Filter>header</Filter>
     </ClInclude>
+    <ClInclude Include="header\layer\pooler\global_average_pooler.hpp">
+      <Filter>header\layer\pooler</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="implementation\input_data\image.cpp">
@@ -123,6 +126,9 @@
     </ClCompile>
     <ClCompile Include="implementation\neural_network_trainer.cpp">
       <Filter>implementation</Filter>
+    </ClCompile>
+    <ClCompile Include="implementation\layer\pooler\global_average_pooler.cpp">
+      <Filter>implementation\layer\pooler</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

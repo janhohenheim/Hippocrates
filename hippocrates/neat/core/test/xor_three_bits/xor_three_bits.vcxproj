@@ -89,7 +89,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)hippocrates;$(SolutionDir)hippocrates\neat\core\test\testing_utilities\source\header;$(SolutionDir)hippocrates\neat\core\source\header</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)hippocrates;$(SolutionDir)hippocrates\neat\core\test\testing_utilities\source\header;$(SolutionDir)hippocrates\neat\core\source\header;$(SolutionDir)hippocrates\neat\core\test\testing_utilities\source\header;$(SolutionDir)hippocrates\neat\core\source\header;$(SolutionDir)hippocrates\common\utility\source\header</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions> /std:c++latest /permissive- %(AdditionalOptions)</AdditionalOptions>
       <TreatWarningAsError>true</TreatWarningAsError>
