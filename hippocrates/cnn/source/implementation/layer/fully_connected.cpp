@@ -1,4 +1,4 @@
-﻿#include "layer/fully_connected_neural_network.hpp"
+﻿#include "layer/fully_connected.hpp"
 
 using namespace Convolutional;
 using namespace Convolutional::Layer;

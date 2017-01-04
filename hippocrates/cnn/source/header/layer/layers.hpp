@@ -3,7 +3,7 @@
 
 // Umbrella header part
 #include "convolution.hpp"
-#include "fully_connected_neural_network.hpp"
+#include "fully_connected.hpp"
 #include "pooler/max_pooler.hpp"
 #include "relu.hpp"
 
