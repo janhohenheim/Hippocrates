@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "filter.hpp"
 
 namespace Convolutional::Layer {
@@ -6,6 +6,7 @@ class Filters : public ILayer {
 public:
 	using ILayer::ILayer;
 	Filters(std::size_t filterCount = 4): filters{ filterCount } {}
+	Filters(std::size_t filterCount, const Filter& init): filters{ filterCount, init} {}
 
 	auto ProcessMultiMatrix(const MultiMatrix& multiMatrix) -> MultiMatrix override;
 

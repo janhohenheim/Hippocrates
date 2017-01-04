@@ -15,6 +15,8 @@ namespace Convolutional::Layer {
 	class Layers {
 
 	public:
+		using Layer_t = std::unique_ptr<ILayer>;
+
 		template <typename ... Ts>
 		explicit Layers(Ts&&... params) {
 			// C++1z
@@ -29,6 +31,10 @@ namespace Convolutional::Layer {
 			// C++1z
 			// layers.emplace_back(std::make_unique<Ts>(std::forward<Ts>(params))) && ...;
 		}
+
+		explicit Layers(std::vector<Layer_t> layers)
+		: layers{std::move(layers)}
+		{ }
 
 		Layers(const Layers& other) {
 			layers.reserve(other.layers.size());
@@ -54,8 +60,6 @@ namespace Convolutional::Layer {
 		const auto begin() const { return layers.begin(); }
 		auto end() { return layers.end(); }
 		const auto end() const { return layers.end(); }
-
-		using Layer_t = std::unique_ptr<ILayer>;
 
 	private:
 		std::vector<Layer_t> layers;

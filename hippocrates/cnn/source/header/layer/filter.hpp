@@ -43,8 +43,6 @@ public:
 private:
 	auto LazyInitializeWeights(Matrix::Size size, std::size_t dimensionCount) -> void;
 
-	static auto sigmoid(Matrix::element_t n) -> double;
-
 	const Matrix::Size receptiveField;
 	const Matrix::Size stride;
 	Matrix::element_t bias = 0;

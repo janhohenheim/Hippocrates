@@ -70,8 +70,3 @@ auto Filter::LazyInitializeWeights(Matrix::Size size, std::size_t dimensionCount
 	}
 	weights = std::make_unique<MultiMatrix>(std::move(matrices));
 }
-
-auto Filter::sigmoid(Matrix::element_t n) -> double {
-	return tanh(n);
-}
-

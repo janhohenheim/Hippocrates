@@ -92,6 +92,9 @@
     <ClInclude Include="header\layer\pooler\global_average_pooler.hpp">
       <Filter>header\layer\pooler</Filter>
     </ClInclude>
+    <ClInclude Include="header\layer\residual_block.hpp">
+      <Filter>header\layer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="implementation\input_data\image.cpp">
@@ -129,6 +132,9 @@
     </ClCompile>
     <ClCompile Include="implementation\layer\pooler\global_average_pooler.cpp">
       <Filter>implementation\layer\pooler</Filter>
+    </ClCompile>
+    <ClCompile Include="implementation\layer\residual_block.cpp">
+      <Filter>implementation\layer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
