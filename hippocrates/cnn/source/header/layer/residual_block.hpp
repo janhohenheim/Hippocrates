@@ -20,14 +20,14 @@ public:
 		receptiveField{std::move(receptiveField)},
 		stride{std::move(stride)}
 	{
-		std::vector<ILayer> layers;
+		std::vector<Layers::Layer_t> layers;
 		layers.reserve(filtersCount*2 );
 
 		const Filter filter{this->receptiveField, this->stride};
 		const Filters filters{dimensionCount, filter};
 		for (std::size_t i = 0; i < filtersCount; ++i) {
-			layers.push_back(filters);
-			layers.push_back(ReLU {});
+			layers.emplace_back(filters);
+			layers.emplace_back(ReLU {});
 		}
 
 		this->layers = Layers{std::move(layers)};
