@@ -1,9 +1,9 @@
-#include "layer/filters.hpp"
+﻿#include "layer/filters.hpp"
 
 using namespace Convolutional;
 using namespace Convolutional::Layer;
 
-auto Filters::ProcessMultiMatrix(const MultiMatrix & multiMatrix) -> MultiMatrix {
+auto Convolution::ProcessMultiMatrix(const MultiMatrix & multiMatrix) -> MultiMatrix {
 	std::vector<Matrix> matrices;
 	matrices.reserve(filters.size());
 	for (auto & filter : filters) {

@@ -24,9 +24,9 @@ public:
 		layers.reserve(filtersCount*2 );
 
 		const Filter filter{this->receptiveField, this->stride};
-		const Filters filters{dimensionCount, filter};
+		const Convolution filters{dimensionCount, filter};
 		for (std::size_t i = 0; i < filtersCount; ++i) {
-			layers.push_back(std::make_unique<Filters>(filters));
+			layers.push_back(std::make_unique<Convolution>(filters));
 			layers.push_back(std::make_unique<ReLU>());
 		}
 
