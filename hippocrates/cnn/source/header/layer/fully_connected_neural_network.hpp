@@ -5,7 +5,7 @@
 
 namespace Convolutional::Layer {
 
-class FullyConnectedNeuralNetwork : public ILayer {
+class FullyConnected : public ILayer {
 public:	
 	using ILayer::ILayer;
 
@@ -33,16 +33,16 @@ public:
 	std::vector<Neuron> inputNeurons;
 	std::vector<Neuron> outputNeurons;
 
-	FullyConnectedNeuralNetwork(std::size_t outputCount) : outputNeurons {outputCount, Neuron {}} { };
-	FullyConnectedNeuralNetwork(const FullyConnectedNeuralNetwork&) = default;
-	FullyConnectedNeuralNetwork(FullyConnectedNeuralNetwork&&) = default;
+	FullyConnected(std::size_t outputCount) : outputNeurons {outputCount, Neuron {}} { };
+	FullyConnected(const FullyConnected&) = default;
+	FullyConnected(FullyConnected&&) = default;
 
 	auto ProcessMultiMatrix(const MultiMatrix& multiMatrix) -> MultiMatrix override;
 	auto GetReceptiveField(Matrix::Size size) const noexcept -> Matrix::Size override { return size; }
 	auto GetZeroPadding(Matrix::Size size) const noexcept -> Matrix::Size override { return {0, 0}; }
 	auto GetStride(Matrix::Size size) const noexcept -> Matrix::Size override { return {1, 1}; }
 
-	auto Clone() const noexcept -> std::unique_ptr<ILayer> override { return std::make_unique<FullyConnectedNeuralNetwork>(*this); }
+	auto Clone() const noexcept -> std::unique_ptr<ILayer> override { return std::make_unique<FullyConnected>(*this); }
 
 private:
 	bool wasBuilt = false;

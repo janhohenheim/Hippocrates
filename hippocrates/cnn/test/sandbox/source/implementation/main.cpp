@@ -19,7 +19,7 @@ int main() {
 		Layer::Convolution{3},
 		Layer::ReLU{},
 		Layer::Pooler::MaxPooler{},
-		Layer::FullyConnectedNeuralNetwork{static_cast<std::size_t>(Categories::CategoryCount)}
+		Layer::FullyConnected{static_cast<std::size_t>(Categories::CategoryCount)}
 	};
 
 	NeuralNetworktrainer<Categories> networktrainer {

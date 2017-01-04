@@ -3,7 +3,7 @@
 using namespace Convolutional;
 using namespace Convolutional::Layer;
 
-auto FullyConnectedNeuralNetwork::ProcessMultiMatrix(const MultiMatrix& multiMatrix) -> MultiMatrix {
+auto FullyConnected::ProcessMultiMatrix(const MultiMatrix& multiMatrix) -> MultiMatrix {
 	BuildNetwork(multiMatrix.GetDimensionCount() * multiMatrix.GetElementCount());
 	LoadInputs(multiMatrix);
 	ProcessOutputs();
@@ -11,7 +11,7 @@ auto FullyConnectedNeuralNetwork::ProcessMultiMatrix(const MultiMatrix& multiMat
 	return MultiMatrix {{outputs}};
 }
 
-auto FullyConnectedNeuralNetwork::BuildNetwork(std::size_t inputCount) -> void {
+auto FullyConnected::BuildNetwork(std::size_t inputCount) -> void {
 	if (wasBuilt)
 		return;
 
@@ -27,14 +27,14 @@ auto FullyConnectedNeuralNetwork::BuildNetwork(std::size_t inputCount) -> void {
 	wasBuilt = true;
 }
 
-auto FullyConnectedNeuralNetwork::LoadInputs(const MultiMatrix & multiMatrix) -> void {
+auto FullyConnected::LoadInputs(const MultiMatrix & multiMatrix) -> void {
 	auto input = inputNeurons.begin();
 	for (const auto& subMatrix : multiMatrix)
 		for (const auto& element : subMatrix)
 			(input++)->lastActionPotential = element;
 }
 
-auto FullyConnectedNeuralNetwork::ProcessOutputs() -> void {
+auto FullyConnected::ProcessOutputs() -> void {
 	for (auto& neuron : outputNeurons) {
 		for (const auto& connection : neuron.connections) {
 			neuron.lastActionPotential += connection.from.lastActionPotential * connection.weight;
@@ -43,7 +43,7 @@ auto FullyConnectedNeuralNetwork::ProcessOutputs() -> void {
 	}
 }
 
-auto FullyConnectedNeuralNetwork::GetOutputsAsMatrix() const -> Matrix {
+auto FullyConnected::GetOutputsAsMatrix() const -> Matrix {
 	Matrix::Size size;
 	size.width = outputNeurons.size();
 	size.height = 1;
