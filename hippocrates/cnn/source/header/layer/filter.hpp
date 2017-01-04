@@ -10,7 +10,7 @@ class Filter : public ILayer {
 public:
 	using ILayer::ILayer;
 
-	Filter(Matrix::Size receptiveField = {3, 3},
+	explicit Filter(Matrix::Size receptiveField = {3, 3},
 		Matrix::Size stride = {1, 1})
 		: receptiveField(receptiveField),
 		stride(stride),

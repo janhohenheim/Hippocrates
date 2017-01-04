@@ -26,8 +26,8 @@ public:
 		const Filter filter{this->receptiveField, this->stride};
 		const Filters filters{dimensionCount, filter};
 		for (std::size_t i = 0; i < filtersCount; ++i) {
-			layers.emplace_back(filters);
-			layers.emplace_back(ReLU {});
+			layers.push_back(std::make_unique<Filters>(filters));
+			layers.push_back(std::make_unique<ReLU>());
 		}
 
 		this->layers = Layers{std::move(layers)};
