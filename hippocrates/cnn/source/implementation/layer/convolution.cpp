@@ -13,3 +13,11 @@ auto Convolution::ProcessMultiMatrix(const MultiMatrix & multiMatrix) -> MultiMa
 	}
 	return MultiMatrix { std::move(matrices) };
 }
+
+auto Convolution::GetDimensionalityAfterProcessing(MultiMatrix::Dimensionality dimensionality) const noexcept -> MultiMatrix::Dimensionality {
+	const auto& filter = convolution.front();
+	MultiMatrix::Dimensionality newDim;
+	newDim.size = filter.GetDimensionalityAfterProcessing(dimensionality).size;
+	newDim.dimensionCount = convolution.size();
+	return newDim;
+}

@@ -54,6 +54,13 @@ namespace Convolutional::Layer {
 			return *this;
 		}
 
+		auto GetDimensionalityAfterProcessing(MultiMatrix::Dimensionality dimensionality) const noexcept -> MultiMatrix::Dimensionality {
+			for (const auto &layer : layers)
+				dimensionality = layer->GetDimensionalityAfterProcessing(dimensionality);
+
+			return dimensionality;
+		}
+
 		Layers& operator=(Layers&& other) = default;
 
 		auto& operator[](std::size_t i){return layers[i]; }

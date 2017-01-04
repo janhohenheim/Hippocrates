@@ -13,6 +13,11 @@ auto ResidualBlock::ProcessMultiMatrix(const MultiMatrix & multiMatrix) -> Multi
 	return mm;
 }
 
+auto ResidualBlock::GetDimensionalityAfterProcessing(MultiMatrix::Dimensionality dimensionality) const noexcept -> MultiMatrix::Dimensionality {
+	// TODO jnf: is this correct?
+	return layers.GetDimensionalityAfterProcessing(dimensionality);
+}
+
 auto ResidualBlock::GetSizeAfterProcessing() const noexcept -> Matrix::Size {
 	return Matrix::Size();
 }

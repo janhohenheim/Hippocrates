@@ -10,7 +10,7 @@ build_script:
   - msbuild %solution_name%
 
 test_script:
-  - xor_two_bits.exe
-  - xor_three_bits.exe
-  - EvenNumbers.exe
-  - Sandbox.exe
+  - C:\projects\hippocrates\x64\Release\xor_two_bits.exe
+  - C:\projects\hippocrates\x64\Release\xor_three_bits.exe
+  - C:\projects\hippocrates\x64\Release\EvenNumbers.exe
+  - C:\projects\hippocrates\x64\Release\Sandbox.exe

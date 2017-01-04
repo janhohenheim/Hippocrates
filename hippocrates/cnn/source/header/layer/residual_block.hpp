@@ -37,6 +37,7 @@ public:
 	ResidualBlock(ResidualBlock&&) = default;
 
 	auto ProcessMultiMatrix(const MultiMatrix & multiMatrix) -> MultiMatrix override;
+	auto GetDimensionalityAfterProcessing(MultiMatrix::Dimensionality dimensionality) const noexcept -> MultiMatrix::Dimensionality override;
 
 	auto GetReceptiveField(Matrix::Size size) const noexcept -> Matrix::Size override { return receptiveField; }
 	auto GetZeroPadding(Matrix::Size size) const noexcept -> Matrix::Size override { return (GetReceptiveField(size) - 1) / 2; }

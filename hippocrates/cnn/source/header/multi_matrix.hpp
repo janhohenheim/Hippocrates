@@ -7,6 +7,11 @@ namespace Convolutional {
 
 class MultiMatrix {
 public:
+	struct Dimensionality {
+		Matrix::Size size;
+		std::size_t dimensionCount = 0;
+	};
+
 	using dimensions_t = std::vector<Matrix>;
 
     explicit MultiMatrix(dimensions_t subDimensions);
@@ -19,9 +24,9 @@ public:
 	MultiMatrix& operator+= (const MultiMatrix& other);
 
 	auto AddZeroPadding(Matrix::Size paddingAmount) -> void;
-	auto GetDimensionCount() const noexcept { return subDimensions.size(); }
-	auto GetElementCount() const -> std::size_t;
-	auto GetSize() const -> Matrix::Size;
+	auto GetDimensionCount() const noexcept { return dimenstionality.dimensionCount; }
+	auto GetElementCount() const noexcept { return dimenstionality.size.height * dimenstionality.size.width; }
+	auto GetSize() const noexcept { return dimenstionality.size; }
 
 	auto begin() noexcept { return subDimensions.begin(); }
 	auto begin() const noexcept { return subDimensions.begin(); }
@@ -41,6 +46,7 @@ private:
 
 private:
 	dimensions_t subDimensions;
+	Dimensionality dimenstionality;
 };
 
 inline auto operator+ (MultiMatrix lhs, const MultiMatrix& rhs) { return lhs += rhs; }

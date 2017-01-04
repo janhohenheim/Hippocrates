@@ -6,6 +6,7 @@ class ReLU : public ILayer {
 public:
 	using ILayer::ILayer;
 	auto ProcessMultiMatrix(const MultiMatrix& multiMatrix) -> MultiMatrix override;
+	auto GetDimensionalityAfterProcessing(MultiMatrix::Dimensionality dimensionality) const noexcept -> MultiMatrix::Dimensionality override { return dimensionality; }
 
 	auto GetReceptiveField(Matrix::Size size) const noexcept -> Matrix::Size override { return size; }
 	auto GetZeroPadding(Matrix::Size size) const noexcept -> Matrix::Size override { return {0, 0}; }

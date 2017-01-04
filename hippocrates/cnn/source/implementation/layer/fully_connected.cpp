@@ -11,6 +11,14 @@ auto FullyConnected::ProcessMultiMatrix(const MultiMatrix& multiMatrix) -> Multi
 	return MultiMatrix {{outputs}};
 }
 
+auto FullyConnected::GetDimensionalityAfterProcessing(MultiMatrix::Dimensionality dimensionality) const noexcept -> MultiMatrix::Dimensionality {
+	MultiMatrix::Dimensionality newDim;
+	newDim.size.height = 1;
+	newDim.size.width = outputNeurons.size();
+	newDim.dimensionCount = 1;
+	return newDim;
+}
+
 auto FullyConnected::BuildNetwork(std::size_t inputCount) -> void {
 	if (wasBuilt)
 		return;
