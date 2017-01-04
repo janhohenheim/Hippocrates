@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <vector>
 #include <stdexcept>
 #include "matrix.hpp"
@@ -15,6 +15,8 @@ public:
 
 	MultiMatrix& operator=(const MultiMatrix&) & = default;
 	MultiMatrix& operator=(MultiMatrix&&) & = default;
+
+	MultiMatrix& operator+= (const MultiMatrix& other);
 
 	auto AddZeroPadding(Matrix::Size paddingAmount) -> void;
 	auto GetDimensionCount() const noexcept { return subDimensions.size(); }
@@ -40,5 +42,7 @@ private:
 private:
 	dimensions_t subDimensions;
 };
+
+inline auto operator+ (MultiMatrix lhs, const MultiMatrix& rhs) { return lhs += rhs; }
 
 }

@@ -56,10 +56,20 @@ namespace Convolutional::Layer {
 
 		Layers& operator=(Layers&& other) = default;
 
+		auto& operator[](std::size_t i){return layers[i]; }
+		const auto& operator[](std::size_t i) const {return layers[i]; }
+
 		auto begin() { return layers.begin(); }
 		const auto begin() const { return layers.begin(); }
 		auto end() { return layers.end(); }
 		const auto end() const { return layers.end(); }
+
+		auto& front() {return layers.front(); }
+		const auto& front() const {return layers.front(); }
+		auto& back() {return layers.back(); }
+		const auto& back() const {return layers.back(); }
+
+		auto size() const {return layers.size(); }
 
 	private:
 		std::vector<Layer_t> layers;

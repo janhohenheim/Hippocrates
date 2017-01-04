@@ -4,7 +4,13 @@ using namespace Convolutional;
 using namespace Convolutional::Layer;
 
 auto ResidualBlock::ProcessMultiMatrix(const MultiMatrix & multiMatrix) -> MultiMatrix {
-	return multiMatrix;
+	auto mm = multiMatrix;
+	for (size_t i = 0; i < layers.size(); ++i) {
+		mm = layers[i]->ProcessMultiMatrix(mm);
+	}
+	mm += multiMatrix;
+	mm = layers.back()->ProcessMultiMatrix(mm);
+	return mm;
 }
 
 auto ResidualBlock::GetSizeAfterProcessing() const noexcept -> Matrix::Size {
