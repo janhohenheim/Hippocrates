@@ -1,37 +1,21 @@
 ﻿#include <algorithm>
+#include <numeric>
 #include "layer/pooler/global_average_pooler.hpp"
 
 using namespace Convolutional;
 using namespace Convolutional::Layer::Pooler;
 
 auto GlobalAveragePooler::ProcessMultiMatrix(const MultiMatrix& multiMatrix) -> MultiMatrix {
-	MultiMatrix::dimensions_t dimensions;
-	dimensions.reserve(multiMatrix.GetDimensionCount());
-	for (auto& submatrix : multiMatrix) {
-		const auto size = submatrix.GetSize();
-		const auto receptiveField = GetReceptiveField(size);
-		const auto stride = GetStride(size);
-		Matrix pooledMatrix(GetSizeAfterPooling(size));
-		auto currPooledElement = pooledMatrix.begin();
-		Matrix::Position pos;
-		for (pos.y = 0; pos.y < size.height - receptiveField.height; pos.y += stride.height) {
-			for (pos.x = 0; pos.x < size.width - receptiveField.width; pos.x += stride.width) {
-				auto receptedMatrix = submatrix.GetSubmatrix(pos, receptiveField);
-				*currPooledElement = ProcessMatrix(std::move(receptedMatrix));
-				++currPooledElement;
-			}
-		}
-		dimensions.emplace_back(std::move(pooledMatrix));
+	const auto dimensions = multiMatrix.GetDimensionCount();
+	Matrix averages{{dimensions, 0}};
+	for (std::size_t i = 0; i < dimensions; ++i) {
+		averages.ElementAt({i,0}) = ProcessMatrix(*(multiMatrix.begin() + i));
 	}
-	return MultiMatrix(dimensions);
+	return MultiMatrix {{averages}};
 }
 
 auto GlobalAveragePooler::ProcessMatrix(const Matrix& matrix) const -> Matrix::element_t {
-	return *std::max_element(matrix.begin(), matrix.end());
-}
-
-auto GlobalAveragePooler::GetSizeAfterPooling(Matrix::Size originalSize) const -> Matrix::Size {
-	const auto recep{GetReceptiveField(originalSize)};
-	// TODO jnf: factor in overlapping stride
-	return {originalSize.height / recep.height, originalSize.width /recep.width};
+	const auto total = std::accumulate(matrix.begin(), matrix.end(), static_cast<Matrix::element_t>(0));
+	const auto amount = static_cast<Matrix::element_t>(matrix.GetElementCount());
+	return total / amount;
 }
