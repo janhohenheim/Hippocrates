@@ -2,7 +2,7 @@
 #include "ilayer.hpp"
 
 // Umbrella header part
-#include "filters.hpp"
+#include "convolution.hpp"
 #include "fully_connected_neural_network.hpp"
 #include "pooler/max_pooler.hpp"
 #include "relu.hpp"

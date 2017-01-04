@@ -12,7 +12,7 @@ public:
 	using ILayer::ILayer;
 
 	ResidualBlock(
-		std::size_t filtersCount,
+		std::size_t convolutionCount,
 		std::size_t dimensionCount,
 		Matrix::Size receptiveField = {3, 3},
 		Matrix::Size stride = {1, 1})
@@ -21,12 +21,12 @@ public:
 		stride{std::move(stride)}
 	{
 		std::vector<Layers::Layer_t> layers;
-		layers.reserve(filtersCount*2 );
+		layers.reserve(convolutionCount*2 );
 
 		const Filter filter{this->receptiveField, this->stride};
-		const Convolution filters{dimensionCount, filter};
-		for (std::size_t i = 0; i < filtersCount; ++i) {
-			layers.push_back(std::make_unique<Convolution>(filters));
+		const Convolution convolution{dimensionCount, filter};
+		for (std::size_t i = 0; i < convolutionCount; ++i) {
+			layers.push_back(std::make_unique<Convolution>(convolution));
 			layers.push_back(std::make_unique<ReLU>());
 		}
 

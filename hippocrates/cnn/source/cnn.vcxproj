@@ -23,7 +23,7 @@
     <ClInclude Include="header\input_data\image.hpp" />
     <ClInclude Include="header\input_data\sentence.hpp" />
     <ClInclude Include="header\layer\filter.hpp" />
-    <ClInclude Include="header\layer\filters.hpp" />
+    <ClInclude Include="header\layer\convolution.hpp" />
     <ClInclude Include="header\layer\fully_connected_neural_network.hpp" />
     <ClInclude Include="header\layer\ilayer.hpp" />
     <ClInclude Include="header\layer\layers.hpp" />
@@ -45,7 +45,7 @@
     <ClCompile Include="implementation\input_data\image.cpp" />
     <ClCompile Include="implementation\input_data\sentence.cpp" />
     <ClCompile Include="implementation\layer\filter.cpp" />
-    <ClCompile Include="implementation\layer\filters.cpp" />
+    <ClCompile Include="implementation\layer\convolution.cpp" />
     <ClCompile Include="implementation\layer\fully_connected_neural_network.cpp" />
     <ClCompile Include="implementation\layer\pooler\global_average_pooler.cpp" />
     <ClCompile Include="implementation\layer\pooler\max_pooler.cpp" />
