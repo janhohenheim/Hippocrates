@@ -7,7 +7,7 @@ MultiMatrix::MultiMatrix(dimensions_t subDimensions) :
 subDimensions(std::move(subDimensions))
 {
 	dimenstionality.size = GetMultidimensionalProperty([](const Matrix& m) {return m.GetSize(); });
-	dimenstionality.dimensionCount = subDimensions.size();
+	dimenstionality.dimensionCount = this->subDimensions.size();
 }
 
 MultiMatrix& Convolutional::MultiMatrix::operator+=(const MultiMatrix & other) {
