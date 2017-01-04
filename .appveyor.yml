@@ -10,7 +10,7 @@ build_script:
   - msbuild %solution_name%
 
 test_script:
-  - C:\projects\jnf-neat\Release\xor_two_bits.exe
-  - C:\projects\jnf-neat\Release\xor_three_bits.exe
-  - C:\projects\jnf-neat\Release\EvenNumbers.exe
-  - C:\projects\cnn-code\x64\Release\Sandbox.exe
+  - C:\projects\hippocrates\Release\xor_two_bits.exe
+  - C:\projects\hippocrates\Release\xor_three_bits.exe
+  - C:\projects\hippocrates\Release\EvenNumbers.exe
+  - C:\projects\hippocrates\x64\Release\Sandbox.exe
