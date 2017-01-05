@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <cstddef>
 #include <vector>
 #include <string>
@@ -38,7 +38,7 @@ public:
 
 	auto SetInput(Type::neuron_value_t input) -> void;
 	auto GetConnections() const -> const std::vector<Connection>& { return connections; }
-	auto RequestDataAndGetActionPotential() ->Type::neuron_value_t;
+	auto RequestDataAndGetActionPotential() -> Type::neuron_value_t;
 	auto GetLayer() const -> std::size_t { return layer; }
 	friend std::ostream& operator<<(std::ostream& stream, const Neuron & neuron);
 

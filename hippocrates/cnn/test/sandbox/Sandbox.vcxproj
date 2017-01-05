@@ -99,13 +99,13 @@
       <SDLCheck>true</SDLCheck>
       <TreatWarningAsError>true</TreatWarningAsError>
       <AdditionalOptions>/std:c++latest /permissive- %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>$(SolutionDir)hippocrates\;C:\Program Files\ImageMagick-6.9.6-Q8\include;$(SolutionDir)hippocrates\cnn\source\header</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)hippocrates\;C:\Program Files\ImageMagick\include;$(SolutionDir)hippocrates\cnn\source\header;$(SolutionDir)hippocrates\common\utility\source\header</AdditionalIncludeDirectories>
       <EnablePREfast>false</EnablePREfast>
       <DiagnosticsFormat>Caret</DiagnosticsFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>CORE_RL_Magick++_.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Program Files\ImageMagick-6.9.6-Q8\lib;$(OutDir)cnn.lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>CORE_RL_Magick++_.lib;$(OutDir)utility.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Program Files\ImageMagick\lib;$(OutDir)cnn.lib</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -115,13 +115,13 @@
       <SDLCheck>true</SDLCheck>
       <TreatWarningAsError>true</TreatWarningAsError>
       <AdditionalOptions>/std:c++latest /permissive- %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>$(SolutionDir)hippocrates\;C:\Program Files\ImageMagick-6.9.6-Q8\include;$(SolutionDir)hippocrates\cnn\source\header</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)hippocrates\;C:\Program Files\ImageMagick\include;$(SolutionDir)hippocrates\cnn\source\header;$(SolutionDir)hippocrates\common\utility\source\header</AdditionalIncludeDirectories>
       <EnablePREfast>false</EnablePREfast>
       <DiagnosticsFormat>Caret</DiagnosticsFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>CORE_RL_Magick++_.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Program Files\ImageMagick-6.9.6-Q8\lib;$(OutDir)cnn.lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>CORE_RL_Magick++_.lib;$(OutDir)utility.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Program Files\ImageMagick\lib;$(OutDir)cnn.lib</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -133,15 +133,15 @@
       <SDLCheck>true</SDLCheck>
       <TreatWarningAsError>true</TreatWarningAsError>
       <AdditionalOptions>/std:c++latest /permissive- %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>$(SolutionDir)hippocrates\;C:\Program Files\ImageMagick-6.9.6-Q8\include;$(SolutionDir)hippocrates\cnn\source\header</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)hippocrates\;C:\Program Files\ImageMagick\include;$(SolutionDir)hippocrates\cnn\source\header;$(SolutionDir)hippocrates\common\utility\source\header</AdditionalIncludeDirectories>
       <EnablePREfast>false</EnablePREfast>
       <DiagnosticsFormat>Caret</DiagnosticsFormat>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>CORE_RL_Magick++_.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Program Files\ImageMagick-6.9.6-Q8\lib;$(OutDir)cnn.lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>CORE_RL_Magick++_.lib;$(OutDir)utility.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Program Files\ImageMagick\lib;$(OutDir)cnn.lib</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -153,15 +153,15 @@
       <SDLCheck>true</SDLCheck>
       <TreatWarningAsError>true</TreatWarningAsError>
       <AdditionalOptions>/std:c++latest /permissive- %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>$(SolutionDir)hippocrates\;C:\Program Files\ImageMagick-6.9.6-Q8\include;$(SolutionDir)hippocrates\cnn\source\header</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)hippocrates\;C:\Program Files\ImageMagick\include;$(SolutionDir)hippocrates\cnn\source\header;$(SolutionDir)hippocrates\common\utility\source\header</AdditionalIncludeDirectories>
       <EnablePREfast>false</EnablePREfast>
       <DiagnosticsFormat>Caret</DiagnosticsFormat>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>CORE_RL_Magick++_.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Program Files\ImageMagick-6.9.6-Q8\lib;$(OutDir)cnn.lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>CORE_RL_Magick++_.lib;$(OutDir)utility.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Program Files\ImageMagick\lib;$(OutDir)cnn.lib</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

@@ -26,6 +26,18 @@ auto MaxPooler::ProcessMultiMatrix(const MultiMatrix& multiMatrix) -> MultiMatri
 	return MultiMatrix(dimensions);
 }
 
+auto MaxPooler::GetDimensionalityAfterProcessing(MultiMatrix::Dimensionality dimensionality) const noexcept -> MultiMatrix::Dimensionality {
+	const auto size = dimensionality.size;
+	const auto r = GetReceptiveField(size);
+	const auto s = GetStride(size);
+
+	MultiMatrix::Dimensionality newDim;
+	newDim.size.height = (size.width - r.width) / s.width + 1;
+	newDim.size.width = (size.height - r.height) / s.height + 1;
+	newDim.dimensionCount = dimensionality.dimensionCount;
+	return newDim;
+}
+
 auto MaxPooler::ProcessMatrix(const Matrix& matrix) const -> Matrix::element_t {
 	return *std::max_element(matrix.begin(), matrix.end());
 }

@@ -42,6 +42,15 @@
     <Filter Include="header\utility">
       <UniqueIdentifier>{ef52ab3c-8328-4c88-81fa-1a6f69461682}</UniqueIdentifier>
     </Filter>
+    <Filter Include="header\phenotype\network_components">
+      <UniqueIdentifier>{b1a52f6d-bd78-4a29-b8b1-e2030f87954e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="header\phenotype\network_components\convolutional">
+      <UniqueIdentifier>{eb29a6aa-4a4a-49be-88cb-84a811560fae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="implementation\phenotype\network_components">
+      <UniqueIdentifier>{8eaa8538-6387-4d3a-8bf3-3e8ece7f9ce7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\activation_function\activation_function.hpp">
@@ -110,6 +119,30 @@
     <ClInclude Include="header\utility\logger.hpp">
       <Filter>header\utility</Filter>
     </ClInclude>
+    <ClInclude Include="header\phenotype\network_components\connection.hpp">
+      <Filter>header\phenotype\network_components</Filter>
+    </ClInclude>
+    <ClInclude Include="header\phenotype\network_components\input_adaptor.hpp">
+      <Filter>header\phenotype\network_components</Filter>
+    </ClInclude>
+    <ClInclude Include="header\phenotype\network_components\output_adaptor.hpp">
+      <Filter>header\phenotype\network_components</Filter>
+    </ClInclude>
+    <ClInclude Include="header\phenotype\network_components\transformation_unit.hpp">
+      <Filter>header\phenotype\network_components</Filter>
+    </ClInclude>
+    <ClInclude Include="header\phenotype\network_components\convolutional\filter_unit.hpp">
+      <Filter>header\phenotype\network_components\convolutional</Filter>
+    </ClInclude>
+    <ClInclude Include="header\phenotype\network_components\convolutional\pooler_unit.hpp">
+      <Filter>header\phenotype\network_components\convolutional</Filter>
+    </ClInclude>
+    <ClInclude Include="header\phenotype\network_components\convolutional\relu_unit.hpp">
+      <Filter>header\phenotype\network_components\convolutional</Filter>
+    </ClInclude>
+    <ClInclude Include="header\phenotype\network_components\neuron_unit.hpp">
+      <Filter>header\phenotype\network_components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="implementation\genotype\gene.cpp">
@@ -144,6 +177,9 @@
     </ClCompile>
     <ClCompile Include="implementation\utility\logger.cpp">
       <Filter>implementation\utility</Filter>
+    </ClCompile>
+    <ClCompile Include="implementation\phenotype\network_components\neuron_unit.cpp">
+      <Filter>implementation\phenotype\network_components</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

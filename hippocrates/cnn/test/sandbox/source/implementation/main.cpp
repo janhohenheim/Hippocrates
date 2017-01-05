@@ -16,10 +16,10 @@ int main() {
 	trainingData.AddData(std::move(someCat), Categories::Cat);
 
 	Layer::Layers layers {
-		Layer::Filters{3},
+		Layer::Convolution{3},
 		Layer::ReLU{},
 		Layer::Pooler::MaxPooler{},
-		Layer::FullyConnectedNeuralNetwork{static_cast<std::size_t>(Categories::CategoryCount)}
+		Layer::FullyConnected{static_cast<std::size_t>(Categories::CategoryCount)}
 	};
 
 	NeuralNetworktrainer<Categories> networktrainer {

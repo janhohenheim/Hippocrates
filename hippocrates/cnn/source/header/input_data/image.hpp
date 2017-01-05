@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <Magick++.h>
 #include "iinput_data.hpp"

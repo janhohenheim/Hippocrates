@@ -47,10 +47,14 @@ public:
 	Matrix& operator= (const Matrix&) = default;
 	Matrix& operator= (Matrix&&) = default;
 
+	Matrix& operator+= (const Matrix& other);
+
 	auto AddZeroPadding(Matrix::Size paddingAmount) -> void;
 	auto GetSubmatrix(Position position, Size size) const -> Matrix;
 	auto ElementAt(Position position) const -> const element_t&;
 	auto ElementAt(Position position) -> element_t&;
+	auto ElementAt(std::size_t position) const -> const element_t&;
+	auto ElementAt(std::size_t position) -> element_t&;
 
 	auto GetSize() const noexcept { return size; }
 	auto GetElementCount() const noexcept { return GetSize().height * GetSize().width; }
@@ -64,5 +68,8 @@ private:
 	Size size;
 	elements_t elements;
 };
+
+inline auto operator+ (Matrix lhs, const Matrix& rhs) { return lhs += rhs; }
+
 
 }

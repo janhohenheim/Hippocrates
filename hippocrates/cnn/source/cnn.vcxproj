@@ -23,13 +23,15 @@
     <ClInclude Include="header\input_data\image.hpp" />
     <ClInclude Include="header\input_data\sentence.hpp" />
     <ClInclude Include="header\layer\filter.hpp" />
-    <ClInclude Include="header\layer\filters.hpp" />
-    <ClInclude Include="header\layer\fully_connected_neural_network.hpp" />
+    <ClInclude Include="header\layer\convolution.hpp" />
+    <ClInclude Include="header\layer\fully_connected.hpp" />
     <ClInclude Include="header\layer\ilayer.hpp" />
     <ClInclude Include="header\layer\layers.hpp" />
+    <ClInclude Include="header\layer\pooler\global_average_pooler.hpp" />
     <ClInclude Include="header\layer\pooler\ipooler.hpp" />
     <ClInclude Include="header\layer\pooler\max_pooler.hpp" />
     <ClInclude Include="header\layer\relu.hpp" />
+    <ClInclude Include="header\layer\residual_block.hpp" />
     <ClInclude Include="header\learning\backpropagation.hpp" />
     <ClInclude Include="header\learning\learning_method.hpp" />
     <ClInclude Include="header\matrix.hpp" />
@@ -43,10 +45,12 @@
     <ClCompile Include="implementation\input_data\image.cpp" />
     <ClCompile Include="implementation\input_data\sentence.cpp" />
     <ClCompile Include="implementation\layer\filter.cpp" />
-    <ClCompile Include="implementation\layer\filters.cpp" />
-    <ClCompile Include="implementation\layer\fully_connected_neural_network.cpp" />
+    <ClCompile Include="implementation\layer\convolution.cpp" />
+    <ClCompile Include="implementation\layer\fully_connected.cpp" />
+    <ClCompile Include="implementation\layer\pooler\global_average_pooler.cpp" />
     <ClCompile Include="implementation\layer\pooler\max_pooler.cpp" />
     <ClCompile Include="implementation\layer\relu.cpp" />
+    <ClCompile Include="implementation\layer\residual_block.cpp" />
     <ClCompile Include="implementation\matrix.cpp" />
     <ClCompile Include="implementation\multi_matrix.cpp" />
     <ClCompile Include="implementation\multi_matrix_factory.cpp" />
@@ -108,13 +112,13 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Program Files\ImageMagick-6.9.6-Q8\include;$(SolutionDir)hippocrates\;$(SolutionDir)hippocrates\cnn\source\header;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Program Files\ImageMagick\include;$(SolutionDir)hippocrates\;$(SolutionDir)hippocrates\cnn\source\header;%(AdditionalIncludeDirectories);</AdditionalIncludeDirectories>
       <AdditionalOptions>/std:c++latest /permissive- %(AdditionalOptions)</AdditionalOptions>
       <TreatWarningAsError>true</TreatWarningAsError>
       <DiagnosticsFormat>Caret</DiagnosticsFormat>
     </ClCompile>
     <Lib>
-      <AdditionalDependencies>C:\Program Files\ImageMagick-6.9.6-Q8\lib\CORE_RL_Magick++_.lib</AdditionalDependencies>
+      <AdditionalDependencies>C:\Program Files\ImageMagick\lib\CORE_RL_Magick++_.lib</AdditionalDependencies>
     </Lib>
     <PreBuildEvent>
       <Command>Powershell.exe -ExecutionPolicy Unrestricted -file  "$(SolutionDir)ci\install_dependencies.ps1"</Command>
@@ -123,7 +127,7 @@
       <Message>Install Magick++</Message>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>XCOPY "C:\Program Files\ImageMagick-6.9.6-Q8"\*.DLL "$(TargetDir)" /D /K /Y</Command>
+      <Command>XCOPY "C:\Program Files\ImageMagick"\*.DLL "$(TargetDir)" /D /K /Y</Command>
     </PostBuildEvent>
     <PostBuildEvent>
       <Message>Copy ImageMagick DLLs</Message>
@@ -137,13 +141,13 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Program Files\ImageMagick-6.9.6-Q8\include;$(SolutionDir)hippocrates\;$(SolutionDir)hippocrates\cnn\source\header;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Program Files\ImageMagick\include;$(SolutionDir)hippocrates\;$(SolutionDir)hippocrates\cnn\source\header;%(AdditionalIncludeDirectories);$(SolutionDir)hippocrates\common\utility\source\header</AdditionalIncludeDirectories>
       <AdditionalOptions>/std:c++latest /permissive- %(AdditionalOptions)</AdditionalOptions>
       <TreatWarningAsError>true</TreatWarningAsError>
       <DiagnosticsFormat>Caret</DiagnosticsFormat>
     </ClCompile>
     <Lib>
-      <AdditionalDependencies>C:\Program Files\ImageMagick-6.9.6-Q8\lib\CORE_RL_Magick++_.lib</AdditionalDependencies>
+      <AdditionalDependencies>C:\Program Files\ImageMagick\lib\CORE_RL_Magick++_.lib</AdditionalDependencies>
     </Lib>
     <PreBuildEvent>
       <Command>Powershell.exe -ExecutionPolicy Unrestricted -file  "$(SolutionDir)ci\install_dependencies.ps1"</Command>
@@ -152,7 +156,7 @@
       <Message>Install Magick++</Message>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>XCOPY "C:\Program Files\ImageMagick-6.9.6-Q8"\*.DLL "$(TargetDir)" /D /K /Y</Command>
+      <Command>XCOPY "C:\Program Files\ImageMagick"\*.DLL "$(TargetDir)" /D /K /Y</Command>
     </PostBuildEvent>
     <PostBuildEvent>
       <Message>Copy ImageMagick DLLs</Message>
@@ -168,7 +172,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Program Files\ImageMagick-6.9.6-Q8\include;$(SolutionDir)hippocrates\;$(SolutionDir)hippocrates\cnn\source\header;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Program Files\ImageMagick\include;$(SolutionDir)hippocrates\;$(SolutionDir)hippocrates\cnn\source\header;%(AdditionalIncludeDirectories);</AdditionalIncludeDirectories>
       <AdditionalOptions>/std:c++latest /permissive- %(AdditionalOptions)</AdditionalOptions>
       <TreatWarningAsError>true</TreatWarningAsError>
       <DiagnosticsFormat>Caret</DiagnosticsFormat>
@@ -178,7 +182,7 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <Lib>
-      <AdditionalDependencies>C:\Program Files\ImageMagick-6.9.6-Q8\lib\CORE_RL_Magick++_.lib</AdditionalDependencies>
+      <AdditionalDependencies>C:\Program Files\ImageMagick\lib\CORE_RL_Magick++_.lib</AdditionalDependencies>
     </Lib>
     <PreBuildEvent>
       <Command>Powershell.exe -ExecutionPolicy Unrestricted -file  "$(SolutionDir)ci\install_dependencies.ps1"</Command>
@@ -187,7 +191,7 @@
       <Message>Install Magick++</Message>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>XCOPY "C:\Program Files\ImageMagick-6.9.6-Q8"\*.DLL "$(TargetDir)" /D /K /Y</Command>
+      <Command>XCOPY "C:\Program Files\ImageMagick"\*.DLL "$(TargetDir)" /D /K /Y</Command>
     </PostBuildEvent>
     <PostBuildEvent>
       <Message>Copy ImageMagick DLLs</Message>
@@ -203,7 +207,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Program Files\ImageMagick-6.9.6-Q8\include;$(SolutionDir)hippocrates\;$(SolutionDir)hippocrates\cnn\source\header;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Program Files\ImageMagick\include;$(SolutionDir)hippocrates\;$(SolutionDir)hippocrates\cnn\source\header;%(AdditionalIncludeDirectories);$(SolutionDir)hippocrates\common\utility\source\header</AdditionalIncludeDirectories>
       <AdditionalOptions>/std:c++latest /permissive- %(AdditionalOptions)</AdditionalOptions>
       <TreatWarningAsError>true</TreatWarningAsError>
       <DiagnosticsFormat>Caret</DiagnosticsFormat>
@@ -213,7 +217,7 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <Lib>
-      <AdditionalDependencies>C:\Program Files\ImageMagick-6.9.6-Q8\lib\CORE_RL_Magick++_.lib</AdditionalDependencies>
+      <AdditionalDependencies>C:\Program Files\ImageMagick\lib\CORE_RL_Magick++_.lib</AdditionalDependencies>
     </Lib>
     <PreBuildEvent>
       <Command>Powershell.exe -ExecutionPolicy Unrestricted -file  "$(SolutionDir)ci\install_dependencies.ps1"</Command>
@@ -222,7 +226,7 @@
       <Message>Install Magick++</Message>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>XCOPY "C:\Program Files\ImageMagick-6.9.6-Q8"\*.DLL "$(TargetDir)" /D /K /Y</Command>
+      <Command>XCOPY "C:\Program Files\ImageMagick"\*.DLL "$(TargetDir)" /D /K /Y</Command>
     </PostBuildEvent>
     <PostBuildEvent>
       <Message>Copy ImageMagick DLLs</Message>

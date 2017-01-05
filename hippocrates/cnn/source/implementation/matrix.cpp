@@ -24,6 +24,14 @@ Matrix& Convolutional::Matrix::operator=(const Matrix & other)
 }
 */
 
+Matrix& Matrix::operator+=(const Matrix & other) {
+	// TODO jnf: Scale matrices to the same size
+	for (std::size_t i = 0; i < GetElementCount(); ++i) {
+		ElementAt(i) += other.ElementAt(i);
+	}
+	return *this;
+}
+
 auto Convolutional::Matrix::AddZeroPadding(Matrix::Size paddingAmount) -> void {
 	if (paddingAmount.height == 0 
 	 && paddingAmount.width == 0)
@@ -66,4 +74,12 @@ auto Matrix::ElementAt(Position position) const -> const element_t& {
 
 auto Matrix::ElementAt(Position position) -> element_t& {
 	return elements[position.y * GetSize().width + position.x];
+}
+
+auto Convolutional::Matrix::ElementAt(std::size_t position) const -> const element_t & {
+	return const_cast<Matrix*>(this)->ElementAt(position);;
+}
+
+auto Convolutional::Matrix::ElementAt(std::size_t position) -> element_t & {
+	return *(this->begin() + position);
 }

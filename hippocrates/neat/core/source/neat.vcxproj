@@ -97,7 +97,7 @@
       <AdditionalOptions>/DLL /std:c++latest  /permissive- %(AdditionalOptions)</AdditionalOptions>
       <TreatWarningAsError>true</TreatWarningAsError>
       <DiagnosticsFormat>Caret</DiagnosticsFormat>
-      <AdditionalIncludeDirectories>$(SolutionDir)hippocrates\;$(SolutionDir)hippocrates\neat\core\source\header</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)hippocrates\;$(SolutionDir)hippocrates\neat\core\source\header;$(SolutionDir)hippocrates\cnn\source\header;$(SolutionDir)hippocrates\common\utility\source\header</AdditionalIncludeDirectories>
     </ClCompile>
     <ProjectReference>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
@@ -143,7 +143,7 @@
       <AdditionalOptions>/DLL /std:c++latest  /permissive- %(AdditionalOptions)</AdditionalOptions>
       <TreatWarningAsError>true</TreatWarningAsError>
       <DiagnosticsFormat>Caret</DiagnosticsFormat>
-      <AdditionalIncludeDirectories>$(SolutionDir)hippocrates\;$(SolutionDir)hippocrates\neat\core\source\header</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)hippocrates\;$(SolutionDir)hippocrates\neat\core\source\header;$(SolutionDir)hippocrates\cnn\source\header;$(SolutionDir)hippocrates\common\utility\source\header</AdditionalIncludeDirectories>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
     </ClCompile>
@@ -168,6 +168,14 @@
     <ClInclude Include="header\body\supervised_learning.hpp" />
     <ClInclude Include="header\genotype\gene.hpp" />
     <ClInclude Include="header\genotype\genome.hpp" />
+    <ClInclude Include="header\phenotype\network_components\connection.hpp" />
+    <ClInclude Include="header\phenotype\network_components\convolutional\filter_unit.hpp" />
+    <ClInclude Include="header\phenotype\network_components\convolutional\pooler_unit.hpp" />
+    <ClInclude Include="header\phenotype\network_components\convolutional\relu_unit.hpp" />
+    <ClInclude Include="header\phenotype\network_components\input_adaptor.hpp" />
+    <ClInclude Include="header\phenotype\network_components\neuron_unit.hpp" />
+    <ClInclude Include="header\phenotype\network_components\output_adaptor.hpp" />
+    <ClInclude Include="header\phenotype\network_components\transformation_unit.hpp" />
     <ClInclude Include="header\phenotype\neural_network.hpp" />
     <ClInclude Include="header\phenotype\neuron.hpp" />
     <ClInclude Include="header\phenotype\organism.hpp" />
@@ -185,6 +193,7 @@
   <ItemGroup>
     <ClCompile Include="implementation\genotype\gene.cpp" />
     <ClCompile Include="implementation\genotype\genome.cpp" />
+    <ClCompile Include="implementation\phenotype\network_components\neuron_unit.cpp" />
     <ClCompile Include="implementation\phenotype\neural_network.cpp" />
     <ClCompile Include="implementation\phenotype\neuron.cpp" />
     <ClCompile Include="implementation\phenotype\organism.cpp" />

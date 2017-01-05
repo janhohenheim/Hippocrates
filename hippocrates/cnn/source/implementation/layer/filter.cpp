@@ -46,6 +46,19 @@ auto Filter::ProcessMultiMatrix(const MultiMatrix & multiMatrix) -> MultiMatrix 
 	return MultiMatrix {{filteredMatrix}};
 }
 
+auto Filter::GetDimensionalityAfterProcessing(MultiMatrix::Dimensionality dimensionality) const noexcept -> MultiMatrix::Dimensionality {
+	const auto size = dimensionality.size;
+	const auto r = GetReceptiveField(size);
+	const auto s = GetStride(size);
+	const auto p = GetZeroPadding(size);
+
+	MultiMatrix::Dimensionality newDim;
+	newDim.size.height = (size.width - r.width + 2 * p.width) / s.width + 1;
+	newDim.size.width = (size.height - r.height + 2 * p.height) / s.height + 1;
+	newDim.dimensionCount = dimensionality.dimensionCount;
+	return newDim;
+}
+
 
 auto Filter::GetWeights() const -> const MultiMatrix& {
 	if (!weights) 
@@ -70,8 +83,3 @@ auto Filter::LazyInitializeWeights(Matrix::Size size, std::size_t dimensionCount
 	}
 	weights = std::make_unique<MultiMatrix>(std::move(matrices));
 }
-
-auto Filter::sigmoid(Matrix::element_t n) -> double {
-	return tanh(n);
-}
-

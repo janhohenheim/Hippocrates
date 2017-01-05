@@ -50,12 +50,6 @@
     <ClInclude Include="header\layer\filter.hpp">
       <Filter>header\layer</Filter>
     </ClInclude>
-    <ClInclude Include="header\layer\filters.hpp">
-      <Filter>header\layer</Filter>
-    </ClInclude>
-    <ClInclude Include="header\layer\fully_connected_neural_network.hpp">
-      <Filter>header\layer</Filter>
-    </ClInclude>
     <ClInclude Include="header\layer\ilayer.hpp">
       <Filter>header\layer</Filter>
     </ClInclude>
@@ -89,6 +83,18 @@
     <ClInclude Include="header\training_data.hpp">
       <Filter>header</Filter>
     </ClInclude>
+    <ClInclude Include="header\layer\pooler\global_average_pooler.hpp">
+      <Filter>header\layer\pooler</Filter>
+    </ClInclude>
+    <ClInclude Include="header\layer\residual_block.hpp">
+      <Filter>header\layer</Filter>
+    </ClInclude>
+    <ClInclude Include="header\layer\convolution.hpp">
+      <Filter>header\layer</Filter>
+    </ClInclude>
+    <ClInclude Include="header\layer\fully_connected.hpp">
+      <Filter>header\layer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="implementation\input_data\image.cpp">
@@ -98,12 +104,6 @@
       <Filter>implementation\input_data</Filter>
     </ClCompile>
     <ClCompile Include="implementation\layer\filter.cpp">
-      <Filter>implementation\layer</Filter>
-    </ClCompile>
-    <ClCompile Include="implementation\layer\filters.cpp">
-      <Filter>implementation\layer</Filter>
-    </ClCompile>
-    <ClCompile Include="implementation\layer\fully_connected_neural_network.cpp">
       <Filter>implementation\layer</Filter>
     </ClCompile>
     <ClCompile Include="implementation\layer\relu.cpp">
@@ -123,6 +123,18 @@
     </ClCompile>
     <ClCompile Include="implementation\neural_network_trainer.cpp">
       <Filter>implementation</Filter>
+    </ClCompile>
+    <ClCompile Include="implementation\layer\pooler\global_average_pooler.cpp">
+      <Filter>implementation\layer\pooler</Filter>
+    </ClCompile>
+    <ClCompile Include="implementation\layer\residual_block.cpp">
+      <Filter>implementation\layer</Filter>
+    </ClCompile>
+    <ClCompile Include="implementation\layer\convolution.cpp">
+      <Filter>implementation\layer</Filter>
+    </ClCompile>
+    <ClCompile Include="implementation\layer\fully_connected.cpp">
+      <Filter>implementation\layer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

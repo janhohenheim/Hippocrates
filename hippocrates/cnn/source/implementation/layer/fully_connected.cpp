@@ -1,9 +1,9 @@
-﻿#include "layer/fully_connected_neural_network.hpp"
+﻿#include "layer/fully_connected.hpp"
 
 using namespace Convolutional;
 using namespace Convolutional::Layer;
 
-auto FullyConnectedNeuralNetwork::ProcessMultiMatrix(const MultiMatrix& multiMatrix) -> MultiMatrix {
+auto FullyConnected::ProcessMultiMatrix(const MultiMatrix& multiMatrix) -> MultiMatrix {
 	BuildNetwork(multiMatrix.GetDimensionCount() * multiMatrix.GetElementCount());
 	LoadInputs(multiMatrix);
 	ProcessOutputs();
@@ -11,7 +11,15 @@ auto FullyConnectedNeuralNetwork::ProcessMultiMatrix(const MultiMatrix& multiMat
 	return MultiMatrix {{outputs}};
 }
 
-auto FullyConnectedNeuralNetwork::BuildNetwork(std::size_t inputCount) -> void {
+auto FullyConnected::GetDimensionalityAfterProcessing(MultiMatrix::Dimensionality dimensionality) const noexcept -> MultiMatrix::Dimensionality {
+	MultiMatrix::Dimensionality newDim;
+	newDim.size.height = 1;
+	newDim.size.width = outputNeurons.size();
+	newDim.dimensionCount = 1;
+	return newDim;
+}
+
+auto FullyConnected::BuildNetwork(std::size_t inputCount) -> void {
 	if (wasBuilt)
 		return;
 
@@ -27,14 +35,14 @@ auto FullyConnectedNeuralNetwork::BuildNetwork(std::size_t inputCount) -> void {
 	wasBuilt = true;
 }
 
-auto FullyConnectedNeuralNetwork::LoadInputs(const MultiMatrix & multiMatrix) -> void {
+auto FullyConnected::LoadInputs(const MultiMatrix & multiMatrix) -> void {
 	auto input = inputNeurons.begin();
 	for (const auto& subMatrix : multiMatrix)
 		for (const auto& element : subMatrix)
 			(input++)->lastActionPotential = element;
 }
 
-auto FullyConnectedNeuralNetwork::ProcessOutputs() -> void {
+auto FullyConnected::ProcessOutputs() -> void {
 	for (auto& neuron : outputNeurons) {
 		for (const auto& connection : neuron.connections) {
 			neuron.lastActionPotential += connection.from.lastActionPotential * connection.weight;
@@ -43,7 +51,7 @@ auto FullyConnectedNeuralNetwork::ProcessOutputs() -> void {
 	}
 }
 
-auto FullyConnectedNeuralNetwork::GetOutputsAsMatrix() const -> Matrix {
+auto FullyConnected::GetOutputsAsMatrix() const -> Matrix {
 	Matrix::Size size;
 	size.width = outputNeurons.size();
 	size.height = 1;
