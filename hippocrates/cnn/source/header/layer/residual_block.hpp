@@ -45,9 +45,6 @@ public:
 
 	auto Clone() const noexcept -> std::unique_ptr<ILayer> override { return std::make_unique<ResidualBlock>(*this); }
 
-	auto GetSizeAfterProcessing() const noexcept -> Matrix::Size;
-	auto GetElementCountAfterProcessing() const noexcept -> std::size_t;
-
 private:
 	const Matrix::Size receptiveField;
 	const Matrix::Size stride;

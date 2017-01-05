@@ -17,11 +17,3 @@ auto ResidualBlock::GetDimensionalityAfterProcessing(MultiMatrix::Dimensionality
 	// TODO jnf: is this correct?
 	return layers.GetDimensionalityAfterProcessing(dimensionality);
 }
-
-auto ResidualBlock::GetSizeAfterProcessing() const noexcept -> Matrix::Size {
-	return Matrix::Size();
-}
-
-auto ResidualBlock::GetElementCountAfterProcessing() const noexcept -> std::size_t {
-	return std::size_t();
-}
