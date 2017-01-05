@@ -31,7 +31,8 @@
     <ClInclude Include="header\layer\pooler\ipooler.hpp" />
     <ClInclude Include="header\layer\pooler\max_pooler.hpp" />
     <ClInclude Include="header\layer\relu.hpp" />
-    <ClInclude Include="header\layer\residual_block.hpp" />
+    <ClInclude Include="header\layer\residual_block\bottlenecked.hpp" />
+    <ClInclude Include="header\layer\residual_block\normal.hpp" />
     <ClInclude Include="header\learning\backpropagation.hpp" />
     <ClInclude Include="header\learning\learning_method.hpp" />
     <ClInclude Include="header\matrix.hpp" />
@@ -50,7 +51,8 @@
     <ClCompile Include="implementation\layer\pooler\global_average_pooler.cpp" />
     <ClCompile Include="implementation\layer\pooler\max_pooler.cpp" />
     <ClCompile Include="implementation\layer\relu.cpp" />
-    <ClCompile Include="implementation\layer\residual_block.cpp" />
+    <ClCompile Include="implementation\layer\residual_block\bottlenecked.cpp" />
+    <ClCompile Include="implementation\layer\residual_block\normal.cpp" />
     <ClCompile Include="implementation\matrix.cpp" />
     <ClCompile Include="implementation\multi_matrix.cpp" />
     <ClCompile Include="implementation\multi_matrix_factory.cpp" />

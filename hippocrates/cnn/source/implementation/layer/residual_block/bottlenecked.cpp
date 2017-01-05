@@ -1,9 +1,10 @@
-﻿#include "layer/residual_block.hpp"
+﻿#include "layer/residual_block/bottlenecked.hpp"
 
 using namespace Convolutional;
 using namespace Convolutional::Layer;
+using namespace Convolutional::Layer::ResidualBlock;
 
-auto ResidualBlock::ProcessMultiMatrix(const MultiMatrix & multiMatrix) -> MultiMatrix {
+auto Bottlenecked::ProcessMultiMatrix(const MultiMatrix & multiMatrix) -> MultiMatrix {
 	auto mm = multiMatrix;
 	for (size_t i = 0; i < layers.size(); ++i) {
 		mm = layers[i]->ProcessMultiMatrix(mm);
@@ -13,7 +14,7 @@ auto ResidualBlock::ProcessMultiMatrix(const MultiMatrix & multiMatrix) -> Multi
 	return mm;
 }
 
-auto ResidualBlock::GetDimensionalityAfterProcessing(MultiMatrix::Dimensionality dimensionality) const noexcept -> MultiMatrix::Dimensionality {
+auto Bottlenecked::GetDimensionalityAfterProcessing(MultiMatrix::Dimensionality dimensionality) const noexcept -> MultiMatrix::Dimensionality {
 	// TODO jnf: is this correct?
 	return layers.GetDimensionalityAfterProcessing(dimensionality);
 }

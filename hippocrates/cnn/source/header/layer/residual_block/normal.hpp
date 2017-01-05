@@ -1,17 +1,16 @@
 ﻿#pragma once
-#include "matrix.hpp"
-#include "ilayer.hpp"
-#include "random.hpp"
-#include "layers.hpp"
+#include "layer/ilayer.hpp"
+#include "layer/layers.hpp"
+
 #include <memory>
 
-namespace Convolutional::Layer {
+namespace Convolutional::Layer::ResidualBlock {
 
-class ResidualBlock : public ILayer {
+class Normal : public ILayer {
 public:
 	using ILayer::ILayer;
 
-	ResidualBlock(
+	Normal(
 		std::size_t convolutionCount,
 		std::size_t dimensionCount,
 		Matrix::Size receptiveField = {3, 3},
@@ -33,8 +32,8 @@ public:
 		this->layers = Layers{std::move(layers)};
 	}
 
-	ResidualBlock(const ResidualBlock& other) = default;
-	ResidualBlock(ResidualBlock&&) = default;
+	Normal(const Normal& other) = default;
+	Normal(Normal&&) = default;
 
 	auto ProcessMultiMatrix(const MultiMatrix & multiMatrix) -> MultiMatrix override;
 	auto GetDimensionalityAfterProcessing(MultiMatrix::Dimensionality dimensionality) const noexcept -> MultiMatrix::Dimensionality override;
@@ -43,7 +42,7 @@ public:
 	auto GetZeroPadding(Matrix::Size size) const noexcept -> Matrix::Size override { return (GetReceptiveField(size) - 1) / 2; }
 	auto GetStride(Matrix::Size size) const noexcept -> Matrix::Size override { return stride; }
 
-	auto Clone() const noexcept -> std::unique_ptr<ILayer> override { return std::make_unique<ResidualBlock>(*this); }
+	auto Clone() const noexcept -> std::unique_ptr<ILayer> override { return std::make_unique<Normal>(*this); }
 
 private:
 	const Matrix::Size receptiveField;
