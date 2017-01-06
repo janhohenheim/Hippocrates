@@ -5,7 +5,7 @@ namespace Convolutional::Layer {
 class Convolution : public ILayer {
 public:
 	using ILayer::ILayer;
-	Convolution(std::size_t filterCount = 4): convolution{ filterCount } {}
+	Convolution(std::size_t filterCount): convolution{ filterCount } {}
 	Convolution(std::size_t filterCount, const Filter& init): convolution{ filterCount, init} {}
 
 	auto ProcessMultiMatrix(const MultiMatrix& multiMatrix) -> MultiMatrix override;
@@ -16,6 +16,9 @@ public:
 	auto GetStride(Matrix::Size size) const noexcept -> Matrix::Size override { return convolution.front().GetStride(size); }
 
 	auto Clone() const noexcept->std::unique_ptr<ILayer> override { return std::make_unique<Convolution>(*this); }
+
+	auto GetFilterCount() const noexcept { return convolution.size(); }
+
 private:
 	std::vector<Filter> convolution;
 };

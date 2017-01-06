@@ -32,6 +32,7 @@
     <ClInclude Include="header\layer\pooler\max_pooler.hpp" />
     <ClInclude Include="header\layer\relu.hpp" />
     <ClInclude Include="header\layer\residual_block\bottlenecked.hpp" />
+    <ClInclude Include="header\layer\residual_block\iresidual_block.hpp" />
     <ClInclude Include="header\layer\residual_block\normal.hpp" />
     <ClInclude Include="header\learning\backpropagation.hpp" />
     <ClInclude Include="header\learning\learning_method.hpp" />

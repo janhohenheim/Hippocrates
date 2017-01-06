@@ -12,7 +12,7 @@
 
 namespace Convolutional::Layer {
 
-	class Layers {
+	class Layers : public ILayer {
 
 	public:
 		using Layer_t = std::unique_ptr<ILayer>;
@@ -54,14 +54,24 @@ namespace Convolutional::Layer {
 			return *this;
 		}
 
-		auto GetDimensionalityAfterProcessing(MultiMatrix::Dimensionality dimensionality) const noexcept -> MultiMatrix::Dimensionality {
+		Layers& operator=(Layers&& other) = default;
+
+		auto ProcessMultiMatrix(const MultiMatrix& multiMatrix) -> MultiMatrix override {
+			auto mm = multiMatrix;
+			for (const auto &layer : layers)
+				mm = layer->ProcessMultiMatrix(mm);
+
+			return mm;
+		}
+
+		virtual auto GetDimensionalityAfterProcessing(MultiMatrix::Dimensionality dimensionality) const noexcept -> MultiMatrix::Dimensionality override {
 			for (const auto &layer : layers)
 				dimensionality = layer->GetDimensionalityAfterProcessing(dimensionality);
 
 			return dimensionality;
 		}
 
-		Layers& operator=(Layers&& other) = default;
+		auto Clone() const noexcept -> std::unique_ptr<ILayer> override { return std::make_unique<Layers>(*this); }
 
 		auto& operator[](std::size_t i){return layers[i]; }
 		const auto& operator[](std::size_t i) const {return layers[i]; }
