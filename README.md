@@ -10,7 +10,8 @@ Development | [![Build Status](https://travis-ci.org/SirRade/Hippocrates.svg?bra
 -----------------
 [![Gitter](https://badges.gitter.im/HippocratesAI/gitter.svg)](https://gitter.im/HippocratesAI/Lobby)
 
-[Visualization Tool](https://github.com/IDPA-2016-NEAT-CNN/NEAT_Visualizer) by [@Mafii](https://github.com/Mafii)
+[Visualization Tool](https://github.com/IDPA-2016-NEAT-CNN/NEAT_Visualizer) by [@Mafii](https://github.com/Mafii)  
+Experimental image recognition is currently being added at https://github.com/IDPA16/Hippocrates
 
 Implementation of Kenneth Stanley and Risto Miikkulainen's NEAT (NeuroEvolution
 of Augmenting Topologies, http://nn.cs.utexas.edu/downloads/papers/stanley.ec02.pdf).
