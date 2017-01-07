@@ -107,6 +107,9 @@
     <ClInclude Include="header\layer\residual_block\iresidual_block.hpp">
       <Filter>header\layer\residual_block</Filter>
     </ClInclude>
+    <ClInclude Include="header\layer\addition.hpp">
+      <Filter>header\layer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="implementation\input_data\image.cpp">
@@ -150,6 +153,9 @@
     </ClCompile>
     <ClCompile Include="implementation\layer\residual_block\normal.cpp">
       <Filter>implementation\layer\residual_block</Filter>
+    </ClCompile>
+    <ClCompile Include="implementation\layer\addition.cpp">
+      <Filter>implementation\layer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

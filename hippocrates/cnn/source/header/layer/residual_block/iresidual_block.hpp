@@ -7,6 +7,7 @@ namespace Convolutional::Layer::ResidualBlock {
 class IResidualBlock : public ILayer {
 public:
 	using ILayer::ILayer;
+
 };
 
 }

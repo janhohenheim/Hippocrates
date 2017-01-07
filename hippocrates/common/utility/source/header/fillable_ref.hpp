@@ -29,9 +29,15 @@ namespace Hippocrates::Utility {
 		FillableRef(T&& value) : asValue( std::move(value) ) {}
 		FillableRef(const T&& value) = delete;
 
+		FillableRef(const FillableRef&) = default;
+		FillableRef(FillableRef&&) = default;
+
 		FillableRef& operator=(const FillableRef&)& = default;
 		FillableRef& operator= (FillableRef&&)& = default;
 		FillableRef& operator= (const FillableRef&&)& = delete;
+
+		auto operator->() {return &Get(); }
+		auto operator->() const {return &Get(); }
 
 		const auto& operator*() const { return Get(); }
 		auto& operator*() { return Get(); }

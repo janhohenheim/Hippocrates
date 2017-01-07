@@ -25,7 +25,9 @@ Matrix& Convolutional::Matrix::operator=(const Matrix & other)
 */
 
 Matrix& Matrix::operator+=(const Matrix & other) {
-	// TODO jnf: Scale matrices to the same size
+	if (GetElementCount() != other.GetElementCount())
+		throw std::logic_error {"Tried to add two Matrices with different sizes"};
+
 	for (std::size_t i = 0; i < GetElementCount(); ++i) {
 		ElementAt(i) += other.ElementAt(i);
 	}
