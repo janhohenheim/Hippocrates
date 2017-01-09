@@ -8,7 +8,7 @@ class Bottlenecked : public IIdentityMapping {
 public:
 	using IIdentityMapping::IIdentityMapping;
 	
-	Bottlenecked(Convolution convolution);
+	Bottlenecked(const Convolution& convolution);
 
 	auto ProcessMultiMatrix(const MultiMatrix & multiMatrix) -> MultiMatrix override;
 	auto GetDimensionalityAfterProcessing(MultiMatrix::Dimensionality dimensionality) const noexcept -> MultiMatrix::Dimensionality override;

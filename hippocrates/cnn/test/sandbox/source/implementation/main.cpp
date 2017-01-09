@@ -17,15 +17,15 @@ int main() {
 	trainingData.AddData(std::move(someCat), Categories::Cat);
 
 	auto FirstPoolingRes = [](std::size_t convSize) {
-		return Layer::ResidualBlock::Pooling::Bottlenecked {Layer::Convolution {convSize, Layer::Filter {{3, 3}, {1, 1}, {1, 1}}}, Layer::Convolution {convSize * 4, Layer::Filter {{1, 1}}}};
+		return Layer::ResidualBlock::Pooling::Bottlenecked {Layer::Convolution {convSize, Layer::Filter {{3, 3}, {1, 1}, {1, 1}}}, Layer::Filter {{1, 1}}, 4};
 	};
 
 	auto PoolingRes = [](std::size_t convSize) {
-		return Layer::ResidualBlock::Pooling::Bottlenecked {Layer::Convolution {convSize, Layer::Filter {{3, 3}, {2, 2}, {1, 1}}}, Layer::Convolution {convSize * 4, Layer::Filter {{1, 1}, {2, 2}}}};
+		return Layer::ResidualBlock::Pooling::Bottlenecked {Layer::Convolution {convSize, Layer::Filter {{3, 3}, {2, 2}, {1, 1}}}, Layer::Filter {{1, 1}, {2, 2}}, 4};
 	};
 
 	auto IdentityRes = [](std::size_t convSize) {
-		return Layer::ResidualBlock::IdentityMapping::Bottlenecked {Layer::Convolution {convSize, Layer::Filter {{3, 3}}}};
+		return Layer::ResidualBlock::IdentityMapping::Bottlenecked {Layer::Convolution {convSize, Layer::Filter {{3, 3}, {1, 1}, {1, 1}}}};
 	};
 
 	// ResNet 50 v2

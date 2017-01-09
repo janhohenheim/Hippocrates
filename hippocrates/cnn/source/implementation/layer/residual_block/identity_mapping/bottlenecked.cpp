@@ -6,7 +6,7 @@ using namespace Convolutional::Layer;
 using namespace Convolutional::Layer::ResidualBlock;
 using namespace Convolutional::Layer::ResidualBlock::IdentityMapping;
 
-Bottlenecked::Bottlenecked(Convolution convolution)
+Bottlenecked::Bottlenecked(const Convolution& convolution)
 : 
 	layers {
 		ReLU {},

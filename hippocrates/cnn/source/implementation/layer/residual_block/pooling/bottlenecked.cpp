@@ -6,7 +6,7 @@ using namespace Convolutional::Layer;
 using namespace Convolutional::Layer::ResidualBlock;
 using namespace Convolutional::Layer::ResidualBlock::Pooling;
 
-Bottlenecked::Bottlenecked(Convolution convolution, Convolution projector)
+Bottlenecked::Bottlenecked(const Convolution& convolution, Filter projector, std::size_t factor)
 : 
 	layers {
 		ReLU {},
@@ -14,15 +14,15 @@ Bottlenecked::Bottlenecked(Convolution convolution, Convolution projector)
 		ReLU {},
 		Convolution {convolution},
 		ReLU {},
-		Convolution {convolution.GetFilterCount() * 4, Layer::Filter {{1, 1}}}
+		Convolution {convolution.GetFilterCount() * factor, Layer::Filter {{1, 1}}}
 	},
-	projector{std::move(projector)}
+	projector{convolution.GetFilterCount() * factor, std::move(projector)}
 {
 }
 
 auto Bottlenecked::ProcessMultiMatrix(const MultiMatrix & multiMatrix) -> MultiMatrix {
-	const auto projection = projector.ProcessMultiMatrix(multiMatrix);
 	const auto processed = layers.ProcessMultiMatrix(multiMatrix);
+	const auto projection = projector.ProcessMultiMatrix(multiMatrix);
 	return processed + projection;
 }
 

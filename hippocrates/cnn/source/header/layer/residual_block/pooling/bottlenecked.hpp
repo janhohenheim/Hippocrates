@@ -8,7 +8,7 @@ class Bottlenecked : public IPooling {
 public:
 	using IPooling::IPooling;
 	
-	Bottlenecked(Convolution convolution, Convolution projector);
+	Bottlenecked(const Convolution& convolution, Filter projector, std::size_t factor);
 
 	auto ProcessMultiMatrix(const MultiMatrix & multiMatrix) -> MultiMatrix override;
 	auto GetDimensionalityAfterProcessing(MultiMatrix::Dimensionality dimensionality) const noexcept -> MultiMatrix::Dimensionality override;
