@@ -19,7 +19,7 @@ Bottlenecked::Bottlenecked(Convolution convolution)
 }
 
 auto Bottlenecked::ProcessMultiMatrix(const MultiMatrix & multiMatrix) -> MultiMatrix {
-	//return layers.ProcessMultiMatrix(multiMatrix) + multiMatrix;
+	return layers.ProcessMultiMatrix(multiMatrix) + multiMatrix;
 }
 
 auto Bottlenecked::GetDimensionalityAfterProcessing(MultiMatrix::Dimensionality dimensionality) const noexcept -> MultiMatrix::Dimensionality {
