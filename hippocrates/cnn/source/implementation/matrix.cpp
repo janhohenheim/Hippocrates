@@ -1,4 +1,5 @@
 ﻿#include "matrix.hpp"
+#include <stdexcept>
 
 using namespace Convolutional;
 
