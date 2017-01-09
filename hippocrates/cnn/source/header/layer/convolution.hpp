@@ -5,7 +5,6 @@ namespace Convolutional::Layer {
 class Convolution : public ILayer {
 public:
 	using ILayer::ILayer;
-	Convolution(std::size_t filterCount): convolution{ filterCount } {}
 	Convolution(std::size_t filterCount, const Filter& init): convolution{ filterCount, init} {}
 
 	auto ProcessMultiMatrix(const MultiMatrix& multiMatrix) -> MultiMatrix override;

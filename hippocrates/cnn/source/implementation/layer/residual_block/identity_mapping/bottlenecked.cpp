@@ -10,11 +10,11 @@ Bottlenecked::Bottlenecked(Convolution convolution)
 : 
 	layers {
 		ReLU {},
-		Convolution {convolution.GetFilterCount()},
+		Convolution {convolution.GetFilterCount(), Layer::Filter {{1, 1}}},
 		ReLU {},
 		Convolution {convolution},
 		ReLU {},
-		Convolution {convolution.GetFilterCount() * 4}
+		Convolution {convolution.GetFilterCount() * 4, Layer::Filter {{1, 1}}}
 	}
 {
 }

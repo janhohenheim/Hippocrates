@@ -10,10 +10,12 @@ class Filter : public ILayer {
 public:
 	using ILayer::ILayer;
 
-	explicit Filter(Matrix::Size receptiveField = {3, 3},
-		Matrix::Size stride = {1, 1})
-		: receptiveField(receptiveField),
-		stride(stride),
+	explicit Filter(Matrix::Size receptiveField,
+		Matrix::Size stride = {1, 1},
+		Matrix::Size padding = {0, 0})
+		: receptiveField{std::move(receptiveField)},
+		stride{std::move(stride)},
+		padding{std::move(padding)},
 		bias {Hippocrates::Utility::Random::Number(-1.0, 1.0)}
 	{}
 	Filter(const Filter& other) :
@@ -31,7 +33,7 @@ public:
 	auto GetDimensionalityAfterProcessing(MultiMatrix::Dimensionality dimensionality) const noexcept -> MultiMatrix::Dimensionality override;
 
 	auto GetReceptiveField(Matrix::Size size) const noexcept -> Matrix::Size override { return receptiveField; }
-	auto GetZeroPadding(Matrix::Size size) const noexcept -> Matrix::Size override { return (GetReceptiveField(size) - 1) / 2; }
+	auto GetZeroPadding(Matrix::Size size) const noexcept -> Matrix::Size override { return padding ; /* (GetReceptiveField(size) - 1) / 2; */ }
 	auto GetStride(Matrix::Size size) const noexcept -> Matrix::Size override { return stride; }
 
 	auto GetBias() const noexcept { return bias; }
@@ -46,6 +48,7 @@ private:
 
 	const Matrix::Size receptiveField;
 	const Matrix::Size stride;
+	const Matrix::Size padding;
 	Matrix::element_t bias = 0;
 
 	std::unique_ptr<MultiMatrix> weights;

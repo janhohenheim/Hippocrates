@@ -10,11 +10,11 @@ Bottlenecked::Bottlenecked(Convolution convolution, Convolution projector)
 : 
 	layers {
 		ReLU {},
-		Convolution {convolution.GetFilterCount()},
+		Convolution {convolution.GetFilterCount(), Layer::Filter {{1, 1}}},
 		ReLU {},
 		Convolution {convolution},
 		ReLU {},
-		Convolution {convolution.GetFilterCount() * 4}
+		Convolution {convolution.GetFilterCount() * 4, Layer::Filter {{1, 1}}}
 	},
 	projector{std::move(projector)}
 {
@@ -22,7 +22,8 @@ Bottlenecked::Bottlenecked(Convolution convolution, Convolution projector)
 
 auto Bottlenecked::ProcessMultiMatrix(const MultiMatrix & multiMatrix) -> MultiMatrix {
 	const auto projection = projector.ProcessMultiMatrix(multiMatrix);
-	return layers.ProcessMultiMatrix(multiMatrix) + projection;
+	const auto processed = layers.ProcessMultiMatrix(multiMatrix);
+	return processed + projection;
 }
 
 auto Bottlenecked::GetDimensionalityAfterProcessing(MultiMatrix::Dimensionality dimensionality) const noexcept -> MultiMatrix::Dimensionality {

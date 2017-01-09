@@ -17,11 +17,11 @@ int main() {
 	trainingData.AddData(std::move(someCat), Categories::Cat);
 
 	auto FirstPoolingRes = [](std::size_t convSize) {
-		return Layer::ResidualBlock::Pooling::Bottlenecked {Layer::Convolution {convSize, Layer::Filter {{3, 3}}}, Layer::Convolution {convSize * 4, Layer::Filter {{1, 1}}}};
+		return Layer::ResidualBlock::Pooling::Bottlenecked {Layer::Convolution {convSize, Layer::Filter {{3, 3}, {1, 1}, {1, 1}}}, Layer::Convolution {convSize * 4, Layer::Filter {{1, 1}}}};
 	};
 
 	auto PoolingRes = [](std::size_t convSize) {
-		return Layer::ResidualBlock::Pooling::Bottlenecked {Layer::Convolution {convSize, Layer::Filter {{3, 3}, {2, 2}}}, Layer::Convolution {convSize * 4, Layer::Filter {{1, 1}, {2, 2}}}};
+		return Layer::ResidualBlock::Pooling::Bottlenecked {Layer::Convolution {convSize, Layer::Filter {{3, 3}, {2, 2}, {1, 1}}}, Layer::Convolution {convSize * 4, Layer::Filter {{1, 1}, {2, 2}}}};
 	};
 
 	auto IdentityRes = [](std::size_t convSize) {
@@ -30,7 +30,7 @@ int main() {
 
 	// ResNet 50 v2
 	Layer::Layers layers {
-		Layer::Convolution {64, Layer::Filter {{7, 7}, {2, 2}}},
+		Layer::Convolution {64, Layer::Filter {{7, 7}, {2, 2}, {3, 3}}},
 		Layer::ReLU {},
 		Layer::Pooler::MaxPooler {{3, 3}, {2, 2}},
 
