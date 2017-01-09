@@ -16,8 +16,12 @@ int main() {
 	InputData::Image someCat("../../image.png");
 	trainingData.AddData(std::move(someCat), Categories::Cat);
 
-	auto PoolingRes = [](std::size_t convSize, Layer::Filter projection) {
-		return Layer::ResidualBlock::Pooling::Bottlenecked {Layer::Convolution {convSize, Layer::Filter {{3, 3}}}, Layer::Convolution {convSize*4, std::move(projection)}};
+	auto FirstPoolingRes = [](std::size_t convSize) {
+		return Layer::ResidualBlock::Pooling::Bottlenecked {Layer::Convolution {convSize, Layer::Filter {{3, 3}}}, Layer::Convolution {convSize * 4, Layer::Filter {{1, 1}}}};
+	};
+
+	auto PoolingRes = [](std::size_t convSize) {
+		return Layer::ResidualBlock::Pooling::Bottlenecked {Layer::Convolution {convSize, Layer::Filter {{3, 3}, {2, 2}}}, Layer::Convolution {convSize * 4, Layer::Filter {{1, 1}, {2, 2}}}};
 	};
 
 	auto IdentityRes = [](std::size_t convSize) {
@@ -30,21 +34,21 @@ int main() {
 		Layer::ReLU {},
 		Layer::Pooler::MaxPooler {{3, 3}, {2, 2}},
 
-		PoolingRes(64, Layer::Filter {{1, 1}}),
+		FirstPoolingRes(64),
 		IdentityRes(64),
 		IdentityRes(64),
 
-		PoolingRes(128, Layer::Filter {{1, 1}, {2, 2}}),
+		PoolingRes(128),
 		IdentityRes(128),
 		IdentityRes(128),
 		IdentityRes(128),
 
-		PoolingRes(256, Layer::Filter {{1, 1}, {2, 2}}),
+		PoolingRes(256),
 		IdentityRes(256),
 		IdentityRes(256),
 		IdentityRes(256),
 
-		PoolingRes(512, Layer::Filter {{1, 1}, {2, 2}}),
+		PoolingRes(512),
 		IdentityRes(512),
 		IdentityRes(512),
 		IdentityRes(256),
