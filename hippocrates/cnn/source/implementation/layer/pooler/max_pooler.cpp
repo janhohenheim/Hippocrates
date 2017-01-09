@@ -11,7 +11,7 @@ auto MaxPooler::ProcessMultiMatrix(const MultiMatrix& multiMatrix) -> MultiMatri
 		const auto size = submatrix.GetSize();
 		const auto receptiveField = GetReceptiveField(size);
 		const auto stride = GetStride(size);
-		Matrix pooledMatrix(GetSizeAfterPooling(size));
+		Matrix pooledMatrix(GetDimensionalityAfterProcessing(multiMatrix.GetDimensionality()).size);
 		auto currPooledElement = pooledMatrix.begin();
 		Matrix::Position pos;
 		for (pos.y = 0; pos.y < size.height - receptiveField.height; pos.y += stride.height) {
@@ -40,10 +40,4 @@ auto MaxPooler::GetDimensionalityAfterProcessing(MultiMatrix::Dimensionality dim
 
 auto MaxPooler::ProcessMatrix(const Matrix& matrix) const -> Matrix::element_t {
 	return *std::max_element(matrix.begin(), matrix.end());
-}
-
-auto MaxPooler::GetSizeAfterPooling(Matrix::Size originalSize) const -> Matrix::Size {
-	const auto recep{GetReceptiveField(originalSize)};
-	// TODO jnf: factor in overlapping stride
-	return {originalSize.height / recep.height, originalSize.width /recep.width};
 }

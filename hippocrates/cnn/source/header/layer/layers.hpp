@@ -1,12 +1,5 @@
 ﻿#pragma once
 #include "ilayer.hpp"
-
-// Umbrella header part
-#include "convolution.hpp"
-#include "fully_connected.hpp"
-#include "pooler/max_pooler.hpp"
-#include "relu.hpp"
-
 #include <memory>
 #include <vector>
 

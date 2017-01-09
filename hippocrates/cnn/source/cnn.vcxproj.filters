@@ -125,6 +125,9 @@
     <ClInclude Include="header\layer\residual_block\pooling\bottlenecked.hpp">
       <Filter>header\layer\residual_block\pooling</Filter>
     </ClInclude>
+    <ClInclude Include="header\layer\all_layers.hpp">
+      <Filter>header\layer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="implementation\input_data\image.cpp">

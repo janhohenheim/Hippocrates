@@ -26,7 +26,6 @@ public:
 
 
 	auto ProcessMatrix(const Matrix& matrix) const -> Matrix::element_t;
-	auto GetSizeAfterPooling(Matrix::Size originalSize) const -> Matrix::Size;
 
 private:
 	Matrix::Size receptiveField;

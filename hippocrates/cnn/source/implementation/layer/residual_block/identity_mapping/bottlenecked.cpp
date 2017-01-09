@@ -1,4 +1,5 @@
 ﻿#include "layer/residual_block/identity_mapping/bottlenecked.hpp"
+#include "layer/relu.hpp"
 
 using namespace Convolutional;
 using namespace Convolutional::Layer;
