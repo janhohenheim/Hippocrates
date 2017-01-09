@@ -128,6 +128,9 @@
     <ClInclude Include="header\layer\all_layers.hpp">
       <Filter>header\layer</Filter>
     </ClInclude>
+    <ClInclude Include="header\layer\dimension_scaler.hpp">
+      <Filter>header\layer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="implementation\input_data\image.cpp">

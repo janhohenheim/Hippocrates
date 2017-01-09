@@ -6,17 +6,17 @@ using namespace Convolutional::Layer;
 using namespace Convolutional::Layer::ResidualBlock;
 using namespace Convolutional::Layer::ResidualBlock::Pooling;
 
-Bottlenecked::Bottlenecked(const Convolution& convolution, Filter projector, std::size_t factor)
+Bottlenecked::Bottlenecked(const Convolution& convolution, DimensionScaler scaler, std::size_t factor)
 : 
 	layers {
 		ReLU {},
-		Convolution {convolution.GetFilterCount(), Layer::Filter {{1, 1}}},
+		DimensionScaler {scaler},
 		ReLU {},
 		Convolution {convolution},
 		ReLU {},
-		Convolution {convolution.GetFilterCount() * factor, Layer::Filter {{1, 1}}}
+		DimensionScaler {scaler.GetFilterCount() * factor}
 	},
-	projector{convolution.GetFilterCount() * factor, std::move(projector)}
+	projector{scaler.GetFilterCount() * factor}
 {
 }
 

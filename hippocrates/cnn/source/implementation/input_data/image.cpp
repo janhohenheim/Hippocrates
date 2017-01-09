@@ -5,7 +5,7 @@ using namespace Convolutional;
 using namespace Convolutional::InputData;
 
 Image::Image(const char * filename) :
-	image("32x32", "white")
+	image("224x224", "white")
 	//image(filename)
 {
 }

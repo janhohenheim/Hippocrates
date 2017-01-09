@@ -11,6 +11,6 @@
 #include "ilayer.hpp"
 #include "layers.hpp"
 #include "relu.hpp"
-
 #include "convolution.hpp"
 #include "fully_connected.hpp"
+#include "dimension_scaler.hpp"

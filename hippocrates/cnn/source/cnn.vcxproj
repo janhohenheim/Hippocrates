@@ -23,6 +23,7 @@
     <ClInclude Include="header\input_data\image.hpp" />
     <ClInclude Include="header\input_data\sentence.hpp" />
     <ClInclude Include="header\layer\all_layers.hpp" />
+    <ClInclude Include="header\layer\dimension_scaler.hpp" />
     <ClInclude Include="header\layer\filter.hpp" />
     <ClInclude Include="header\layer\convolution.hpp" />
     <ClInclude Include="header\layer\fully_connected.hpp" />
