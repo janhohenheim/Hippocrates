@@ -36,6 +36,18 @@
     <Filter Include="implementation\layer\residual_block">
       <UniqueIdentifier>{50fc12b6-1887-44de-a47f-e10098ade7a2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="header\layer\residual_block\identity_mapped">
+      <UniqueIdentifier>{563bb08c-65f8-438e-94a1-e28d1f9f59ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="header\layer\residual_block\pooling">
+      <UniqueIdentifier>{80e3e00d-1504-48d7-89fd-b5dabd7fe1a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="implementation\layer\residual_block\identity_mapping">
+      <UniqueIdentifier>{f425a051-0ea0-4804-aa4c-131eac9c3f0e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="implementation\layer\residual_block\pooling">
+      <UniqueIdentifier>{a37f5b57-73e9-4eca-9298-5179630137d3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\input_data\iinput_data.hpp">
@@ -98,14 +110,20 @@
     <ClInclude Include="header\layer\fully_connected.hpp">
       <Filter>header\layer</Filter>
     </ClInclude>
-    <ClInclude Include="header\layer\residual_block\bottlenecked.hpp">
-      <Filter>header\layer\residual_block</Filter>
-    </ClInclude>
-    <ClInclude Include="header\layer\residual_block\normal.hpp">
-      <Filter>header\layer\residual_block</Filter>
-    </ClInclude>
     <ClInclude Include="header\layer\residual_block\iresidual_block.hpp">
       <Filter>header\layer\residual_block</Filter>
+    </ClInclude>
+    <ClInclude Include="header\layer\residual_block\identity_mapping\iidentity_mapping.hpp">
+      <Filter>header\layer\residual_block\identity_mapped</Filter>
+    </ClInclude>
+    <ClInclude Include="header\layer\residual_block\pooling\ipooling.h">
+      <Filter>header\layer\residual_block\pooling</Filter>
+    </ClInclude>
+    <ClInclude Include="header\layer\residual_block\identity_mapping\bottlenecked.hpp">
+      <Filter>header\layer\residual_block\identity_mapped</Filter>
+    </ClInclude>
+    <ClInclude Include="header\layer\residual_block\pooling\bottlenecked.hpp">
+      <Filter>header\layer\residual_block\pooling</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -145,11 +163,11 @@
     <ClCompile Include="implementation\layer\fully_connected.cpp">
       <Filter>implementation\layer</Filter>
     </ClCompile>
-    <ClCompile Include="implementation\layer\residual_block\bottlenecked.cpp">
-      <Filter>implementation\layer\residual_block</Filter>
+    <ClCompile Include="implementation\layer\residual_block\identity_mapping\bottlenecked.cpp">
+      <Filter>implementation\layer\residual_block\identity_mapping</Filter>
     </ClCompile>
-    <ClCompile Include="implementation\layer\residual_block\normal.cpp">
-      <Filter>implementation\layer\residual_block</Filter>
+    <ClCompile Include="implementation\layer\residual_block\pooling\bottlenecked.cpp">
+      <Filter>implementation\layer\residual_block\pooling</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
