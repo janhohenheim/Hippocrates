@@ -24,9 +24,10 @@ public:
 	MultiMatrix& operator+= (const MultiMatrix& other);
 
 	auto AddZeroPadding(Matrix::Size paddingAmount) -> void;
-	auto GetDimensionCount() const noexcept { return dimenstionality.dimensionCount; }
-	auto GetElementCount() const noexcept { return dimenstionality.size.height * dimenstionality.size.width; }
-	auto GetSize() const noexcept { return dimenstionality.size; }
+	auto GetDimensionCount() const noexcept { return dimensionality.dimensionCount; }
+	auto GetDimensionality() const noexcept { return dimensionality; }
+	auto GetElementCount() const noexcept { return dimensionality.size.height * dimensionality.size.width; }
+	auto GetSize() const noexcept { return dimensionality.size; }
 
 	auto begin() noexcept { return subDimensions.begin(); }
 	auto begin() const noexcept { return subDimensions.begin(); }
@@ -46,7 +47,7 @@ private:
 
 private:
 	dimensions_t subDimensions;
-	Dimensionality dimenstionality;
+	Dimensionality dimensionality;
 };
 
 inline auto operator+ (MultiMatrix lhs, const MultiMatrix& rhs) { return lhs += rhs; }

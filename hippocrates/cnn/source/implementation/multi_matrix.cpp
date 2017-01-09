@@ -6,11 +6,11 @@ using namespace Convolutional;
 MultiMatrix::MultiMatrix(dimensions_t subDimensions) :
 subDimensions(std::move(subDimensions))
 {
-	dimenstionality.size = GetMultidimensionalProperty([](const Matrix& m) {return m.GetSize(); });
-	dimenstionality.dimensionCount = this->subDimensions.size();
+	dimensionality.size = GetMultidimensionalProperty([](const Matrix& m) {return m.GetSize(); });
+	dimensionality.dimensionCount = this->subDimensions.size();
 }
 
-MultiMatrix& Convolutional::MultiMatrix::operator+=(const MultiMatrix & other) {
+MultiMatrix& MultiMatrix::operator+=(const MultiMatrix & other) {
 	if (GetDimensionCount() != other.GetDimensionCount())
 		throw std::logic_error{"Tried to add two MultiMatrices with different dimensionalities"};
 
