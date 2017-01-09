@@ -11,7 +11,7 @@ Bottlenecked::Bottlenecked(Convolution convolution)
 		ReLU {},
 		Convolution {convolution.GetFilterCount()},
 		ReLU {},
-		convolution,
+		Convolution {convolution},
 		ReLU {},
 		Convolution {convolution.GetFilterCount() * 4}
 	}
