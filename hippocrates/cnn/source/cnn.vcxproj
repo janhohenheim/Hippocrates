@@ -45,6 +45,7 @@
     <ClInclude Include="header\multi_matrix_factory.hpp" />
     <ClInclude Include="header\neural_network.hpp" />
     <ClInclude Include="header\neural_network_trainer.hpp" />
+    <ClInclude Include="header\matrix_view.hpp" />
     <ClInclude Include="header\training_data.hpp" />
   </ItemGroup>
   <ItemGroup>
@@ -59,6 +60,7 @@
     <ClCompile Include="implementation\layer\residual_block\identity_mapping\bottlenecked.cpp" />
     <ClCompile Include="implementation\layer\residual_block\pooling\bottlenecked.cpp" />
     <ClCompile Include="implementation\matrix.cpp" />
+    <ClCompile Include="implementation\matrix_view.cpp" />
     <ClCompile Include="implementation\multi_matrix.cpp" />
     <ClCompile Include="implementation\multi_matrix_factory.cpp" />
     <ClCompile Include="implementation\neural_network_trainer.cpp" />

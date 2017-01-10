@@ -17,7 +17,7 @@ auto MaxPooler::ProcessMultiMatrix(const MultiMatrix& multiMatrix) -> MultiMatri
 		for (pos.y = 0; pos.y < size.height - receptiveField.height; pos.y += stride.height) {
 			for (pos.x = 0; pos.x < size.width - receptiveField.width; pos.x += stride.width) {
 				auto receptedMatrix = submatrix.GetSubmatrix(pos, receptiveField);
-				*currPooledElement = ProcessMatrix(std::move(receptedMatrix));
+				*currPooledElement = ProcessSubmatrix(std::move(receptedMatrix));
 				++currPooledElement;
 			}
 		}
@@ -38,6 +38,6 @@ auto MaxPooler::GetDimensionalityAfterProcessing(MultiMatrix::Dimensionality dim
 	return newDim;
 }
 
-auto MaxPooler::ProcessMatrix(const Matrix& matrix) const -> Matrix::element_t {
+auto MaxPooler::ProcessSubmatrix(const MatrixView& matrix) const -> Matrix::element_t {
 	return *std::max_element(matrix.begin(), matrix.end());
 }

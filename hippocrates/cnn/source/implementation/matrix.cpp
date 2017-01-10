@@ -54,7 +54,7 @@ auto Convolutional::Matrix::AddZeroPadding(Matrix::Size paddingAmount) -> void {
 	*this = std::move(paddedMatrix);
 }
 
-auto Matrix::GetSubmatrix(Matrix::Position position, Matrix::Size size) const -> Matrix {
+auto Matrix::GetSubmatrix(Matrix::Position position, Matrix::Size size) const -> MatrixView {
 	if (size == GetSize())
 		return *this;
 
@@ -79,10 +79,10 @@ auto Matrix::ElementAt(Position position) -> element_t& {
 	return elements[position.y * GetSize().width + position.x];
 }
 
-auto Convolutional::Matrix::ElementAt(std::size_t position) const -> const element_t & {
+auto Matrix::ElementAt(std::size_t position) const -> const element_t & {
 	return const_cast<Matrix*>(this)->ElementAt(position);;
 }
 
-auto Convolutional::Matrix::ElementAt(std::size_t position) -> element_t & {
+auto Matrix::ElementAt(std::size_t position) -> element_t & {
 	return *(this->begin() + position);
 }

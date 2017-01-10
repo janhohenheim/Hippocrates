@@ -131,6 +131,9 @@
     <ClInclude Include="header\layer\dimension_scaler.hpp">
       <Filter>header\layer</Filter>
     </ClInclude>
+    <ClInclude Include="header\matrix_view.hpp">
+      <Filter>header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="implementation\input_data\image.cpp">
@@ -174,6 +177,9 @@
     </ClCompile>
     <ClCompile Include="implementation\layer\residual_block\pooling\bottlenecked.cpp">
       <Filter>implementation\layer\residual_block\pooling</Filter>
+    </ClCompile>
+    <ClCompile Include="implementation\matrix_view.cpp">
+      <Filter>implementation</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

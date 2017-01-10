@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "layer/pooler/ipooler.hpp"
+#include "matrix_view.hpp"
 
 namespace Convolutional::Layer::Pooler {
 
@@ -25,7 +26,7 @@ public:
 	auto Clone() const noexcept -> std::unique_ptr<ILayer> override { return std::make_unique<MaxPooler>(*this); }
 
 
-	auto ProcessMatrix(const Matrix& matrix) const -> Matrix::element_t;
+	auto ProcessSubmatrix(const MatrixView& matrix) const -> Matrix::element_t;
 
 private:
 	Matrix::Size receptiveField;
