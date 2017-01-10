@@ -33,7 +33,7 @@ auto Filter::ProcessMultiMatrix(const MultiMatrix & multiMatrix) -> MultiMatrix 
 			for (std::size_t dim = 0; dim < weights->GetDimensionCount(); ++dim) {
 				const auto weightSize = weights->GetSize();
 				const auto featureMap = (paddedMM.begin() + dim)->GetSubmatrix(pos, receptiveSize);
-				const auto subWeights = *(weights->begin() + dim);
+				const auto& subWeights = *(weights->begin() + dim);
 				for (std::size_t y = 0; y < weightSize.height; ++y) {
 					for (std::size_t x = 0; x < weightSize.width; ++x) {
 						filteredElement += featureMap.ElementAt({x, y}) * subWeights.ElementAt({x, y});
