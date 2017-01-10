@@ -40,7 +40,7 @@ int main() {
 		Layer::ReLU {},
 		Layer::Pooler::MaxPooler {{3, 3}, {2, 2}},
 
-		FirstPoolingRes(64),/*
+		FirstPoolingRes(64),
 		IdentityRes(64),
 		IdentityRes(64),
 
@@ -60,7 +60,7 @@ int main() {
 		IdentityRes(256),
 		IdentityRes(256),
 		IdentityRes(256),
-		*/
+		
 		Layer::ReLU{},
 		Layer::Pooler::GlobalAveragePooler{},
 		Layer::FullyConnected{static_cast<std::size_t>(Categories::CategoryCount)}

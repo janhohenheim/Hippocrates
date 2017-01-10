@@ -46,6 +46,9 @@ public:
 private:
 	auto LazyInitializeWeights(Matrix::Size size, std::size_t dimensionCount) -> void;
 
+	static auto AccumulateProduct(const MultiMatrix& mm, const MultiMatrix& weights, Matrix::Position pos, Matrix::Size size) -> Matrix::element_t;
+	static auto AccumulateProductBlock(const MultiMatrix& mm, const MultiMatrix& weights, std::size_t start_block, std::size_t end_block, Matrix::Position pos, Matrix::Size size, Matrix::element_t& result) -> void;
+
 	const Matrix::Size receptiveField;
 	const Matrix::Size stride;
 	const Matrix::Size padding;
