@@ -3,6 +3,11 @@
 
 using namespace Convolutional;
 
+MatrixView::MatrixView(const Matrix & parent) 
+: MatrixView {parent, {0, 0}, parent.GetSize()}
+{
+}
+
 auto MatrixView::GetSubmatrix(Position position, Size size) const -> MatrixView {
 	return MatrixView(parent, position, size);
 }

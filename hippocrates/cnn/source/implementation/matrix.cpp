@@ -35,7 +35,7 @@ Matrix& Matrix::operator+=(const Matrix & other) {
 	return *this;
 }
 
-auto Convolutional::Matrix::AddZeroPadding(Matrix::Size paddingAmount) -> void {
+auto Matrix::AddZeroPadding(Matrix::Size paddingAmount) -> void {
 	if (paddingAmount.height == 0 
 	 && paddingAmount.width == 0)
 		return;
@@ -59,7 +59,7 @@ auto Matrix::GetSubmatrix(Matrix::Position position, Matrix::Size size) const ->
 }
 
 auto Matrix::ElementAt(Position position) const -> const element_t& {
-	return const_cast<Matrix*>(this)->ElementAt(position);;
+	return const_cast<Matrix*>(this)->ElementAt(position);
 }
 
 auto Matrix::ElementAt(Position position) -> element_t& {

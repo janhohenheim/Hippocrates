@@ -42,7 +42,7 @@ public:
 
 
 	explicit MatrixView(const Matrix& parent, Position position, Size size) : parent {parent} { }
-	explicit MatrixView(const Matrix& parent) : parent {parent} { }
+	explicit MatrixView(const Matrix& parent);
 
 	auto GetSubmatrix(Position position, Size size) const -> MatrixView;
 	auto ElementAt(Position position) const -> const element_t&;
