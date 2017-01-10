@@ -3,13 +3,20 @@
 
 using namespace Convolutional;
 
+MatrixView::MatrixView(const Matrix& parent, Position position, Size size)
+: parent{parent},
+  position{std::move(position)},
+  size{std::move(size)}
+{
+}
+
 MatrixView::MatrixView(const Matrix & parent) 
-: MatrixView {parent, {0, 0}, parent.GetSize()}
+: MatrixView {parent, Position{0, 0}, parent.GetSize()}
 {
 }
 
 auto MatrixView::GetSubmatrix(Position position, Size size) const -> MatrixView {
-	return MatrixView(parent, position, size);
+	return MatrixView(parent, position + this->position, size);
 }
 
 auto MatrixView::ElementAt(Position position) const -> const element_t& {
