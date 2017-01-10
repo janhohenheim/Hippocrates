@@ -55,20 +55,7 @@ auto Convolutional::Matrix::AddZeroPadding(Matrix::Size paddingAmount) -> void {
 }
 
 auto Matrix::GetSubmatrix(Matrix::Position position, Matrix::Size size) const -> MatrixView {
-	if (size == GetSize())
-		return *this;
-
-	Matrix subMatrix {size};
-	Position subPos;
-	for (subPos.y = 0; subPos.y < size.width; ++subPos.y) {
-		for (subPos.x = 0; subPos.x < size.height; ++subPos.x) {
-			Position macroPos = position;
-			macroPos.x += subPos.x;
-			macroPos.y += subPos.y;
-			subMatrix.ElementAt(subPos) = ElementAt(macroPos);
-		}
-	}
-	return subMatrix;
+	return MatrixView(*this);
 }
 
 auto Matrix::ElementAt(Position position) const -> const element_t& {
