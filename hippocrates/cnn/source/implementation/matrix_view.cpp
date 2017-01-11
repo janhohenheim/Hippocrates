@@ -6,7 +6,8 @@ using namespace Convolutional;
 MatrixView::MatrixView(const Matrix& parent, Position position, Size size)
 : parent{parent},
   position{std::move(position)},
-  size{std::move(size)}
+  size{std::move(size)},
+  beginPosition{this->position.y * parent.GetSize().width + this->position.x}
 {
 }
 
@@ -26,13 +27,5 @@ auto MatrixView::ElementAt(Position position) const -> const element_t& {
 // TODO jnf: Implement everything under this comment
 
 auto MatrixView::ElementAt(std::size_t position) const -> const element_t & {
-	return parent.ElementAt(position);
-}
-
-auto MatrixView::begin() const noexcept -> std::vector<double>::const_iterator {
-	return parent.begin();
-}
-
-auto MatrixView::end() const noexcept -> std::vector<double>::const_iterator {
-	return parent.end();
+	return parent.ElementAt(beginPosition + position / size.width * parent.GetSize().width + position % size.width);
 }

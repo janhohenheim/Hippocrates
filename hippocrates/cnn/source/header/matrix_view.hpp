@@ -58,13 +58,11 @@ public:
 	auto GetSize() const noexcept { return size; }
 	auto GetElementCount() const noexcept { return GetSize().height * GetSize().width; }
 
-	auto begin() const noexcept -> std::vector<double>::const_iterator;
-	auto end() const noexcept -> std::vector<double>::const_iterator;
-
 private:
 	const Matrix& parent;
-	Position position;
-	Size size;
+	const Position position;
+	const std::size_t beginPosition;
+	const Size size;
 };
 
 inline auto operator+ (MatrixView::Position lhs, const MatrixView::Position& rhs) -> MatrixView::Position { return lhs += rhs; }

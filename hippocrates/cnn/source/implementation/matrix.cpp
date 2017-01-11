@@ -55,7 +55,7 @@ auto Matrix::AddZeroPadding(Matrix::Size paddingAmount) -> void {
 }
 
 auto Matrix::GetSubmatrix(Matrix::Position position, Matrix::Size size) const -> MatrixView {
-	return MatrixView(*this);
+	return MatrixView {*this, std::move(position), std::move(size)};
 }
 
 auto Matrix::ElementAt(Position position) const -> const element_t& {

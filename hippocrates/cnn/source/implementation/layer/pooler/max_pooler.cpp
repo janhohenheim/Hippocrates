@@ -39,5 +39,9 @@ auto MaxPooler::GetDimensionalityAfterProcessing(MultiMatrix::Dimensionality dim
 }
 
 auto MaxPooler::ProcessSubmatrix(const MatrixView& matrix) const -> Matrix::element_t {
-	return *std::max_element(matrix.begin(), matrix.end());
+	auto maxElement{matrix.ElementAt(0)};
+	for (std::size_t i = 0; i < matrix.GetElementCount(); ++i) {
+		maxElement = std::max(maxElement, matrix.ElementAt(i));
+	}
+	return maxElement;
 }
