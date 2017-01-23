@@ -1,3 +1,0 @@
-add_subdirectory(xor_two_bits)
-add_subdirectory(xor_three_bits)
-add_subdirectory(EvenNumbers)

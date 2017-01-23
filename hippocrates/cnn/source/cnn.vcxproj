@@ -1,0 +1,241 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="header\input_data\iinput_data.hpp" />
+    <ClInclude Include="header\input_data\image.hpp" />
+    <ClInclude Include="header\input_data\sentence.hpp" />
+    <ClInclude Include="header\layer\filter.hpp" />
+    <ClInclude Include="header\layer\convolution.hpp" />
+    <ClInclude Include="header\layer\fully_connected.hpp" />
+    <ClInclude Include="header\layer\ilayer.hpp" />
+    <ClInclude Include="header\layer\layers.hpp" />
+    <ClInclude Include="header\layer\pooler\global_average_pooler.hpp" />
+    <ClInclude Include="header\layer\pooler\ipooler.hpp" />
+    <ClInclude Include="header\layer\pooler\max_pooler.hpp" />
+    <ClInclude Include="header\layer\relu.hpp" />
+    <ClInclude Include="header\layer\residual_block.hpp" />
+    <ClInclude Include="header\learning\backpropagation.hpp" />
+    <ClInclude Include="header\learning\learning_method.hpp" />
+    <ClInclude Include="header\matrix.hpp" />
+    <ClInclude Include="header\multi_matrix.hpp" />
+    <ClInclude Include="header\multi_matrix_factory.hpp" />
+    <ClInclude Include="header\neural_network.hpp" />
+    <ClInclude Include="header\neural_network_trainer.hpp" />
+    <ClInclude Include="header\training_data.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="implementation\input_data\image.cpp" />
+    <ClCompile Include="implementation\input_data\sentence.cpp" />
+    <ClCompile Include="implementation\layer\filter.cpp" />
+    <ClCompile Include="implementation\layer\convolution.cpp" />
+    <ClCompile Include="implementation\layer\fully_connected.cpp" />
+    <ClCompile Include="implementation\layer\pooler\global_average_pooler.cpp" />
+    <ClCompile Include="implementation\layer\pooler\max_pooler.cpp" />
+    <ClCompile Include="implementation\layer\relu.cpp" />
+    <ClCompile Include="implementation\layer\residual_block.cpp" />
+    <ClCompile Include="implementation\matrix.cpp" />
+    <ClCompile Include="implementation\multi_matrix.cpp" />
+    <ClCompile Include="implementation\multi_matrix_factory.cpp" />
+    <ClCompile Include="implementation\neural_network_trainer.cpp" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{4BC6FE34-B5F0-4105-BCA0-59882DCF7DF7}</ProjectGuid>
+    <RootNamespace>Sources</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>C:\Program Files\ImageMagick\include;$(SolutionDir)hippocrates\;$(SolutionDir)hippocrates\cnn\source\header;%(AdditionalIncludeDirectories);</AdditionalIncludeDirectories>
+      <AdditionalOptions>/std:c++latest /permissive- %(AdditionalOptions)</AdditionalOptions>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DiagnosticsFormat>Caret</DiagnosticsFormat>
+    </ClCompile>
+    <Lib>
+      <AdditionalDependencies>C:\Program Files\ImageMagick\lib\CORE_RL_Magick++_.lib</AdditionalDependencies>
+    </Lib>
+    <PreBuildEvent>
+      <Command>Powershell.exe -ExecutionPolicy Unrestricted -file  "$(SolutionDir)ci\install_dependencies.ps1"</Command>
+    </PreBuildEvent>
+    <PreBuildEvent>
+      <Message>Install Magick++</Message>
+    </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>XCOPY "C:\Program Files\ImageMagick"\*.DLL "$(TargetDir)" /D /K /Y</Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message>Copy ImageMagick DLLs</Message>
+    </PostBuildEvent>
+    <ProjectReference>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>C:\Program Files\ImageMagick\include;$(SolutionDir)hippocrates\;$(SolutionDir)hippocrates\cnn\source\header;%(AdditionalIncludeDirectories);$(SolutionDir)hippocrates\common\utility\source\header</AdditionalIncludeDirectories>
+      <AdditionalOptions>/std:c++latest /permissive- %(AdditionalOptions)</AdditionalOptions>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DiagnosticsFormat>Caret</DiagnosticsFormat>
+    </ClCompile>
+    <Lib>
+      <AdditionalDependencies>C:\Program Files\ImageMagick\lib\CORE_RL_Magick++_.lib</AdditionalDependencies>
+    </Lib>
+    <PreBuildEvent>
+      <Command>Powershell.exe -ExecutionPolicy Unrestricted -file  "$(SolutionDir)ci\install_dependencies.ps1"</Command>
+    </PreBuildEvent>
+    <PreBuildEvent>
+      <Message>Install Magick++</Message>
+    </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>XCOPY "C:\Program Files\ImageMagick"\*.DLL "$(TargetDir)" /D /K /Y</Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message>Copy ImageMagick DLLs</Message>
+    </PostBuildEvent>
+    <ProjectReference>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>C:\Program Files\ImageMagick\include;$(SolutionDir)hippocrates\;$(SolutionDir)hippocrates\cnn\source\header;%(AdditionalIncludeDirectories);</AdditionalIncludeDirectories>
+      <AdditionalOptions>/std:c++latest /permissive- %(AdditionalOptions)</AdditionalOptions>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DiagnosticsFormat>Caret</DiagnosticsFormat>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+    <Lib>
+      <AdditionalDependencies>C:\Program Files\ImageMagick\lib\CORE_RL_Magick++_.lib</AdditionalDependencies>
+    </Lib>
+    <PreBuildEvent>
+      <Command>Powershell.exe -ExecutionPolicy Unrestricted -file  "$(SolutionDir)ci\install_dependencies.ps1"</Command>
+    </PreBuildEvent>
+    <PreBuildEvent>
+      <Message>Install Magick++</Message>
+    </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>XCOPY "C:\Program Files\ImageMagick"\*.DLL "$(TargetDir)" /D /K /Y</Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message>Copy ImageMagick DLLs</Message>
+    </PostBuildEvent>
+    <ProjectReference>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>C:\Program Files\ImageMagick\include;$(SolutionDir)hippocrates\;$(SolutionDir)hippocrates\cnn\source\header;%(AdditionalIncludeDirectories);$(SolutionDir)hippocrates\common\utility\source\header</AdditionalIncludeDirectories>
+      <AdditionalOptions>/std:c++latest /permissive- %(AdditionalOptions)</AdditionalOptions>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DiagnosticsFormat>Caret</DiagnosticsFormat>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+    <Lib>
+      <AdditionalDependencies>C:\Program Files\ImageMagick\lib\CORE_RL_Magick++_.lib</AdditionalDependencies>
+    </Lib>
+    <PreBuildEvent>
+      <Command>Powershell.exe -ExecutionPolicy Unrestricted -file  "$(SolutionDir)ci\install_dependencies.ps1"</Command>
+    </PreBuildEvent>
+    <PreBuildEvent>
+      <Message>Install Magick++</Message>
+    </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>XCOPY "C:\Program Files\ImageMagick"\*.DLL "$(TargetDir)" /D /K /Y</Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message>Copy ImageMagick DLLs</Message>
+    </PostBuildEvent>
+    <ProjectReference>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

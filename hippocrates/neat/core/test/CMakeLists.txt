@@ -1,0 +1,5 @@
+add_subdirectory(testing_utilities)
+
+add_subdirectory(xor_two_bits)
+add_subdirectory(xor_three_bits)
+add_subdirectory(even_numbers)

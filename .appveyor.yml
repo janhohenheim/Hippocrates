@@ -3,10 +3,14 @@ image: Visual Studio 2017 RC
 configuration:
   - Release
 
+install: 
+  - ps: . .\ci\install_dependencies.ps1
+
 build_script:
   - msbuild %solution_name%
 
 test_script:
-  - C:\projects\jnf-neat\Release\xor_two_bits.exe
-  - C:\projects\jnf-neat\Release\xor_three_bits.exe
-  - C:\projects\jnf-neat\Release\EvenNumbers.exe
+  - C:\projects\hippocrates\x64\Release\xor_two_bits.exe
+  - C:\projects\hippocrates\x64\Release\xor_three_bits.exe
+  - C:\projects\hippocrates\x64\Release\EvenNumbers.exe
+  - C:\projects\hippocrates\x64\Release\Sandbox.exe
