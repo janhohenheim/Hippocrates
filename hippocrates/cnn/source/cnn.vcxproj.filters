@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="header">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="implementation">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="header\input_data">
+      <UniqueIdentifier>{c8b9db46-a740-407f-9430-0aef27c039b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="header\learning">
+      <UniqueIdentifier>{d1376943-63a3-4922-856f-5bc4fcffdf6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="implementation\input_data">
+      <UniqueIdentifier>{c97a48b6-dcd6-45d6-980c-62f72ed7da1b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="header\layer">
+      <UniqueIdentifier>{c2c7f4b6-d9de-449b-92a3-ac6ab84f5161}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="implementation\layer">
+      <UniqueIdentifier>{800bda2d-6920-48b1-8ccb-22ef5461913a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="header\layer\pooler">
+      <UniqueIdentifier>{f0057d54-8938-41a4-9946-ef46657540bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="implementation\layer\pooler">
+      <UniqueIdentifier>{0bff8786-68b8-4536-af2d-a4ef9f801c99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="header\layer\residual_block">
+      <UniqueIdentifier>{38987bba-d510-4c9b-83f7-725a9d0ef064}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="implementation\layer\residual_block">
+      <UniqueIdentifier>{50fc12b6-1887-44de-a47f-e10098ade7a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="header\layer\residual_block\identity_mapped">
+      <UniqueIdentifier>{563bb08c-65f8-438e-94a1-e28d1f9f59ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="header\layer\residual_block\pooling">
+      <UniqueIdentifier>{80e3e00d-1504-48d7-89fd-b5dabd7fe1a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="implementation\layer\residual_block\identity_mapping">
+      <UniqueIdentifier>{f425a051-0ea0-4804-aa4c-131eac9c3f0e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="implementation\layer\residual_block\pooling">
+      <UniqueIdentifier>{a37f5b57-73e9-4eca-9298-5179630137d3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="header\input_data\iinput_data.hpp">
+      <Filter>header\input_data</Filter>
+    </ClInclude>
+    <ClInclude Include="header\input_data\image.hpp">
+      <Filter>header\input_data</Filter>
+    </ClInclude>
+    <ClInclude Include="header\input_data\sentence.hpp">
+      <Filter>header\input_data</Filter>
+    </ClInclude>
+    <ClInclude Include="header\learning\backpropagation.hpp">
+      <Filter>header\learning</Filter>
+    </ClInclude>
+    <ClInclude Include="header\learning\learning_method.hpp">
+      <Filter>header\learning</Filter>
+    </ClInclude>
+    <ClInclude Include="header\layer\filter.hpp">
+      <Filter>header\layer</Filter>
+    </ClInclude>
+    <ClInclude Include="header\layer\ilayer.hpp">
+      <Filter>header\layer</Filter>
+    </ClInclude>
+    <ClInclude Include="header\layer\layers.hpp">
+      <Filter>header\layer</Filter>
+    </ClInclude>
+    <ClInclude Include="header\layer\relu.hpp">
+      <Filter>header\layer</Filter>
+    </ClInclude>
+    <ClInclude Include="header\layer\pooler\ipooler.hpp">
+      <Filter>header\layer\pooler</Filter>
+    </ClInclude>
+    <ClInclude Include="header\layer\pooler\max_pooler.hpp">
+      <Filter>header\layer\pooler</Filter>
+    </ClInclude>
+    <ClInclude Include="header\matrix.hpp">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="header\multi_matrix.hpp">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="header\multi_matrix_factory.hpp">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="header\neural_network.hpp">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="header\neural_network_trainer.hpp">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="header\training_data.hpp">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="header\layer\pooler\global_average_pooler.hpp">
+      <Filter>header\layer\pooler</Filter>
+    </ClInclude>
+    <ClInclude Include="header\layer\convolution.hpp">
+      <Filter>header\layer</Filter>
+    </ClInclude>
+    <ClInclude Include="header\layer\fully_connected.hpp">
+      <Filter>header\layer</Filter>
+    </ClInclude>
+    <ClInclude Include="header\layer\residual_block\iresidual_block.hpp">
+      <Filter>header\layer\residual_block</Filter>
+    </ClInclude>
+    <ClInclude Include="header\layer\residual_block\identity_mapping\iidentity_mapping.hpp">
+      <Filter>header\layer\residual_block\identity_mapped</Filter>
+    </ClInclude>
+    <ClInclude Include="header\layer\residual_block\pooling\ipooling.h">
+      <Filter>header\layer\residual_block\pooling</Filter>
+    </ClInclude>
+    <ClInclude Include="header\layer\residual_block\identity_mapping\bottlenecked.hpp">
+      <Filter>header\layer\residual_block\identity_mapped</Filter>
+    </ClInclude>
+    <ClInclude Include="header\layer\residual_block\pooling\bottlenecked.hpp">
+      <Filter>header\layer\residual_block\pooling</Filter>
+    </ClInclude>
+    <ClInclude Include="header\layer\all_layers.hpp">
+      <Filter>header\layer</Filter>
+    </ClInclude>
+    <ClInclude Include="header\layer\dimension_scaler.hpp">
+      <Filter>header\layer</Filter>
+    </ClInclude>
+    <ClInclude Include="header\matrix_view.hpp">
+      <Filter>header</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="implementation\input_data\image.cpp">
+      <Filter>implementation\input_data</Filter>
+    </ClCompile>
+    <ClCompile Include="implementation\input_data\sentence.cpp">
+      <Filter>implementation\input_data</Filter>
+    </ClCompile>
+    <ClCompile Include="implementation\layer\filter.cpp">
+      <Filter>implementation\layer</Filter>
+    </ClCompile>
+    <ClCompile Include="implementation\layer\relu.cpp">
+      <Filter>implementation\layer</Filter>
+    </ClCompile>
+    <ClCompile Include="implementation\layer\pooler\max_pooler.cpp">
+      <Filter>implementation\layer\pooler</Filter>
+    </ClCompile>
+    <ClCompile Include="implementation\matrix.cpp">
+      <Filter>implementation</Filter>
+    </ClCompile>
+    <ClCompile Include="implementation\multi_matrix.cpp">
+      <Filter>implementation</Filter>
+    </ClCompile>
+    <ClCompile Include="implementation\multi_matrix_factory.cpp">
+      <Filter>implementation</Filter>
+    </ClCompile>
+    <ClCompile Include="implementation\neural_network_trainer.cpp">
+      <Filter>implementation</Filter>
+    </ClCompile>
+    <ClCompile Include="implementation\layer\pooler\global_average_pooler.cpp">
+      <Filter>implementation\layer\pooler</Filter>
+    </ClCompile>
+    <ClCompile Include="implementation\layer\convolution.cpp">
+      <Filter>implementation\layer</Filter>
+    </ClCompile>
+    <ClCompile Include="implementation\layer\fully_connected.cpp">
+      <Filter>implementation\layer</Filter>
+    </ClCompile>
+    <ClCompile Include="implementation\layer\residual_block\identity_mapping\bottlenecked.cpp">
+      <Filter>implementation\layer\residual_block\identity_mapping</Filter>
+    </ClCompile>
+    <ClCompile Include="implementation\layer\residual_block\pooling\bottlenecked.cpp">
+      <Filter>implementation\layer\residual_block\pooling</Filter>
+    </ClCompile>
+    <ClCompile Include="implementation\matrix_view.cpp">
+      <Filter>implementation</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

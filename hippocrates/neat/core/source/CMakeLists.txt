@@ -1,0 +1,16 @@
+file(GLOB_RECURSE SOURCES *.cpp *.hpp *.c *.h)
+add_library(Core SHARED ${SOURCES})
+
+macro(header_directories return_list sources_folder)
+    file(GLOB_RECURSE headers *.hpp *.h)
+    set(dir_list "")
+    foreach(file_path ${headers})
+        get_filename_component(dir_path ${file_path} PATH)
+        set(dir_list ${dir_list} ${dir_path})
+    endforeach()
+    list(REMOVE_DUPLICATES dir_list)
+    set(${return_list} ${dir_list})
+endmacro()
+
+header_directories(HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/header)
+target_include_directories(Core PUBLIC ${HEADERS})
