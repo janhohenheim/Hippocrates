@@ -1,13 +1,16 @@
 <div align="center">
   <img src="http://i.imgur.com/IoDz5iw.png"><br><br>
 </div>
------------------
+
+---
 
 Branch | Linux | Windows
 :---:|:---:|:---:
-Master | [![Build Status](https://travis-ci.org/IDPA16/Hippocrates.svg?branch=master)](https://travis-ci.org/IDPA16/Hippocrates)|[![Build status](https://ci.appveyor.com/api/projects/status/2esb82qiysqt6doe/branch/master?svg=true)](https://ci.appveyor.com/project/SirRade/hippocrates)
-Development | [![Build Status](https://travis-ci.org/IDPA16/Hippocrates.svg?branch=development)](https://travis-ci.org/IDPA16/Hippocrates)|[![Build status](https://ci.appveyor.com/api/projects/status/2esb82qiysqt6doe/branch/development?svg=true)](https://ci.appveyor.com/project/SirRade/hippocrates)
------------------
+Master | [![Build Status](https://travis-ci.org/SirRade/Hippocrates.svg?branch=master)](https://travis-ci.org/IDPA16/Hippocrates)|[![Build status](https://ci.appveyor.com/api/projects/status/github/SirRade/Hippocrates?branch=master&svg=true)](https://ci.appveyor.com/project/SirRade/hippocrates)
+Development | [![Build Status](https://travis-ci.org/SirRade/Hippocrates.svg?branch=development)](https://travis-ci.org/IDPA16/Hippocrates)|[![Build status](https://ci.appveyor.com/api/projects/status/github/SirRade/Hippocrates?branch=development&svg=true)](https://ci.appveyor.com/project/SirRade/hippocrates)
+
+---
+
 [![Gitter](https://badges.gitter.im/HippocratesAI/gitter.svg)](https://gitter.im/HippocratesAI/Lobby)
 
 [Visualization Tool](https://github.com/IDPA-2016-NEAT-CNN/NEAT_Visualizer) by [@Mafii](https://github.com/Mafii)  
